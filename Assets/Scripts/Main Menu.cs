@@ -11,10 +11,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private GameObject PanelMultiplayer;
     [SerializeField] private GameObject PanelLoad;
+    [SerializeField] private GameObject PanelNewGame;
 
     public void PlayNewGame()
     {
-        SceneManager.LoadScene("Level 1");
+        PanelButton.SetActive(false);
+        PanelNewGame.SetActive(true);
     } 
     public void PlayContinue()
     {
