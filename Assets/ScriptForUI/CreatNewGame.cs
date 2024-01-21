@@ -12,7 +12,6 @@ public class CreatNewGame : MonoBehaviour
 {
     SaveData saveData = new SaveData();
     Inventory inventory = new Inventory();
-    Items items = new Items();
 
     [SerializeField] private Sprite SelectMod;
     [SerializeField] private Sprite NotSelectMod;
@@ -30,14 +29,14 @@ public class CreatNewGame : MonoBehaviour
     private int BackIndexOffObject = 4;
     private RectTransform rectTransform;
     private string TextNameMod;
-    private List<Items> localItems;
+    public List<Items> localItems;
 
     private void Start()
     {
         SaveIncons[0].GetComponent<Image>().color = Color.white;
         SelectIcon = SaveIncons[0];
         rectTransform = ObjectIcons.GetComponent<RectTransform>();
-        localItems = inventory.items;
+        //localItems = inventory.items;
     }
 
     public void BackToMain()
@@ -57,6 +56,7 @@ public class CreatNewGame : MonoBehaviour
                 icons = SelectIcon
             };
             localItems.Add(newItem);
+            inventory.LoaadData(newItem);
             saveData.SaveToJson();
             foreach (var obj in localItems)
             {

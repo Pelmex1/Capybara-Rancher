@@ -32,12 +32,18 @@ public class SaveData : MonoBehaviour
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         Debug.Log("Read save was secsesfull");
     }
+
+
 }
 
 [System.Serializable]
 public class Inventory
 {
     public List<Items> items = new List<Items>();
+    public void LoaadData( Items obj)
+    {
+        items.Add(obj);
+    }
 }
 
 [System.Serializable]
@@ -49,12 +55,7 @@ public class Items
 
     public Items()
     {
-    }
-    public Items(string nameGame, string gameMod, GameObject icons)
-    {
-        NameGame = nameGame;
-        GameMod = gameMod;
-        this.icons = icons;
+
     }
 }
 
