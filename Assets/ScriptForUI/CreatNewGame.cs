@@ -10,7 +10,10 @@ using UnityEngine.XR;
 
 public class CreatNewGame : MonoBehaviour
 {
-    [SerializeField] public string InputNameSave; 
+    SaveData saveData = new SaveData();
+    Inventory inventory = new Inventory();
+    Items items = new Items();
+
     [SerializeField] private Sprite SelectMod;
     [SerializeField] private Sprite NotSelectMod;
     [SerializeField] private GameObject[] AllSelectImage;
@@ -21,22 +24,20 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private TMP_Text TextNameGame;
     [SerializeField] private int index = 0;
+
     public GameObject SelectIcon;
     private int FrontIndexOffObject = 0;
     private int BackIndexOffObject = 4;
     private RectTransform rectTransform;
+    private string TextNameMod;
+    private List<Items> localItems;
 
     private void Start()
     {
         SaveIncons[0].GetComponent<Image>().color = Color.white;
         SelectIcon = SaveIncons[0];
         rectTransform = ObjectIcons.GetComponent<RectTransform>();
-        InputNameSave = TextNameGame.text;
-    }
-
-    private void Update()
-    {
-        InputNameSave = TextNameGame.text;
+        localItems = inventory.items;
     }
 
     public void BackToMain()
@@ -47,7 +48,26 @@ public class CreatNewGame : MonoBehaviour
 
     public void Confirm()
     {
-        SceneManager.LoadScene("MainLevel");
+        try
+        {
+            Items newItem = new Items
+            {
+                NameGame = TextNameGame.text,
+                GameMod = TextNameMod,
+                icons = SelectIcon
+            };
+            localItems.Add(newItem);
+            saveData.SaveToJson();
+            foreach (var obj in localItems)
+            {
+                Console.WriteLine($"Property1: {obj.GameMod}, Property2: {obj.NameGame}");
+            }
+            //SceneManager.LoadScene("Level");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error in Confirm: {ex.Message}");
+        }
     }
 
     public void ChangeGameMod(string NameMod)
@@ -110,6 +130,7 @@ public class CreatNewGame : MonoBehaviour
             }
             PlayerPrefs.SetString("KeyMod", NameMod);
         }
+        TextNameMod = NameMod;
         PlayerPrefs.Save();
     }
 
@@ -159,3 +180,4 @@ public class CreatNewGame : MonoBehaviour
         }
     }
 }
+
