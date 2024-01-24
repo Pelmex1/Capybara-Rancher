@@ -1805,6 +1805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b492a9662dc5e3149a31b245b5b6e888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
   SelectMod: {fileID: 21300006, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   NotSelectMod: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   AllSelectImage:
@@ -1824,7 +1825,6 @@ MonoBehaviour:
   TextNameGame: {fileID: 1995341266}
   index: 0
   SelectIcon: {fileID: 0}
-  localItems: []
 --- !u!114 &328963026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1837,8 +1837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dacf7262c04e4445b7eb5a28d056551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory:
-    items: []
+  inventory: {fileID: 0}
 --- !u!114 &328963027
 MonoBehaviour:
   m_ObjectHideFlags: 0
