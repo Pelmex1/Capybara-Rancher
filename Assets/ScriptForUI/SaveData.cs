@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SaveData : MonoBehaviour
 {
-    public Inventory inventory = new Inventory();
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            LoadFromJson();
-        }
-    }
+    [SerializeField] private Inventory inventory;
 
     public void SaveToJson()
     {
@@ -32,19 +23,8 @@ public class SaveData : MonoBehaviour
         inventory = JsonUtility.FromJson<Inventory>(inventoryData);
         Debug.Log("Read save was secsesfull");
     }
-
-
 }
 
-[System.Serializable]
-public class Inventory
-{
-    public List<Items> items = new List<Items>();
-    public void LoaadData( Items obj)
-    {
-        items.Add(obj);
-    }
-}
 
 [System.Serializable]
 public class Items
@@ -58,5 +38,3 @@ public class Items
 
     }
 }
-
-

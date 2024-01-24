@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    SaveData savedata = new SaveData();
     Inventory inventory = new Inventory();
-
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private GameObject PanelMultiplayer;
@@ -23,7 +23,18 @@ public class MainMenu : MonoBehaviour
     } 
     public void PlayContinue()
     {
-        SceneManager.LoadScene("Level 1");
+        savedata.LoadFromJson();
+        List<Items> items = inventory.items;
+        for (int i = 0; i <=items.Count; i++)
+        {
+            if(i == items.Count)
+            {
+                string name = items[i].NameGame;
+                PlayerPrefs.SetString("KeyGame",name);
+            }
+        }
+        SceneManager.LoadScene("Level");
+        PlayerPrefs.Save();
     }
 
     public void OnOptions()

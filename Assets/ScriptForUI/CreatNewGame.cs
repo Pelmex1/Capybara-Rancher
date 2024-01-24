@@ -11,7 +11,7 @@ using UnityEngine.XR;
 public class CreatNewGame : MonoBehaviour
 {
     SaveData saveData = new SaveData();
-    Inventory inventory = new Inventory();
+    [SerializeField] private Inventory inventory;
 
     [SerializeField] private Sprite SelectMod;
     [SerializeField] private Sprite NotSelectMod;
@@ -29,7 +29,6 @@ public class CreatNewGame : MonoBehaviour
     private int BackIndexOffObject = 4;
     private RectTransform rectTransform;
     private string TextNameMod;
-    public List<Items> localItems;
 
     private void Start()
     {
@@ -55,12 +54,11 @@ public class CreatNewGame : MonoBehaviour
                 GameMod = TextNameMod,
                 icons = SelectIcon
             };
-            localItems.Add(newItem);
-            inventory.LoaadData(newItem);
+            inventory.LoadData(newItem);
             saveData.SaveToJson();
-            foreach (var obj in localItems)
+            foreach (var obj in inventory.items)
             {
-                Console.WriteLine($"Property1: {obj.GameMod}, Property2: {obj.NameGame}");
+                Debug.Log($"Property1: {obj.GameMod}, Property2: {obj.NameGame}");
             }
             //SceneManager.LoadScene("Level");
         }
@@ -69,6 +67,7 @@ public class CreatNewGame : MonoBehaviour
             Debug.LogError($"Error in Confirm: {ex.Message}");
         }
     }
+
 
     public void ChangeGameMod(string NameMod)
     {
