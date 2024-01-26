@@ -6,6 +6,11 @@ public class SaveData : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
 
+    private void Start()
+    {
+        LoadFromJson();
+    }
+
     public void SaveToJson()
     {
         string inventoryData = JsonUtility.ToJson(inventory);

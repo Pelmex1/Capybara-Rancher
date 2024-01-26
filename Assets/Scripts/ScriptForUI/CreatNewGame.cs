@@ -56,11 +56,7 @@ public class CreatNewGame : MonoBehaviour
             };
             inventory.LoadData(newItem);
             saveData.SaveToJson();
-            foreach (var obj in inventory.items)
-            {
-                Debug.Log($"Property1: {obj.GameMod}, Property2: {obj.NameGame}");
-            }
-            //SceneManager.LoadScene("Level");
+            SceneManager.LoadScene("Level");
         }
         catch (Exception ex)
         {

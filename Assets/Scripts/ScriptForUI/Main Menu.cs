@@ -25,9 +25,9 @@ public class MainMenu : MonoBehaviour
     {
         savedata.LoadFromJson();
         List<Items> items = inventory.items;
-        for (int i = 0; i <=items.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
-            if(i == items.Count)
+            if(i == items.Count -1)
             {
                 string name = items[i].NameGame;
                 PlayerPrefs.SetString("KeyGame",name);
