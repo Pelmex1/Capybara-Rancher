@@ -7,7 +7,7 @@ public class CanonCollider : MonoBehaviour
         canonScript = GetComponent<Canon>();
     }
     private void OnTriggerEnter(Collider other) {
-        if(canonScript.objectsInCollider.Contains(gameObject)){
+        if(other.gameObject.CompareTag("movebleObject")){
             // In inventory function here
             Destroy(other.gameObject);
         };

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public List<Items> items = new List<Items>();
+    public List<Items> items = new();
     public void LoadData(Items obj)
     {
         items.Add(obj);

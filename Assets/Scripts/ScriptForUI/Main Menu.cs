@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    SaveData savedata = new SaveData();
-    Inventory inventory = new Inventory();
+    private readonly SaveData savedata = new();
+    private readonly Inventory inventory = new();
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private GameObject PanelMultiplayer;

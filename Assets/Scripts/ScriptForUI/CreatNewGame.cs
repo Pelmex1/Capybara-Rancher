@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,7 +9,7 @@ using UnityEngine.XR;
 
 public class CreatNewGame : MonoBehaviour
 {
-    SaveData saveData = new SaveData();
+    SaveData saveData = new();
     [SerializeField] private Inventory inventory;
 
     [SerializeField] private Sprite SelectMod;
@@ -48,7 +47,7 @@ public class CreatNewGame : MonoBehaviour
     {
         try
         {
-            Items newItem = new Items
+            Items newItem = new()
             {
                 NameGame = TextNameGame.text,
                 GameMod = TextNameMod,
@@ -139,7 +138,7 @@ public class CreatNewGame : MonoBehaviour
             SaveIncons[index - 1].GetComponent<Image>().color = Color.black;
             if (index > 2)
             {
-                Vector3 vector3 = new Vector3(rectTransform.position.x - 95, rectTransform.position.y, rectTransform.position.z);
+                Vector3 vector3 = new(rectTransform.position.x - 95, rectTransform.position.y, rectTransform.position.z);
                 rectTransform.position = vector3;
                 SaveIncons[FrontIndexOffObject].GetComponent<Image>().color = Color.black;
                 SaveIncons[FrontIndexOffObject].SetActive(false);
@@ -163,7 +162,7 @@ public class CreatNewGame : MonoBehaviour
             SaveIncons[index + 1].GetComponent<Image>().color = Color.black;
             if (index > 1)
             {
-                Vector3 vector3 = new Vector3(rectTransform.position.x + 95, rectTransform.position.y, rectTransform.position.z);
+                Vector3 vector3 = new(rectTransform.position.x + 95, rectTransform.position.y, rectTransform.position.z);
                 rectTransform.position = vector3;
                 SaveIncons[BackIndexOffObject].GetComponent<Image>().color = Color.black;
                 SaveIncons[BackIndexOffObject].SetActive(false);
