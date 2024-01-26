@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class CanonCollider : MonoBehaviour
 {
-    private Canon canonScript;
-    private void Start() {
-        canonScript = GetComponent<Canon>();
-    }
+    [SerializeField] private Canon canonScript;
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("movebleObject")){
             // In inventory function here
+            canonScript.objectsInCollider.Remove(other.gameObject.transform);
             Destroy(other.gameObject);
         };
     }
