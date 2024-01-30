@@ -16,6 +16,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject PanelLoad;
     [SerializeField] private GameObject PanelNewGame;
 
+    private void Start()
+    {
+        Time.timeScale = 0;
+    }
+
     public void PlayNewGame()
     {
         PanelButton.SetActive(false);

@@ -938,7 +938,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -228.5}
+  m_AnchoredPosition: {x: 0, y: -310}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &136582701
@@ -1746,11 +1746,11 @@ GameObject:
   m_Component:
   - component: {fileID: 328963023}
   - component: {fileID: 328963024}
-  - component: {fileID: 328963025}
   - component: {fileID: 328963026}
   - component: {fileID: 328963027}
   - component: {fileID: 328963028}
   - component: {fileID: 328963029}
+  - component: {fileID: 328963030}
   m_Layer: 5
   m_Name: Canvas Manager
   m_TagString: Untagged
@@ -1794,38 +1794,6 @@ MonoBehaviour:
   PanelMultiplayer: {fileID: 1974933897}
   PanelLoad: {fileID: 2081594797}
   PanelNewGame: {fileID: 1824853740}
---- !u!114 &328963025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328963022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b492a9662dc5e3149a31b245b5b6e888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 328963029}
-  SelectMod: {fileID: 21300006, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
-  NotSelectMod: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  AllSelectImage:
-  - {fileID: 1674265682}
-  - {fileID: 1880052205}
-  - {fileID: 1041934599}
-  SaveIncons:
-  - {fileID: 1398386764}
-  - {fileID: 1380384224}
-  - {fileID: 1196326472}
-  - {fileID: 680175067}
-  - {fileID: 1223409351}
-  TextOfMode: {fileID: 1645392196}
-  ObjectIcons: {fileID: 1016570157}
-  PanelNewGame: {fileID: 1824853740}
-  PanelButton: {fileID: 1736233769}
-  TextNameGame: {fileID: 1995341266}
-  index: 0
-  SelectIcon: {fileID: 0}
 --- !u!114 &328963026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1973,6 +1941,38 @@ MonoBehaviour:
   - NameGame: 
     GameMod: 
     icons: {fileID: 0}
+--- !u!114 &328963030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328963022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b492a9662dc5e3149a31b245b5b6e888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 328963029}
+  SelectMod: {fileID: 21300006, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  NotSelectMod: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  AllSelectImage:
+  - {fileID: 1674265682}
+  - {fileID: 1880052205}
+  - {fileID: 1041934599}
+  SaveIncons:
+  - {fileID: 1398386764}
+  - {fileID: 1380384224}
+  - {fileID: 1196326472}
+  - {fileID: 680175067}
+  - {fileID: 1223409351}
+  TextOfMode: {fileID: 1645392196}
+  ObjectIcons: {fileID: 1016570157}
+  PanelNewGame: {fileID: 1824853740}
+  PanelButton: {fileID: 1736233769}
+  TextNameGame: {fileID: 1995341266}
+  index: 0
+  SelectIcon: {fileID: 0}
 --- !u!1 &356398467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,7 +2323,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328963025}
+      - m_Target: {fileID: 328963030}
         m_TargetAssemblyTypeName: CreatNewGame, Assembly-CSharp
         m_MethodName: ChangeGameMod
         m_Mode: 5
@@ -3477,7 +3477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -56.5}
+  m_AnchoredPosition: {x: 0, y: 233.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &759689551
@@ -3872,7 +3872,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 197.8}
+  m_AnchoredPosition: {x: 0, y: 133.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &809755327
@@ -4332,7 +4332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 112.9}
+  m_AnchoredPosition: {x: 0, y: -98}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &900492661
@@ -4374,7 +4374,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 900492662}
   m_OnClick:
     m_PersistentCalls:
@@ -5292,7 +5292,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328963025}
+      - m_Target: {fileID: 328963030}
         m_TargetAssemblyTypeName: CreatNewGame, Assembly-CSharp
         m_MethodName: ChangeGameMod
         m_Mode: 5
@@ -5796,7 +5796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -142.1}
+  m_AnchoredPosition: {x: 0, y: -203}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203473262
@@ -6224,7 +6224,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328963025}
+      - m_Target: {fileID: 328963030}
         m_TargetAssemblyTypeName: CreatNewGame, Assembly-CSharp
         m_MethodName: Confirm
         m_Mode: 1
@@ -8285,7 +8285,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328963025}
+      - m_Target: {fileID: 328963030}
         m_TargetAssemblyTypeName: CreatNewGame, Assembly-CSharp
         m_MethodName: MoveLeftIcons
         m_Mode: 1
@@ -8553,7 +8553,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328963025}
+      - m_Target: {fileID: 328963030}
         m_TargetAssemblyTypeName: CreatNewGame, Assembly-CSharp
         m_MethodName: ChangeGameMod
         m_Mode: 5
@@ -8855,7 +8855,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328963025}
+      - m_Target: {fileID: 328963030}
         m_TargetAssemblyTypeName: CreatNewGame, Assembly-CSharp
         m_MethodName: MoveRightIcons
         m_Mode: 1
@@ -9286,7 +9286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 28.4}
+  m_AnchoredPosition: {x: 0, y: 14.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1938399039
@@ -9328,7 +9328,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1938399040}
   m_OnClick:
     m_PersistentCalls:
@@ -10294,7 +10294,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 328963025}
+      - m_Target: {fileID: 328963030}
         m_TargetAssemblyTypeName: CreatNewGame, Assembly-CSharp
         m_MethodName: BackToMain
         m_Mode: 1
