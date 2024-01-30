@@ -25,7 +25,7 @@ public class MovingPlayer : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
         horizontal = Input.GetAxisRaw("Horizontal");
         rb.MovePosition(rb.position + vertical * speed * Time.fixedDeltaTime * transform.forward);
-        //rb.MovePosition(rb.position + Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime * transform.up); <-- Jump
+        //rb.MovePosition(rb.position + Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime * transform.up); ///< --Jump#
         rb.MovePosition(rb.position + horizontal * speed * Time.fixedDeltaTime * transform.right);
         
     }
@@ -34,8 +34,8 @@ public class MovingPlayer : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
         
         xRotationCamera -= mouseY;
-        xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 100f, startHeadRotation.z + 90f);
-        head.localRotation = Quaternion.Euler(xRotationCamera, 0f, 0f);
+        xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 3f, startHeadRotation.z + 30f);
+        head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
 
         //xRotationGun -= mouseY;
         //xRotationGun = Mathf.Clamp(xRotationGun, x, 0f);
