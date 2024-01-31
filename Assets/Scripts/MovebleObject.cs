@@ -8,10 +8,9 @@ public class MovebleObject : MonoBehaviour
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
-        OnMove.AddListener(OnTrigeredd());
     }
     
-    private void OnTrigeredd(Transform position){
+    public void OnTrigeredd(Transform position){
         rb.AddForce(position.position, ForceMode.Impulse);
     }
 

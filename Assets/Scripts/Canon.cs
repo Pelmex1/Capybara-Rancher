@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Canon : MonoBehaviour
 {
-    private readonly float speed = 5f; 
+    [SerializeField] private Transform canonEnter;
+    public delegate void Moving(Transform transform);
+    public static event Moving ItemCollection;
     private void Update() {
         if(Input.GetMouseButton(0)){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -12,9 +14,10 @@ public class Canon : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             { 
                 if(hit.collider.gameObject.CompareTag("movebleObject")){
-                    //sss
+                    ItemCollection += hit.collider.gameObject.GetComponent<MovebleObject>().OnTrigeredd;
                 }
             }
+            ItemCollection?.Invoke(canonEnter);
         }
     }
 }
