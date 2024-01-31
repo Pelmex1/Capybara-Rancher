@@ -25,11 +25,14 @@ public class MovingPlayer : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
         horizontal = Input.GetAxisRaw("Horizontal");
         rb.MovePosition(rb.position + vertical * speed * Time.fixedDeltaTime * transform.forward);
-        //rb.MovePosition(rb.position + Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime * transform.up); ///< --Jump#
+        
         rb.MovePosition(rb.position + horizontal * speed * Time.fixedDeltaTime * transform.right);
         
     }
     private void Update() {
+        if(Input.GetKeyDown(KeyCode.Space)){
+            rb.MovePosition(rb.position + speed * Time.deltaTime * transform.up);
+        }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
         
