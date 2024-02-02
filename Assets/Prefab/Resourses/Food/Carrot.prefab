@@ -150,4 +150,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   icon: {fileID: 0}
-  timeGeneration: 180
+  timeGeneration: 300

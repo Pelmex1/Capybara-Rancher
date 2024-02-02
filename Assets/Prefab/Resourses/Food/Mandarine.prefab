@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   icon: {fileID: 0}
-  timeGeneration: 120
+  timeGeneration: 300
 --- !u!1 &829490631437043335
 GameObject:
   m_ObjectHideFlags: 0
