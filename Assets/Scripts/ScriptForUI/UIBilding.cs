@@ -8,6 +8,7 @@ public class UIBilding : MonoBehaviour
 {
     [SerializeField] private int IndexPlace;
     [SerializeField] private Transform PlacePosition;
+    [SerializeField] private GameObject FirstObject;
     [SerializeField] private TMP_Text InfoText;
 
     [SerializeField] private GameObject MainButtonPanel;
@@ -21,17 +22,16 @@ public class UIBilding : MonoBehaviour
     {
         if (tryon)
         {
-            Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.Confined;
             OnUi();
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            MainButtonPanel.SetActive(false);
-            FarmPanel.SetActive(false);
-            EnclosurePanel.SetActive(false);
-            Time.timeScale = 1;
-        }
+    }
+
+    public void OffBuilding()
+    {
+        MainButtonPanel.SetActive(false);
+        FarmPanel.SetActive(false);
+        EnclosurePanel.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,23 +47,27 @@ public class UIBilding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Test");
             if (!PlayerPrefs.HasKey(IndexPlace.ToString()))
             {
                 MainButtonPanel.SetActive(true);
                 mainPanelBuilding.IndexPlace = IndexPlace;
                 mainPanelBuilding.PositionPlace = PlacePosition;
+                mainPanelBuilding.FirstPlace = FirstObject;
             }
             else
             {
                 string ValueKey = PlayerPrefs.GetString(IndexPlace.ToString());
-                if (ValueKey == "Farm")
+                if (ValueKey == "FruitTreeArea")
                 {
                     FarmPanel.SetActive(true);
+                    mainPanelBuilding.IndexPlace = IndexPlace;
+                    mainPanelBuilding.PositionPlace = PlacePosition;
                 }
                 else
                 {
                     EnclosurePanel.SetActive(true);
+                    mainPanelBuilding.IndexPlace = IndexPlace;
+                    mainPanelBuilding.PositionPlace = PlacePosition;
                 }
             }
         }
@@ -73,10 +77,10 @@ public class UIBilding : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Time.timeScale = 1;
             InfoText.text = "";
             tryon=false;
             Cursor.lockState = CursorLockMode.Locked;
+            OffBuilding();
         }
     }
 }
