@@ -5,19 +5,17 @@ public class MovingPlayer : MonoBehaviour
     [SerializeField] private Transform head;
     [SerializeField] private Transform gun;
     [SerializeField] private float speed;
+    [SerializeField] private float jumpSpeed;
     private Rigidbody rb;
     private float vertical;
     private float horizontal;
     private float xRotationCamera;
-    private float xRotationGun;
     public float mouseSensitivy;
     private Quaternion startHeadRotation;
-    private Quaternion startGunRotation;
     private void Start() {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         startHeadRotation = head.rotation;
-        startGunRotation = gun.rotation;
     }
     private void FixedUpdate() {
         
@@ -31,7 +29,7 @@ public class MovingPlayer : MonoBehaviour
     }
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Space)){
-            rb.MovePosition(rb.position + speed * Time.deltaTime * transform.up);
+            rb.MovePosition(rb.position + jumpSpeed * Time.deltaTime * transform.up);
         }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
@@ -39,10 +37,6 @@ public class MovingPlayer : MonoBehaviour
         xRotationCamera -= mouseY;
         xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 3f, startHeadRotation.z + 30f);
         head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
-
-        //xRotationGun -= mouseY;
-        //xRotationGun = Mathf.Clamp(xRotationGun, x, 0f);
-        //gun.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * mouseX);
     }

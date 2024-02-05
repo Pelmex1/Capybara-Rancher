@@ -97,8 +97,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 1faaff1b4f63945499eb20816d1230cb,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 1da3d06c830356f418d41e8396ecf849,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2733,6 +2735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
 --- !u!54 &192680555
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4312,6 +4315,7 @@ MonoBehaviour:
   head: {fileID: 678045489}
   gun: {fileID: 1153823801}
   speed: 5
+  jumpSpeed: 0
   mouseSensitivy: 100
 --- !u!1001 &299269414
 PrefabInstance:
@@ -9908,6 +9912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82aff5151d8450049900c5ddf9e2db8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryPlayer: {fileID: 0}
 --- !u!65 &643085054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10392,6 +10397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
 --- !u!54 &659251450
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29587,6 +29593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
 --- !u!54 &1858418717
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30709,6 +30716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
 --- !u!1001 &1909542432
 PrefabInstance:
   m_ObjectHideFlags: 0

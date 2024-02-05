@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MovebleObject : MonoBehaviour
 {
+    public InventoryItem data;
     private readonly float speed = 0.1f;
     private Rigidbody rb;
 
