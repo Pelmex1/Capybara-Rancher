@@ -26,7 +26,7 @@ public class LocalMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 PausePanel.SetActive(false);
                 Time.timeScale = 1;
-                indexCheck *= 0;
+                indexCheck = 0;
             }
         }
     }

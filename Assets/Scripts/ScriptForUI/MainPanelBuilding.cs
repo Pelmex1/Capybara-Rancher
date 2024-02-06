@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor;
 
 public class MainPanelBuilding : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class MainPanelBuilding : MonoBehaviour
     [SerializeField] private GameObject Area;
     [SerializeField] private TMP_Text TextMoney;
 
-    private Dictionary<int, GameObject> DictPlaces = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> DictPlaces = new();
 
     private void Start()
     {

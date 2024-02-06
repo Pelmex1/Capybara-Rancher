@@ -62,7 +62,7 @@ public class Options : MonoBehaviour
         else
         {
             AudioButton.image.sprite = ButtonOnSprite;
-            float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
+            //float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
             slider.gameObject.SetActive(true);
             isActiveButtonSound = true;
             //for (int i = 0; i < Audio.Length; i++)

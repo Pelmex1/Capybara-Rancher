@@ -1,17 +1,23 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryPlayer : MonoBehaviour
 {
     [SerializeField] private Transform canonEnter;
-    //public Dictionary<InventoryItem,int>[] inventory = new Dictionary<InventoryItem,int>[5];
-    public InventoryItem[] inventory = new InventoryItem[5];
     private int index = 0;
 
+    public InventoryItem[] inventory = new InventoryItem[5];
+    public int[] inventoryCount = new int[5];
     public bool AddItemInInventory(InventoryItem inventoryItem){
+        for(int i = 0; i < inventory.Length; i++){
+            if(inventory[i] == inventoryItem){
+                inventoryCount[i]++;
+                return true;
+            }
+        }
         for(int i = 0; i < inventory.Length; i++){
             if(inventory[i] == null){
                 inventory[i] = inventoryItem;
+                inventoryCount[i]++;
                 return true;
             } else continue;
         }
@@ -21,9 +27,12 @@ public class InventoryPlayer : MonoBehaviour
         if(inventory[index] == null) 
         {
             return;
-        }
-        else
+        } else if(inventoryCount[index] > 1){
+            inventoryCount[index]--;
+            Instantiate(inventory[index].prefab,pos,Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+        } else
         {
+            inventoryCount[index]--;
             Instantiate(inventory[index].prefab,pos,Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
             inventory[index] = null;
         }
@@ -42,7 +51,7 @@ public class InventoryPlayer : MonoBehaviour
             index = 3;
         }
         if(Input.GetMouseButtonDown(1)){
-            RemoveItem(canonEnter.position);
+            RemoveItem(canonEnter.position + canonEnter.forward);
         }
     }
 }

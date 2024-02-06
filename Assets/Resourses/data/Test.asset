@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  prefab: {fileID: 2237386376475203733, guid: 58b6994ef73c3a148abd964ccdc090a4, type: 3}
+  prefab: {fileID: 7803065958768681151, guid: cec53068c5aad0541a57d708007c35ce, type: 3}
   Name: Cube
   color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
