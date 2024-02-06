@@ -28,7 +28,7 @@ public class MovingPlayer : MonoBehaviour
         
     }
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKey(KeyCode.Space)){
             rb.MovePosition(rb.position + jumpSpeed * Time.deltaTime * transform.up);
         }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
