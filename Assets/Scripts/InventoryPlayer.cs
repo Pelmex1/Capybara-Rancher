@@ -50,6 +50,9 @@ public class InventoryPlayer : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha4)){
             index = 3;
         }
+        if(Input.GetKeyDown(KeyCode.Alpha5)){
+            index = 4;
+        }
         if(Input.GetMouseButtonDown(1)){
             RemoveItem(canonEnter.position + canonEnter.forward);
         }
