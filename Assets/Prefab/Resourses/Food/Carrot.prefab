@@ -149,5 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 050c384f6421eee4ca8a19e0101c29cb, type: 3}
+  indexForSpawnFarm: 1
   timeGeneration: 300
