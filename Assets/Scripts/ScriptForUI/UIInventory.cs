@@ -1,18 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class UIInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private InventoryPlayer inventoryPlayer;
+    [SerializeField] public GameObject[] Docker;
+    [SerializeField] private TMP_Text[] ImageAmount = new TMP_Text[5];
+    [SerializeField] private InventoryItem[] inventory;
+    [SerializeField] private int[] inventoryCount;
+    [SerializeField] private GameObject EmptyDocker;
+
+    private void Awake()
     {
-        
+        inventory = inventoryPlayer.inventory;
+        inventoryCount = inventoryPlayer.inventoryCount;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (inventoryPlayer.WasChange == true)
+        {
+            repaint();
+            inventoryPlayer.WasChange = false;
+        }
+    }
+
+    private void repaint()
+    {
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] != null)
+            {
+                GameObject docker = Docker[i];
+                Image newImgae = docker.GetComponent<Image>();
+                newImgae = inventory[i].image;
+                ImageAmount[i].text = inventoryCount[i].ToString();
+            }
+            else
+            {
+                GameObject docker = Docker[i];
+                Image newImgae = docker.GetComponent<Image>();
+                newImgae = EmptyDocker.GetComponent<Image>();
+                ImageAmount[i].text = "";
+            }
+        }
     }
 }
