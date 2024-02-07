@@ -2632,17 +2632,17 @@ PrefabInstance:
     - target: {fileID: 3102920187171348242, guid: 913abd71d3e1d1d4eaf33877dda808d4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 55.6
+      value: 99.59
       objectReference: {fileID: 0}
     - target: {fileID: 3102920187171348242, guid: 913abd71d3e1d1d4eaf33877dda808d4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.76
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3102920187171348242, guid: 913abd71d3e1d1d4eaf33877dda808d4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.5
+      value: 25.67
       objectReference: {fileID: 0}
     - target: {fileID: 3102920187171348242, guid: 913abd71d3e1d1d4eaf33877dda808d4,
         type: 3}
@@ -2695,6 +2695,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1779291258}
+    - targetCorrespondingSourceObject: {fileID: 2325011710115366312, guid: 913abd71d3e1d1d4eaf33877dda808d4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1779291261}
   m_SourcePrefab: {fileID: 100100000, guid: 913abd71d3e1d1d4eaf33877dda808d4, type: 3}
 --- !u!4 &191436770 stripped
 Transform:
@@ -28693,6 +28697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobsControl: {fileID: 1779291259}
+  capybaraData: {fileID: 11400000, guid: 59f429212be5af1488517c70ba5f7241, type: 2}
 --- !u!114 &1779291259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28730,6 +28735,27 @@ NavMeshAgent:
   m_BaseOffset: -0.0007
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &1779291261
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779291257}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.046159327, y: 0.027189871, z: 0.019586794}
+  m_Center: {x: 0, y: 0.013594936, z: 4.6566134e-10}
 --- !u!1001 &1781557993
 PrefabInstance:
   m_ObjectHideFlags: 0
