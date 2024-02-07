@@ -5,11 +5,25 @@ using UnityEngine.AI;
 public class MobsAi : MonoBehaviour
 {
     [SerializeField] private MobsControl mobsControl;
+    [SerializeField] private CapybaraData capybaraData;
     private NavMeshAgent agent;
+    private bool isfoodfound = false;
     private void Start() 
     {
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Moving());
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.CompareTag("movebleObject")){
+            StartCoroutine(CreatePoint());
+            Destroy(other.gameObject);
+        }
+    }
+    private void OnTriggerStay(Collider other) {
+        if(other.gameObject.CompareTag("movebleObject")){
+            StartCoroutine(CreatePoint());
+            Destroy(other.gameObject);
+        }
     }
     private Vector3 RandomPosition(){
         Transform currentPoint = mobsControl.MobsLocations[Random.Range(0,mobsControl.MobsLocations.Length)];
@@ -17,8 +31,18 @@ public class MobsAi : MonoBehaviour
         //return new Vector3(currentPoint.position.x,currentPoint.position.y,currentPoint.position.z);
     }
     private IEnumerator Moving(){
-        agent.SetDestination(RandomPosition());
+        if(!isfoodfound){
+            agent.SetDestination(RandomPosition());
+        }
         yield return new WaitForSecondsRealtime(5);
         StartCoroutine(Moving());
+    }
+    public void IsFoodFound(Vector3 pos){
+        isfoodfound = true;
+        agent.SetDestination(pos);
+    }
+    private IEnumerator CreatePoint(){
+        yield return new WaitForSecondsRealtime(5);
+        Instantiate(capybaraData.Point,transform);
     }
 }
