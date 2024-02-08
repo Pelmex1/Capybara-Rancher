@@ -63,64 +63,30 @@ public class CreatNewGame : MonoBehaviour
 
     public void ChangeGameMod(string NameMod)
     {
-        if (!PlayerPrefs.HasKey("KeyMod"))
+        foreach (var image in AllSelectImage)
         {
-            if (NameMod == "Adventure")
-            {
+            image.GetComponent<Image>().sprite = NotSelectMod;
+        }
+
+        switch (NameMod)
+        {
+            case "Adventure":
                 AllSelectImage[0].GetComponent<Image>().sprite = SelectMod;
-                TextOfMode.text = "Live the life of a Capybara " +
-                    "Ranher and explore the wonders of the Robot, Robot Ranger at your owm pace.";
-            }
-            else if (NameMod == "Casual")
-            {
+                TextOfMode.text = "Live the life of a Capybara Ranher and explore the wonders of the Robot, Robot Ranger at your own pace.";
+                break;
+            case "Casual":
                 AllSelectImage[1].GetComponent<Image>().sprite = SelectMod;
                 TextOfMode.text = "It is a modified version of Adventure Mode.";
-            }
-            else if (NameMod == "Rush")
-            {
+                break;
+            case "Rush":
                 AllSelectImage[2].GetComponent<Image>().sprite = SelectMod;
                 TextOfMode.text = "It is a special game mode where the player has three days.";
-            }
-            PlayerPrefs.SetString("KeyMod", NameMod);
+                break;
+            default:
+                break;
         }
-        else
-        {
-            foreach (GameObject name in AllSelectImage)
-            {
-                if (name.name == PlayerPrefs.GetString("KeyMod"))
-                {
-                    if (name.name == "Adventure")
-                    {
-                        AllSelectImage[0].GetComponent<Image>().sprite = NotSelectMod;
-                    }
-                    else if (name.name == "Casual")
-                    {
-                        AllSelectImage[1].GetComponent<Image>().sprite = NotSelectMod;
-                    }
-                    else if (name.name == "Rush")
-                    {
-                        AllSelectImage[2].GetComponent<Image>().sprite = NotSelectMod;
-                    }
-                }
-            }
-            if (NameMod == "Adventure")
-            {
-                AllSelectImage[0].GetComponent<Image>().sprite = SelectMod;
-                TextOfMode.text = "Live the life of a Capybara " +
-                    "Ranher and explore the wonders of the Robot, Robot Ranger at your owm pace.";
-            }
-            else if (NameMod == "Casual")
-            {
-                AllSelectImage[1].GetComponent<Image>().sprite = SelectMod;
-                TextOfMode.text = "It is a modified version of Adventure Mode.";
-            }
-            else if (NameMod == "Rush")
-            {
-                AllSelectImage[2].GetComponent<Image>().sprite = SelectMod;
-                TextOfMode.text = "It is a special game mode where the player has three days.";
-            }
-            PlayerPrefs.SetString("KeyMod", NameMod);
-        }
+
+        PlayerPrefs.SetString("KeyMod", NameMod);
         TextNameMod = NameMod;
         PlayerPrefs.Save();
     }
