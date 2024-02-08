@@ -11,7 +11,7 @@ public class CreatNewGame : MonoBehaviour
 
     [SerializeField] private Sprite SelectMod;
     [SerializeField] private Sprite NotSelectMod;
-    [SerializeField] private GameObject[] AllSelectImage;
+    [SerializeField] private Image[] AllSelectImage = new Image[3];
     [SerializeField] private GameObject[] SaveIncons;
     [SerializeField] private TMP_Text TextOfMode;
     [SerializeField] private GameObject ObjectIcons;
@@ -65,21 +65,21 @@ public class CreatNewGame : MonoBehaviour
     {
         foreach (var image in AllSelectImage)
         {
-            image.GetComponent<Image>().sprite = NotSelectMod;
+            image.sprite = NotSelectMod;
         }
 
         switch (NameMod)
         {
             case "Adventure":
-                AllSelectImage[0].GetComponent<Image>().sprite = SelectMod;
+                AllSelectImage[0].sprite = SelectMod;
                 TextOfMode.text = "Live the life of a Capybara Ranher and explore the wonders of the Robot, Robot Ranger at your own pace.";
                 break;
             case "Casual":
-                AllSelectImage[1].GetComponent<Image>().sprite = SelectMod;
+                AllSelectImage[1].sprite = SelectMod;
                 TextOfMode.text = "It is a modified version of Adventure Mode.";
                 break;
             case "Rush":
-                AllSelectImage[2].GetComponent<Image>().sprite = SelectMod;
+                AllSelectImage[2].sprite = SelectMod;
                 TextOfMode.text = "It is a special game mode where the player has three days.";
                 break;
             default:
