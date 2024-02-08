@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CreatNewGame : MonoBehaviour
 {
-    SaveData saveData = new();
+    readonly SaveData saveData = new();
     [SerializeField] private Inventory inventory;
 
     [SerializeField] private Sprite SelectMod;

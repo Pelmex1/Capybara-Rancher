@@ -14,7 +14,7 @@ public class MainPanelBuilding : MonoBehaviour
     [SerializeField] private GameObject Area;
     [SerializeField] private TMP_Text TextMoney;
 
-    private Dictionary<int, GameObject> DictPlaces = new();
+    private readonly Dictionary<int, GameObject> DictPlaces = new();
 
     private void Start()
     {

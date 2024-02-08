@@ -23,12 +23,12 @@ public class UIInventory : MonoBehaviour
     {
         if (inventoryPlayer.WasChange == true)
         {
-            repaint();
+            Repaint();
             inventoryPlayer.WasChange = false;
         }
     }
 
-    private void repaint()
+    private void Repaint()
     {
         for (int i = 0; i < inventory.Length; i++)
         {

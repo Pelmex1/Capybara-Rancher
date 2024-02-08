@@ -14,6 +14,14 @@ public class InventoryPlayer : MonoBehaviour
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         WasChange = true;
+        if(inventory[index] == null){
+            inventory[index] = inventoryItem;
+            inventoryCount[index]++;
+            return true;
+        } else if(inventory[index] == inventoryItem){
+            inventoryCount[index]++;
+            return true;
+        }
         for (int i = 0; i < inventory.Length; i++)
         {
             if (inventory[i] == inventoryItem)
