@@ -18,6 +18,7 @@ public class FoodGeneration : MonoBehaviour
             float delay = timeGeneration; // Задержка карутины равняется длительности роста урожая
 
             GameObject harvest = Instantiate(foodPrefab, transform.position, Quaternion.identity);
+            harvest.transform.parent = transform;
 
             harvest.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 

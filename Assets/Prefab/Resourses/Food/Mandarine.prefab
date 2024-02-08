@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6066548080494644626}
   - component: {fileID: 5276996597408877422}
   - component: {fileID: 1779621658048938140}
+  - component: {fileID: 4931975971623334155}
   m_Layer: 0
   m_Name: Mandarine
   m_TagString: Untagged
@@ -151,7 +152,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   icon: {fileID: 21300000, guid: 83efdf34881c7794cb11334bd60e0a22, type: 3}
+  indexForSpawnFarm: 0
   timeGeneration: 300
+--- !u!114 &4931975971623334155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730432400382736024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d503048bc7768dd4aadf427f7704477c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBeforeSpoilage: 30
 --- !u!1 &829490631437043335
 GameObject:
   m_ObjectHideFlags: 0
