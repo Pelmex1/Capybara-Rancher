@@ -1,23 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Canon : MonoBehaviour
 {
     [SerializeField] private Transform canonEnter;
-    public delegate void Moving(Transform transform);
-    public static event Moving ItemCollection;
-    private void Update() {
+    private readonly float speed = 3f;
+    private Collider colliderCanon;
+
+    public List<Transform> obdjectsInCollider = new();
+    private void Start() {
+        colliderCanon = GetComponent<BoxCollider>();
+    }
+    private void FixedUpdate() {
         if(Input.GetMouseButton(0)){
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            Debug.DrawRay(ray.origin, ray.direction * 50f, Color.red);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            { 
-                if(hit.collider.gameObject.CompareTag("movebleObject")){
-                    ItemCollection += hit.collider.gameObject.GetComponent<MovebleObject>().OnTrigeredd;
-                }
+            colliderCanon.enabled = true;
+            for(int i = 0; i < obdjectsInCollider.Count; i++){
+                obdjectsInCollider[i].position = Vector3.Lerp(obdjectsInCollider[i].position, canonEnter.position, speed * Time.deltaTime);
             }
-            ItemCollection?.Invoke(canonEnter);
+        } else {
+            colliderCanon.enabled = false;
+            obdjectsInCollider.Clear();
+            }
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.CompareTag("movebleObject")){
+            obdjectsInCollider.Add(other.gameObject.transform);
+        }
+    }
+    private void OnTriggerExit(Collider other) {
+        if(other.gameObject.CompareTag("movebleObject")){
+            obdjectsInCollider.Remove(other.gameObject.transform);
         }
     }
 }
