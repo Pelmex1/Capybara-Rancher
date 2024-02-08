@@ -31,7 +31,7 @@ public class Options : MonoBehaviour
         {
             QualitySettings.SetQualityLevel(dropdown.value, true);
         }
-        if(PlayerPrefs.GetInt("KeyScreen") == 0)
+        if(PlayerPrefs.GetInt("KeyScreenX") == 0)
         {
             Screen.fullScreen = true;
         }
@@ -125,29 +125,29 @@ public class Options : MonoBehaviour
         if (DropdownScreen.value == 0)
         {
             Screen.fullScreen = true;
-            PlayerPrefs.SetInt("KeyScreen", 0);
+            SaveScreen(0,0);
         }
         if (DropdownScreen.value == 1)
         {
             Screen.SetResolution(1920, 1080, true);
-            PlayerPrefs.SetInt("KeyScreenX", 1920);
-            PlayerPrefs.SetInt("KeyScreenY", 1080);
-            PlayerPrefs.SetInt("KeyScreen", 1);
+            SaveScreen(1920, 1080);
         }
         if (DropdownScreen.value == 2)
         {
             Screen.SetResolution(1536, 864, true);
-            PlayerPrefs.SetInt("KeyScreenX", 1536);
-            PlayerPrefs.SetInt("KeyScreenY", 864);
-            PlayerPrefs.SetInt("KeyScreen", 1);
+            SaveScreen(1536, 864);
         }
         if (DropdownScreen.value == 3)
         {
             Screen.SetResolution(1366, 768, true);
-            PlayerPrefs.SetInt("KeyScreenX", 1366);
-            PlayerPrefs.SetInt("KeyScreenY", 768);
-            PlayerPrefs.SetInt("KeyScreen", 1);
+            SaveScreen(1366, 768);
         }
+    }
+
+    private void SaveScreen(int ScreenX,int ScreenY)
+    {
+        PlayerPrefs.SetInt("KeyScreenX", ScreenX);
+        PlayerPrefs.SetInt("KeyScreenY", ScreenY);
         PlayerPrefs.Save();
     }
 }

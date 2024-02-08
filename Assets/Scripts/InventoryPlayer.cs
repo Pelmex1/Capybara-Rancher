@@ -7,7 +7,7 @@ public class InventoryPlayer : MonoBehaviour
     private int index = 0;
 
     public InventoryItem[] inventory = new InventoryItem[5];
-    public Image[] Dokers;
+    public Image[] Dokers = new Image[5];
     public int[] inventoryCount = new int[5];
     public bool WasChange = false;
 
@@ -55,22 +55,29 @@ public class InventoryPlayer : MonoBehaviour
     }
     private void Update()
     {
-            KeyCode code = KeyCode.None;
-            index = code switch
-            {
-                KeyCode.Alpha1 => 0,
-                KeyCode.Alpha2 => 1,
-                KeyCode.Alpha3 => 2,
-                KeyCode.Alpha4 => 3,
-                _ => 0,
-            };
+        int lastindex = index;
+        if (Input.GetKey(KeyCode.Alpha1))
+            index = 0;
+        if (Input.GetKey(KeyCode.Alpha2))
+            index = 1;
+        if (Input.GetKey(KeyCode.Alpha3))
+            index = 2;
+        if (Input.GetKey(KeyCode.Alpha4))
+            index = 3;
+        if (Input.GetKey(KeyCode.Alpha5))
+            index = 4;
 
-            //Dokers[index - 1].color = Color.white;
-            //Dokers[index].color = Color.grey;
-
-            //PlayerPrefs.SetInt("NumberDocker", index);
-            //PlayerPrefs.Save();
-
+        //KeyCode code = KeyCode.None;
+        //index = code switch
+        //{
+        //    KeyCode.Alpha1 => 0,
+        //    KeyCode.Alpha2 => 1,
+        //    KeyCode.Alpha3 => 2,
+        //    KeyCode.Alpha4 => 3,
+        //    _ => index
+        //};
+        Dokers[lastindex].color = Color.white;
+        Dokers[index].color = Color.grey;
         if (Input.GetMouseButtonDown(1))
         {
             RemoveItem(canonEnter.position + canonEnter.forward);

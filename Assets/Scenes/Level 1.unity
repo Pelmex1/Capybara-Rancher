@@ -4276,7 +4276,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  Dokers: []
+  Dokers:
+  - {fileID: 1804442983}
+  - {fileID: 1539769883}
+  - {fileID: 1267864030}
+  - {fileID: 1211670968}
+  - {fileID: 658002403}
   inventoryCount: 0000000000000000000000000000000000000000
   WasChange: 0
 --- !u!1001 &299269414
@@ -12824,7 +12829,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12833,8 +12838,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13395,7 +13400,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13404,8 +13409,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -20214,6 +20219,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1242213677}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1247688006 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6153353810013544424, guid: 68c63d12f6dd9e744ad86c790d502ac2,
+    type: 3}
+  m_PrefabInstance: {fileID: 7155321259768626038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1253696184
 GameObject:
   m_ObjectHideFlags: 0
@@ -21695,7 +21706,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1334049085}
   - component: {fileID: 1334049086}
-  - component: {fileID: 1334049087}
   m_Layer: 5
   m_Name: UIInventarManager
   m_TagString: Untagged
@@ -21735,12 +21745,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPlayer: {fileID: 299123062}
-  Docker:
-  - {fileID: 1804442981}
-  - {fileID: 1539769881}
-  - {fileID: 1267864028}
-  - {fileID: 1211670966}
-  - {fileID: 658002402}
+  Docker: []
+  Crosses:
+  - {fileID: 1247688006}
+  - {fileID: 1451178097}
+  - {fileID: 1172819129}
+  - {fileID: 472922143}
+  - {fileID: 1443194072}
   ImageAmount:
   - {fileID: 861799617}
   - {fileID: 1613382590}
@@ -21749,28 +21760,8 @@ MonoBehaviour:
   - {fileID: 1396710653}
   inventory: []
   inventoryCount: 
-  EmptyDocker: {fileID: 5525476642976321723, guid: 68c63d12f6dd9e744ad86c790d502ac2,
+  EmptyDocker: {fileID: 664414286338659192, guid: 68c63d12f6dd9e744ad86c790d502ac2,
     type: 3}
---- !u!114 &1334049087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334049084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfbe792584256f14f891de3c5ecba029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Docker:
-  - {fileID: 1804442981}
-  - {fileID: 1539769881}
-  - {fileID: 1267864028}
-  - {fileID: 1211670966}
-  - {fileID: 658002402}
-  inventoryPlayer: {fileID: 299123062}
-  uIInventory: {fileID: 1334049086}
 --- !u!1 &1335406436
 GameObject:
   m_ObjectHideFlags: 0
@@ -22529,7 +22520,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22538,8 +22529,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -26176,7 +26167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -26185,8 +26176,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -28668,7 +28659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -28677,8 +28668,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -30042,18 +30033,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1785311990}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1804442981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5525476642976321723, guid: 68c63d12f6dd9e744ad86c790d502ac2,
-    type: 3}
-  m_PrefabInstance: {fileID: 7155321259768626038}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1804442982 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4822682754216270793, guid: 68c63d12f6dd9e744ad86c790d502ac2,
     type: 3}
   m_PrefabInstance: {fileID: 7155321259768626038}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1804442983 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 664414286338659192, guid: 68c63d12f6dd9e744ad86c790d502ac2,
+    type: 3}
+  m_PrefabInstance: {fileID: 7155321259768626038}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1805720077
 GameObject:
   m_ObjectHideFlags: 0
@@ -35184,6 +35181,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 364767526}
     m_Modifications:
+    - target: {fileID: 664414286338659192, guid: 68c63d12f6dd9e744ad86c790d502ac2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 664414286338659192, guid: 68c63d12f6dd9e744ad86c790d502ac2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 664414286338659192, guid: 68c63d12f6dd9e744ad86c790d502ac2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4822682754216270793, guid: 68c63d12f6dd9e744ad86c790d502ac2,
         type: 3}
       propertyPath: m_Pivot.x
