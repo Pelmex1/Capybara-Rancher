@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,7 +53,7 @@ public class LocalOptions : MonoBehaviour
         else
         {
             AudioButton.image.sprite = ButtonOnSprite;
-            float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
+            //float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
             slider.gameObject.SetActive(true);
             isActiveButtonSound = true;
             //for (int i = 0; i < Audio.Length; i++)
