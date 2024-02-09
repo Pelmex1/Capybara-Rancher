@@ -7,4 +7,8 @@ public class InventoryItem : ScriptableObject {
     public GameObject prefab;
     public string Name;
     public Color color;
+
+    public int indexForSpawnFarm;
+    public float timeGeneration;
+    public bool isGenerable;
 }

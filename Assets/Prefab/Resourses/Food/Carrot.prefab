@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 3667680525858623893}
   - component: {fileID: 8486553382299038470}
   - component: {fileID: -8417326709354656941}
-  - component: {fileID: -6281157687228387628}
+  - component: {fileID: 8704529104052898594}
+  - component: {fileID: -792548859732349625}
   m_Layer: 0
   m_Name: Carrot
   m_TagString: Untagged
@@ -136,7 +137,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6281157687228387628
+--- !u!114 &8704529104052898594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,10 +146,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5438235292126757285}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b086f8af3b63d647ad22f2c52044fe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 21300000, guid: 050c384f6421eee4ca8a19e0101c29cb, type: 3}
-  indexForSpawnFarm: 1
-  timeGeneration: 300
+  data: {fileID: 11400000, guid: 8b11391d52308ba4daf57ce878095741, type: 2}
+--- !u!114 &-792548859732349625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5438235292126757285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d503048bc7768dd4aadf427f7704477c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBeforeSpoilage: 30

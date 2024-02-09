@@ -716,6 +716,18 @@ PrefabInstance:
       propertyPath: currentEmptyFarm
       value: 
       objectReference: {fileID: 2237386376475203733}
+    - target: {fileID: 5742056620973012831, guid: c0f274166d8c44b40b6c054d24f4e197,
+        type: 3}
+      propertyPath: farmPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b,
+        type: 3}
+    - target: {fileID: 5742056620973012831, guid: c0f274166d8c44b40b6c054d24f4e197,
+        type: 3}
+      propertyPath: farmPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44,
+        type: 3}
     - target: {fileID: 8569072775058868390, guid: c0f274166d8c44b40b6c054d24f4e197,
         type: 3}
       propertyPath: m_LocalPosition.x

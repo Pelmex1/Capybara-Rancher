@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c894d45db53db9f468d5cb8ca2213c73, type: 3}
+  m_Name: Mandarine
+  m_EditorClassIdentifier: 
+  image: {fileID: 547092272219251028, guid: acad558248064a94692accf2186f142b, type: 3}
+  prefab: {fileID: 730432400382736024, guid: 77823d157cca9094e95c3044fc3cf043, type: 3}
+  Name: Mandarine
+  color: {r: 1, g: 0.5287269, b: 0, a: 0}
+  indexForSpawnFarm: 0
+  timeGeneration: 300
+  isGenerable: 1

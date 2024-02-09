@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6340851708484386347}
   - component: {fileID: 6066548080494644626}
   - component: {fileID: 5276996597408877422}
-  - component: {fileID: 1779621658048938140}
+  - component: {fileID: 4388054700171606247}
   - component: {fileID: 4931975971623334155}
   m_Layer: 0
   m_Name: Mandarine
@@ -138,7 +138,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1779621658048938140
+--- !u!114 &4388054700171606247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,13 +147,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 730432400382736024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b086f8af3b63d647ad22f2c52044fe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  icon: {fileID: 21300000, guid: 83efdf34881c7794cb11334bd60e0a22, type: 3}
-  indexForSpawnFarm: 0
-  timeGeneration: 300
+  data: {fileID: 11400000, guid: f4dff115e46db954699ba3d32b3373f6, type: 2}
 --- !u!114 &4931975971623334155
 MonoBehaviour:
   m_ObjectHideFlags: 0
