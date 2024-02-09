@@ -7,7 +7,7 @@ public class FoodGeneration : MonoBehaviour
     private float timeGeneration;
     void Start()
     {
-        timeGeneration = foodPrefab.GetComponent<ResourseData>().timeGeneration;
+        timeGeneration = foodPrefab.GetComponent<MovebleObject>().data.timeGeneration;
 
         StartCoroutine(StartGeneration());
     }
