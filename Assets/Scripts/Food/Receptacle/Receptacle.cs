@@ -8,10 +8,6 @@ public class Receptacle : MonoBehaviour
     [SerializeField] private GameObject currentEmptyFarm;
     [SerializeField] private List<GameObject> farmPrefabs;
     private Transform spawnTransform;
-    private Receptacle receptacle;
-    private void Start() {
-        receptacle = GetComponent<Receptacle>();
-    }
    
     public void ChangeFarm(int spawnIndex)
     {
@@ -19,6 +15,6 @@ public class Receptacle : MonoBehaviour
         Instantiate(farmPrefabs[spawnIndex], spawnTransform.position, spawnTransform.rotation);
         Destroy(currentEmptyFarm);
 
-        receptacle.enabled = false; // ����������� �������
+        GetComponent<Receptacle>().enabled = false; // ����������� �������
     }
 }

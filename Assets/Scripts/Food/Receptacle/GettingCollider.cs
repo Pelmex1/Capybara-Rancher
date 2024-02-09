@@ -9,12 +9,20 @@ public class GettingCollider : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<MovebleObject>().data.isGenerable)
+        try
         {
+            if (collision.gameObject.GetComponent<MovebleObject>().data.isGenerable)
+            {
             int spawnIndex = collision.gameObject.GetComponent<MovebleObject>().data.indexForSpawnFarm;
             receptacleScript.ChangeFarm(spawnIndex);
+            Destroy(collision.gameObject);
 
             gettingCollider.enabled = false; // ����������� �������
+            }
+        }
+        catch
+        {
+
         }
     }
 }

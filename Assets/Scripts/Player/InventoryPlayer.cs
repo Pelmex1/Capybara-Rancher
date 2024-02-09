@@ -52,12 +52,12 @@ public class InventoryPlayer : MonoBehaviour
         else if (inventoryCount[index] > 1)
         {
             inventoryCount[index]--;
-            Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+            Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(Vector3.forward, ForceMode.Impulse);
         }
         else
         {
             inventoryCount[index]--;
-            Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+            Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(Vector3.forward, ForceMode.Impulse);
             inventory[index] = null;
         }
     }
