@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Receptacle : MonoBehaviour
 {
-    [SerializeField] private Collider gettingCollider; // Штука, в которую нужно кидать. Типо сама воронка засасывающая
+    [SerializeField] private Collider gettingCollider; // пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     [SerializeField] private GameObject currentEmptyFarm;
     [SerializeField] private List<GameObject> farmPrefabs;
     private Transform spawnTransform;
+    private Receptacle receptacle;
+    private void Start() {
+        receptacle = GetComponent<Receptacle>();
+    }
    
     public void ChangeFarm(int spawnIndex)
     {
@@ -15,6 +19,6 @@ public class Receptacle : MonoBehaviour
         Instantiate(farmPrefabs[spawnIndex], spawnTransform.position, spawnTransform.rotation);
         Destroy(currentEmptyFarm);
 
-        GetComponent<Receptacle>().enabled = false; // Одноразовая функция
+        receptacle.enabled = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
 }

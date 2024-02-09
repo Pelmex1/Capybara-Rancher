@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class WallScript : MonoBehaviour
 {
+    private Collider wallCollider;
+    private void Start() {
+        wallCollider = GetComponent<Collider>();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GetComponent<Collider>().isTrigger = true;
+            wallCollider.isTrigger = true;
         }
         else
         {
-            GetComponent<Collider>().isTrigger = false;
+            wallCollider.isTrigger = false;
         }
     }
 }

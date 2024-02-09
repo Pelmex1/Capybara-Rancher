@@ -3,6 +3,10 @@ using UnityEngine;
 public class GettingCollider : MonoBehaviour
 {
     [SerializeField] private Receptacle receptacleScript;
+    private GettingCollider gettingCollider;
+    private void Start() {
+        gettingCollider = GetComponent<GettingCollider>();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<ResourseData>().type == ResourseType.food)
@@ -10,7 +14,7 @@ public class GettingCollider : MonoBehaviour
             int spawnIndex = collision.gameObject.GetComponent<ResourseData>().indexForSpawnFarm;
             receptacleScript.ChangeFarm(spawnIndex);
 
-            GetComponent<GettingCollider>().enabled = false; // Одноразовая функция
+            gettingCollider.enabled = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 }

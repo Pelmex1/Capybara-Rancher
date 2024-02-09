@@ -23,7 +23,7 @@ public class MainPanelBuilding : MonoBehaviour
 
     private void Update()
     {
-        TextMoney.text = Money.ToString();
+        TextMoney.text = $"{Money}";
     }
 
     public void SelectBuild(GameObject PanelsInfPlace)
@@ -55,7 +55,7 @@ public class MainPanelBuilding : MonoBehaviour
         Destroy(FirstPlace);
         Money -= 150;
         GameObject NewPlace = Instantiate(objectWichBuy, PositionPlace);
-        string NameIndex = IndexPlace.ToString();
+        string NameIndex = $"{IndexPlace}";
         if (DictPlaces[IndexPlace] = null)
         {
             DictPlaces.Add(IndexPlace, NewPlace);
@@ -74,7 +74,7 @@ public class MainPanelBuilding : MonoBehaviour
         Destroy(DelteObjcet);
         DictPlaces[IndexPlace] = null;
         Instantiate(Area, PositionPlace);
-        PlayerPrefs.DeleteKey(IndexPlace.ToString());
+        PlayerPrefs.DeleteKey($"{IndexPlace}");
         PlayerPrefs.Save();
     }
 }
