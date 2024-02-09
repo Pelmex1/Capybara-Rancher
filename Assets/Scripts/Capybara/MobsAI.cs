@@ -8,6 +8,7 @@ public class MobsAi : MonoBehaviour
     [SerializeField] private CapybaraData capybaraData;
     private NavMeshAgent agent;
     private bool isfoodfound = false;
+    private float speedUP = 1f;
     private void Start() 
     {
         agent = GetComponent<NavMeshAgent>();
@@ -43,6 +44,8 @@ public class MobsAi : MonoBehaviour
     }
     private IEnumerator CreatePoint(){
         yield return new WaitForSecondsRealtime(5);
-        Instantiate(capybaraData.Point,transform);
+        Rigidbody localrb = Instantiate(capybaraData.Point,transform.position,Quaternion.identity).GetComponent<Rigidbody>();
+        localrb.MovePosition(localrb.position + speedUP * Time.deltaTime * transform.up);
+        isfoodfound = false;
     }
 }
