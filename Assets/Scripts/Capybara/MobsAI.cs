@@ -9,18 +9,13 @@ public class MobsAi : MonoBehaviour
     private NavMeshAgent agent;
     private bool isfoodfound = false;
     private float speedUP = 1f;
+    private float delayBeforeSpawnCrystal = 2f;
     private void Start() 
     {
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Moving());
     }
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.CompareTag("movebleObject")){
-            StartCoroutine(CreatePoint());
-            Destroy(other.gameObject);
-        }
-    }
-    private void OnTriggerStay(Collider other) {
         if(other.gameObject.CompareTag("movebleObject")){
             StartCoroutine(CreatePoint());
             Destroy(other.gameObject);
@@ -43,7 +38,7 @@ public class MobsAi : MonoBehaviour
         agent.SetDestination(pos);
     }
     private IEnumerator CreatePoint(){
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(delayBeforeSpawnCrystal);
         Rigidbody localrb = Instantiate(capybaraData.Point,transform.position,Quaternion.identity).GetComponent<Rigidbody>();
         localrb.MovePosition(localrb.position + speedUP * Time.deltaTime * transform.up);
         isfoodfound = false;
