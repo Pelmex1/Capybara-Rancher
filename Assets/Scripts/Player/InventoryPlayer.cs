@@ -49,15 +49,10 @@ public class InventoryPlayer : MonoBehaviour
         {
             return;
         }
-        else if (inventoryCount[index] > 1)
+        inventoryCount[index]--;
+        Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+        if(inventoryCount[index] == 0)
         {
-            inventoryCount[index]--;
-            Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(Vector3.forward, ForceMode.Impulse);
-        }
-        else
-        {
-            inventoryCount[index]--;
-            Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(Vector3.forward, ForceMode.Impulse);
             inventory[index] = null;
         }
     }
@@ -88,7 +83,7 @@ public class InventoryPlayer : MonoBehaviour
         Dokers[index].color = Color.grey;
         if (Input.GetMouseButtonDown(1))
         {
-            RemoveItem(canonEnter.position + canonEnter.forward);
+            RemoveItem(Vector3.forward);
         }
     }
 }
