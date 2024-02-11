@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c894d45db53db9f468d5cb8ca2213c73, type: 3}
-  m_Name: GladeCapybara
+  m_Name: GladeRockCapybara
   m_EditorClassIdentifier: 
-  image: {fileID: 547092272219251028, guid: cff1552b8f455c742b83cfd45acd69f0, type: 3}
-  prefab: {fileID: 2325011710115366312, guid: 913abd71d3e1d1d4eaf33877dda808d4, type: 3}
-  Name: GladeCapybara
-  color: {r: 0.6745098, g: 0.52156866, b: 0.37254903, a: 0}
+  Name: Glade-Rock Capybara
+  image: {fileID: 0}
+  prefab: {fileID: 2325011710115366312, guid: 7cc9cb1d73281174ba074ecabcd486ae, type: 3}
+  color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
   indexForSpawnFarm: 0
   timeGeneration: 0
   isGenerable: 0
+  point: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17, type: 3}
+  minPrice: 0
+  maxPrice: 0

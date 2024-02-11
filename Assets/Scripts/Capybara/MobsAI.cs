@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class MobsAi : MonoBehaviour
 {
     [SerializeField] private MobsControl mobsControl;
-    [SerializeField] private CapybaraData capybaraData;
+    [SerializeField] private InventoryItem capybaraData;
     private NavMeshAgent agent;
     private bool isfoodfound = false;
     private float speedUP = 1f;
@@ -39,7 +39,7 @@ public class MobsAi : MonoBehaviour
     }
     private IEnumerator CreatePoint(){
         yield return new WaitForSecondsRealtime(delayBeforeSpawnCrystal);
-        Rigidbody localrb = Instantiate(capybaraData.Point,transform.position,Quaternion.identity).GetComponent<Rigidbody>();
+        Rigidbody localrb = Instantiate(capybaraData.point,transform.position,Quaternion.identity).GetComponent<Rigidbody>();
         localrb.MovePosition(localrb.position + speedUP * Time.deltaTime * transform.up);
         isfoodfound = false;
     }

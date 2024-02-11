@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c894d45db53db9f468d5cb8ca2213c73, type: 3}
+  m_Name: GladeCrystal
+  m_EditorClassIdentifier: 
+  Name: Glade Crystal
+  image: {fileID: 547092272219251028, guid: 76710e299b1c47343a48aa908c735eb0, type: 3}
+  prefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba, type: 3}
+  color: {r: 0.816, g: 0, b: 0.9761739, a: 0}
+  indexForSpawnFarm: 0
+  timeGeneration: 0
+  isGenerable: 0
+  point: {fileID: 0}
+  minPrice: 5
+  maxPrice: 15
