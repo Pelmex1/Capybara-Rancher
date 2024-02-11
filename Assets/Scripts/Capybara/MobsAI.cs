@@ -16,7 +16,8 @@ public class MobsAi : MonoBehaviour
         StartCoroutine(Moving());
     }
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.CompareTag("movebleObject")){
+        if(other.gameObject.CompareTag("movebleObject") && other.gameObject.GetComponent<FoodSpoilage>() != null)
+        {
             StartCoroutine(CreatePoint());
             Destroy(other.gameObject);
         }
