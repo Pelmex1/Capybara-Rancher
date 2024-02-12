@@ -5,6 +5,7 @@ public class InventoryPlayer : MonoBehaviour
 {
     [SerializeField] private Transform canonEnter;
     private int index = 0;
+    private float speed = 10f;
 
     public InventoryItem[] inventory = new InventoryItem[5];
     public Image[] Dokers = new Image[5];
@@ -50,7 +51,7 @@ public class InventoryPlayer : MonoBehaviour
             return;
         }
         inventoryCount[index]--;
-        Instantiate(inventory[index].prefab, pos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+        Instantiate(inventory[index].prefab, canonEnter.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
         if(inventoryCount[index] == 0)
         {
             inventory[index] = null;
@@ -83,7 +84,7 @@ public class InventoryPlayer : MonoBehaviour
         Dokers[index].color = Color.grey;
         if (Input.GetMouseButtonDown(1))
         {
-            RemoveItem(Vector3.forward);
+            RemoveItem(-canonEnter.forward * speed);
         }
     }
 }
