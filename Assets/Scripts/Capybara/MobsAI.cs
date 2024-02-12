@@ -11,8 +11,10 @@ public class MobsAi : MonoBehaviour
     private float speedUP = 1f;
     private float delayBeforeSpawnCrystal = 2f;
     private GameObject[] crystalsThisKind = new GameObject[2];
+    private MovebleObject movebleObject;
     private void Start() 
     {
+        movebleObject = GetComponent<MovebleObject>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Moving());
 
@@ -22,16 +24,17 @@ public class MobsAi : MonoBehaviour
     {
         if (other.gameObject.CompareTag("movebleObject"))
         {
+            InventoryItem data = other.gameObject.GetComponent<MovebleObject>().data;
             if (other.gameObject.GetComponent<FoodSpoilage>() != null && other.gameObject.GetComponent<Rigidbody>().isKinematic == false)
             {
                 StartCoroutine(GenerateCrystals());
                 Destroy(other.gameObject);
             }
-            else if (other.gameObject.GetComponent<MovebleObject>().data.minPrice != 0 &&
-                (other.gameObject.GetComponent<MovebleObject>().data.prefab != crystalsThisKind[0] && other.gameObject.GetComponent<MovebleObject>().data.prefab != crystalsThisKind[1]))
+            else if (data.minPrice != 0 &&
+                (data.prefab != crystalsThisKind[0] && data.prefab != crystalsThisKind[1]))
                 // This is a check to see if the crystal belongs to the kind of this capybara
             {
-                TransformationToAnotherCapybara(other.gameObject.GetComponent<MovebleObject>().data.prefab, other.gameObject.GetComponent<MovebleObject>().data.modThisKind);
+                TransformationToAnotherCapybara(data.prefab, data.modThisKind);
                 Destroy(other.gameObject);
             }
         }
@@ -42,7 +45,7 @@ public class MobsAi : MonoBehaviour
         crystalsThisKind[1] = newCrystal;
         GameObject mod = Instantiate(modification, transform);
         mod.transform.localPosition = Vector3.zero;
-        GetComponent<MovebleObject>().enabled = false;
+        movebleObject.enabled = false;
         tag = "Untagged";
     }
     private Vector3 RandomPosition()
