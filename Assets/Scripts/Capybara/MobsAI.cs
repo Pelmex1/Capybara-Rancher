@@ -22,7 +22,7 @@ public class MobsAi : MonoBehaviour
     {
         if (other.gameObject.CompareTag("movebleObject"))
         {
-            if (other.gameObject.GetComponent<FoodSpoilage>() != null && other.gameObject.GetComponent<Rigidbody>() == false)
+            if (other.gameObject.GetComponent<FoodSpoilage>() != null && other.gameObject.GetComponent<Rigidbody>().isKinematic == false)
             {
                 StartCoroutine(GenerateCrystals());
                 Destroy(other.gameObject);
@@ -40,9 +40,8 @@ public class MobsAi : MonoBehaviour
     {
         transform.localScale = new Vector3(transform.localScale.x * 1.5f, transform.localScale.y * 1.5f, transform.localScale.z * 1.5f);
         crystalsThisKind[1] = newCrystal;
-        GameObject mod = Instantiate(modification, Vector3.zero, Quaternion.identity, transform);
+        GameObject mod = Instantiate(modification, transform);
         mod.transform.localPosition = Vector3.zero;
-        mod.transform.localRotation = Quaternion.identity;
         GetComponent<MovebleObject>().enabled = false;
         tag = "Untagged";
     }
