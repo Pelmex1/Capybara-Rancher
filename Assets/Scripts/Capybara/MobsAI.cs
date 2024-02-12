@@ -6,7 +6,6 @@ public class MobsAi : MonoBehaviour
 {
     [SerializeField] private MobsControl mobsControl;
     [SerializeField] private InventoryItem capybaraData;
-    [SerializeField] private GameObject targetPointPrefab;
     private NavMeshAgent agent;
     private bool isfoodfound = false;
     private float speedUP = 1f;
