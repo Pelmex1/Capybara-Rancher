@@ -17,6 +17,7 @@ public class InventoryItem : ScriptableObject {
     public GameObject point;
 
     // Fields for Crytals
+    public GameObject modThisKind; // This is where distinctive items in the capybara model are stored.
     public int minPrice;
     public int maxPrice;
 }
