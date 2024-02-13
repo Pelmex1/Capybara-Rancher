@@ -8602,10 +8602,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5327502
-  m_Height: 2.4524007
+  m_Radius: 2
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: -0.58737695, y: 0, z: -0.44537365}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &515672280
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14446,6 +14446,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863480452}
   m_CullTransparentMesh: 1
+--- !u!1001 &863915930
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 101.69213
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 28.962566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438235292126757285, guid: 8762de67fb676f54da22c5d4321847a3,
+        type: 3}
+      propertyPath: m_Name
+      value: Carrot
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8762de67fb676f54da22c5d4321847a3, type: 3}
 --- !u!1001 &877292743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24654,10 +24722,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5327502
-  m_Height: 2.4524007
+  m_Radius: 2
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: -0.58737695, y: 0, z: -0.44537365}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1438819119
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -33095,10 +33163,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5327502
-  m_Height: 2.4524007
+  m_Radius: 2
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: -0.58737695, y: 0, z: -0.44537365}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1865023258
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36545,10 +36613,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5327502
-  m_Height: 2.4524007
+  m_Radius: 2
+  m_Height: 3
   m_Direction: 1
-  m_Center: {x: -0.58737695, y: 0, z: -0.44537365}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2084825771
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37771,3 +37839,4 @@ SceneRoots:
   - {fileID: 1712210582}
   - {fileID: 1884828798}
   - {fileID: 926336069}
+  - {fileID: 863915930}
