@@ -1,11 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryPlayer : MonoBehaviour
 {
-    [SerializeField] private Transform canonEnter;
+    [SerializeField] private BoxCollider canonEnter;
     private int index = 0;
-    private float speed = 10f;
+    private readonly float speed = 10f;
 
     public InventoryItem[] inventory = new InventoryItem[5];
     public Image[] Dokers = new Image[5];
@@ -43,7 +44,7 @@ public class InventoryPlayer : MonoBehaviour
         }
         return false;
     }
-    public void RemoveItem(Vector3 pos)
+    public void RemoveItem(Vector3 spawnPos,Vector3 pos)
     {
         WasChange = true;
         if (inventory[index] == null)
@@ -51,7 +52,8 @@ public class InventoryPlayer : MonoBehaviour
             return;
         }
         inventoryCount[index]--;
-        Instantiate(inventory[index].prefab, canonEnter.position, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+        StartCoroutine(Recherge());
+        Instantiate(inventory[index].prefab, spawnPos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
         if(inventoryCount[index] == 0)
         {
             inventory[index] = null;
@@ -84,7 +86,12 @@ public class InventoryPlayer : MonoBehaviour
         Dokers[index].color = Color.grey;
         if (Input.GetMouseButtonDown(1))
         {
-            RemoveItem(-canonEnter.forward * speed);
+            RemoveItem(canonEnter.transform.position,-canonEnter.transform.forward * speed);
         }
+    }
+    private IEnumerator Recherge(){
+        canonEnter.enabled = false;
+        yield return new WaitForSecondsRealtime(2);
+        canonEnter.enabled = true;
     }
 }
