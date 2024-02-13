@@ -6,10 +6,10 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private GameObject PausePanel;
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private MovingPlayer movingPlayer;
+    private int indexCheck = 0;
 
     private void Update()
     {
-        int indexCheck = 0;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (indexCheck == 0)
@@ -17,7 +17,7 @@ public class LocalMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Confined;
                 PausePanel.SetActive(true);
                 Time.timeScale = 0;
-                indexCheck += 1;
+                indexCheck = 1;
             }
             else if (indexCheck == 1)
             {
