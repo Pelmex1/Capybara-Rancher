@@ -20,6 +20,7 @@ public class FoodGeneration : MonoBehaviour
             GameObject harvest = Instantiate(foodPrefab, transform.position, Quaternion.identity);
             harvest.transform.parent = transform;
             harvest.GetComponent<Rigidbody>().isKinematic = true;
+            harvest.tag = "Untagged";
 
             harvest.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
@@ -47,5 +48,6 @@ public class FoodGeneration : MonoBehaviour
 
         harvest.transform.localScale = endSize;
         harvest.GetComponent<Rigidbody>().isKinematic = false;
+        harvest.tag = "movebleObject";
     }
 }
