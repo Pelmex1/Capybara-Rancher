@@ -1,10 +1,9 @@
 using UnityEngine;
 using TMPro;
 
-
 public class UIBilding : MonoBehaviour
 {
-    [SerializeField] private int IndexPlace;
+    [SerializeField] public int IndexPlace;
     [SerializeField] private Transform PlacePosition;
     [SerializeField] private GameObject FirstObject;
     [SerializeField] private TMP_Text InfoText;
@@ -12,7 +11,7 @@ public class UIBilding : MonoBehaviour
     [SerializeField] private GameObject MainButtonPanel;
     [SerializeField] private GameObject FarmPanel;
     [SerializeField] private GameObject EnclosurePanel;
-    [SerializeField] private MainPanelBuilding mainPanelBuilding;
+    [SerializeField] public MainPanelBuilding mainPanelBuilding;
     private bool tryon = false;
 
 
