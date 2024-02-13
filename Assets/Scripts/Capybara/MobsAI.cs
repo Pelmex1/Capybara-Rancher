@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,7 @@ public class MobsAi : MonoBehaviour
     private float delayBeforeSpawnCrystal = 2f;
     private GameObject[] crystalsThisKind = new GameObject[2];
     private MovebleObject movebleObject;
+    private bool hasTransformed = false;
     private void Start() 
     {
         movebleObject = GetComponent<MovebleObject>();
@@ -30,8 +32,7 @@ public class MobsAi : MonoBehaviour
                 StartCoroutine(GenerateCrystals());
                 Destroy(other.gameObject);
             }
-            else if (data.minPrice != 0 &&
-                (data.prefab != crystalsThisKind[0] && data.prefab != crystalsThisKind[1]))
+            else if (data.minPrice != 0 && !crystalsThisKind.Contains(data.prefab) && !hasTransformed)
                 // This is a check to see if the crystal belongs to the kind of this capybara
             {
                 TransformationToAnotherCapybara(data.prefab, data.modThisKind);
@@ -41,12 +42,13 @@ public class MobsAi : MonoBehaviour
     }
     private void TransformationToAnotherCapybara(GameObject newCrystal, GameObject modification)
     {
-        transform.localScale = new Vector3(transform.localScale.x * 1.5f, transform.localScale.y * 1.5f, transform.localScale.z * 1.5f);
+        transform.localScale *= 1.5f;
         crystalsThisKind[1] = newCrystal;
         GameObject mod = Instantiate(modification, transform);
         mod.transform.localPosition = Vector3.zero;
         movebleObject.enabled = false;
         tag = "Untagged";
+        hasTransformed = true;
     }
     private Vector3 RandomPosition()
     {
@@ -93,12 +95,11 @@ public class MobsAi : MonoBehaviour
     }
     private IEnumerator GenerateCrystals(){
         yield return new WaitForSecondsRealtime(delayBeforeSpawnCrystal);
-        Rigidbody localrb = Instantiate(crystalsThisKind[0], transform.position,Quaternion.identity).GetComponent<Rigidbody>();
-        localrb.MovePosition(localrb.position + speedUP * Time.deltaTime * transform.up);
-        if (crystalsThisKind[1] != null)
+        Vector3 spawnPos = transform.position + new Vector3(0f, 1f, 0f);
+        Instantiate(crystalsThisKind[0], spawnPos, Quaternion.identity);
+        if (hasTransformed)
         {
-            localrb = Instantiate(crystalsThisKind[1], transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            localrb.MovePosition(localrb.position + speedUP * Time.deltaTime * transform.up);
+            Instantiate(crystalsThisKind[1], spawnPos, Quaternion.identity);
         }
         isfoodfound = false;
     }

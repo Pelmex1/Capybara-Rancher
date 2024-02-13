@@ -20,5 +20,7 @@ MonoBehaviour:
   timeGeneration: 0
   isGenerable: 0
   point: {fileID: 0}
+  modThisKind: {fileID: 1885999244023908055, guid: 90877c75fec5b6f458322d494956b6bb,
+    type: 3}
   minPrice: 5
   maxPrice: 15
