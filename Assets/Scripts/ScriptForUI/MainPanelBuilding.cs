@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 
 public class MainPanelBuilding : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class MainPanelBuilding : MonoBehaviour
     [SerializeField] private GameObject Area;
     [SerializeField] private TMP_Text TextMoney;
 
-    private readonly Dictionary<int, GameObject> DictPlaces = new();
+    public Dictionary<int, GameObject> DictPlaces = new();
 
     private void Start()
     {
@@ -54,7 +55,12 @@ public class MainPanelBuilding : MonoBehaviour
     {
         Destroy(FirstPlace);
         Money -= 150;
+        PlayerPrefs.SetInt("IndexPlace", IndexPlace);
         GameObject NewPlace = Instantiate(objectWichBuy, PositionPlace);
+        if (NewPlace.name == "Farm(Clone)")
+        {
+            NewPlace.GetComponent<MovingBetween>().DictPlaces = DictPlaces;
+        }
         string NameIndex = $"{IndexPlace}";
         if (DictPlaces[IndexPlace] = null)
         {
@@ -70,11 +76,19 @@ public class MainPanelBuilding : MonoBehaviour
 
     public void Delte()
     {
-        GameObject DelteObjcet = DictPlaces[IndexPlace];
-        Destroy(DelteObjcet);
-        DictPlaces[IndexPlace] = null;
-        Instantiate(Area, PositionPlace);
-        PlayerPrefs.DeleteKey($"{IndexPlace}");
-        PlayerPrefs.Save();
+        GameObject DeleteObject = DictPlaces[IndexPlace];
+
+        if (DeleteObject != null)
+        {
+            Debug.Log(DeleteObject.name);
+            DestroyImmediate(DeleteObject, true);
+            DictPlaces[IndexPlace] = null;
+            Instantiate(Area, PositionPlace);
+            PlayerPrefs.DeleteKey($"{IndexPlace}");
+            PlayerPrefs.Save();
+        }
     }
+
 }
+
+
