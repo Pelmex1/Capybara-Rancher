@@ -12,6 +12,7 @@ public class MovingPlayer : MonoBehaviour
     private float xRotationCamera;
     public float mouseSensitivy;
     private Quaternion startHeadRotation;
+    private bool isGrounded;
     private void Start() {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -29,7 +30,10 @@ public class MovingPlayer : MonoBehaviour
     }
     private void Update() {
         if(Input.GetKey(KeyCode.Space)){
-            rb.MovePosition(rb.position + jumpSpeed * Time.deltaTime * transform.up);
+            if(isGrounded){
+                isGrounded = false;
+                rb.AddForce(transform.up, ForceMode.Impulse);
+            }
         }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
@@ -39,5 +43,8 @@ public class MovingPlayer : MonoBehaviour
         head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
 
         transform.Rotate(Vector3.up * mouseX);
+    }
+    private void OnCollisionEnter(Collision other) {
+        isGrounded = true;
     }
 }

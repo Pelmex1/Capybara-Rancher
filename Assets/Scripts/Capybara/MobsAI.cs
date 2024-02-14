@@ -9,7 +9,6 @@ public class MobsAi : MonoBehaviour
     [SerializeField] private InventoryItem capybaraData;
     private NavMeshAgent agent;
     private bool isfoodfound = false;
-    private readonly float speedUP = 1f;
     private readonly float delayBeforeSpawnCrystal = 2f;
     private readonly GameObject[] crystalsThisKind = new GameObject[2];
     private MovebleObject movebleObject;

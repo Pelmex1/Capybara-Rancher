@@ -7,12 +7,16 @@ public class InventoryPlayer : MonoBehaviour
     [SerializeField] private BoxCollider canonEnter;
     private int index = 0;
     private readonly float speed = 10f;
+    private Canon canon;
 
     public InventoryItem[] inventory = new InventoryItem[5];
     public Image[] Dokers = new Image[5];
     public int[] inventoryCount = new int[5];
     public bool WasChange = false;
 
+    private void Start() {
+        canon = GetComponentInChildren<Canon>();
+    }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         WasChange = true;
@@ -90,8 +94,10 @@ public class InventoryPlayer : MonoBehaviour
         }
     }
     private IEnumerator Recherge(){
+        canon.isIenumeratorenabled = true;
         canonEnter.enabled = false;
         yield return new WaitForSecondsRealtime(2);
         canonEnter.enabled = true;
+        canon.isIenumeratorenabled = false;
     }
 }
