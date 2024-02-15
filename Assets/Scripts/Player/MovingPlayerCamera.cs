@@ -5,21 +5,19 @@ public class MovingPlayer : MonoBehaviour
     [SerializeField] private Transform head;
     [SerializeField] private Transform gun;
     [SerializeField] private float speed;
-    [SerializeField] private float jumpSpeed;
-    [SerializeField] private float energyRegenRate = 10f;
-    [SerializeField] private float energyConsumptionRate = 5f;
-    [SerializeField] private float energyMaxValue = 100f;
+    [SerializeField] private float energy;
 
     private Rigidbody rb;
+    private Quaternion startHeadRotation;
+    private readonly float energyRegenRate = 5f;
+    private readonly float energyConsumptionRate = 10f;
+    private readonly float energyMaxValue = 50f;
     private float vertical;
     private float horizontal;
     private float xRotationCamera;
-    private Quaternion startHeadRotation;
-    [SerializeField] private float energy;
+    private float startSpeed;
+    private bool isRunning = false;
     private bool isGrounded;
-    private bool isRunning;
-    private bool wasEnergyConsumed;
-    private float energyOnLastFrame;
 
     public float mouseSensitivy;
 
@@ -30,16 +28,20 @@ public class MovingPlayer : MonoBehaviour
         startHeadRotation = head.rotation;
         xRotationCamera = head.localRotation.eulerAngles.x;
         energy = energyMaxValue;
+        startSpeed = speed;
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        isGrounded = true;
     }
 
     private void FixedUpdate()
     {
-        float currentSpeed = isRunning ? speed * 1.8f : speed;
 
         vertical = Input.GetAxisRaw("Vertical");
         horizontal = Input.GetAxisRaw("Horizontal");
-        rb.MovePosition(rb.position + vertical * currentSpeed * Time.fixedDeltaTime * transform.forward);
-        rb.MovePosition(rb.position + horizontal * currentSpeed * Time.fixedDeltaTime * transform.right);
+        rb.MovePosition(rb.position + vertical * speed * Time.fixedDeltaTime * transform.forward);
+        rb.MovePosition(rb.position + horizontal * speed * Time.fixedDeltaTime * transform.right);
     }
 
     private void Update()
@@ -59,38 +61,16 @@ public class MovingPlayer : MonoBehaviour
         head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
         transform.Rotate(Vector3.up * mouseX);
 
-        if (!wasEnergyConsumed)
-            Invoke(nameof(RegenerateEnergy), 3f);
-
-        ConsumeEnergyByRunning();
-        CheckConsumptionOfEnergy();
-        isRunning = Input.GetKey(KeyCode.LeftShift) && energy > 0;
-    }
-    
-    private void OnCollisionEnter(Collision other)
-    {
-        isGrounded = true;
-    }
-
-    private void RegenerateEnergy()
-    {
-        if (!wasEnergyConsumed)
-        {
-            energy += energyRegenRate * Time.deltaTime;
-            energy = Mathf.Clamp(energy, 0f, energyMaxValue);
-        }
-    }
-    private void ConsumeEnergyByRunning()
-    {
-        if (isRunning)
-        {
+        if(energy > 5 && Input.GetKey(KeyCode.LeftShift)){
             energy -= energyConsumptionRate * Time.deltaTime;
-            energy = Mathf.Clamp(energy, 0f, energyMaxValue);
+            speed = startSpeed * 1.8f;
+            isRunning = true;
+        }else if(!(energy > 5) && isRunning){
+            energy = 0;
+            isRunning = false;
+        } else if (energy < energyMaxValue){
+            energy += energyRegenRate * Time.deltaTime;
+            speed = startSpeed;
         }
-    }
-    private void CheckConsumptionOfEnergy()
-    {
-        wasEnergyConsumed = energyOnLastFrame > energy;
-        energyOnLastFrame = energy;
     }
 }
