@@ -326,6 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6319985910605811661}
   - component: {fileID: -6374399124568578847}
+  - component: {fileID: 6375588646856193100}
   m_Layer: 0
   m_Name: Farm
   m_TagString: Untagged
@@ -364,6 +365,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a50d7fd1121fea449f3cc0f644784f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6375588646856193100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237386376475203733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78d1be3dd49dfb4ea3358f8a5eb4ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gettingCollider: {fileID: 2456049015664507400}
+  currentEmptyFarm: {fileID: 2237386376475203733}
+  farmPrefabs:
+  - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
+  - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
+  testBuilding: {fileID: 0}
 --- !u!1 &4829068005181769729
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,6 +753,11 @@ PrefabInstance:
       propertyPath: currentEmptyFarm
       value: 
       objectReference: {fileID: 2237386376475203733}
+    - target: {fileID: 8144433425674097962, guid: c0f274166d8c44b40b6c054d24f4e197,
+        type: 3}
+      propertyPath: receptacleScript
+      value: 
+      objectReference: {fileID: 6375588646856193100}
     - target: {fileID: 8569072775058868390, guid: c0f274166d8c44b40b6c054d24f4e197,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -789,11 +813,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkingReceptacle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5742056620973012831, guid: c0f274166d8c44b40b6c054d24f4e197, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0f274166d8c44b40b6c054d24f4e197, type: 3}
+--- !u!135 &2456049015664507400 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 2784556780689332656, guid: c0f274166d8c44b40b6c054d24f4e197,
+    type: 3}
+  m_PrefabInstance: {fileID: 338078052745864120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8240019943251192606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8569072775058868390, guid: c0f274166d8c44b40b6c054d24f4e197,

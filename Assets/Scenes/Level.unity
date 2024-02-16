@@ -1259,6 +1259,9 @@ MonoBehaviour:
   IndexPlace: 0
   PositionPlace: {fileID: 0}
   FirstPlace: {fileID: 0}
+  NewPlace: {fileID: 0}
+  ParentObject: {fileID: 0}
+  UIBuilding: {fileID: 0}
   FarmInfoPanel: {fileID: 115454858}
   EnclosureInfoPanel: {fileID: 1845244308}
   Area: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181, type: 3}
@@ -2218,6 +2221,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 408656, guid: 6a67aaef2f6b30443ac78ea7d762a346,
     type: 3}
   m_PrefabInstance: {fileID: 151226060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &151453210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181,
+    type: 3}
+  m_PrefabInstance: {fileID: 4209113424389375927}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &157325500
 GameObject:
@@ -7182,6 +7191,12 @@ Transform:
   - {fileID: 1263903570}
   m_Father: {fileID: 434665368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &427879186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181,
+    type: 3}
+  m_PrefabInstance: {fileID: 2122428490}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &432731001
 GameObject:
   m_ObjectHideFlags: 0
@@ -8700,8 +8715,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 151453210}
+  NewObject: {fileID: 0}
   IndexPlace: 0
-  PlacePosition: {fileID: 4209113424389375928}
   FirstObject: {fileID: 167819845}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
@@ -22326,7 +22343,7 @@ PrefabInstance:
     - target: {fileID: 7036516383531755750, guid: 08f45533765978c49861462306371856,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.69
+      value: 96
       objectReference: {fileID: 0}
     - target: {fileID: 7036516383531755750, guid: 08f45533765978c49861462306371856,
         type: 3}
@@ -22336,7 +22353,7 @@ PrefabInstance:
     - target: {fileID: 7036516383531755750, guid: 08f45533765978c49861462306371856,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.85
+      value: 25.6
       objectReference: {fileID: 0}
     - target: {fileID: 7036516383531755750, guid: 08f45533765978c49861462306371856,
         type: 3}
@@ -23069,7 +23086,7 @@ PrefabInstance:
     - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.668823
+      value: 100.489784
       objectReference: {fileID: 0}
     - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
         type: 3}
@@ -23126,6 +23143,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8762de67fb676f54da22c5d4321847a3, type: 3}
+--- !u!1 &1325041414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181,
+    type: 3}
+  m_PrefabInstance: {fileID: 2039241112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1331367823
 GameObject:
   m_ObjectHideFlags: 0
@@ -24557,7 +24580,7 @@ PrefabInstance:
     - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.08
+      value: 99.90096
       objectReference: {fileID: 0}
     - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
         type: 3}
@@ -24630,7 +24653,7 @@ PrefabInstance:
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.492
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
@@ -24640,7 +24663,7 @@ PrefabInstance:
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 31.582
+      value: 23.2
       objectReference: {fileID: 0}
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
@@ -25156,8 +25179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 1325041414}
+  NewObject: {fileID: 0}
   IndexPlace: 1
-  PlacePosition: {fileID: 2039241113}
   FirstObject: {fileID: 474062991}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
@@ -28666,7 +28691,7 @@ PrefabInstance:
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.618
+      value: 99.438965
       objectReference: {fileID: 0}
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
@@ -29416,7 +29441,7 @@ PrefabInstance:
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.3790355
+      value: 99.2
       objectReference: {fileID: 0}
     - target: {fileID: 3294544898375439745, guid: 77823d157cca9094e95c3044fc3cf043,
         type: 3}
@@ -30304,6 +30329,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694908590}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1696134215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181,
+    type: 3}
+  m_PrefabInstance: {fileID: 243678092}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1697828005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33868,8 +33899,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 427879186}
+  NewObject: {fileID: 0}
   IndexPlace: 3
-  PlacePosition: {fileID: 2122428491}
   FirstObject: {fileID: 1024211080}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
@@ -37291,8 +37324,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 1696134215}
+  NewObject: {fileID: 0}
   IndexPlace: 2
-  PlacePosition: {fileID: 243678093}
   FirstObject: {fileID: 898028823}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
@@ -38239,7 +38274,7 @@ PrefabInstance:
     - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.997
+      value: 100.81796
       objectReference: {fileID: 0}
     - target: {fileID: 5060450763413288213, guid: 8762de67fb676f54da22c5d4321847a3,
         type: 3}

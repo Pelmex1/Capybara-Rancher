@@ -9,13 +9,15 @@ public class MainPanelBuilding : MonoBehaviour
     public Transform PositionPlace;
     private int Money = 1000;
     public GameObject FirstPlace;
+    public GameObject NewPlace;
+    public GameObject ParentObject;
+    public UIBilding UIBuilding;
 
     [SerializeField] private GameObject FarmInfoPanel;
     [SerializeField] private GameObject EnclosureInfoPanel;
     [SerializeField] private GameObject Area;
     [SerializeField] private TMP_Text TextMoney;
 
-    public Dictionary<int, GameObject> DictPlaces = new();
 
     private void Start()
     {
@@ -53,42 +55,38 @@ public class MainPanelBuilding : MonoBehaviour
 
     public void Buy(GameObject objectWichBuy)
     {
-        Destroy(FirstPlace);
-        Money -= 150;
-        PlayerPrefs.SetInt("IndexPlace", IndexPlace);
-        GameObject NewPlace = Instantiate(objectWichBuy, PositionPlace);
-        if (NewPlace.name == "Farm(Clone)")
+        if (UIBuilding.NewObject == null)
         {
-            NewPlace.GetComponent<MovingBetween>().DictPlaces = DictPlaces;
-        }
-        string NameIndex = $"{IndexPlace}";
-        if (DictPlaces[IndexPlace] = null)
-        {
-            DictPlaces.Add(IndexPlace, NewPlace);
+            Money -= 150;
+            Destroy(FirstPlace);
+            UIBuilding.NewObject = Instantiate(objectWichBuy, PositionPlace, ParentObject);
+            Receptacle receptacle = UIBuilding.NewObject.GetComponent<Receptacle>();
+            if (receptacle != null)
+                receptacle.UIBuilding = UIBuilding;
+            string NameIndex = $"{IndexPlace}";
+            PlayerPrefs.SetString(NameIndex, objectWichBuy.name);
+            PlayerPrefs.Save();
         }
         else
         {
-            DictPlaces[IndexPlace] = NewPlace;
+            return;
         }
-        PlayerPrefs.SetString(NameIndex, objectWichBuy.name);
-        PlayerPrefs.Save();
     }
 
     public void Delte()
     {
-        GameObject DeleteObject = DictPlaces[IndexPlace];
-
-        if (DeleteObject != null)
+        if (UIBuilding.NewObject != null)
         {
-            Debug.Log(DeleteObject.name);
-            DestroyImmediate(DeleteObject, true);
-            DictPlaces[IndexPlace] = null;
-            Instantiate(Area, PositionPlace);
+            Destroy(UIBuilding.NewObject);
+            Instantiate(Area, PositionPlace, ParentObject);
             PlayerPrefs.DeleteKey($"{IndexPlace}");
             PlayerPrefs.Save();
         }
+        else
+        {
+            return;
+        }
     }
-
 }
 
 
