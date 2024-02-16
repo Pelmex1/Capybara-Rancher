@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LocalMenu : MonoBehaviour
@@ -8,6 +9,18 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private MovingPlayer movingPlayer;
     private int indexCheck = 0;
 
+    [SerializeField] private Image energyBar;
+    [SerializeField] private Image hpBar;
+    private float energyMaxValue;
+    private float energyCurrentValue;
+    private float hpMaxValue;
+    private float hpCurrentValue;
+
+    private void Start()
+    {
+        energyMaxValue = movingPlayer.energyMaxValue;
+        hpMaxValue = movingPlayer.hpMaxValue;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -27,8 +40,15 @@ public class LocalMenu : MonoBehaviour
                 indexCheck = 0;
             }
         }
+        UpdateBars();
     }
-
+    private void UpdateBars()
+    {
+        energyCurrentValue = movingPlayer.energy;
+        hpCurrentValue = movingPlayer.hp;
+        energyBar.fillAmount = (energyCurrentValue - 5) / (energyMaxValue - 5);
+        hpBar.fillAmount = hpCurrentValue / hpMaxValue;
+    }
     public void OnOptions()
     {
         PanelOptions.SetActive(true);

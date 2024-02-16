@@ -5,13 +5,11 @@ public class MovingPlayer : MonoBehaviour
     [SerializeField] private Transform head;
     [SerializeField] private Transform gun;
     [SerializeField] private float speed;
-    [SerializeField] private float energy;
 
     private Rigidbody rb;
     private Quaternion startHeadRotation;
     private readonly float energyRegenRate = 5f;
     private readonly float energyConsumptionRate = 10f;
-    private readonly float energyMaxValue = 50f;
     private float vertical;
     private float horizontal;
     private float xRotationCamera;
@@ -20,6 +18,10 @@ public class MovingPlayer : MonoBehaviour
     private bool isGrounded;
 
     public float mouseSensitivy;
+    public float energy;
+    public float hp = 100f;
+    public readonly float energyMaxValue = 50f;
+    public readonly float hpMaxValue = 100f;
 
     private void Start()
     {
