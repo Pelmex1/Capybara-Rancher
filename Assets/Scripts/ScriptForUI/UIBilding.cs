@@ -52,7 +52,7 @@ public class UIBilding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!PlayerPrefs.HasKey(IndexPlace.ToString()))
+            if (!PlayerPrefs.HasKey($"{IndexPlace}"))
             {
                 MainButtonPanel.SetActive(true);
                 mainPanelBuilding.IndexPlace = IndexPlace;
@@ -62,7 +62,7 @@ public class UIBilding : MonoBehaviour
             }
             else
             {
-                string ValueKey = PlayerPrefs.GetString(IndexPlace.ToString());
+                string ValueKey = PlayerPrefs.GetString($"{IndexPlace}");
                 if (ValueKey == "Farm")
                 {
                     FarmPanel.SetActive(true);

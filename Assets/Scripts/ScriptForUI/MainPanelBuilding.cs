@@ -24,7 +24,7 @@ public class MainPanelBuilding : MonoBehaviour
         PlayerPrefs.DeleteAll();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         TextMoney.text = $"{Money}";
     }
@@ -60,11 +60,9 @@ public class MainPanelBuilding : MonoBehaviour
             Money -= 150;
             Destroy(FirstPlace);
             UIBuilding.NewObject = Instantiate(objectWichBuy, PositionPlace, ParentObject);
-            Receptacle receptacle = UIBuilding.NewObject.GetComponent<Receptacle>();
-            if (receptacle != null)
+            if (UIBuilding.NewObject.TryGetComponent<Receptacle>(out var receptacle))
                 receptacle.UIBuilding = UIBuilding;
-            string NameIndex = $"{IndexPlace}";
-            PlayerPrefs.SetString(NameIndex, objectWichBuy.name);
+            PlayerPrefs.SetString($"{IndexPlace}", objectWichBuy.name);
             PlayerPrefs.Save();
         }
         else
