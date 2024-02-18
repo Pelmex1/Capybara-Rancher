@@ -21,17 +21,13 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private int index = 0;
 
     private readonly SaveData saveData = new();
-    public GameObject SelectIcon;
-    private int FrontIndexOffObject = 0;
-    private int BackIndexOffObject = 4;
-    private RectTransform rectTransform;
+    public Image SelectIcon;
     private string TextNameMod;
 
     private void Start()
     {
-        SaveIncons[0].color = Color.white;
-        SelectIcon = SaveIncons[0].gameObject;
-        rectTransform = ObjectIcons.GetComponent<RectTransform>();
+        AllSelectImage[0].sprite = SelectMod;
+        TextOfMode.text = "Live the life of a Capybara Ranher and explore the wonders of the Robot, Robot Ranger at your own pace.";
         //localItems = inventory.items;
     }
 
@@ -49,7 +45,7 @@ public class CreatNewGame : MonoBehaviour
             {
                 NameGame = TextNameGame.text,
                 GameMod = TextNameMod,
-                icons = SelectIcon
+                //icons = SelectIcon
             };
             inventory.LoadData(newItem);
             saveData.SaveToJson();
@@ -92,49 +88,63 @@ public class CreatNewGame : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void MoveRightIcons()
+
+    public void SelectIcons(GameObject ObjectButton)
     {
-        if (index <= 3)
+        int indexObject = Convert.ToInt32(ObjectButton.name);
+        for(int i = 0; i < SaveIncons.Length; i++)
         {
-            index++;
-            SaveIncons[index].color = Color.white;
-            SelectIcon = SaveIncons[index].gameObject;
-            SaveIncons[index - 1].color = Color.black;
-            if (index > 2)
-            {
-                Vector3 vector3 = new(rectTransform.position.x - 95, rectTransform.position.y, rectTransform.position.z);
-                rectTransform.position = vector3;
-                SaveIncons[FrontIndexOffObject].color = Color.black;
-                SaveIncons[FrontIndexOffObject].gameObject.SetActive(false);
-                SaveIncons[index].gameObject.SetActive(true);
-                FrontIndexOffObject++;
-            }
+            SaveIncons[i].color = Color.white;
         }
+
+        SaveIncons[indexObject].color = Color.grey;
+        SelectIcon = ObjectButton.GetComponent<Image>();
+        //SelectIcon = SelectImage;
     }
 
-    public void MoveLeftIcons()
-    {
-        if (index == 5)
-        {
-            index--;
-        }
-        index--;
-        if (index >= 0)
-        {
-            SaveIncons[index].color = Color.white;
-            SelectIcon = SaveIncons[index].gameObject;
-            SaveIncons[index + 1].color = Color.black;
-            if (index > 1)
-            {
-                Vector3 vector3 = new(rectTransform.position.x + 95, rectTransform.position.y, rectTransform.position.z);
-                rectTransform.position = vector3;
-                SaveIncons[BackIndexOffObject].color = Color.black;
-                SaveIncons[BackIndexOffObject].gameObject.SetActive(false);
-                SaveIncons[index].gameObject.SetActive(true);
-                SaveIncons[index - 1].gameObject.SetActive(true);
-                SaveIncons[index - 2].gameObject.SetActive(true);
-                BackIndexOffObject--;
-            }
-        }
-    }
+    //public void MoveRightIcons()
+    //{
+    //    if (index <= 3)
+    //    {
+    //        index++;
+    //        SaveIncons[index].color = Color.white;
+    //        SelectIcon = SaveIncons[index].gameObject;
+    //        SaveIncons[index - 1].color = Color.black;
+    //        if (index > 2)
+    //        {
+    //            Vector3 vector3 = new(rectTransform.position.x - 95, rectTransform.position.y, rectTransform.position.z);
+    //            rectTransform.position = vector3;
+    //            SaveIncons[FrontIndexOffObject].color = Color.black;
+    //            SaveIncons[FrontIndexOffObject].gameObject.SetActive(false);
+    //            SaveIncons[index].gameObject.SetActive(true);
+    //            FrontIndexOffObject++;
+    //        }
+    //    }
+    //}
+
+    //public void MoveLeftIcons()
+    //{
+    //    if (index == 5)
+    //    {
+    //        index--;
+    //    }
+    //    index--;
+    //    if (index >= 0)
+    //    {
+    //        SaveIncons[index].color = Color.white;
+    //        SelectIcon = SaveIncons[index].gameObject;
+    //        SaveIncons[index + 1].color = Color.black;
+    //        if (index > 1)
+    //        {
+    //            Vector3 vector3 = new(rectTransform.position.x + 95, rectTransform.position.y, rectTransform.position.z);
+    //            rectTransform.position = vector3;
+    //            SaveIncons[BackIndexOffObject].color = Color.black;
+    //            SaveIncons[BackIndexOffObject].gameObject.SetActive(false);
+    //            SaveIncons[index].gameObject.SetActive(true);
+    //            SaveIncons[index - 1].gameObject.SetActive(true);
+    //            SaveIncons[index - 2].gameObject.SetActive(true);
+    //            BackIndexOffObject--;
+    //        }
+    //    }
+    //}
 }
