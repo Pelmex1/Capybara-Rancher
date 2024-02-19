@@ -57,7 +57,9 @@ public class MobsAi : MonoBehaviour
         pos = Vector3.zero;
         while (!pointIsCorrect)
         {
-            pos = new Vector3(Random.Range(transform.position.x + radius, transform.position.x - radius), transform.position.y, Random.Range(transform.position.z + radius, transform.position.z - radius));
+            float radiusX = Random.Range(transform.position.x + radius, transform.position.x - radius);
+            float radiusZ = Random.Range(transform.position.z + radius, transform.position.z - radius);
+            pos = new Vector3(radiusX, transform.position.y,radiusZ);
             pointIsCorrect = CheckForCollidersAtPosition(pos);
         }
         return pos;
