@@ -188,7 +188,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8783797803564870598, guid: 531dae1a2a31cac43a923749813fa690, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4797,7 +4798,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 678045489}
-  gun: {fileID: 1153823801}
   speed: 5
   mouseSensitivy: 100
   energy: 50
@@ -23394,13 +23394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPlayer: {fileID: 299123062}
-  Docker: []
-  Crosses:
-  - {fileID: 1247688006}
-  - {fileID: 1451178097}
-  - {fileID: 1172819129}
-  - {fileID: 472922143}
-  - {fileID: 1443194072}
   ImageAmount:
   - {fileID: 861799617}
   - {fileID: 1613382590}
@@ -23411,6 +23404,13 @@ MonoBehaviour:
   inventoryCount: 
   EmptyDocker: {fileID: 664414286338659192, guid: 68c63d12f6dd9e744ad86c790d502ac2,
     type: 3}
+  Docker: []
+  Crosses:
+  - {fileID: 1247688006}
+  - {fileID: 1451178097}
+  - {fileID: 1172819129}
+  - {fileID: 472922143}
+  - {fileID: 1443194072}
 --- !u!1 &1335406436
 GameObject:
   m_ObjectHideFlags: 0

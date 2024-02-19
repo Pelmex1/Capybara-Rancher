@@ -14,10 +14,10 @@ public class InventoryItem : ScriptableObject {
     public bool isGenerable;
 
     // Fields for Capybaras
-    public GameObject point;
+    public GameObject crystalPrefab;
 
     // Fields for Crytals
-    public GameObject modThisKind; // This is where distinctive items in the capybara model are stored.
+    public GameObject nextCapibara; // This is where distinctive items in the capybara model are stored.
     public int minPrice;
     public int maxPrice;
 }

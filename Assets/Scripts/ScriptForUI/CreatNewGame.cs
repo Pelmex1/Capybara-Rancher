@@ -18,7 +18,6 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private TMP_Text TextNameGame;
-    [SerializeField] private int index = 0;
 
     private readonly SaveData saveData = new();
     public Image SelectIcon;

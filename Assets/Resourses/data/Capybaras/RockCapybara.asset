@@ -19,7 +19,8 @@ MonoBehaviour:
   indexForSpawnFarm: 0
   timeGeneration: 0
   isGenerable: 0
-  point: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17, type: 3}
-  modThisKind: {fileID: 0}
+  crystalPrefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17,
+    type: 3}
+  nextCapibara: {fileID: 0}
   minPrice: 0
   maxPrice: 0

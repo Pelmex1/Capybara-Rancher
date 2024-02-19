@@ -3,7 +3,6 @@ using UnityEngine;
 public class MovingPlayer : MonoBehaviour
 {
     [SerializeField] private Transform head;
-    [SerializeField] private Transform gun;
     [SerializeField] private float speed;
 
     private Rigidbody rb;
@@ -39,11 +38,14 @@ public class MovingPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        vertical = Input.GetAxisRaw("Vertical");
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if(isGrounded)
+        {
+            vertical = Input.GetAxisRaw("Vertical");
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
         rb.MovePosition(rb.position + vertical * speed * Time.fixedDeltaTime * transform.forward);
         rb.MovePosition(rb.position + horizontal * speed * Time.fixedDeltaTime * transform.right);
+        
     }
 
     private void Update()
