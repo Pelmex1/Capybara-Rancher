@@ -3,18 +3,19 @@ using TMPro;
 
 public class UIBilding : MonoBehaviour
 {
-    public Transform ParentPosition;
-    public GameObject ParentPlace;
-    public GameObject NewObject;
-    [SerializeField] public int IndexPlace;
     [SerializeField] private GameObject FirstObject;
     [SerializeField] private TMP_Text InfoText;
-
     [SerializeField] private GameObject MainButtonPanel;
     [SerializeField] private GameObject FarmPanel;
     [SerializeField] private GameObject EnclosurePanel;
-    [SerializeField] public MainPanelBuilding mainPanelBuilding;
+    
     private bool tryon = false;
+
+    public MainPanelBuilding mainPanelBuilding;
+    public int IndexPlace;
+    public Transform ParentPosition;
+    public GameObject ParentPlace;
+    public GameObject NewObject;
 
 
     private void Awake()
@@ -26,7 +27,6 @@ public class UIBilding : MonoBehaviour
     {
         if (tryon)
         {
-            Cursor.lockState = CursorLockMode.Confined;
             OnUi();
             mainPanelBuilding.UIBuilding = this;
         }
@@ -52,6 +52,7 @@ public class UIBilding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            Cursor.lockState = CursorLockMode.Confined;
             if (!PlayerPrefs.HasKey($"{IndexPlace}"))
             {
                 MainButtonPanel.SetActive(true);
