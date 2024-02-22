@@ -8,7 +8,8 @@ public class UIBilding : MonoBehaviour
     [SerializeField] private GameObject MainButtonPanel;
     [SerializeField] private GameObject FarmPanel;
     [SerializeField] private GameObject EnclosurePanel;
-    
+    [SerializeField] private GameObject[] AllBuilding = new GameObject[3];
+
     private bool tryon = false;
 
     public MainPanelBuilding mainPanelBuilding;
@@ -21,6 +22,24 @@ public class UIBilding : MonoBehaviour
     private void Awake()
     {
         ParentPosition = ParentPlace.transform;
+        if (PlayerPrefs.HasKey($"{IndexPlace}"))
+        {
+            string NameBuilding = PlayerPrefs.GetString($"{IndexPlace}");
+            for (int i = 0; i < AllBuilding.Length; i++)
+            {
+                if (AllBuilding[i].name == NameBuilding)
+                {
+                    NewObject = Instantiate(AllBuilding[i], ParentPosition.transform);
+                    if (NewObject.TryGetComponent<Receptacle>(out var receptacle))
+                        receptacle.UIBuilding = this;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
     }
 
     private void Update()

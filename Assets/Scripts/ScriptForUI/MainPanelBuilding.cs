@@ -19,11 +19,11 @@ public class MainPanelBuilding : MonoBehaviour
     [SerializeField] private TMP_Text TextMoney;
 
 
-    private void Start()
+/*     private void Start()
     {
         PlayerPrefs.DeleteAll();
     }
-
+ */
     private void LateUpdate()
     {
         TextMoney.text = $"{Money}";
@@ -64,6 +64,7 @@ public class MainPanelBuilding : MonoBehaviour
                 receptacle.UIBuilding = UIBuilding;
             PlayerPrefs.SetString($"{IndexPlace}", objectWichBuy.name);
             PlayerPrefs.Save();
+            UIBuilding.OffBuilding();
         }
         else
         {
@@ -79,6 +80,7 @@ public class MainPanelBuilding : MonoBehaviour
             Instantiate(Area, PositionPlace, ParentObject);
             PlayerPrefs.DeleteKey($"{IndexPlace}");
             PlayerPrefs.Save();
+            UIBuilding.OffBuilding();
         }
         else
         {

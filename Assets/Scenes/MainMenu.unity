@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2054,7 +2054,7 @@ RectTransform:
   m_Father: {fileID: 1499428470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.99999994, y: 1}
   m_AnchoredPosition: {x: -110.401, y: 0}
   m_SizeDelta: {x: -204.083, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2391,7 +2391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 328963029}
   SelectMod: {fileID: 21300006, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
-  NotSelectMod: {fileID: 21300000, guid: a9b53e4a2b293b34188ac48b59d1f8e7, type: 3}
+  NotSelectMod: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   AllSelectImage:
   - {fileID: 1674265684}
   - {fileID: 1880052207}
@@ -2408,7 +2408,6 @@ MonoBehaviour:
   PanelNewGame: {fileID: 1824853740}
   PanelButton: {fileID: 1736233769}
   TextNameGame: {fileID: 1995341266}
-  index: 0
   SelectIcon: {fileID: 0}
 --- !u!1 &356398467
 GameObject:
@@ -3354,8 +3353,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 236526021}
   m_HandleRect: {fileID: 236526020}
   m_Direction: 0
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

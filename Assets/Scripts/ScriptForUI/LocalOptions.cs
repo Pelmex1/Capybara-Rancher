@@ -97,6 +97,7 @@ public class LocalOptions : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+
     public void CheckSlider()
     {
         for (int i = 0; i < Audio.Length; i++)
@@ -114,22 +115,23 @@ public class LocalOptions : MonoBehaviour
             Screen.fullScreen = true;
             SaveScreen(0, 0);
         }
-        if (DropdownScreen.value == 1)
+        else if (DropdownScreen.value == 1)
         {
             Screen.SetResolution(1920, 1080, true);
             SaveScreen(1920, 1080);
         }
-        if (DropdownScreen.value == 2)
+        else if (DropdownScreen.value == 2)
         {
             Screen.SetResolution(1536, 864, true);
             SaveScreen(1536, 864);
         }
-        if (DropdownScreen.value == 3)
+        else if (DropdownScreen.value == 3)
         {
             Screen.SetResolution(1366, 768, true);
             SaveScreen(1366, 768);
         }
     }
+
 
     private void SaveScreen(int ScreenX, int ScreenY)
     {

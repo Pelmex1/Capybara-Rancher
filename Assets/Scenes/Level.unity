@@ -8715,16 +8715,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParentPosition: {fileID: 0}
-  ParentPlace: {fileID: 151453210}
-  NewObject: {fileID: 0}
-  IndexPlace: 0
   FirstObject: {fileID: 167819845}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 2237386376475203733, guid: 7d2fe2a73226d0741b187363db6a725e, type: 3}
+  - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
+  - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
+  - {fileID: 2237386376475203733, guid: 945dc73328086bd49b711b99227a5560, type: 3}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 0
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 151453210}
+  NewObject: {fileID: 0}
 --- !u!136 &515672279
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13963,7 +13968,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -14543,7 +14548,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -24340,7 +24345,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -25179,16 +25184,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParentPosition: {fileID: 0}
-  ParentPlace: {fileID: 1325041414}
-  NewObject: {fileID: 0}
-  IndexPlace: 1
   FirstObject: {fileID: 474062991}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 2237386376475203733, guid: 7d2fe2a73226d0741b187363db6a725e, type: 3}
+  - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
+  - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
+  - {fileID: 2237386376475203733, guid: 945dc73328086bd49b711b99227a5560, type: 3}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 1
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 1325041414}
+  NewObject: {fileID: 0}
 --- !u!136 &1438819118
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -28385,7 +28395,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -31240,7 +31250,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -33899,16 +33909,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParentPosition: {fileID: 0}
-  ParentPlace: {fileID: 427879186}
-  NewObject: {fileID: 0}
-  IndexPlace: 3
   FirstObject: {fileID: 1024211080}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 2237386376475203733, guid: 7d2fe2a73226d0741b187363db6a725e, type: 3}
+  - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
+  - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
+  - {fileID: 2237386376475203733, guid: 945dc73328086bd49b711b99227a5560, type: 3}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 3
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 427879186}
+  NewObject: {fileID: 0}
 --- !u!136 &1865023257
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -37324,16 +37339,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParentPosition: {fileID: 0}
-  ParentPlace: {fileID: 1696134215}
-  NewObject: {fileID: 0}
-  IndexPlace: 2
   FirstObject: {fileID: 898028823}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 2237386376475203733, guid: 7d2fe2a73226d0741b187363db6a725e, type: 3}
+  - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
+  - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
+  - {fileID: 2237386376475203733, guid: 945dc73328086bd49b711b99227a5560, type: 3}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 2
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 1696134215}
+  NewObject: {fileID: 0}
 --- !u!136 &2084825770
 CapsuleCollider:
   m_ObjectHideFlags: 0

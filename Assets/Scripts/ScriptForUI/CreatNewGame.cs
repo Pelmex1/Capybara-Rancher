@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CreatNewGame : MonoBehaviour
 {
-    
+
     [SerializeField] private Inventory inventory;
 
     [SerializeField] private Sprite SelectMod;
@@ -38,7 +38,7 @@ public class CreatNewGame : MonoBehaviour
 
     public void Confirm()
     {
-        try
+        if (TextNameGame.text != "")
         {
             Items newItem = new()
             {
@@ -49,11 +49,9 @@ public class CreatNewGame : MonoBehaviour
             inventory.LoadData(newItem);
             saveData.SaveToJson();
             SceneManager.LoadScene("Level");
+            PlayerPrefs.DeleteAll();
         }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error in Confirm: {ex.Message}");
-        }
+
     }
 
 
@@ -91,7 +89,7 @@ public class CreatNewGame : MonoBehaviour
     public void SelectIcons(GameObject ObjectButton)
     {
         int indexObject = Convert.ToInt32(ObjectButton.name);
-        for(int i = 0; i < SaveIncons.Length; i++)
+        for (int i = 0; i < SaveIncons.Length; i++)
         {
             SaveIncons[i].color = Color.white;
         }
@@ -100,50 +98,4 @@ public class CreatNewGame : MonoBehaviour
         SelectIcon = ObjectButton.GetComponent<Image>();
         //SelectIcon = SelectImage;
     }
-
-    //public void MoveRightIcons()
-    //{
-    //    if (index <= 3)
-    //    {
-    //        index++;
-    //        SaveIncons[index].color = Color.white;
-    //        SelectIcon = SaveIncons[index].gameObject;
-    //        SaveIncons[index - 1].color = Color.black;
-    //        if (index > 2)
-    //        {
-    //            Vector3 vector3 = new(rectTransform.position.x - 95, rectTransform.position.y, rectTransform.position.z);
-    //            rectTransform.position = vector3;
-    //            SaveIncons[FrontIndexOffObject].color = Color.black;
-    //            SaveIncons[FrontIndexOffObject].gameObject.SetActive(false);
-    //            SaveIncons[index].gameObject.SetActive(true);
-    //            FrontIndexOffObject++;
-    //        }
-    //    }
-    //}
-
-    //public void MoveLeftIcons()
-    //{
-    //    if (index == 5)
-    //    {
-    //        index--;
-    //    }
-    //    index--;
-    //    if (index >= 0)
-    //    {
-    //        SaveIncons[index].color = Color.white;
-    //        SelectIcon = SaveIncons[index].gameObject;
-    //        SaveIncons[index + 1].color = Color.black;
-    //        if (index > 1)
-    //        {
-    //            Vector3 vector3 = new(rectTransform.position.x + 95, rectTransform.position.y, rectTransform.position.z);
-    //            rectTransform.position = vector3;
-    //            SaveIncons[BackIndexOffObject].color = Color.black;
-    //            SaveIncons[BackIndexOffObject].gameObject.SetActive(false);
-    //            SaveIncons[index].gameObject.SetActive(true);
-    //            SaveIncons[index - 1].gameObject.SetActive(true);
-    //            SaveIncons[index - 2].gameObject.SetActive(true);
-    //            BackIndexOffObject--;
-    //        }
-    //    }
-    //}
 }
