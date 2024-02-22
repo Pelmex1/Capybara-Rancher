@@ -61,7 +61,7 @@ public class MovingPlayer : MonoBehaviour
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
 
             xRotationCamera -= mouseY;
-            xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 3f, startHeadRotation.z + 30f);
+            xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 85f, startHeadRotation.z + 40f);
             head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
             transform.Rotate(Vector3.up * mouseX);
         }
