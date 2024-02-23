@@ -11,8 +11,11 @@ public class MobsAi : MonoBehaviour
     private GameObject newCrystal;
     private MovebleObject movebleObject;
     private bool hasTransformed = false;
+
+    private Animator animator;
     private void Start() 
     {
+        animator.GetComponent<Animator>();
         movebleObject = GetComponent<MovebleObject>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Moving());
@@ -27,12 +30,11 @@ public class MobsAi : MonoBehaviour
                 StartCoroutine(GenerateCrystals());
                 Destroy(other.gameObject);
             }
-            else if (data.minPrice != 0 && (capybaraData.crystalPrefab != data.prefab && newCrystal != data.prefab) && !hasTransformed)
-                // This is a check to see if the crystal belongs to the kind of this capybara
+            else if (data.minPrice != 0 && (capybaraData.crystalPrefab != data.prefab && newCrystal != data.prefab) && !hasTransformed)               
             {
                 TransformationToAnotherCapybara(data.prefab, data.nextCapibara);
                 Destroy(other.gameObject);
-            }
+            }// This is a check to see if the crystal belongs to the kind of this capybara
         }
     }
     private void TransformationToAnotherCapybara(GameObject newCrystal, GameObject modification)
@@ -66,8 +68,9 @@ public class MobsAi : MonoBehaviour
 
         return FoundTarget();
     }
-    private IEnumerator Moving(){
+    private IEnumerator Moving(){        
         if(!isfoodfound){
+            /* animator.SetBool("CapybaraIsRun",true); */
             agent.SetDestination(FoundTarget());
         }
         yield return new WaitForSecondsRealtime(Random.Range(5f, 20f));
