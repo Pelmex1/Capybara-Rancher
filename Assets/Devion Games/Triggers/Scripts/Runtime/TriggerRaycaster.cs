@@ -20,7 +20,7 @@ namespace DevionGames
         private static bool m_PointerOverTrigger = false;
 
         [RuntimeInitializeOnLoadMethod]
-        static void Initialize()
+        /*static void Initialize()
         {
             Camera camera = Camera.main;
             if (camera.GetComponent<TriggerRaycaster>() == null)
@@ -82,6 +82,7 @@ namespace DevionGames
         public static bool Raycast(Vector3 origin, Vector3 direction,out RaycastHit hit, float maxDistance, int layerMask ) {
             return Raycast(new Ray(origin, direction), out hit, maxDistance, layerMask);
         }
+        
 
         public static bool Raycast(Ray ray, out RaycastHit hit, float maxDistance, int layerMask)
         {
@@ -100,7 +101,7 @@ namespace DevionGames
                 return false;
             }
             return false;
-        }
+        }*/
 
         public static bool IsPointerOverTrigger()
         {

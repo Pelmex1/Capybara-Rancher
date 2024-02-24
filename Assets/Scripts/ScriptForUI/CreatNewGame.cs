@@ -6,31 +6,27 @@ using UnityEngine.UI;
 
 public class CreatNewGame : MonoBehaviour
 {
-    readonly SaveData saveData = new();
+
     [SerializeField] private Inventory inventory;
 
     [SerializeField] private Sprite SelectMod;
     [SerializeField] private Sprite NotSelectMod;
     [SerializeField] private Image[] AllSelectImage = new Image[3];
-    [SerializeField] private GameObject[] SaveIncons;
+    [SerializeField] private Image[] SaveIncons;
     [SerializeField] private TMP_Text TextOfMode;
     [SerializeField] private GameObject ObjectIcons;
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private TMP_Text TextNameGame;
-    [SerializeField] private int index = 0;
 
-    public GameObject SelectIcon;
-    private int FrontIndexOffObject = 0;
-    private int BackIndexOffObject = 4;
-    private RectTransform rectTransform;
+    private readonly SaveData saveData = new();
+    public Image SelectIcon;
     private string TextNameMod;
 
     private void Start()
     {
-        SaveIncons[0].GetComponent<Image>().color = Color.white;
-        SelectIcon = SaveIncons[0];
-        rectTransform = ObjectIcons.GetComponent<RectTransform>();
+        AllSelectImage[0].sprite = SelectMod;
+        TextOfMode.text = "Live the life of a Capybara Ranher and explore the wonders of the Robot, Robot Ranger at your own pace.";
         //localItems = inventory.items;
     }
 
@@ -42,22 +38,20 @@ public class CreatNewGame : MonoBehaviour
 
     public void Confirm()
     {
-        try
+        if (TextNameGame.text != "")
         {
             Items newItem = new()
             {
                 NameGame = TextNameGame.text,
                 GameMod = TextNameMod,
-                icons = SelectIcon
+                //icons = SelectIcon
             };
             inventory.LoadData(newItem);
             saveData.SaveToJson();
             SceneManager.LoadScene("Level");
+            PlayerPrefs.DeleteAll();
         }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error in Confirm: {ex.Message}");
-        }
+
     }
 
 
@@ -91,49 +85,17 @@ public class CreatNewGame : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void MoveRightIcons()
-    {
-        if (index <= 3)
-        {
-            index++;
-            SaveIncons[index].GetComponent<Image>().color = Color.white;
-            SelectIcon = SaveIncons[index];
-            SaveIncons[index - 1].GetComponent<Image>().color = Color.black;
-            if (index > 2)
-            {
-                Vector3 vector3 = new(rectTransform.position.x - 95, rectTransform.position.y, rectTransform.position.z);
-                rectTransform.position = vector3;
-                SaveIncons[FrontIndexOffObject].GetComponent<Image>().color = Color.black;
-                SaveIncons[FrontIndexOffObject].SetActive(false);
-                SaveIncons[index].SetActive(true);
-                FrontIndexOffObject++;
-            }
-        }
-    }
 
-    public void MoveLeftIcons()
+    public void SelectIcons(GameObject ObjectButton)
     {
-        if (index == 5)
+        int indexObject = Convert.ToInt32(ObjectButton.name);
+        for (int i = 0; i < SaveIncons.Length; i++)
         {
-            index--;
+            SaveIncons[i].color = Color.white;
         }
-        index--;
-        if (index >= 0)
-        {
-            SaveIncons[index].GetComponent<Image>().color = Color.white;
-            SelectIcon = SaveIncons[index];
-            SaveIncons[index + 1].GetComponent<Image>().color = Color.black;
-            if (index > 1)
-            {
-                Vector3 vector3 = new(rectTransform.position.x + 95, rectTransform.position.y, rectTransform.position.z);
-                rectTransform.position = vector3;
-                SaveIncons[BackIndexOffObject].GetComponent<Image>().color = Color.black;
-                SaveIncons[BackIndexOffObject].SetActive(false);
-                SaveIncons[index].SetActive(true);
-                SaveIncons[index - 1].SetActive(true);
-                SaveIncons[index - 2].SetActive(true);
-                BackIndexOffObject--;
-            }
-        }
+
+        SaveIncons[indexObject].color = Color.grey;
+        SelectIcon = ObjectButton.GetComponent<Image>();
+        //SelectIcon = SelectImage;
     }
 }

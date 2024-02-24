@@ -3,24 +3,51 @@ using TMPro;
 
 public class UIBilding : MonoBehaviour
 {
-    [SerializeField] public int IndexPlace;
-    [SerializeField] private Transform PlacePosition;
     [SerializeField] private GameObject FirstObject;
     [SerializeField] private TMP_Text InfoText;
-
     [SerializeField] private GameObject MainButtonPanel;
     [SerializeField] private GameObject FarmPanel;
     [SerializeField] private GameObject EnclosurePanel;
-    [SerializeField] public MainPanelBuilding mainPanelBuilding;
+    [SerializeField] private GameObject[] AllBuilding = new GameObject[3];
+
     private bool tryon = false;
 
+    public MainPanelBuilding mainPanelBuilding;
+    public int IndexPlace;
+    public Transform ParentPosition;
+    public GameObject ParentPlace;
+    public GameObject NewObject;
+
+
+    private void Awake()
+    {
+        ParentPosition = ParentPlace.transform;
+        if (PlayerPrefs.HasKey($"{IndexPlace}"))
+        {
+            string NameBuilding = PlayerPrefs.GetString($"{IndexPlace}");
+            for (int i = 0; i < AllBuilding.Length; i++)
+            {
+                if (AllBuilding[i].name == NameBuilding)
+                {
+                    NewObject = Instantiate(AllBuilding[i], ParentPosition.transform);
+                    if (NewObject.TryGetComponent<Receptacle>(out var receptacle))
+                        receptacle.UIBuilding = this;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+    }
 
     private void Update()
     {
         if (tryon)
         {
-            Cursor.lockState = CursorLockMode.Confined;
             OnUi();
+            mainPanelBuilding.UIBuilding = this;
         }
     }
 
@@ -44,27 +71,29 @@ public class UIBilding : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!PlayerPrefs.HasKey(IndexPlace.ToString()))
+            Cursor.lockState = CursorLockMode.Confined;
+            if (!PlayerPrefs.HasKey($"{IndexPlace}"))
             {
                 MainButtonPanel.SetActive(true);
                 mainPanelBuilding.IndexPlace = IndexPlace;
-                mainPanelBuilding.PositionPlace = PlacePosition;
+                mainPanelBuilding.PositionPlace = ParentPosition;
                 mainPanelBuilding.FirstPlace = FirstObject;
+                NewObject = mainPanelBuilding.NewPlace;
             }
             else
             {
-                string ValueKey = PlayerPrefs.GetString(IndexPlace.ToString());
-                if (ValueKey == "FruitTreeArea")
+                string ValueKey = PlayerPrefs.GetString($"{IndexPlace}");
+                if (ValueKey == "Farm")
                 {
                     FarmPanel.SetActive(true);
                     mainPanelBuilding.IndexPlace = IndexPlace;
-                    mainPanelBuilding.PositionPlace = PlacePosition;
+                    mainPanelBuilding.PositionPlace = ParentPosition;
                 }
                 else
                 {
                     EnclosurePanel.SetActive(true);
                     mainPanelBuilding.IndexPlace = IndexPlace;
-                    mainPanelBuilding.PositionPlace = PlacePosition;
+                    mainPanelBuilding.PositionPlace = ParentPosition;
                 }
             }
         }
@@ -75,7 +104,7 @@ public class UIBilding : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             InfoText.text = "";
-            tryon=false;
+            tryon = false;
             Cursor.lockState = CursorLockMode.Locked;
             OffBuilding();
         }

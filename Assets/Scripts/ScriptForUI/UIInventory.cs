@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class UIInventory : MonoBehaviour
 {
     [SerializeField] private InventoryPlayer inventoryPlayer;
-    [SerializeField] public Image[] Docker;
-    [SerializeField] public GameObject[] Crosses = new GameObject[5];
     [SerializeField] private TMP_Text[] ImageAmount = new TMP_Text[5];
     [SerializeField] private InventoryItem[] inventory;
     [SerializeField] private int[] inventoryCount;
     [SerializeField] private Image EmptyDocker;
+
+    public Image[] Docker;
+    public GameObject[] Crosses = new GameObject[5];
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class UIInventory : MonoBehaviour
             {
                 Docker[i].sprite = inventory[i].image.sprite;
                 Crosses[i].SetActive(false);
-                ImageAmount[i].text = inventoryCount[i].ToString();
+                ImageAmount[i].text = $"{inventoryCount[i]}";
             }
             else
             {

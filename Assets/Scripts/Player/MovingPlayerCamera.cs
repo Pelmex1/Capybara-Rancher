@@ -3,7 +3,6 @@ using UnityEngine;
 public class MovingPlayer : MonoBehaviour
 {
     [SerializeField] private Transform head;
-    [SerializeField] private Transform gun;
     [SerializeField] private float speed;
 
     private Rigidbody rb;
@@ -39,11 +38,14 @@ public class MovingPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        vertical = Input.GetAxisRaw("Vertical");
-        horizontal = Input.GetAxisRaw("Horizontal");
+        if(isGrounded)
+        {
+            vertical = Input.GetAxisRaw("Vertical");
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
         rb.MovePosition(rb.position + vertical * speed * Time.fixedDeltaTime * transform.forward);
         rb.MovePosition(rb.position + horizontal * speed * Time.fixedDeltaTime * transform.right);
+        
     }
 
     private void Update()
@@ -54,14 +56,15 @@ public class MovingPlayer : MonoBehaviour
                 isGrounded = false;
                 rb.AddForce(transform.up, ForceMode.Impulse);
             }
+        if(Cursor.lockState == CursorLockMode.Locked){
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
-
-        xRotationCamera -= mouseY;
-        xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 3f, startHeadRotation.z + 30f);
-        head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
-        transform.Rotate(Vector3.up * mouseX);
+            xRotationCamera -= mouseY;
+            xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 85f, startHeadRotation.z + 40f);
+            head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
+            transform.Rotate(Vector3.up * mouseX);
+        }
 
         if(energy > 5 && Input.GetKey(KeyCode.LeftShift)){
             energy -= energyConsumptionRate * Time.deltaTime;
