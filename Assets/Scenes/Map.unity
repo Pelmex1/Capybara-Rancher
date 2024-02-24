@@ -1861,6 +1861,9 @@ MonoBehaviour:
   IndexPlace: 0
   PositionPlace: {fileID: 0}
   FirstPlace: {fileID: 0}
+  NewPlace: {fileID: 0}
+  ParentObject: {fileID: 0}
+  UIBuilding: {fileID: 0}
   FarmInfoPanel: {fileID: 115454858}
   EnclosureInfoPanel: {fileID: 1845244308}
   Area: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181, type: 3}
@@ -7500,7 +7503,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 678045489}
-  gun: {fileID: 1153823801}
   speed: 5
   mouseSensitivy: 100
   energy: 50
@@ -8749,11 +8751,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b2df09ea1bd2624181959be99fc3a41,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1694600609}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b2df09ea1bd2624181959be99fc3a41, type: 3}
 --- !u!1 &331903732
 GameObject:
@@ -11163,7 +11161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427525975}
   m_Layer: 0
-  m_Name: Rancho
+  m_Name: Ranch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13731,14 +13729,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndexPlace: 0
-  PlacePosition: {fileID: 4209113424389375928}
   FirstObject: {fileID: 167819845}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 0
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 0}
+  NewObject: {fileID: 0}
 --- !u!136 &515672279
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -34379,13 +34383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPlayer: {fileID: 299123062}
-  Docker: []
-  Crosses:
-  - {fileID: 1247688006}
-  - {fileID: 1451178097}
-  - {fileID: 1172819129}
-  - {fileID: 472922143}
-  - {fileID: 1443194072}
   ImageAmount:
   - {fileID: 861799617}
   - {fileID: 1613382590}
@@ -34396,6 +34393,13 @@ MonoBehaviour:
   inventoryCount: 
   EmptyDocker: {fileID: 664414286338659192, guid: 68c63d12f6dd9e744ad86c790d502ac2,
     type: 3}
+  Docker: []
+  Crosses:
+  - {fileID: 1247688006}
+  - {fileID: 1451178097}
+  - {fileID: 1172819129}
+  - {fileID: 472922143}
+  - {fileID: 1443194072}
 --- !u!1 &1335406436
 GameObject:
   m_ObjectHideFlags: 0
@@ -37076,14 +37080,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndexPlace: 1
-  PlacePosition: {fileID: 2039241113}
   FirstObject: {fileID: 474062991}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 1
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 0}
+  NewObject: {fileID: 0}
 --- !u!136 &1438819118
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -44224,40 +44234,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694244307}
   m_CullTransparentMesh: 1
---- !u!1 &1694600605 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1b2df09ea1bd2624181959be99fc3a41,
-    type: 3}
-  m_PrefabInstance: {fileID: 327553781}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1694600606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1b2df09ea1bd2624181959be99fc3a41,
     type: 3}
   m_PrefabInstance: {fileID: 327553781}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1694600609
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1694600605}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2441658414131813105, guid: 1b2df09ea1bd2624181959be99fc3a41, type: 3}
 --- !u!1 &1694908590
 GameObject:
   m_ObjectHideFlags: 0
@@ -49540,14 +49522,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndexPlace: 3
-  PlacePosition: {fileID: 2122428491}
   FirstObject: {fileID: 1024211080}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 3
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 0}
+  NewObject: {fileID: 0}
 --- !u!136 &1865023257
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -54230,14 +54218,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndexPlace: 2
-  PlacePosition: {fileID: 243678093}
   FirstObject: {fileID: 898028823}
   InfoText: {fileID: 1016018332}
   MainButtonPanel: {fileID: 1600906186}
   FarmPanel: {fileID: 1855958646}
   EnclosurePanel: {fileID: 1288083820}
+  AllBuilding:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mainPanelBuilding: {fileID: 78092398}
+  IndexPlace: 2
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 0}
+  NewObject: {fileID: 0}
 --- !u!136 &2084825770
 CapsuleCollider:
   m_ObjectHideFlags: 0
