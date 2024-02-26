@@ -91,9 +91,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3225694182492953968}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000001545431, y: -0.7071068, z: -0.00000001545431, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.101}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalRotation: {x: 0.50000006, y: -0.49999997, z: -0.50000006, w: 0.49999997}
+  m_LocalPosition: {x: 0.000040280247, y: -0.0011390427, z: -0.0025204136}
+  m_LocalScale: {x: 0.26210955, y: 0.26210952, z: 0.26210955}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8488628492652626797}
@@ -109,7 +109,7 @@ Transform:
   - {fileID: 7996306538763302107}
   - {fileID: 607417803970664594}
   - {fileID: 1113454805486839670}
-  m_Father: {fileID: 42882100474849410}
+  m_Father: {fileID: 8946554977823586332}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &3424439660204786548
 GameObject:
@@ -1263,17 +1263,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5e46f5f40923bd749994417d7a21f89f, type: 2}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: bf035663c646eff4481429cf3117a200,
         type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 8016871944051824855}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: bf035663c646eff4481429cf3117a200,
-        type: 3}
       insertIndex: -1
       addedObject: {fileID: 9039188387898031932}
+    - targetCorrespondingSourceObject: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 8016871944051824855}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
         type: 3}
@@ -1404,3 +1409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: dba045e09c3636240bc34b1c1e9e1ef1, type: 2}
+--- !u!4 &8946554977823586332 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+    type: 3}
+  m_PrefabInstance: {fileID: 509716507148406633}
+  m_PrefabAsset: {fileID: 0}

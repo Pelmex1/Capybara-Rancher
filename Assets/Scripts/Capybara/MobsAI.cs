@@ -11,8 +11,11 @@ public class MobsAi : MonoBehaviour
     private GameObject newCrystal;
     private MovebleObject movebleObject;
     private bool hasTransformed = false;
+
+    private Animator animator;
     private void Start() 
     {
+        animator = gameObject.GetComponent<Animator>();
         movebleObject = GetComponent<MovebleObject>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Moving());
@@ -67,10 +70,12 @@ public class MobsAi : MonoBehaviour
         return FoundTarget();
     }
     private IEnumerator Moving(){
+        animator.SetFloat("IsRun",0.1f);
         if(!isfoodfound){
             agent.SetDestination(FoundTarget());
         }
         yield return new WaitForSecondsRealtime(Random.Range(5f, 20f));
+        animator.SetFloat("IsRun",-0.1f);
         StartCoroutine(Moving());
     }
     public void IsFoodFound(Vector3 pos){
