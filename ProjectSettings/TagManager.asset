@@ -8,6 +8,7 @@ TagManager:
   - Food
   - Obstacle
   - TerritoryOfMap
+  - Ground
   layers:
   - Default
   - TransparentFX

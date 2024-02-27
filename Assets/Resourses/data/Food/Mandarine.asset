@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c894d45db53db9f468d5cb8ca2213c73, type: 3}
   m_Name: Mandarine
   m_EditorClassIdentifier: 
+  Name: Mandarine
   image: {fileID: 547092272219251028, guid: acad558248064a94692accf2186f142b, type: 3}
   prefab: {fileID: 730432400382736024, guid: 77823d157cca9094e95c3044fc3cf043, type: 3}
-  Name: Mandarine
   color: {r: 1, g: 0.5287269, b: 0, a: 0}
   indexForSpawnFarm: 0
   timeGeneration: 300
   isGenerable: 1
+  crystalPrefab: {fileID: 0}
+  nextCapibara: {fileID: 0}
+  minPrice: 0
+  maxPrice: 0
