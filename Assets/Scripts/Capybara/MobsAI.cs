@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MobsAi : MonoBehaviour
 {
-    [SerializeField] private InventoryItem capybaraData;
+    [SerializeField] private CapybaraItem capybaraData;
     private NavMeshAgent agent;
     private bool isfoodfound = false;
     private GameObject newCrystal;
@@ -24,17 +24,23 @@ public class MobsAi : MonoBehaviour
     {
         if (other.gameObject.CompareTag("movebleObject"))
         {
-            InventoryItem data = other.gameObject.GetComponent<MovebleObject>().data;
             if (other.gameObject.GetComponent<FoodSpoilage>() != null && other.gameObject.GetComponent<Rigidbody>().isKinematic == false)
             {
+                Debug.Log("1");
                 StartCoroutine(GenerateCrystals());
                 Destroy(other.gameObject);
             }
-            else if (data.minPrice != 0 && (capybaraData.crystalPrefab != data.prefab && newCrystal != data.prefab) && !hasTransformed)
-                // This is a check to see if the crystal belongs to the kind of this capybara
+            else
             {
-                TransformationToAnotherCapybara(data.prefab, data.nextCapibara);
-                Destroy(other.gameObject);
+                CrystalItem dataCr = other.gameObject.GetComponent<CrystalItem>();
+                InventoryItem dataIn = other.gameObject.GetComponent<MovebleObject>().data;
+                if (dataCr.minPrice != 0 && (capybaraData.crystalPrefab != dataIn.prefab && newCrystal != dataIn.prefab) && !hasTransformed)
+                // This is a check to see if the crystal belongs to the kind of this capybara
+                {
+                    Debug.Log("2");
+                    TransformationToAnotherCapybara(dataIn.prefab, dataCr.nextCapibara);
+                    Destroy(other.gameObject);
+                }
             }
         }
     }
@@ -88,7 +94,7 @@ public class MobsAi : MonoBehaviour
         Instantiate(capybaraData.crystalPrefab, spawnPos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(RandomForceAdd() * 0.3f, ForceMode.Impulse);
         if (hasTransformed)
         {
-            Instantiate(newCrystal, spawnPos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(transform.up * 1.5f, ForceMode.Impulse);
+            Instantiate(newCrystal, spawnPos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(RandomForceAdd() * 0.3f, ForceMode.Impulse);
         }
         isfoodfound = false;
     }

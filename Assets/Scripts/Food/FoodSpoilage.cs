@@ -10,7 +10,7 @@ public class FoodSpoilage : MonoBehaviour
     private Renderer objectRenderer;
     void Start()
     {
-        waitingTime = GetComponent<MovebleObject>().data.timeGeneration;
+        waitingTime = GetComponent<FoodItem>().timeGeneration;
         objectRenderer = GetComponent<Renderer>();
         StartCoroutine(TimerForSpoilage());
     }

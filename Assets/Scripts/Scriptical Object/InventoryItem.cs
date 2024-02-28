@@ -1,23 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "InventoryItem", menuName = "Capybara-Rancher/InventoryItem", order = 0)]
+[CreateAssetMenu(fileName = "InventoryItem", menuName = "Capybara-Rancher/InventoryItem")]
 public class InventoryItem : ScriptableObject {
     public string Name;
     public Image image;
     public GameObject prefab;
     public Color color;
-
-    // Fields for Foods
-    public int indexForSpawnFarm;
-    public float timeGeneration;
-    public bool isGenerable;
-
-    // Fields for Capybaras
-    public GameObject crystalPrefab;
-
-    // Fields for Crytals
-    public GameObject nextCapibara; // This is where distinctive items in the capybara model are stored.
-    public int minPrice;
-    public int maxPrice;
 }

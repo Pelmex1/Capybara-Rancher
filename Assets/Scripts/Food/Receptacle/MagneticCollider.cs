@@ -14,17 +14,10 @@ public class MagneticCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        try
+        if (other.gameObject.GetComponent<FoodItem>().isGenerable)
         {
-            if (other.gameObject.GetComponent<MovebleObject>().data.isGenerable)
-            {
-                targetObject = other.transform;
-                StartCoroutine(MagnetismToTargetPos());
-            }
-        }
-        catch
-        {
-
+            targetObject = other.transform;
+            StartCoroutine(MagnetismToTargetPos());
         }
     }
     IEnumerator MagnetismToTargetPos()
