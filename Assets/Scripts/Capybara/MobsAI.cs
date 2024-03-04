@@ -15,7 +15,7 @@ public class MobsAi : MonoBehaviour
     private Animator animator;
     private void Start() 
     {
-        animator = gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         movebleObject = GetComponent<MovebleObject>();
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Moving());
@@ -34,7 +34,7 @@ public class MobsAi : MonoBehaviour
             {
                 CrystalItem dataCr = other.gameObject.GetComponent<CrystalItem>();
                 InventoryItem dataIn = other.gameObject.GetComponent<MovebleObject>().data;
-                if (dataCr.minPrice != 0 && (capybaraData.crystalPrefab != dataIn.prefab && newCrystal != dataIn.prefab) && !hasTransformed)
+                if (dataCr.price != 0 && (capybaraData.crystalPrefab != dataIn.prefab && newCrystal != dataIn.prefab) && !hasTransformed)
                 // This is a check to see if the crystal belongs to the kind of this capybara
                 {
                     Debug.Log("2");
