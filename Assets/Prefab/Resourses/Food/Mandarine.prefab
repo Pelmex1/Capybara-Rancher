@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indexForSpawnFarm: 0
-  timeGeneration: 300
+  timeGeneration: 10
   isGenerable: 1
 --- !u!114 &4931975971623334155
 MonoBehaviour:

@@ -12,28 +12,24 @@ public class FoodSpoilage : MonoBehaviour
     {
         waitingTime = GetComponent<FoodItem>().timeGeneration;
         objectRenderer = GetComponent<Renderer>();
-        StartCoroutine(TimerForSpoilage());
+        StartCoroutine(Spoilaging());
     }
-    IEnumerator TimerForSpoilage()
+    IEnumerator Spoilaging()
     {
         while (true)
         {
             yield return new WaitForSeconds(waitingTime * 2 - timeBeforeSpoilage);
-            StartCoroutine(Spoilaging());
-        }
-    }
-    IEnumerator Spoilaging()
-    {
-        Color startColor = objectRenderer.material.color;
-        float timeLeft = timeBeforeSpoilage;
-        while(timeLeft >= 0)
-        {
-            float i = timeLeft / timeBeforeSpoilage;
-            objectRenderer.material.color = Color.Lerp(Color.gray, startColor, i);
+            Color startColor = objectRenderer.material.color;
+            float timeLeft = timeBeforeSpoilage;
+            while (timeLeft >= 0)
+            {
+                float i = timeLeft / timeBeforeSpoilage;
+                objectRenderer.material.color = Color.Lerp(Color.gray, startColor, i);
 
-            timeLeft -= Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+                timeLeft -= Time.deltaTime;
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }
