@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 3400858831418962634}
   - component: {fileID: 6900132451081056241}
   - component: {fileID: -7635301520157713740}
+  - component: {fileID: -1550883516065234112}
   m_Layer: 0
   m_Name: RockCapybara
   m_TagString: movebleObject
@@ -255,6 +256,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &-1550883516065234112
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325011710115366312}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.020214397, y: 0.027189871, z: 0.044919107}
+  m_Center: {x: 0.00008993447, y: 0.013594936, z: 0.00033852758}
 --- !u!1 &2491199916134749839
 GameObject:
   m_ObjectHideFlags: 0
