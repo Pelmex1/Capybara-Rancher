@@ -120,14 +120,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4364176de74924b911be22d4939c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndexPlace: 0
-  PlacePosition: {fileID: 5323145881842979808}
   FirstObject: {fileID: 1505727671401139461}
   InfoText: {fileID: 0}
   MainButtonPanel: {fileID: 0}
   FarmPanel: {fileID: 0}
   EnclosurePanel: {fileID: 0}
+  AllBuilding:
+  - {fileID: 2237386376475203733, guid: 945dc73328086bd49b711b99227a5560, type: 3}
+  - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
+  - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
+  - {fileID: 2237386376475203733, guid: 7d2fe2a73226d0741b187363db6a725e, type: 3}
   mainPanelBuilding: {fileID: 0}
+  IndexPlace: 0
+  ParentPosition: {fileID: 0}
+  ParentPlace: {fileID: 100854098830410936}
+  NewObject: {fileID: 0}
 --- !u!1 &6246759373424212903
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +236,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5287db17601327e45b643ba423e61181, type: 3}
+--- !u!1 &100854098830410936 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181,
+    type: 3}
+  m_PrefabInstance: {fileID: 2191710724193492013}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1505727671401139461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 761088668149535016, guid: 5287db17601327e45b643ba423e61181,
