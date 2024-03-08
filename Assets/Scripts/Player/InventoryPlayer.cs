@@ -10,7 +10,7 @@ public class InventoryPlayer : MonoBehaviour
     private readonly float speed = 10f;
     private Canon canon;
 
-    public Cell[] inventory = new Cell[5];
+    public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange {get; set;} = false;
 
     private void Start() {
@@ -22,7 +22,6 @@ public class InventoryPlayer : MonoBehaviour
         if(inventory[index] == null){
             inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
-            inventory[index].image = inventoryItem.image;
             return true;
         } else if(inventory[index] == inventoryItem){
             inventory[index].count++;
