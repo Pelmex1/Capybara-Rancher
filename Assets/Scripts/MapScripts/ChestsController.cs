@@ -15,11 +15,13 @@ public class ChestsController : MonoBehaviour
         }
     }
         public void UpdateInventoryCells(ChestCell[] inventoryCells){
-        for(int i = 0 ; i < inventoryCells.Length; i++){
+        for(int i = 0 ; i < inventoryCells.Length; i++)
+        {
             inventoryUI[i] = inventoryCells[i];
         }
     }
-    private void OnEnable() {
+    private void OnEnable() 
+    {
         ContainerInventory.UpdateChestUI += UpdateChestCells;
         ContainerInventory.UpdateInventoryUI += UpdateInventoryCells;
     }

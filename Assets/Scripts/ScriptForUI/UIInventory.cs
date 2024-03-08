@@ -10,14 +10,16 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private int[] inventoryCount;
     [SerializeField] private Image EmptyDocker;
 
-    public Image[] Docker;
+    [SerializeField] private Image[] Docker;
     public GameObject[] Crosses = new GameObject[5];
 
     private void Awake()
     {
-        inventory = inventoryPlayer.inventory;
-        inventoryCount = inventoryPlayer.inventoryCount;
-        Docker = inventoryPlayer.Dokers;
+        for(int i = 0; i <= inventoryPlayer.inventory.Length; i++)
+        {
+            inventory[i] = inventoryPlayer.inventory[i].inventoryItem;
+            inventoryCount[i] = inventoryPlayer.inventory[i].count;
+        }
     }
 
     private void Update()
