@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class ChestsController : MonoBehaviour
 {
-    [SerializeField] private ChestCell[] chestsUI;
-    [SerializeField] private ChestCell[] inventoryUI;
+    [SerializeField] private GameObject InventoryPanel;
+    [SerializeField] private GameObject ChestPanel;
+    private ChestCell[] chestsUI;
+    private ChestCell[] inventoryUI;
 
 
-
+    private void Start() {
+        inventoryUI = InventoryPanel.GetComponentsInChildren<ChestCell>();
+        chestsUI = ChestPanel.GetComponentsInChildren<ChestCell>();
+    }
     public void UpdateChestCells(ChestCell[] chestCells){
         for(int i = 0 ; i < chestCells.Length; i++){
             chestsUI[i] = chestCells[i];

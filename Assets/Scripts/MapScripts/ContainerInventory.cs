@@ -14,8 +14,7 @@ public class ContainerInventory : MonoBehaviour
     public static event AddItemCollection UpdateInventoryUI;
     public static event AddItemCollection UpdateChestUI;
     private bool isNearChest = false;
-    private ChestCell[] chestCell = new ChestCell[20];
-    private ChestCell[] inventoryCell = new ChestCell[20];
+    private readonly ChestCell[] chestCell = new ChestCell[20];
 
     private InventoryPlayer playerInventory;
     private void OnTriggerEnter(Collider other) {
