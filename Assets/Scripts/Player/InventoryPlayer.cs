@@ -85,8 +85,11 @@ public class InventoryPlayer : MonoBehaviour
         //    KeyCode.Alpha4 => 3,
         //    _ => index
         //};
-        inventory[lastindex].image.color = Color.white;
-        inventory[index].image.color = Color.grey;
+        if(inventory[lastindex] != null && inventory[index] != null)
+        {
+            inventory[lastindex].image.color = Color.white;
+            inventory[index].image.color = Color.grey;
+        }
         if (Input.GetMouseButtonDown(1))
         {
             RemoveItem(canonEnter.transform.position,-canonEnter.transform.forward * speed);

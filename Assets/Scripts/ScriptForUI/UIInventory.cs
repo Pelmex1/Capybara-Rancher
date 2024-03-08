@@ -12,14 +12,12 @@ public class UIInventory : MonoBehaviour
 
     [SerializeField] private Image[] Docker;
     public GameObject[] Crosses = new GameObject[5];
+    [SerializeField] private ChestCell[] chestCell;
 
     private void Awake()
     {
-        for(int i = 0; i <= inventoryPlayer.inventory.Length; i++)
-        {
-            inventory[i] = inventoryPlayer.inventory[i].inventoryItem;
-            inventoryCount[i] = inventoryPlayer.inventory[i].count;
-        }
+        chestCell = inventoryPlayer.inventory;
+
     }
 
     private void Update()
@@ -33,8 +31,10 @@ public class UIInventory : MonoBehaviour
 
     private void Repaint()
     {
-        for (int i = 0; i < inventory.Length; i++)
+        for(int i = 0; i <= chestCell.Length; i++)
         {
+            inventory[i] = chestCell[i].inventoryItem;
+            inventoryCount[i] = chestCell[i].count;
             if (inventory[i] != null)
             {
                 Docker[i].sprite = inventory[i].image.sprite;
