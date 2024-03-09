@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4f2fc39bec45946b47839830ae1dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 13763372814719393}
   nextCapibara: {fileID: 1885999244023908055, guid: 90877c75fec5b6f458322d494956b6bb,
     type: 3}
-  minPrice: 5
-  maxPrice: 15
+  price: 5
+  nameOfFavouriteFoodThisType: '-'
+  whatEatThisType: 0
