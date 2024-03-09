@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Capybara-Rancher.sln"
+    "dotnet.defaultSolution": "Capybara-Rancher.sln",
+    "dotnet.preferCSharpExtension": true
 }

@@ -3,25 +3,29 @@ using UnityEngine;
 
 public class FoodGeneration : MonoBehaviour
 {
-    [SerializeField] private GameObject foodPrefab;
-    private float timeGeneration;
-    void Start()
-    {
-        timeGeneration = foodPrefab.GetComponent<FoodItem>().timeGeneration;
+    private const string underripeTag = "Untagged";
+    private const string ripeTag = "movebleObject";
 
-        StartCoroutine(StartGeneration());
+    [SerializeField] private GameObject foodPrefab;
+
+    private float generationInterval;
+
+    private void Start()
+    {
+        generationInterval = foodPrefab.GetComponent<FoodItem>().timeGeneration;
+
+        StartCoroutine(GenerationLoop());
     }
-    IEnumerator StartGeneration()
+
+    IEnumerator GenerationLoop()
     {
         while (true)
         {
-            float delay = timeGeneration;
-
             GameObject harvest = Instantiate(foodPrefab, transform.position, Quaternion.identity);
             harvest.transform.parent = transform;
-            harvest.GetComponent<Rigidbody>().isKinematic = true;
-            harvest.tag = "Untagged";
-
+            Rigidbody harvestRB = harvest.GetComponent<Rigidbody>();
+            harvestRB.isKinematic = true;
+            harvest.tag = underripeTag;
             harvest.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
             Vector3 startSize = harvest.transform.localScale;
@@ -29,9 +33,9 @@ public class FoodGeneration : MonoBehaviour
 
             float currentTime = 0f;
 
-            while (currentTime < delay)
+            while (currentTime < generationInterval)
             {
-                harvest.transform.localScale = Vector3.Lerp(startSize, endSize, currentTime / delay);
+                harvest.transform.localScale = Vector3.Lerp(startSize, endSize, currentTime / generationInterval);
 
                 currentTime += Time.deltaTime;
 
@@ -39,10 +43,8 @@ public class FoodGeneration : MonoBehaviour
             }
 
             harvest.transform.localScale = endSize;
-            harvest.GetComponent<Rigidbody>().isKinematic = false;
-            harvest.tag = "movebleObject";
-
-            yield return new WaitForSeconds(delay);
+            harvestRB.isKinematic = false;
+            harvest.tag = ripeTag;
         }
     }
 }

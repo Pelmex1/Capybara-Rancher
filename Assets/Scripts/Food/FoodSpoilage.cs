@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodSpoilage : MonoBehaviour
@@ -12,23 +11,25 @@ public class FoodSpoilage : MonoBehaviour
     {
         waitingTime = GetComponent<FoodItem>().timeGeneration;
         objectRenderer = GetComponent<Renderer>();
-        StartCoroutine(Spoilaging());
+        StartCoroutine(SpoilagingLoop());
     }
-    IEnumerator Spoilaging()
+    IEnumerator SpoilagingLoop()
     {
         while (true)
         {
             yield return new WaitForSeconds(waitingTime * 2 - timeBeforeSpoilage);
             Color startColor = objectRenderer.material.color;
             float timeLeft = timeBeforeSpoilage;
+
             while (timeLeft >= 0)
             {
-                float i = timeLeft / timeBeforeSpoilage;
-                objectRenderer.material.color = Color.Lerp(Color.gray, startColor, i);
+                float percentOfRemainingTime = timeLeft / timeBeforeSpoilage;
+                objectRenderer.material.color = Color.Lerp(Color.gray, startColor, percentOfRemainingTime);
 
                 timeLeft -= Time.deltaTime;
                 yield return new WaitForSeconds(Time.deltaTime);
             }
+
             Destroy(gameObject);
         }
     }
