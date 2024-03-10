@@ -13,7 +13,7 @@ public class CanonCollider : MonoBehaviour
         if(other.gameObject.CompareTag("movebleObject"))
         {
             if(inventoryPlayer.AddItemInInventory(other.gameObject.GetComponent<MovebleObject>().data))
-            {
+            {   
                 try
                 {
                     Somecanon.obdjectsInCollider.Remove(other.gameObject.transform);

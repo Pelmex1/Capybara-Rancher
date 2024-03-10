@@ -11,14 +11,13 @@ public class InventoryPlayer : MonoBehaviour
     private Canon canon;
 
     public ChestCell[] inventory = new ChestCell[5];
-    public bool WasChange {get; set;} = false;
+    public bool WasChange= false;
 
     private void Start() {
         canon = GetComponentInChildren<Canon>();
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
-    {
-        WasChange = true;
+    {        
         if(inventory[index] == null){
             inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
@@ -45,6 +44,7 @@ public class InventoryPlayer : MonoBehaviour
             }
             else continue;
         }
+        WasChange = true;
         return false;
     }
     public void RemoveItem(Vector3 spawnPos,Vector3 pos)

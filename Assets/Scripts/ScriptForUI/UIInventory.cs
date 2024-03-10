@@ -17,7 +17,6 @@ public class UIInventory : MonoBehaviour
     private void Awake()
     {
         chestCell = inventoryPlayer.inventory;
-
     }
 
     private void Update()
@@ -31,8 +30,13 @@ public class UIInventory : MonoBehaviour
 
     private void Repaint()
     {
+
         for(int i = 0; i <= chestCell.Length; i++)
         {
+            if(chestCell[i].count != 9)
+            {
+                Debug.Log("True");
+            }
             inventory[i] = chestCell[i].inventoryItem;
             inventoryCount[i] = chestCell[i].count;
             if (inventory[i] != null)
