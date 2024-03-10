@@ -6,20 +6,18 @@ public class UIInventory : MonoBehaviour
 {
     [SerializeField] private InventoryPlayer inventoryPlayer;
     [SerializeField] private TMP_Text[] ImageAmount = new TMP_Text[5];
-    [SerializeField] private InventoryItem[] inventory;
-    [SerializeField] private int[] inventoryCount;
     [SerializeField] private Image EmptyDocker;
 
     [SerializeField] private Image[] Docker;
     public GameObject[] Crosses = new GameObject[5];
-    [SerializeField] private ChestCell[] chestCell;
+    private ChestCell[] chestCell;
 
     private void Awake()
     {
-        chestCell = inventoryPlayer.inventory;
+        chestCell = inventoryPlayer.inventory;        
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (inventoryPlayer.WasChange == true)
         {
@@ -31,26 +29,20 @@ public class UIInventory : MonoBehaviour
     private void Repaint()
     {
 
-        for(int i = 0; i <= chestCell.Length; i++)
+        for(int i = 0; i < chestCell.Length; i++)
         {
-            if(chestCell[i].count != 9)
-            {
-                Debug.Log("True");
-            }
-            inventory[i] = chestCell[i].inventoryItem;
-            inventoryCount[i] = chestCell[i].count;
-            if (inventory[i] != null)
-            {
-                Docker[i].sprite = inventory[i].image.sprite;
-                Crosses[i].SetActive(false);
-                ImageAmount[i].text = $"{inventoryCount[i]}";
-            }
-            else
-            {
-                Docker[i].sprite = EmptyDocker.sprite;
-                Crosses[i].SetActive(true);
-                ImageAmount[i].text = "";
-            }
+                if (chestCell[i].inventoryItem != null)
+                {                    
+                    Docker[i].sprite = chestCell[i].inventoryItem.image.sprite;
+                    Crosses[i].SetActive(false);
+                    ImageAmount[i].text = $"{chestCell[i].count}";
+                }
+                else
+                {
+                    Docker[i].sprite = EmptyDocker.sprite;
+                    Crosses[i].SetActive(true);
+                    ImageAmount[i].text = "";
+                }
         }
     }
 }

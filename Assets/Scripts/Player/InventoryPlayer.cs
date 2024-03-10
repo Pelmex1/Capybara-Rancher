@@ -17,34 +17,39 @@ public class InventoryPlayer : MonoBehaviour
         canon = GetComponentInChildren<Canon>();
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
-    {        
-        if(inventory[index] == null){
+    { 
+        WasChange = true;       
+        if(inventory[index].inventoryItem == null){
+            Debug.Log("First");
             inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
             return true;
-        } else if(inventory[index] == inventoryItem){
+        } else if(inventory[index].inventoryItem == inventoryItem){
+            Debug.Log("Second");
             inventory[index].count++;
             return true;
         }
         for (int i = 0; i < inventory.Length; i++)
         {
-            if (inventory[i] == inventoryItem)
+            if (inventory[i].inventoryItem == inventoryItem)
             {
+                Debug.Log("Third");
                 inventory[index].count++;
                 return true;
             }
         }
         for (int i = 0; i < inventory.Length; i++)
         {
-            if (inventory[i] == null)
+            if (inventory[i].inventoryItem == null)
             {
+                Debug.Log("Firth");
                 inventory[i].inventoryItem = inventoryItem;
                 inventory[i].count++;
                 return true;
             }
             else continue;
         }
-        WasChange = true;
+        
         return false;
     }
     public void RemoveItem(Vector3 spawnPos,Vector3 pos)
@@ -76,15 +81,6 @@ public class InventoryPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha5))
             index = 4;
 
-        //KeyCode code = KeyCode.None;
-        //index = code switch
-        //{
-        //    KeyCode.Alpha1 => 0,
-        //    KeyCode.Alpha2 => 1,
-        //    KeyCode.Alpha3 => 2,
-        //    KeyCode.Alpha4 => 3,
-        //    _ => index
-        //};
         if(inventory[lastindex] != null && inventory[index] != null)
         {
             inventory[lastindex].image.color = Color.white;
