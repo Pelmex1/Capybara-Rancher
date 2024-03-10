@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,21 +12,24 @@ public class InventoryPlayer : MonoBehaviour
     private Canon canon;
 
     public ChestCell[] inventory = new ChestCell[5];
-    public bool WasChange= false;
+    public Image[] ImageCresses = new Image[5];
+    public bool WasChange = false;
 
-    private void Start() {
+    private void Start()
+    {
         canon = GetComponentInChildren<Canon>();
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
-    { 
-        WasChange = true;       
-        if(inventory[index].inventoryItem == null){
-            Debug.Log("First");
+    {
+        WasChange = true;
+        if (inventory[index].inventoryItem == null)
+        {
             inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
             return true;
-        } else if(inventory[index].inventoryItem == inventoryItem){
-            Debug.Log("Second");
+        }
+        else if (inventory[index].inventoryItem == inventoryItem)
+        {
             inventory[index].count++;
             return true;
         }
@@ -33,7 +37,6 @@ public class InventoryPlayer : MonoBehaviour
         {
             if (inventory[i].inventoryItem == inventoryItem)
             {
-                Debug.Log("Third");
                 inventory[index].count++;
                 return true;
             }
@@ -42,17 +45,16 @@ public class InventoryPlayer : MonoBehaviour
         {
             if (inventory[i].inventoryItem == null)
             {
-                Debug.Log("Firth");
                 inventory[i].inventoryItem = inventoryItem;
                 inventory[i].count++;
                 return true;
             }
             else continue;
         }
-        
+
         return false;
     }
-    public void RemoveItem(Vector3 spawnPos,Vector3 pos)
+    public void RemoveItem(Vector3 spawnPos, Vector3 pos)
     {
         WasChange = true;
         if (inventory[index].inventoryItem == null)
@@ -62,7 +64,7 @@ public class InventoryPlayer : MonoBehaviour
         inventory[index].count--;
         StartCoroutine(Recherge());
         Instantiate(inventory[index].inventoryItem.prefab, spawnPos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
-        if(inventory[index].count == 0)
+        if (inventory[index].count == 0)
         {
             inventory[index].inventoryItem = null;
         }
@@ -81,17 +83,18 @@ public class InventoryPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha5))
             index = 4;
 
-        if(inventory[lastindex] != null && inventory[index] != null)
+        if (inventory[lastindex] != null && inventory[index] != null)
         {
-            inventory[lastindex].image.color = Color.white;
-            inventory[index].image.color = Color.grey;
+            ImageCresses[lastindex].color = Color.white;
+            ImageCresses[index].color = Color.grey;
         }
         if (Input.GetMouseButtonDown(1))
         {
-            RemoveItem(canonEnter.transform.position,-canonEnter.transform.forward * speed);
+            RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * speed);
         }
     }
-    private IEnumerator Recherge(){
+    private IEnumerator Recherge()
+    {
         canon.isIenumeratorenabled = true;
         canonEnter.enabled = false;
         yield return new WaitForSecondsRealtime(2);
