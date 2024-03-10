@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9039188387898031932}
   - component: {fileID: 6994540717026710030}
-  - component: {fileID: 9590374515332622}
+  - component: {fileID: 4753185185037486901}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -54,7 +54,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0.0040826797, y: 0.10316461, z: 0}
---- !u!114 &9590374515332622
+--- !u!114 &4753185185037486901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,10 +63,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 843380431489771834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c23c84e102dee4b96e0e07bcea9696, type: 3}
+  m_Script: {fileID: 11500000, guid: ba890c00e588b6641a8a8402cb0eeb93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  receptacleScript: {fileID: 0}
 --- !u!1 &3225694182492953968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,7 +1250,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
         type: 3}
       propertyPath: m_Name
-      value: Animated RockCapybara
+      value: RockAnim
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
         type: 3}

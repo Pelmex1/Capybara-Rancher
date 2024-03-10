@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class MagneticCollider : MonoBehaviour
@@ -15,17 +13,17 @@ public class MagneticCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<FoodItem>().isGenerable)
-        {
-            targetObject = other.transform;
-            StartCoroutine(MagnetismToTargetPos());
-        }
+        FoodItem foodItem;
+        other.gameObject.TryGetComponent(out foodItem);
+        if (foodItem)
+            if (foodItem.isGenerable)
+                StartCoroutine(MagnetismToTargetPos(other.transform));
     }
-    IEnumerator MagnetismToTargetPos()
+     IEnumerator MagnetismToTargetPos(Transform thisTargetObject)
     {
-        while(targetObject != null)
+        while(thisTargetObject != null)
         {
-            targetObject.position = Vector3.Lerp(targetObject.position, targetPos, speedOfMagnetism * Time.deltaTime);
+            thisTargetObject.position = Vector3.Lerp(thisTargetObject.position, targetPos, speedOfMagnetism * Time.deltaTime);
             yield return null;
         }
     }
