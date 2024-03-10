@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c894d45db53db9f468d5cb8ca2213c73, type: 3}
+  m_Name: LeoCrystal
+  m_EditorClassIdentifier: 
+  Name: Leo Crystal
+  image: {fileID: 547092272219251028, guid: 7df56375ce599044683fe1834a1c5378, type: 3}
+  prefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc, type: 3}
+  color: {r: 1, g: 0.7848825, b: 0, a: 0}

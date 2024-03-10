@@ -6,7 +6,7 @@ public class MagneticCollider : MonoBehaviour
     [SerializeField] private float speedOfMagnetism = 1f;
     [SerializeField] private Transform targetPosTransform;
     private Vector3 targetPos;
-
+    private Transform targetObject;
     private void Start()
     {
         targetPos = targetPosTransform.position;
@@ -19,12 +19,12 @@ public class MagneticCollider : MonoBehaviour
             if (foodItem.isGenerable)
                 StartCoroutine(MagnetismToTargetPos(other.transform));
     }
-    IEnumerator MagnetismToTargetPos(Transform thisTargetObject)
+     IEnumerator MagnetismToTargetPos(Transform thisTargetObject)
     {
         while(thisTargetObject != null)
         {
             thisTargetObject.position = Vector3.Lerp(thisTargetObject.position, targetPos, speedOfMagnetism * Time.deltaTime);
             yield return null;
         }
-    } 
+    }
 }
