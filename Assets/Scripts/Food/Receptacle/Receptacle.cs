@@ -19,7 +19,7 @@ public class Receptacle : MonoBehaviour
     public void ChangeFarm(int spawnIndex)
     {
         spawnTransform = UIBuilding.ParentPlace.transform;
-        UIBuilding.NewObject = Instantiate(farmPrefabs[spawnIndex], spawnTransform.position, spawnTransform.rotation);
+        UIBuilding.NewObject = Instantiate(farmPrefabs[spawnIndex], spawnTransform.position, spawnTransform.rotation, UIBuilding.ParentPosition);
         Destroy(emptyFarm);
 
         GetComponent<Receptacle>().enabled = false;

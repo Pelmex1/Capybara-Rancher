@@ -29,6 +29,7 @@ public class UIBilding : MonoBehaviour
             {
                 if (AllBuilding[i].name == NameBuilding)
                 {
+                    Destroy(FirstObject);
                     NewObject = Instantiate(AllBuilding[i], ParentPosition.transform);
                     if (NewObject.TryGetComponent<Receptacle>(out var receptacle))
                         receptacle.UIBuilding = this;
