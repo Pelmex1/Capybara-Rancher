@@ -1264,8 +1264,53 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5e46f5f40923bd749994417d7a21f89f, type: 2}
     - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 76.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 76.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 76.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1451,7 +1496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17,
     type: 3}
-  whatEat: 2
+  whatEat: 3
   nameOfFavouriteFood: Carrot
 --- !u!4 &8946554977823586332 stripped
 Transform:

@@ -164,6 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextCapibara: {fileID: 1885999244023908055, guid: 096b975bc5ada4445802971a0feeb7b2,
     type: 3}
-  price: 15
+  price: 20
   nameOfFavouriteFoodThisType: Pink Chicken
   whatEatThisType: 3

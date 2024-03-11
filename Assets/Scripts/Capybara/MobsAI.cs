@@ -69,8 +69,7 @@ public class MobsAi : MonoBehaviour
         this.newCrystal = newCrystal;
         nameOfFavouriteFood2 = nameOfSecondFavouriteFood;
         whatEat2 = whatEatSecond;
-        GameObject mod = Instantiate(modification, transform);
-        mod.transform.localPosition = Vector3.zero;
+        Instantiate(modification, transform);
         movebleObject.enabled = false;
         tag = "Untagged";
         hasTransformed = true;

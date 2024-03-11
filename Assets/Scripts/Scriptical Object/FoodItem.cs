@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum FoodType
 {
-    All, Fruit, Vegetable, Meat
+    zero, All, Fruit, Vegetable, Meat
 }
 public class FoodItem : MonoBehaviour
 {
