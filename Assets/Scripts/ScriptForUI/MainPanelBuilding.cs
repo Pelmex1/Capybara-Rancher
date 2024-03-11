@@ -7,7 +7,6 @@ public class MainPanelBuilding : MonoBehaviour
 {
     public int IndexPlace;
     public Transform PositionPlace;
-    private int Money = 1000;
     public GameObject FirstPlace;
     public GameObject NewPlace;
     public GameObject ParentObject;
@@ -26,7 +25,7 @@ public class MainPanelBuilding : MonoBehaviour
  */
     private void LateUpdate()
     {
-        TextMoney.text = $"{Money}";
+        TextMoney.text = $"{Iinstance.instance.money}";
     }
 
     public void SelectBuild(GameObject PanelsInfPlace)
@@ -57,7 +56,7 @@ public class MainPanelBuilding : MonoBehaviour
     {
         if (UIBuilding.NewObject == null)
         {
-            Money -= 150;
+            Iinstance.instance.money -= 150;
             Destroy(FirstPlace);
             UIBuilding.NewObject = Instantiate(objectWichBuy, PositionPlace, ParentObject);
             if (UIBuilding.NewObject.TryGetComponent<Receptacle>(out var receptacle))

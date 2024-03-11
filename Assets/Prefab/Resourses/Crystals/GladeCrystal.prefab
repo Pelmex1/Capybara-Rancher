@@ -164,6 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextCapibara: {fileID: 1885999244023908055, guid: 90877c75fec5b6f458322d494956b6bb,
     type: 3}
-  price: 5
+  price: 8
   nameOfFavouriteFoodThisType: '-'
   whatEatThisType: 0
