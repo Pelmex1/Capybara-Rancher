@@ -95,10 +95,10 @@ public class InventoryPlayer : MonoBehaviour
     }
     private IEnumerator Recherge()
     {
-        canon.isIenumeratorenabled = true;
+        canon.IsIenumeratorenabled = true;
         canonEnter.enabled = false;
         yield return new WaitForSecondsRealtime(2);
         canonEnter.enabled = true;
-        canon.isIenumeratorenabled = false;
+        canon.IsIenumeratorenabled = false;
     }
 }
