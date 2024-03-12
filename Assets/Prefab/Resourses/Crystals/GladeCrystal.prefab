@@ -166,4 +166,4 @@ MonoBehaviour:
     type: 3}
   price: 8
   nameOfFavouriteFoodThisType: '-'
-  whatEatThisType: 0
+  whatEatThisType: 1

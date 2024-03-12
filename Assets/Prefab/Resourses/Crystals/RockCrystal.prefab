@@ -166,4 +166,4 @@ MonoBehaviour:
     type: 3}
   price: 10
   nameOfFavouriteFoodThisType: Carrot
-  whatEatThisType: 2
+  whatEatThisType: 3
