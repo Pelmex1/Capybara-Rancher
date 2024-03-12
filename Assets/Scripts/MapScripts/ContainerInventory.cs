@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 public class ContainerInventory : MonoBehaviour
 {
@@ -34,9 +33,16 @@ public class ContainerInventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && isNearChest){
             UpdateChestUI(chestCell);
             UpdateInventoryUI(playerInventory.inventory);
+            Cursor.lockState = CursorLockMode.Confined;
             InventoryPanel.SetActive(true);
             ChestPanel.SetActive(true);
             HelpUI.SetActive(false);
         }
     }
+    
+    public void Exit(){
+        Cursor.lockState = CursorLockMode.Locked;
+        InventoryPanel.SetActive(false);
+        ChestPanel.SetActive(false);
+    } 
 }

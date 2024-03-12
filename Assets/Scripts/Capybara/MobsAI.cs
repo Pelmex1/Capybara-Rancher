@@ -17,11 +17,13 @@ public class MobsAi : MonoBehaviour
     private string nameOfFavouriteFood2;
 
     private Animator animator;
+    private void Awake() {
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        movebleObject = GetComponent<MovebleObject>(); 
+    }
     private void Start() 
     {
-        animator = GetComponent<Animator>();
-        movebleObject = GetComponent<MovebleObject>();
-        agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Moving());
 
         whatEat1 = capybaraData.whatEat;
@@ -101,7 +103,7 @@ public class MobsAi : MonoBehaviour
     {
         while (true)
         {
-            if (!isfoodfound)
+            if (!isfoodfound && Time.timeScale == 1f)
             {
                 agent.SetDestination(FoundTarget());
             }

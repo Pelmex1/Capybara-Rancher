@@ -12,16 +12,11 @@ public class CanonCollider : MonoBehaviour
     {
         if(other.gameObject.CompareTag("movebleObject"))
         {
-            if(inventoryPlayer.AddItemInInventory(other.gameObject.GetComponent<MovebleObject>().data))
+            MovebleObject movebleObject = other.gameObject.GetComponent<MovebleObject>();
+            if(inventoryPlayer.AddItemInInventory(movebleObject.data))
             {   
-                try
-                {
-                    Somecanon.obdjectsInCollider.Remove(other.gameObject.transform);
-                }
-                finally
-                {
-                    Destroy(other.gameObject);
-                }
+                Somecanon.obdjectsInCollider.Remove(movebleObject);
+                Destroy(other.gameObject);
             }
         };
     }
