@@ -105,16 +105,25 @@ public class MobsAi : MonoBehaviour
         {
             if (!isfoodfound && Time.timeScale == 1f)
             {
-                agent.SetDestination(FoundTarget());
+                if(agent.enabled)
+                    agent.SetDestination(FoundTarget());
+            }
+            if(!agent.enabled)
+            {
+                yield return new WaitForSecondsRealtime(1f);
+                continue;            
             }
             yield return new WaitForSecondsRealtime(Random.Range(5f, 20f));
         }
     }
 
-    public void IsFoodFound(Vector3 pos)
+    public void IsFoodFound(Transform foodTransform)
     {
-        isfoodfound = true;
-        agent.SetDestination(pos);
+        if (agent.enabled)
+        {
+            isfoodfound = true;
+            agent.SetDestination(foodTransform.position);
+        }
     }
     private IEnumerator GenerateCrystals(bool isFavouriteFood){
         yield return new WaitForSecondsRealtime(2f);

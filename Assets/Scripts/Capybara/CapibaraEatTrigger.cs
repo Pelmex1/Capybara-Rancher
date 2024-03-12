@@ -10,7 +10,7 @@ public class CapibaraEatTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         if(other.gameObject.GetComponent<FoodItem>()){
-            mobsAi.IsFoodFound(other.transform.position);
+            mobsAi.IsFoodFound(other.transform);
         }
     }
 }

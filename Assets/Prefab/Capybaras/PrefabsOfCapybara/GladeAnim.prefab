@@ -225,6 +225,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3180365835458560116}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7086976881853122888}
   m_SourcePrefab: {fileID: 100100000, guid: bf035663c646eff4481429cf3117a200, type: 3}
 --- !u!4 &42882100474849410 stripped
 Transform:
@@ -260,10 +264,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &4999560861955452825
 BoxCollider:
@@ -284,8 +288,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3679586, y: 0.4123584, z: 0.9383879}
-  m_Center: {x: 0, y: 0.3, z: 0.1}
+  m_Size: {x: 0.3679586, y: 0.49958295, z: 0.9383879}
+  m_Center: {x: 0, y: 0.25638774, z: 0.100000024}
 --- !u!195 &6987817135452523035
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -293,7 +297,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852176107350716984}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: -1923039037
   m_Radius: 0.023079664
   m_Speed: 3.5
@@ -371,3 +375,16 @@ MonoBehaviour:
     type: 3}
   whatEat: 1
   nameOfFavouriteFood: '-'
+--- !u!114 &7086976881853122888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852176107350716984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0

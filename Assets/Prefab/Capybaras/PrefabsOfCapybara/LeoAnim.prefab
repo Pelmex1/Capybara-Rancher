@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 3274654424540058306}
   - component: {fileID: 3429255849491122647}
   - component: {fileID: 6384907369205074937}
+  - component: {fileID: -5441619506484448385}
   m_Layer: 0
   m_Name: LeoAnim
   m_TagString: movebleObject
@@ -255,10 +256,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &4622901574625340152
 BoxCollider:
@@ -279,8 +280,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3679586, y: 0.4123584, z: 0.9383879}
-  m_Center: {x: 0, y: 0.3, z: 0.1}
+  m_Size: {x: 0.3679586, y: 0.49958295, z: 0.9383879}
+  m_Center: {x: 0, y: 0.25638774, z: 0.100000024}
 --- !u!195 &1013415841240682099
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -288,7 +289,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3357118594973065590}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: -1923039037
   m_Radius: 0.023079664
   m_Speed: 3.5
@@ -366,6 +367,19 @@ MonoBehaviour:
     type: 3}
   whatEat: 4
   nameOfFavouriteFood: Pink Chicken
+--- !u!114 &-5441619506484448385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357118594973065590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0
 --- !u!1 &3499661163341319371
 GameObject:
   m_ObjectHideFlags: 0
