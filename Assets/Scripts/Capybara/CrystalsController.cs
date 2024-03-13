@@ -8,7 +8,7 @@ public class CrystalsController : MonoBehaviour
     [SerializeField] private float delayBeforeStarving = 60f;
     private CapybaraItem capybaraData;
     private MobsAi mobsAi;
-    public bool isStarve {get; set;} = true;
+    public bool isStarve {get; set;} = false;
     public bool hasTransformed {get; set;} = false;
     public GameObject newCrystal {get; set;}
     void Start()

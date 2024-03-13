@@ -25,10 +25,6 @@ public class NavMeshAgentController : MonoBehaviour
             agent.enabled = isGrounded;
         }
     }
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        isGrounded = collision.gameObject.CompareTag("Ground");
-    }*/
     private void IsGrounded()
     {
         Vector3 raycastOrigin = transform.position;
