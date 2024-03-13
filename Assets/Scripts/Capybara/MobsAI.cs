@@ -5,22 +5,24 @@ using UnityEngine.AI;
 
 public class MobsAi : MonoBehaviour
 {
-    [SerializeField] private CapybaraItem capybaraData;
+    private CapybaraItem capybaraData;
     private NavMeshAgent agent;
-    private bool isfoodfound = false;
-    private GameObject newCrystal;
     private MovebleObject movebleObject;
-    private bool hasTransformed = false;
     private FoodType whatEat1;
     private FoodType whatEat2;
     private string nameOfFavouriteFood1;
     private string nameOfFavouriteFood2;
+    private CrystalsController crystalsController;
+    private bool hasTransformed {get; set;} = false;
+    public bool isfoodfound {get; set;} = false ;
 
     private Animator animator;
     private void Awake() {
+        capybaraData = GetComponent<CapybaraItem>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         movebleObject = GetComponent<MovebleObject>(); 
+        crystalsController =  GetComponent<CrystalsController>(); 
     }
     private void Start() 
     {
@@ -37,18 +39,18 @@ public class MobsAi : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("movebleObject"))
         {
-            if (collision.gameObject.GetComponent<FoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false)
+            if (collision.gameObject.GetComponent<FoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && crystalsController.isStarve)
             {
                 string nameOfFood = collision.gameObject.GetComponent<MovebleObject>().data.name;
                 FoodType typeOfFood = collision.gameObject.GetComponent<FoodItem>().type;
                 if (nameOfFavouriteFood1 == nameOfFood || nameOfFavouriteFood2 == nameOfFood)
                 {
-                    StartCoroutine(GenerateCrystals(true));
+                    StartCoroutine(crystalsController.GenerateCrystals(true));
                     Destroy(collision.gameObject);
                 }
                 else if ((whatEat1 == FoodType.All || whatEat1 == typeOfFood) || (whatEat2 == FoodType.All || whatEat2 == typeOfFood))
                 {
-                    StartCoroutine(GenerateCrystals(false));
+                    StartCoroutine(crystalsController.GenerateCrystals(false));
                     Destroy(collision.gameObject);
                 }
             }
@@ -56,9 +58,8 @@ public class MobsAi : MonoBehaviour
             {
                 CrystalItem dataCr = collision.gameObject.GetComponent<CrystalItem>();
                 InventoryItem dataIn = collision.gameObject.GetComponent<MovebleObject>().data;
-                if (dataCr.price != 0 && (capybaraData.crystalPrefab != dataIn.prefab && newCrystal != dataIn.prefab) && !hasTransformed)
+                if (dataCr.price != 0 && (capybaraData.crystalPrefab != dataIn.prefab && crystalsController.newCrystal != dataIn.prefab) && !hasTransformed)
                 {
-                    Debug.Log("FoundCrystal");
                     TransformationToAnotherCapybara(dataIn.prefab, dataCr.nextCapibara, dataCr.nameOfFavouriteFoodThisType, dataCr.whatEatThisType);
                     Destroy(collision.gameObject);
                 }
@@ -68,13 +69,13 @@ public class MobsAi : MonoBehaviour
     private void TransformationToAnotherCapybara(GameObject newCrystal, GameObject modification, string nameOfSecondFavouriteFood, FoodType whatEatSecond)
     {
         transform.localScale *= 1.5f;
-        this.newCrystal = newCrystal;
+        crystalsController.newCrystal = newCrystal;
         nameOfFavouriteFood2 = nameOfSecondFavouriteFood;
         whatEat2 = whatEatSecond;
         Instantiate(modification, transform);
         movebleObject.enabled = false;
         tag = "Untagged";
-        hasTransformed = true;
+        crystalsController.hasTransformed = true;
     }
     private Vector3 RandomPosition()
     {
@@ -125,29 +126,5 @@ public class MobsAi : MonoBehaviour
             agent.SetDestination(foodTransform.position);
         }
     }
-    private IEnumerator GenerateCrystals(bool isFavouriteFood){
-        yield return new WaitForSecondsRealtime(2f);
-        Vector3 spawnPos = transform.position + new Vector3(0f, 1f, 0f);
-        int crystalCount = isFavouriteFood ? 2 : 1;
-        for (int i = 0; i < crystalCount; i++)
-        {
-            GameObject crystal1 = Instantiate(capybaraData.crystalPrefab, spawnPos, Quaternion.identity);
-            crystal1.GetComponent<Rigidbody>().AddForce(RandomForceAdd() * 0.3f, ForceMode.Impulse);
-
-            if (hasTransformed)
-            {
-                GameObject crystal2 = Instantiate(newCrystal, spawnPos, Quaternion.identity);
-                crystal2.GetComponent<Rigidbody>().AddForce(RandomForceAdd() * 0.3f, ForceMode.Impulse);
-            }
-        }
-
-        isfoodfound = false;
-    }
-    private Vector3 RandomForceAdd(){
-        float radius = 5f;
-        float posx = Random.Range(transform.position.x + radius, transform.position.x - radius);
-        float posZ = Random.Range(transform.position.z + radius, transform.position.z - radius);
-        Vector3 pos = new (posx, transform.position.y, posZ);
-        return pos;
-    }
+    
 }

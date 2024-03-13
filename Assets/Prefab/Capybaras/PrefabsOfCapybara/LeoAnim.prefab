@@ -109,6 +109,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 118377664978626739}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7277c663702627646be1776b208400c6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6901179415855493431}
   m_SourcePrefab: {fileID: 100100000, guid: 7277c663702627646be1776b208400c6, type: 3}
 --- !u!1 &2994373093089687005 stripped
 GameObject:
@@ -219,7 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4873d49f636262e4fbfa0c314f7a0620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capybaraData: {fileID: 7966290993089450422}
 --- !u!114 &2543070193566693444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,3 +264,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6901179415855493431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994373093089687005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394bc715a2fd5044c848960961715f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBeforeCrystalSpawn: 10
+  delayBeforeStarving: 60
