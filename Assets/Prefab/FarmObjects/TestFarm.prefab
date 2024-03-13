@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Area
       objectReference: {fileID: 0}
+    - target: {fileID: 2237386376475203733, guid: 5287db17601327e45b643ba423e61181,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6319985910605811661, guid: 5287db17601327e45b643ba423e61181,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -135,7 +140,7 @@ PrefabInstance:
     - target: {fileID: 9050577593196518879, guid: c0f274166d8c44b40b6c054d24f4e197,
         type: 3}
       propertyPath: m_Name
-      value: WorkingReceptacle Variant
+      value: TestFarm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

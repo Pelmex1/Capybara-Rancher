@@ -25,9 +25,6 @@ public class NavMeshAgentController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-            if (collision.gameObject.CompareTag("Ground"))
-               IsGrounded = true;
-            else
-                IsGrounded = false;
+        IsGrounded = collision.gameObject.CompareTag("Ground");
     }
 }

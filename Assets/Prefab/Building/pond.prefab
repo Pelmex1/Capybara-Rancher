@@ -63,6 +63,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: pond
       objectReference: {fileID: 0}
+    - target: {fileID: 1293414114768970178, guid: d729baec694ecc542846a78474ae9b31,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148817236446094103, guid: d729baec694ecc542846a78474ae9b31,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
