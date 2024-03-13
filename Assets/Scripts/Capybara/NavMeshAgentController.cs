@@ -5,7 +5,7 @@ public class NavMeshAgentController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Rigidbody rb;
-    private bool isGrounded;
+    public bool IsGrounded {get; set;}
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -17,22 +17,17 @@ public class NavMeshAgentController : MonoBehaviour
     }
     private void ChangeComponents()
     {
-        rb.useGravity = !isGrounded;
-        rb.isKinematic = isGrounded;
-        agent.enabled = isGrounded;
+        if(agent.enabled){
+            rb.useGravity = !IsGrounded;
+            rb.isKinematic = IsGrounded;
+            agent.enabled = IsGrounded;
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
-        try
-        {
             if (collision.gameObject.CompareTag("Ground"))
-               isGrounded = true;
+               IsGrounded = true;
             else
-                isGrounded = false;
-        }
-        finally
-        {
-
-        }
+                IsGrounded = false;
     }
 }

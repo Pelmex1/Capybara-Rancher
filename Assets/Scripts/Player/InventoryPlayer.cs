@@ -29,14 +29,14 @@ public class InventoryPlayer : MonoBehaviour
             inventory[index].count++;
             return true;
         }
-        else if (inventory[index].inventoryItem == inventoryItem)
+        else if (inventory[index].inventoryItem == inventoryItem && inventory[index].count < 20)
         {
             inventory[index].count++;
             return true;
         }
         for (int i = 0; i < inventory.Length; i++)
         {
-            if (inventory[i].inventoryItem == inventoryItem)
+            if (inventory[i].inventoryItem == inventoryItem && inventory[index].count < 20)
             {
                 inventory[index].count++;
                 return true;
@@ -74,9 +74,9 @@ public class InventoryPlayer : MonoBehaviour
     {
         int lastindex = index;
         float ScrollDelta = Input.mouseScrollDelta.y;
-        if (ScrollDelta < 0 & index < 5)
+        if (ScrollDelta < 0 && index < 5)
             ChangeIndex(-1);
-        else if (ScrollDelta > 0 & index >= 0)
+        else if (ScrollDelta > 0 && index >= 0)
             ChangeIndex(1);
         if (Input.GetKey(KeyCode.Alpha1))
             index = 0;
