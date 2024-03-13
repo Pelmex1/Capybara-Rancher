@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class LocalOptions : MonoBehaviour
@@ -11,19 +12,40 @@ public class LocalOptions : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private TMP_Dropdown DropdownScreen;
+    [SerializeField] private TMP_Text textQuality;
+
 
     private bool isActiveButtonSound;
 
+    private int Quality;
+    private bool WasChangeQuality = false;
     private void Awake()
     {
         if (PlayerPrefs.HasKey("Quality"))
         {
-            int Quality = PlayerPrefs.GetInt("Quality");
+            Quality = PlayerPrefs.GetInt("Quality");
+            Debug.Log(Quality);
             QualitySettings.SetQualityLevel(Quality, true);
+            switch (Quality)
+            {
+                case 0:
+                    Debug.Log(Quality);
+                    textQuality.text = "Low";
+                    break;
+                case 1:
+                    Debug.Log(Quality);
+                    textQuality.text = "Medium";
+                    break;
+                case 2:
+                    Debug.Log(Quality);
+                    textQuality.text = "High";
+                    break;
+            }
         }
         else
         {
-            QualitySettings.SetQualityLevel(dropdown.value, true);
+            textQuality.text = "Low";
+            QualitySettings.SetQualityLevel(0, true);
         }
         if (PlayerPrefs.GetInt("KeyScreenX") == 0)
         {
@@ -64,8 +86,34 @@ public class LocalOptions : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (WasChangeQuality)
+        {
+            Quality = PlayerPrefs.GetInt("Quality");
+            Debug.Log(Quality);
+            QualitySettings.SetQualityLevel(Quality, true);
+            switch (Quality)
+            {
+                case 0:
+                    textQuality.text = "Low";
+                    break;
+                case 1:
+                    textQuality.text = "Medium";
+                    break;
+                case 2:
+                    textQuality.text = "High";
+                    break;
+            }
+            WasChangeQuality = false;
+        }
+
+    }
+
+
     public void CheckDropdown()
     {
+        WasChangeQuality = true;
         QualitySettings.SetQualityLevel(dropdown.value, true);
         PlayerPrefs.SetInt("Quality", dropdown.value);
         PlayerPrefs.Save();
@@ -110,27 +158,34 @@ public class LocalOptions : MonoBehaviour
 
     public void ChangeScreen()
     {
-        if (DropdownScreen.value == 0)
+        int screenX = 0;
+        int screenY = 0;
+
+        switch (DropdownScreen.value)
         {
-            Screen.fullScreen = true;
-            SaveScreen(0, 0);
+            case 0:
+                Screen.fullScreen = true;
+                break;
+            case 1:
+                Screen.SetResolution(1920, 1080, true);
+                screenX = 1920;
+                screenY = 1080;
+                break;
+            case 2:
+                Screen.SetResolution(1536, 864, true);
+                screenX = 1536;
+                screenY = 864;
+                break;
+            case 3:
+                Screen.SetResolution(1366, 768, true);
+                screenX = 1366;
+                screenY = 768;
+                break;
         }
-        else if (DropdownScreen.value == 1)
-        {
-            Screen.SetResolution(1920, 1080, true);
-            SaveScreen(1920, 1080);
-        }
-        else if (DropdownScreen.value == 2)
-        {
-            Screen.SetResolution(1536, 864, true);
-            SaveScreen(1536, 864);
-        }
-        else if (DropdownScreen.value == 3)
-        {
-            Screen.SetResolution(1366, 768, true);
-            SaveScreen(1366, 768);
-        }
+
+        SaveScreen(screenX, screenY);
     }
+
 
 
     private void SaveScreen(int ScreenX, int ScreenY)

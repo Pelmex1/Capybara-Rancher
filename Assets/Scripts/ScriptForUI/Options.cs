@@ -16,20 +16,37 @@ public class Options : MonoBehaviour
 
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private TMP_Dropdown DropdownScreen;
+    [SerializeField] private TMP_Text textQuality;
 
 
     private bool isActiveButtonSound;
+               
+    private int Quality;
 
     private void Awake()
     {
         if(PlayerPrefs.HasKey("Quality"))
         {
-            int Quality =  PlayerPrefs.GetInt("Quality");
+            Quality =  PlayerPrefs.GetInt("Quality");
             QualitySettings.SetQualityLevel(Quality, true);
+            switch(Quality)
+            {
+                case 1:
+                    textQuality.text = "Low";
+                    break;
+                case 2:
+                    textQuality.text = "Medium";  
+                    break;                  
+                case 3:
+                    textQuality.text = "High";               
+                break;
+            }             
         }
         else
         {
-            QualitySettings.SetQualityLevel(dropdown.value, true);
+            Debug.Log("change");
+            textQuality.text = "Low"; 
+            QualitySettings.SetQualityLevel(0, true);
         }
         if(PlayerPrefs.GetInt("KeyScreenX") == 0)
         {
