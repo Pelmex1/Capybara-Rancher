@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class InventoryPlayer : MonoBehaviour
@@ -72,6 +73,11 @@ public class InventoryPlayer : MonoBehaviour
     private void Update()
     {
         int lastindex = index;
+        float ScrollDelta = Input.mouseScrollDelta.y;
+        if (ScrollDelta < 0 & index < 5)
+            ChangeIndex(-1);
+        else if (ScrollDelta > 0 & index >= 0)
+            ChangeIndex(1);
         if (Input.GetKey(KeyCode.Alpha1))
             index = 0;
         if (Input.GetKey(KeyCode.Alpha2))
@@ -92,6 +98,12 @@ public class InventoryPlayer : MonoBehaviour
         {
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * speed);
         }
+    }
+
+    private void ChangeIndex(int delta)
+    {
+        index += delta;
+        index = Mathf.Clamp(index, 0, 4);
     }
     private IEnumerator Recherge()
     {

@@ -48,7 +48,7 @@ public class CreatNewGame : MonoBehaviour
             };
             inventory.LoadData(newItem);
             saveData.SaveToJson();
-            SceneManager.LoadScene("Level");
+            SceneManager.LoadScene("Map");
             PlayerPrefs.DeleteAll();
         }
 

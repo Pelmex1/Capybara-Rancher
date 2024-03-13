@@ -35,7 +35,7 @@ public class MainMenu : MonoBehaviour
                 PlayerPrefs.SetString("KeyGame",name);
             }
         }
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene("Map");
         PlayerPrefs.Save();
     }
 
