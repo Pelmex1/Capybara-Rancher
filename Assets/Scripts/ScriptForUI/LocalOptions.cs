@@ -24,19 +24,18 @@ public class LocalOptions : MonoBehaviour
         if (PlayerPrefs.HasKey("Quality"))
         {
             Quality = PlayerPrefs.GetInt("Quality");
-            Debug.Log(Quality);
             QualitySettings.SetQualityLevel(Quality, true);
             switch (Quality)
             {
-                case 0:
+                case 1:
                     Debug.Log(Quality);
                     textQuality.text = "Low";
                     break;
-                case 1:
+                case 2:
                     Debug.Log(Quality);
                     textQuality.text = "Medium";
                     break;
-                case 2:
+                case 3:
                     Debug.Log(Quality);
                     textQuality.text = "High";
                     break;
@@ -86,36 +85,23 @@ public class LocalOptions : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        if (WasChangeQuality)
-        {
-            Quality = PlayerPrefs.GetInt("Quality");
-            Debug.Log(Quality);
-            QualitySettings.SetQualityLevel(Quality, true);
-            switch (Quality)
-            {
-                case 0:
-                    textQuality.text = "Low";
-                    break;
-                case 1:
-                    textQuality.text = "Medium";
-                    break;
-                case 2:
-                    textQuality.text = "High";
-                    break;
-            }
-            WasChangeQuality = false;
-        }
-
-    }
-
-
     public void CheckDropdown()
     {
         WasChangeQuality = true;
         QualitySettings.SetQualityLevel(dropdown.value, true);
         PlayerPrefs.SetInt("Quality", dropdown.value);
+        switch (Quality)
+        {
+            case 1:
+                textQuality.text = "Low";
+                break;
+            case 2:
+                textQuality.text = "Medium";
+                break;
+            case 3:
+                textQuality.text = "High";
+                break;
+        }
         PlayerPrefs.Save();
     }
     public void ButtonSoundOnClick()

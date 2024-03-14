@@ -18,7 +18,10 @@ public class UIInventory : MonoBehaviour
     private void Awake()
     {
         chestCell = inventoryPlayer.inventory;
-        Crosses = inventoryPlayer.ImageCresses;
+        for(int i = 0; i < chestCell.Length;i++)
+        {
+            Crosses[i] = chestCell[i].image;
+        }       
     }
 
     private void LateUpdate()

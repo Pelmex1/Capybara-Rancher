@@ -13,7 +13,6 @@ public class InventoryPlayer : MonoBehaviour
     private Canon canon;
 
     public ChestCell[] inventory = new ChestCell[5];
-    public Image[] ImageCresses = new Image[5];
     public bool WasChange = false;
 
     private void Start()
@@ -91,8 +90,8 @@ public class InventoryPlayer : MonoBehaviour
 
         if (inventory[lastindex] != null && inventory[index] != null)
         {
-            ImageCresses[lastindex].color = Color.white;
-            ImageCresses[index].color = Color.grey;
+            inventory[lastindex].image.color= Color.white;
+            inventory[index].image.color = Color.grey;
         }
         if (Input.GetMouseButtonDown(1))
         {
