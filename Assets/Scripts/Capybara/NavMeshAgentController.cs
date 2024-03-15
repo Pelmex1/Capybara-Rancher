@@ -5,8 +5,8 @@ public class NavMeshAgentController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Rigidbody rb;
-    private float raycastDistance = 0.6f;
-    public bool isGrounded {get; set;}
+    private float raycastDistance = 0.7f;
+    public bool isGrounded;// {get; set;}
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -19,11 +19,10 @@ public class NavMeshAgentController : MonoBehaviour
     }
     private void ChangeComponents()
     {
-        if(agent.enabled){
-            rb.useGravity = !isGrounded;
-            rb.isKinematic = isGrounded;
-            agent.enabled = isGrounded;
-        }
+        rb.useGravity = !isGrounded;
+        rb.isKinematic = isGrounded;
+        agent.enabled = isGrounded;
+        
     }
     private void IsGrounded()
     {
@@ -33,9 +32,13 @@ public class NavMeshAgentController : MonoBehaviour
         RaycastHit hit;
         Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.green);
         if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, raycastDistance))
+        {
             if (hit.collider.CompareTag("Ground"))
-                isGrounded =  true;
+                isGrounded = true;
+            else if (hit.collider == null)
+                isGrounded = false;
+        }
         else
-            isGrounded =  false;
+            isGrounded = false;
     }
 }
