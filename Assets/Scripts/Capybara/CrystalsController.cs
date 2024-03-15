@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CrystalsController : MonoBehaviour
@@ -15,8 +14,10 @@ public class CrystalsController : MonoBehaviour
     {
         capybaraData = GetComponent<CapybaraItem>();
         mobsAi = GetComponent<MobsAi>();
+        StartCoroutine(LoopToStarving());
     }
-    public IEnumerator GenerateCrystals(bool isFavouriteFood){
+    public IEnumerator GenerateCrystals(bool isFavouriteFood)
+    {
         isStarve = false;
         mobsAi.isfoodfound = false;
         yield return new WaitForSecondsRealtime(delayBeforeCrystalSpawn);
@@ -30,16 +31,18 @@ public class CrystalsController : MonoBehaviour
                 GameObject crystal2 = Instantiate(newCrystal, RandomVector3(), Quaternion.identity);
             }
         }
-
+        StartCoroutine(LoopToStarving());
     }
-    private Vector3 RandomVector3(){
+    private Vector3 RandomVector3()
+    {
         float radius = 1f;
         float posx = Random.Range(transform.position.x + radius, transform.position.x - radius);
         float posZ = Random.Range(transform.position.z + radius, transform.position.z - radius);
         Vector3 pos = new (posx, transform.position.y + 0.5f, posZ);
         return pos;
     }
-    private IEnumerator LoopToStarving(){
+    private IEnumerator LoopToStarving()
+    {
         yield return new WaitForSecondsRealtime(delayBeforeStarving);
         isStarve = true;
     }
