@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class InventoryPlayer : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
+
     private int index = 0;
     private readonly float speed = 10f;
     private Canon canon;
@@ -56,9 +57,11 @@ public class InventoryPlayer : MonoBehaviour
     }
     public void RemoveItem(Vector3 spawnPos, Vector3 pos)
     {
+
         WasChange = true;
         if (inventory[index].inventoryItem == null)
         {
+            canon.Portal2.SetActive(false);
             return;
         }
         inventory[index].count--;
@@ -90,11 +93,12 @@ public class InventoryPlayer : MonoBehaviour
 
         if (inventory[lastindex] != null && inventory[index] != null)
         {
-            inventory[lastindex].image.color= Color.white;
+            inventory[lastindex].image.color = Color.white;
             inventory[index].image.color = Color.grey;
         }
         if (Input.GetMouseButtonDown(1))
         {
+            canon.Portal2.SetActive(true);
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * speed);
         }
     }
@@ -106,9 +110,11 @@ public class InventoryPlayer : MonoBehaviour
     }
     private IEnumerator Recherge()
     {
+
         canon.IsIenumeratorenabled = true;
         canonEnter.enabled = false;
         yield return new WaitForSecondsRealtime(2);
+
         canonEnter.enabled = true;
         canon.IsIenumeratorenabled = false;
     }

@@ -4,12 +4,14 @@ using UnityEngine;
 public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
+    public GameObject Portal2;
     private readonly float speed = 3f;
     private Collider colliderCanon;
     private bool oneFunc = true;
 
     public List<MovebleObject> obdjectsInCollider = new();
-    public bool IsIenumeratorenabled {get; set;}
+
+    public bool IsIenumeratorenabled { get; set; }
     private void Start()
     {
         colliderCanon = GetComponent<BoxCollider>();
@@ -20,6 +22,7 @@ public class Canon : MonoBehaviour
         {
             if (!IsIenumeratorenabled)
             {
+                Portal2.SetActive(true);
                 canonEnter.enabled = true;
             }
             colliderCanon.enabled = true;
@@ -32,11 +35,13 @@ public class Canon : MonoBehaviour
         }
         else
         {
-            if(oneFunc){
+            Portal2.SetActive(false);
+            if (oneFunc)
+            {
                 for (int i = 0; i < obdjectsInCollider.Count; i++)
-                    {
-                        obdjectsInCollider[i].IsMoved = false;
-                    }
+                {
+                    obdjectsInCollider[i].IsMoved = false;
+                }              
                 canonEnter.enabled = false;
                 colliderCanon.enabled = false;
                 obdjectsInCollider.Clear();
