@@ -32,7 +32,7 @@ public class UIBilding : MonoBehaviour
                     Destroy(FirstObject);
                     NewObject = Instantiate(AllBuilding[i], ParentPosition.transform);
                     if (NewObject.TryGetComponent<Receptacle>(out var receptacle))
-                        receptacle.UIBuilding = this;
+                            receptacle.UIBuilding = this;
                     break;
                 }
                 else

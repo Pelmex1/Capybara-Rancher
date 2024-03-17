@@ -11,11 +11,6 @@ public class Receptacle : MonoBehaviour
 
     private Transform spawnTransform;
 
-    private void Start()
-    {
-        UIBuilding = transform.GetComponentInParent<UIBilding>();
-    }
-
     public void ChangeFarm(int spawnIndex)
     {
         spawnTransform = UIBuilding.ParentPlace.transform;
