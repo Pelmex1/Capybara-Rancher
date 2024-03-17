@@ -57,7 +57,6 @@ public class InventoryPlayer : MonoBehaviour
     }
     public void RemoveItem(Vector3 spawnPos, Vector3 pos)
     {
-
         WasChange = true;
         if (inventory[index].inventoryItem == null)
         {
@@ -98,7 +97,6 @@ public class InventoryPlayer : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            canon.Portal2.SetActive(true);
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * speed);
         }
     }
