@@ -54,7 +54,7 @@ public class MainPanelBuilding : MonoBehaviour
 
     public void Buy(GameObject objectWichBuy)
     {
-        if (UIBuilding.NewObject == null)
+        if (UIBuilding.NewObject == null && Iinstance.instance.money >= 150)
         {
             Iinstance.instance.money -= 150;
             Destroy(FirstPlace);
