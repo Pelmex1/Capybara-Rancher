@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject PanelMultiplayer;
     [SerializeField] private GameObject PanelLoad;
     [SerializeField] private GameObject PanelNewGame;
+    [SerializeField] private LoadingScript loadingScript;
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class MainMenu : MonoBehaviour
                 PlayerPrefs.SetString("KeyGame",name);
             }
         }
-        SceneManager.LoadScene("Map");
+        loadingScript.LoadlevelBtn("Map");
         PlayerPrefs.Save();
     }
 

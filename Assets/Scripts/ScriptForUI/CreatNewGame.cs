@@ -17,6 +17,7 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private GameObject ObjectIcons;
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
+    [SerializeField] private LoadingScript loadingScript;
     [SerializeField] private TMP_Text TextNameGame;
 
     private readonly SaveData saveData = new();
@@ -48,7 +49,7 @@ public class CreatNewGame : MonoBehaviour
             };
             inventory.LoadData(newItem);
             saveData.SaveToJson();
-            SceneManager.LoadScene("Map");
+            loadingScript.LoadlevelBtn("Map");
             PlayerPrefs.DeleteAll();
         }
 

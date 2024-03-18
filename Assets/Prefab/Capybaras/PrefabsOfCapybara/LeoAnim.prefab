@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2699934785096272673}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -131.07571, y: -9.8296995, z: -35.483643}
+  m_LocalPosition: {x: -65.86, y: -5.58, z: -20.09}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,17 +77,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 131.07571
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.029699
+      value: 5.297
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 35.483643
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7277c663702627646be1776b208400c6,
         type: 3}
@@ -137,17 +137,17 @@ PrefabInstance:
     - target: {fileID: 8879528566716807029, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -65.92
       objectReference: {fileID: 0}
     - target: {fileID: 8879528566716807029, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: -5.52
       objectReference: {fileID: 0}
     - target: {fileID: 8879528566716807029, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3
+      value: -20.1
       objectReference: {fileID: 0}
     - target: {fileID: 8879528566716807029, guid: 7277c663702627646be1776b208400c6,
         type: 3}
@@ -273,7 +273,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.3679586, y: 0.49958295, z: 0.850714}
-  m_Center: {x: 0, y: 0.25638774, z: 0.34383693}
+  m_Center: {x: -65.93, y: -5.44, z: -19.99}
 --- !u!195 &5360293753881996177
 NavMeshAgent:
   m_ObjectHideFlags: 0
