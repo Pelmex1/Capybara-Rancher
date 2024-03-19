@@ -39,7 +39,7 @@ public class MobsAi : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("movebleObject"))
         {
-            if (collision.gameObject.GetComponent<FoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && crystalsController.isStarve)
+            if (collision.gameObject.GetComponent<FoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && crystalsController.isHungry)
             {
                 string nameOfFood = collision.gameObject.GetComponent<MovebleObject>().data.name;
                 FoodType typeOfFood = collision.gameObject.GetComponent<FoodItem>().type;
