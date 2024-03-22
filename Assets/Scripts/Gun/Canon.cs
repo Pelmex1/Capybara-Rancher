@@ -18,7 +18,7 @@ public class Canon : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked)
         {
             if (!IsIenumeratorenabled)
             {

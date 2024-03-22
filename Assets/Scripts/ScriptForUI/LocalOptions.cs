@@ -18,7 +18,6 @@ public class LocalOptions : MonoBehaviour
     private bool isActiveButtonSound;
 
     private int Quality;
-    private bool WasChangeQuality = false;
     private void Awake()
     {
         if (PlayerPrefs.HasKey("Quality"))
@@ -87,7 +86,6 @@ public class LocalOptions : MonoBehaviour
 
     public void CheckDropdown()
     {
-        WasChangeQuality = true;
         QualitySettings.SetQualityLevel(dropdown.value, true);
         PlayerPrefs.SetInt("Quality", dropdown.value);
         switch (Quality)

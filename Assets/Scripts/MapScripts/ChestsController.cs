@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ChestsController : MonoBehaviour
 {
+    [SerializeField] private GameObject HelpUi;
     [SerializeField] private GameObject InventoryPanel;
     [SerializeField] private GameObject ChestPanel;
     [SerializeField] private Transform CellsCanvas;
@@ -56,12 +57,21 @@ public class ChestsController : MonoBehaviour
     {
         transformGameObject.SetParent(CellsCanvas);
     }
+    private void EnableHelpUI(bool isEnable){
+        HelpUi.SetActive(isEnable);
+    }
+    private void EnableUI(bool isEnable){
+        InventoryPanel.SetActive(isEnable);
+        ChestPanel.SetActive(isEnable);
+    }
     private void OnEnable()
     {
         ChestCell.SetCanvasParent += SetParentObject;
         ChestCell.FoundDistance += FoundPos;
         ContainerInventory.UpdateChestUI += UpdateChestCells;
         ContainerInventory.UpdateInventoryUI += UpdateInventoryCells;
+        ContainerInventory.EnableHelpUI +=EnableHelpUI;
+        ContainerInventory.EnableBaseUI += EnableUI;
     }
     private void OnDisable()
     {
@@ -69,5 +79,7 @@ public class ChestsController : MonoBehaviour
         ChestCell.FoundDistance -= FoundPos;
         ContainerInventory.UpdateChestUI -= UpdateChestCells;
         ContainerInventory.UpdateInventoryUI -= UpdateInventoryCells;
+        ContainerInventory.EnableHelpUI -= EnableHelpUI;
+        ContainerInventory.EnableBaseUI -= EnableUI;
     }
 }

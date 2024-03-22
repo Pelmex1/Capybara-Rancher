@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 
 public class ContainerInventory : MonoBehaviour
 {
-    [SerializeField] private GameObject HelpUI;
-    [SerializeField] private GameObject InventoryPanel;
-    [SerializeField] private GameObject ChestPanel;
+    public delegate void HelpUIEnable(bool isEnable);
+    public static event HelpUIEnable EnableHelpUI;
+    public static event HelpUIEnable EnableBaseUI;
     public delegate void AddItemCollection(ChestCell[] chestCells);
     public static event AddItemCollection UpdateInventoryUI;
     public static event AddItemCollection UpdateChestUI;
@@ -21,7 +21,7 @@ public class ContainerInventory : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerInventory = other.gameObject.GetComponent<InventoryPlayer>();
-            HelpUI.SetActive(true);
+            EnableHelpUI.Invoke(true);
             isNearChest = true;
         }
     }
@@ -30,7 +30,7 @@ public class ContainerInventory : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isNearChest = false;
-            HelpUI.SetActive(false);
+            EnableHelpUI.Invoke(false);
         }
     }
     private void Update()
@@ -40,16 +40,14 @@ public class ContainerInventory : MonoBehaviour
             UpdateChestUI(chestCell);
             UpdateInventoryUI(playerInventory.inventory);
             Cursor.lockState = CursorLockMode.Confined;
-            InventoryPanel.SetActive(true);
-            ChestPanel.SetActive(true);
-            HelpUI.SetActive(false);
+            EnableBaseUI.Invoke(true);
+            EnableHelpUI.Invoke(false);
         }
     }
 
     public void Exit()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        InventoryPanel.SetActive(false);
-        ChestPanel.SetActive(false);
+        EnableBaseUI.Invoke(false);
     }
 }
