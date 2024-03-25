@@ -17,7 +17,7 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private GameObject ObjectIcons;
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
-    [SerializeField] private LoadingScript loadingScript;
+    [SerializeField] private LorScene lorScene;
     [SerializeField] private TMP_Text TextNameGame;
 
     private readonly SaveData saveData = new();
@@ -39,20 +39,8 @@ public class CreatNewGame : MonoBehaviour
 
     public void Confirm()
     {
-        if (TextNameGame.text != "")
-        {
-            Items newItem = new()
-            {
-                NameGame = TextNameGame.text,
-                GameMod = TextNameMod,
-                //icons = SelectIcon
-            };
-            inventory.LoadData(newItem);
-            saveData.SaveToJson();
-            loadingScript.LoadlevelBtn("Map");
-            PlayerPrefs.DeleteAll();
-        }
-
+        lorScene.OnLorScene();
+        PlayerPrefs.DeleteAll();
     }
 
 
