@@ -11,6 +11,7 @@ public class CrystalsController : MonoBehaviour
     private CapybaraItem capybaraData;
     private MobsAi mobsAi;
     private bool isAngry = false;
+    private CapybaraAudioController capybaraAudioController;
     public bool isHungry {get; set;} = false;
     public bool hasTransformed {get; set;} = false;
     public GameObject newCrystal {get; set;}
@@ -18,6 +19,7 @@ public class CrystalsController : MonoBehaviour
     {
         capybaraData = GetComponent<CapybaraItem>();
         mobsAi = GetComponent<MobsAi>();
+        capybaraAudioController = GetComponent<CapybaraAudioController>();
         StartCoroutine(LoopToStarving());
     }
     private void Update()
@@ -28,6 +30,8 @@ public class CrystalsController : MonoBehaviour
     {
         isHungry = false;
         isAngry = false;
+        capybaraAudioController.SetHappyStatus();
+        capybaraAudioController.Eating();
         mobsAi.isfoodfound = false;
         yield return new WaitForSecondsRealtime(delayBeforeCrystalSpawn);
         int crystalCount = isFavouriteFood ? 2 : 1;
@@ -60,7 +64,10 @@ public class CrystalsController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delayBeforeStarving);
         if (isHungry)
+        {
             isAngry = true;
+            capybaraAudioController.SetAngryStatus();
+        }
     }
     private void UpdateStats()
     {

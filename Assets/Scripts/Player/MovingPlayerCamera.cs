@@ -15,6 +15,7 @@ public class MovingPlayer : MonoBehaviour
     private float startSpeed;
     private bool isRunning = false;
     private bool isGrounded;
+    private PlayerAudioController playerAudioController;
 
     public float mouseSensitivy;
     public float energy;
@@ -25,6 +26,7 @@ public class MovingPlayer : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerAudioController = GetComponent<PlayerAudioController>();
         Cursor.lockState = CursorLockMode.Locked;
         startHeadRotation = head.rotation;
         xRotationCamera = head.localRotation.eulerAngles.x;
@@ -77,5 +79,7 @@ public class MovingPlayer : MonoBehaviour
             energy += energyRegenRate * Time.deltaTime;
             speed = startSpeed;
         }
+        
+        playerAudioController.FootStepPlay(isRunning && Input.GetKey(KeyCode.LeftShift));
     }
 }

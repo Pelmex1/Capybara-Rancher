@@ -12,6 +12,7 @@ public class InventoryPlayer : MonoBehaviour
     private int index = 0;
     private readonly float speed = 10f;
     private Canon canon;
+    private PlayerAudioController playerAudioController;
 
     public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange = false;
@@ -19,6 +20,7 @@ public class InventoryPlayer : MonoBehaviour
     private void Start()
     {
         canon = GetComponentInChildren<Canon>();
+        playerAudioController = GetComponent<PlayerAudioController>();
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
@@ -70,6 +72,8 @@ public class InventoryPlayer : MonoBehaviour
         {
             inventory[index].inventoryItem = null;
         }
+
+        playerAudioController.GunRemovePlay();
     }
     private void Update()
     {
