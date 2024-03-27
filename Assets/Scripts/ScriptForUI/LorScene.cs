@@ -12,6 +12,7 @@ public class LorScene : MonoBehaviour
     [SerializeField] private Image FirstImage;
     [SerializeField] private Image SecondImage;
     [SerializeField] private TMP_Text text;
+    [SerializeField] private  AudioSource audioSourse;
     [SerializeField] private Sprite[] LoadImages = new Sprite[3];
 
     [HeaderLine("Alfa")]
@@ -42,8 +43,10 @@ public class LorScene : MonoBehaviour
                 SecondImage.sprite = LoadImages[TemporaryInt];
                 IsChangeSecondImage = true;
             }
+            
             StartCoroutine(WriteText(CountImage));
             yield return new WaitForSeconds(10);
+            audioSourse.Stop();
             text.text = "";
             for (float t = 0f; t < fadeDuration; t += Time.deltaTime)
             {
@@ -73,7 +76,8 @@ public class LorScene : MonoBehaviour
 
 
     private IEnumerator WriteText(int NumberImage)
-    {
+    {     
+        audioSourse.Play();
         text.text = "";
         switch (NumberImage)
         {
@@ -92,7 +96,7 @@ public class LorScene : MonoBehaviour
                 break;
         }
         for (int i = 0; i <= AllText.Length; i++)
-        {
+        {          
             text.text += AllText[i];
             yield return new WaitForSecondsRealtime(0.02f);
         }
