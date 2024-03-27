@@ -4,12 +4,14 @@ public class PlayerAudioController : MonoBehaviour
 {
     [SerializeField] private AudioSource walkAudio;
     [SerializeField] private AudioSource runAudio;
+    [SerializeField] private AudioSource jumpAudio;
     [SerializeField] private AudioSource gunAttractionAudio;
     [SerializeField] private AudioSource gunRemoveAudio;
-    
-    public void FootStepPlay(bool isRunning)
+    [SerializeField] private AudioSource gunAddAudio;
+
+    public void FootStepPlay(bool isGrounded, bool isRunning)
     {
-        bool moving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+        bool moving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && isGrounded;
         if (moving)
         {
             if (!isRunning && !walkAudio.isPlaying)
@@ -23,11 +25,15 @@ public class PlayerAudioController : MonoBehaviour
                 walkAudio.Stop();
             }
         }
-        else if(!moving)
+        else
         {
             walkAudio.Stop();
             runAudio.Stop();
         }
+    }
+    public void JumpPlay()
+    {
+        jumpAudio.Play();
     }
     public void GunAttractionPlay()
     {
@@ -39,5 +45,9 @@ public class PlayerAudioController : MonoBehaviour
     public void GunRemovePlay()
     {
         gunRemoveAudio.Play();
+    }
+    public void GunAddPlay()
+    {
+        gunAddAudio.Play();
     }
 }

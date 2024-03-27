@@ -57,8 +57,9 @@ public class MovingPlayer : MonoBehaviour
             {
                 isGrounded = false;
                 rb.AddForce(transform.up, ForceMode.Impulse);
+                playerAudioController.JumpPlay();
             }
-        if(Cursor.lockState == CursorLockMode.Locked){
+        if (Cursor.lockState == CursorLockMode.Locked){
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
 
@@ -80,6 +81,6 @@ public class MovingPlayer : MonoBehaviour
             speed = startSpeed;
         }
         
-        playerAudioController.FootStepPlay(isRunning && Input.GetKey(KeyCode.LeftShift));
+        playerAudioController.FootStepPlay(isGrounded, isRunning && Input.GetKey(KeyCode.LeftShift));
     }
 }
