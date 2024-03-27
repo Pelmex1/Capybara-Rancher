@@ -16,6 +16,7 @@ public class InventoryPlayer : MonoBehaviour
 
     public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange = false;
+    public bool isChanging = false;
 
     private void Start()
     {
@@ -24,16 +25,19 @@ public class InventoryPlayer : MonoBehaviour
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
+        isChanging = true;
         WasChange = true;
         if (inventory[index].inventoryItem == null)
         {
             inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
+            isChanging = false;
             return true;
         }
         else if (inventory[index].inventoryItem == inventoryItem && inventory[index].count < 20)
         {
             inventory[index].count++;
+            isChanging = false;
             return true;
         }
         for (int i = 0; i < inventory.Length; i++)
@@ -41,6 +45,7 @@ public class InventoryPlayer : MonoBehaviour
             if (inventory[i].inventoryItem == inventoryItem && inventory[index].count < 20)
             {
                 inventory[index].count++;
+                isChanging = false;
                 return true;
             }
         }
@@ -50,11 +55,12 @@ public class InventoryPlayer : MonoBehaviour
             {
                 inventory[i].inventoryItem = inventoryItem;
                 inventory[i].count++;
+                isChanging = false;
                 return true;
             }
             else continue;
         }
-
+        isChanging = false;
         return false;
     }
     public void RemoveItem(Vector3 spawnPos, Vector3 pos)

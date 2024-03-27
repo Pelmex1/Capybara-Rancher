@@ -18,6 +18,7 @@ public class ChestCell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     private ChestCell newChestCell;
     private void Start()
     {
+        inventoryItem = ScriptableObject.CreateInstance<InventoryItem>();
         pos = transform.position;
         parentTransform = transform.parent;
     }
