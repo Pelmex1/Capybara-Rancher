@@ -44,7 +44,7 @@ public class InventoryPlayer : MonoBehaviour
         }
         for (int i = 0; i < inventory.Length; i++)
         {
-            if (inventory[i].inventoryItem == inventoryItem && inventory[index].count < 20)
+            if (inventory[i].inventoryItem == inventoryItem && inventory[i].count < 20)
             {
                 inventory[i].count++;
                 isChanging = false;
