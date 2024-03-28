@@ -29,7 +29,7 @@ public class InventoryPlayer : MonoBehaviour
 
         isChanging = true;
         WasChange = true;
-        if (inventory[index].inventoryItem == null)
+        if (inventory[index].inventoryItem == null )
         {
             inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
@@ -46,7 +46,7 @@ public class InventoryPlayer : MonoBehaviour
         {
             if (inventory[i].inventoryItem == inventoryItem && inventory[index].count < 20)
             {
-                inventory[index].count++;
+                inventory[i].count++;
                 isChanging = false;
                 return true;
             }
