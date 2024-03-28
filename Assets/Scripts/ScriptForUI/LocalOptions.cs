@@ -14,6 +14,8 @@ public class LocalOptions : MonoBehaviour
     [SerializeField] private TMP_Dropdown DropdownScreen;
     [SerializeField] private TMP_Text textQuality;
 
+    [SerializeField] private ChangeGrassMode changeGrassMode;
+
 
     private bool isActiveButtonSound;
 
@@ -24,7 +26,7 @@ public class LocalOptions : MonoBehaviour
         {
             Quality = PlayerPrefs.GetInt("Quality");
             QualitySettings.SetQualityLevel(Quality, true);
-            switch (Quality)
+/*             switch (Quality)
             {
                 case 1:
                     Debug.Log(Quality);
@@ -38,7 +40,7 @@ public class LocalOptions : MonoBehaviour
                     Debug.Log(Quality);
                     textQuality.text = "High";
                     break;
-            }
+            } */
         }
         else
         {
@@ -100,6 +102,7 @@ public class LocalOptions : MonoBehaviour
                 textQuality.text = "High";
                 break;
         }
+        changeGrassMode.OnGrass();
         PlayerPrefs.Save();
     }
     public void ButtonSoundOnClick()
