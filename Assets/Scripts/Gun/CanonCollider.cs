@@ -10,7 +10,7 @@ public class CanonCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.CompareTag("movebleObject") && !inventoryPlayer.isChanging)
+        if(other.gameObject.CompareTag("movebleObject"))
         {
             MovebleObject movebleObject = other.gameObject.GetComponent<MovebleObject>();
             if(inventoryPlayer.AddItemInInventory(movebleObject.data))

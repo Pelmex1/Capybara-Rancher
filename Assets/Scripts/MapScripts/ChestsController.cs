@@ -10,8 +10,8 @@ public class ChestsController : MonoBehaviour
     [SerializeField] private GameObject ChestPanel;
     [SerializeField] private Transform CellsCanvas;
     [SerializeField] private Image defaultSprite;
-    public ChestCell[] chestsUI;
-    public ChestCell[] inventoryUI;
+    public ChestCell[] chestsUI = new ChestCell[20];
+    public ChestCell[] inventoryUI = new ChestCell[5];
 
 
     private void Start()
@@ -20,8 +20,9 @@ public class ChestsController : MonoBehaviour
         chestsUI = ChestPanel.GetComponentsInChildren<ChestCell>();
     }
     private void CellUpdate(ref ChestCell cell, ChestCell data){
+        Debug.Log(cell);
         Debug.Log(cell.inventoryItem);
-        cell.inventoryItem = data.inventoryItem != null ? data.inventoryItem : null;
+        cell.inventoryItem = data.inventoryItem;
         Debug.Log(cell);
         cell.count = data.count != 0 ? data.count : 0;
         Debug.Log(cell);
