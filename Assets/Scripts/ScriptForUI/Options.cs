@@ -25,6 +25,7 @@ public class Options : MonoBehaviour
 
     private void Awake()
     {
+        PlayerPrefs.DeleteAll();
         if(PlayerPrefs.HasKey("Quality"))
         {
             Quality =  PlayerPrefs.GetInt("Quality");
@@ -68,22 +69,22 @@ public class Options : MonoBehaviour
             AudioButton.image.sprite = ButtonOffSprite;
             slider.gameObject.SetActive(false);
             isActiveButtonSound = false;
-            //for (int i = 0; i < Audio.Length; i++)
-            //{
-            //    Audio[i].enabled = false;
-            //}
+            for (int i = 0; i < Audio.Length; i++)
+            {
+               Audio[i].enabled = false;
+            }
         }
         else
         {
             AudioButton.image.sprite = ButtonOnSprite;
-            //float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
+            float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
             slider.gameObject.SetActive(true);
             isActiveButtonSound = true;
-            //for (int i = 0; i < Audio.Length; i++)
-            //{
-            //    Audio[i].enabled = true;
-            //    Audio[i].volume = SaveValueSlider;
-            //}
+            for (int i = 0; i < Audio.Length; i++)
+            {
+                Audio[i].enabled = true;
+                Audio[i].volume = SaveValueSlider;
+            }
         }
     }
 

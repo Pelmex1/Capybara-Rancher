@@ -22,8 +22,12 @@ public class CreatNewGame : MonoBehaviour
 
     private readonly SaveData saveData = new();
     public Image SelectIcon;
-    private string TextNameMod;
+    private AudioSource audioSource;
 
+    private void Awake()
+    {
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
     private void Start()
     {
         AllSelectImage[0].sprite = SelectMod;
@@ -39,6 +43,7 @@ public class CreatNewGame : MonoBehaviour
 
     public void Confirm()
     {
+        audioSource.Stop();
         lorScene.OnLorScene();
         PlayerPrefs.DeleteAll();
     }
@@ -70,7 +75,7 @@ public class CreatNewGame : MonoBehaviour
         }
 
         PlayerPrefs.SetString("KeyMod", NameMod);
-        TextNameMod = NameMod;
+/*         TextNameMod = NameMod; */
         PlayerPrefs.Save();
     }
 

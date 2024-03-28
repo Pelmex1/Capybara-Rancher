@@ -19,12 +19,20 @@ public class LorScene : MonoBehaviour
     [SerializeField] private float fadeDuration;
 
     public int CountImage = 0;
+    private AudioSource audioSourceMusic;
     private float StartAlfa;
     private float StartAlfa2;
     private string AllText;
 
+    private int ChangeTime = 10;
+
+    private void Awake()
+    {
+        audioSourceMusic = gameObject.GetComponent<AudioSource>();
+    }
     public void OnLorScene()
     {
+        audioSourceMusic.Play();
         StartAlfa = FirstImage.color.a;
         StartAlfa2 = SecondImage.color.a;
         LoadPanel.SetActive(true);
@@ -35,6 +43,8 @@ public class LorScene : MonoBehaviour
     {
         if (CountImage < 3)
         {
+            if(CountImage == 1) 
+                ChangeTime = 7;
             bool IsChangeSecondImage = false;
             FirstImage.sprite = LoadImages[CountImage];
             if (CountImage != 2)
@@ -45,7 +55,7 @@ public class LorScene : MonoBehaviour
             }
             
             StartCoroutine(WriteText(CountImage));
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(ChangeTime);
             audioSourse.Stop();
             text.text = "";
             for (float t = 0f; t < fadeDuration; t += Time.deltaTime)
