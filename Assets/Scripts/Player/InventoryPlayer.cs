@@ -25,6 +25,8 @@ public class InventoryPlayer : MonoBehaviour
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
+        playerAudioController.GunAddPlay();
+
         isChanging = true;
         WasChange = true;
         if (inventory[index].inventoryItem == null)
