@@ -12,4 +12,5 @@ public class EventBus
     public static EventBus eventBus => _eventBus ?? (_eventBus = new EventBus());
 
     public Action ChnageGrassMod;
+    public Action ChangeVolume;
 }

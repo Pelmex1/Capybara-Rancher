@@ -7,15 +7,25 @@ public class VolumeController : MonoBehaviour
 {
     [SerializeField] private AudioMixer mixer;
     private string volumeParameter = "MasterVolume";
-    
+
+    private EventBus eventBus;
+
+    private void OnEnable()
+    {
+        eventBus = EventBus.eventBus;
+        eventBus.ChangeVolume += SetVolume;
+    }
+    private void OnDisable()
+    {
+        eventBus.ChangeVolume -= SetVolume;
+    }
     private void Start()
     {
-        var volumeValue = Mathf.Log10(PlayerPrefs.GetFloat("SliderVolume")) * 20f;
-        mixer.SetFloat(volumeParameter, volumeValue);
+        SetVolume();
     }
-    private void Update()
+    private void SetVolume()
     {
-        var volumeValue = (PlayerPrefs.GetFloat("SliderVolume") * 100f) - 80f;
+        float volumeValue = (PlayerPrefs.GetFloat("SliderVolume") * 100f) - 80f;
         mixer.SetFloat(volumeParameter, volumeValue);
     }
 }

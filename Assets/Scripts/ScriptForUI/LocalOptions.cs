@@ -14,8 +14,6 @@ public class LocalOptions : MonoBehaviour
     [SerializeField] private TMP_Dropdown DropdownScreen;
     [SerializeField] private TMP_Text textQuality;
 
-
-
     private bool isActiveButtonSound;
 
     private int Quality;
@@ -140,6 +138,7 @@ public class LocalOptions : MonoBehaviour
             Audio[i].volume = slider.value;
             PlayerPrefs.SetFloat("SliderVolume", Audio[i].volume);
             PlayerPrefs.Save();
+            EventBus.eventBus.ChangeVolume.Invoke();
         }
     }
 

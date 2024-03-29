@@ -17,17 +17,7 @@ public class PlayerAudioController : MonoBehaviour
     private void Start()
     {
         initialGunAttractionVolume = gunAttractionAudio.volume;
-        //SetVolume();
     }
-    /*private void SetVolume()
-    {
-        walkAudio.volume = PlayerPrefs.GetFloat("SliderVolume", 0.1f);
-        runAudio.volume = PlayerPrefs.GetFloat("SliderVolume", 0.1f);
-        jumpAudio.volume = PlayerPrefs.GetFloat("SliderVolume", 0.1f);
-        gunAttractionAudio.volume = PlayerPrefs.GetFloat("SliderVolume", 0.1f);
-        gunRemoveAudio.volume = PlayerPrefs.GetFloat("SliderVolume", 0.1f);
-        gunAddAudio.volume = PlayerPrefs.GetFloat("SliderVolume", 0.1f);
-    }*/
     public void FootStepPlay(bool isGrounded, bool isRunning)
     {
         bool moving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && isGrounded;
