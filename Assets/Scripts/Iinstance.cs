@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Iinstance : MonoBehaviour
 {
     public static Iinstance instance;
+
     public float money;
     private void Awake()
     {
