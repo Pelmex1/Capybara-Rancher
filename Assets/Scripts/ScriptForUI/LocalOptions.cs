@@ -14,18 +14,16 @@ public class LocalOptions : MonoBehaviour
     [SerializeField] private TMP_Dropdown DropdownScreen;
     [SerializeField] private TMP_Text textQuality;
 
-    [SerializeField] private ChangeGrassMode changeGrassMode;
-
-
     private bool isActiveButtonSound;
 
     private int Quality;
     private void Awake()
     {
         if (PlayerPrefs.HasKey("Quality"))
-        {
+        {           
             Quality = PlayerPrefs.GetInt("Quality");
             QualitySettings.SetQualityLevel(Quality, true);
+            EventBus.eventBus.ChnageGrassMod.Invoke();
 /*             switch (Quality)
             {
                 case 1:
@@ -87,7 +85,7 @@ public class LocalOptions : MonoBehaviour
     }
 
     public void CheckDropdown()
-    {
+    {     
         QualitySettings.SetQualityLevel(dropdown.value, true);
         PlayerPrefs.SetInt("Quality", dropdown.value);
         switch (Quality)
@@ -102,7 +100,7 @@ public class LocalOptions : MonoBehaviour
                 textQuality.text = "High";
                 break;
         }
-        changeGrassMode.OnGrass();
+        EventBus.eventBus.ChnageGrassMod.Invoke();
         PlayerPrefs.Save();
     }
     public void ButtonSoundOnClick()
@@ -140,6 +138,7 @@ public class LocalOptions : MonoBehaviour
             Audio[i].volume = slider.value;
             PlayerPrefs.SetFloat("SliderVolume", Audio[i].volume);
             PlayerPrefs.Save();
+            EventBus.eventBus.ChangeVolume.Invoke();
         }
     }
 
