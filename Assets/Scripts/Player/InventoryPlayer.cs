@@ -25,8 +25,6 @@ public class InventoryPlayer : MonoBehaviour
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
-        playerAudioController.GunAddPlay(); // <-- предмет може не прийнятись тому його потрібно поставити там де написано return true
-
         isChanging = true;
         WasChange = true;
         if (inventory[index].inventoryItem == null )
@@ -34,12 +32,14 @@ public class InventoryPlayer : MonoBehaviour
             inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
             isChanging = false;
+            playerAudioController.GunAddPlay();
             return true;
         }
         else if (inventory[index].inventoryItem == inventoryItem && inventory[index].count < 20)
         {
             inventory[index].count++;
             isChanging = false;
+            playerAudioController.GunAddPlay();
             return true;
         }
         for (int i = 0; i < inventory.Length; i++)
@@ -48,6 +48,7 @@ public class InventoryPlayer : MonoBehaviour
             {
                 inventory[i].count++;
                 isChanging = false;
+                playerAudioController.GunAddPlay();
                 return true;
             }
         }
@@ -58,6 +59,7 @@ public class InventoryPlayer : MonoBehaviour
                 inventory[i].inventoryItem = inventoryItem;
                 inventory[i].count++;
                 isChanging = false;
+                playerAudioController.GunAddPlay();
                 return true;
             }
             else continue;
