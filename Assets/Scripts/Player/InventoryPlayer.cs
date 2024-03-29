@@ -16,7 +16,6 @@ public class InventoryPlayer : MonoBehaviour
 
     public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange = false;
-    public bool isChanging = false;
 
     private ChestCell nullChestCell;
     private void Start()
@@ -26,7 +25,6 @@ public class InventoryPlayer : MonoBehaviour
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
-        isChanging = true;
         WasChange = true;
 
         if (inventory[index].inventoryItem == null ||
@@ -34,7 +32,6 @@ public class InventoryPlayer : MonoBehaviour
         {
             inventory[index].inventoryItem ??= inventoryItem;
             inventory[index].count++;
-            isChanging = false;
             playerAudioController.GunAddPlay();
             return true;
         }
@@ -45,7 +42,6 @@ public class InventoryPlayer : MonoBehaviour
             {
                 inventory[i].inventoryItem = inventoryItem;
                 inventory[i].count++;
-                isChanging = false;
                 playerAudioController.GunAddPlay();
                 return true;
             } else if(inventory[i].inventoryItem == null && nullChestCell == null){
@@ -55,12 +51,10 @@ public class InventoryPlayer : MonoBehaviour
         if(nullChestCell != null){
             nullChestCell.inventoryItem = inventoryItem;
             nullChestCell.count++;
-            isChanging = false;
             nullChestCell = null;
             playerAudioController.GunAddPlay();
             return true;
         }
-        isChanging = false;
         return false;
     }
 
