@@ -29,25 +29,25 @@ public class LocalOptions : MonoBehaviour
     private void Awake()
     {
         if (PlayerPrefs.HasKey("Quality"))
-        {           
+        {
             Quality = PlayerPrefs.GetInt("Quality");
             QualitySettings.SetQualityLevel(Quality, true);
             EventBus.eventBus.ChnageGrassMod.Invoke();
-/*             switch (Quality)
-            {
-                case 1:
-                    Debug.Log(Quality);
-                    textQuality.text = "Low";
-                    break;
-                case 2:
-                    Debug.Log(Quality);
-                    textQuality.text = "Medium";
-                    break;
-                case 3:
-                    Debug.Log(Quality);
-                    textQuality.text = "High";
-                    break;
-            } */
+            /*             switch (Quality)
+                        {
+                            case 1:
+                                Debug.Log(Quality);
+                                textQuality.text = "Low";
+                                break;
+                            case 2:
+                                Debug.Log(Quality);
+                                textQuality.text = "Medium";
+                                break;
+                            case 3:
+                                Debug.Log(Quality);
+                                textQuality.text = "High";
+                                break;
+                        } */
         }
         else
         {
@@ -71,25 +71,25 @@ public class LocalOptions : MonoBehaviour
         Time.timeScale = 1f;
         if (PlayerPrefs.GetInt("isSoundOn") == 0)
         {
-            Debug.Log("Off");
             AudioButton.image.sprite = ButtonOffSprite;
             isActiveButtonSound = true;
-            OnSoundOptions.SetActive(false);    
+            OnSoundOptions.SetActive(false);
+            audiomixer.SetFloat("MasterVolume", 0f);
         }
         else
         {
-            Debug.Log("On");
             AudioButton.image.sprite = ButtonOnSprite;
             isActiveButtonSound = false;
             OnSoundOptions.SetActive(true);
+            EventBus.eventBus.GetMisicValue.Invoke(ArraySave);
+            for (int i = 0; i < ArraySave.Length; i++)
+                audioSliders[i].value = (ArraySave[i] + 80) / 100;
         }
-        EventBus.eventBus.GetMisicValue.Invoke(ArraySave);
-        for (int i = 0; i < ArraySave.Length; i++)
-            audioSliders[i].value = (ArraySave[i]+80) / 100;
+
     }
 
     public void CheckDropdown()
-    {     
+    {
         QualitySettings.SetQualityLevel(dropdown.value, true);
         PlayerPrefs.SetInt("Quality", dropdown.value);
         switch (Quality)

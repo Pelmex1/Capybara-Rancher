@@ -74,21 +74,20 @@ public class Options : MonoBehaviour
         Time.timeScale = 1f;
         if (PlayerPrefs.GetInt("isSoundOn") == 0)
         {
-            Debug.Log("Off");
             AudioButton.image.sprite = ButtonOffSprite;
             isActiveButtonSound = true;
-            OnSoundOptions.SetActive(false);    
+            OnSoundOptions.SetActive(false);
+            audiomixer.SetFloat("MasterVolume", -80f);
         }
         else
         {
-            Debug.Log("On");
             AudioButton.image.sprite = ButtonOnSprite;
             isActiveButtonSound = false;
             OnSoundOptions.SetActive(true);
+            EventBus.eventBus.GetMisicValue.Invoke(ArraySave);
+            for (int i = 0; i < ArraySave.Length; i++)
+                audioSliders[i].value = (ArraySave[i] + 80) / 100;
         }
-        EventBus.eventBus.GetMisicValue.Invoke(ArraySave);
-        for (int i = 0; i < ArraySave.Length; i++)
-            audioSliders[i].value = (ArraySave[i]+80) / 100;
     }
 
     public void OnMainPanel()
