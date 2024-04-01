@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -10,22 +12,41 @@ public class VolumeController : MonoBehaviour
 
     private EventBus eventBus;
 
+
     private void OnEnable()
     {
         eventBus = EventBus.eventBus;
-        eventBus.ChangeVolume += SetVolume;
+        eventBus.GetMisicValue += GetVolume;
+        eventBus.SaveMusicValue += SaveVolume;
     }
     private void OnDisable()
     {
-        eventBus.ChangeVolume -= SetVolume;
+        eventBus.GetMisicValue -= GetVolume;
+        eventBus.SaveMusicValue -= SaveVolume;
     }
-    private void Start()
+
+    private void GetVolume(float[] GetArray)
     {
-        SetVolume();
+        if (PlayerPrefs.HasKey($"Mixer{0}"))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Debug.Log($"Work {PlayerPrefs.GetFloat($"Mixer{i}")}");
+                GetArray[i] = PlayerPrefs.GetFloat($"Mixer{i}");
+            }
+            mixer.SetFloat("MasterVolume", GetArray[0]);
+            mixer.SetFloat("MusicVolume", GetArray[1]);
+            mixer.SetFloat("SFXVolume", GetArray[2]);
+            mixer.SetFloat("AmbienceVolume", GetArray[2]);
+            mixer.SetFloat("PlayerVolume", GetArray[2]);
+            mixer.SetFloat("CapybaraVolume", GetArray[2]);
+        }
     }
-    private void SetVolume()
+
+    private void SaveVolume(float[] SaveArray)
     {
-        float volumeValue = (PlayerPrefs.GetFloat("SliderVolume") * 100f) - 80f;
-        mixer.SetFloat(volumeParameter, volumeValue);
+        for (int i = 0; i < SaveArray.Length; i++)
+            PlayerPrefs.SetFloat($"Mixer{i}", SaveArray[i]);
+        PlayerPrefs.Save();
     }
 }

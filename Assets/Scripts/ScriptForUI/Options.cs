@@ -1,15 +1,17 @@
+using DevionGames;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
-    [SerializeField] private AudioSource[] Audio;
+
 
     [SerializeField] private Button AudioButton;
     [SerializeField] private Sprite ButtonOnSprite;
     [SerializeField] private Sprite ButtonOffSprite;
-    [SerializeField] private Slider slider;
 
     [SerializeField] private GameObject PanelSetinx;
     [SerializeField] private GameObject PanelButton;
@@ -18,38 +20,44 @@ public class Options : MonoBehaviour
     [SerializeField] private TMP_Dropdown DropdownScreen;
     [SerializeField] private TMP_Text textQuality;
 
+    [HeaderLine("Music Options")]
+    [SerializeField] private AudioMixer audiomixer;
+
+    [SerializeField] private Slider[] audioSliders = new Slider[3];
+    [SerializeField] private GameObject OnSoundOptions;
+
 
     private bool isActiveButtonSound;
-               
+
     private int Quality;
+
+    private float[] ArraySave = new float[3];
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
-        if(PlayerPrefs.HasKey("Quality"))
+        if (PlayerPrefs.HasKey("Quality"))
         {
-            Quality =  PlayerPrefs.GetInt("Quality");
+            Quality = PlayerPrefs.GetInt("Quality");
             QualitySettings.SetQualityLevel(Quality, true);
-            switch(Quality)
+            switch (Quality)
             {
                 case 1:
                     textQuality.text = "Low";
                     break;
                 case 2:
-                    textQuality.text = "Medium";  
-                    break;                  
+                    textQuality.text = "Medium";
+                    break;
                 case 3:
-                    textQuality.text = "High";               
-                break;
-            }             
+                    textQuality.text = "High";
+                    break;
+            }
         }
         else
         {
-            Debug.Log("change");
-            textQuality.text = "Low"; 
+            textQuality.text = "Low";
             QualitySettings.SetQualityLevel(0, true);
         }
-        if(PlayerPrefs.GetInt("KeyScreenX") == 0)
+        if (PlayerPrefs.GetInt("KeyScreenX") == 0)
         {
             Screen.fullScreen = true;
         }
@@ -66,26 +74,21 @@ public class Options : MonoBehaviour
         Time.timeScale = 1f;
         if (PlayerPrefs.GetInt("isSoundOn") == 0)
         {
+            Debug.Log("Off");
             AudioButton.image.sprite = ButtonOffSprite;
-            slider.gameObject.SetActive(false);
-            isActiveButtonSound = false;
-            for (int i = 0; i < Audio.Length; i++)
-            {
-               Audio[i].enabled = false;
-            }
+            isActiveButtonSound = true;
+            OnSoundOptions.SetActive(false);    
         }
         else
         {
+            Debug.Log("On");
             AudioButton.image.sprite = ButtonOnSprite;
-            float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
-            slider.gameObject.SetActive(true);
-            isActiveButtonSound = true;
-            for (int i = 0; i < Audio.Length; i++)
-            {
-                Audio[i].enabled = true;
-                Audio[i].volume = SaveValueSlider;
-            }
+            isActiveButtonSound = false;
+            OnSoundOptions.SetActive(true);
         }
+        EventBus.eventBus.GetMisicValue.Invoke(ArraySave);
+        for (int i = 0; i < ArraySave.Length; i++)
+            audioSliders[i].value = (ArraySave[i]+80) / 100;
     }
 
     public void OnMainPanel()
@@ -106,36 +109,44 @@ public class Options : MonoBehaviour
         if (isActiveButtonSound)
         {
             AudioButton.image.sprite = ButtonOnSprite;
-            slider.gameObject.SetActive(true);
-            for (int i = 0; i < Audio.Length; i++)
-            {
-                Audio[i].enabled = true;
-            }
+            OnSoundOptions.SetActive(true);
             PlayerPrefs.SetInt("isSoundOn", 1);
             isActiveButtonSound = false;
         }
         else
         {
             AudioButton.image.sprite = ButtonOffSprite;
-            slider.gameObject.SetActive(false);
-            for (int i = 0; i < Audio.Length; i++)
-            {
-                Audio[i].enabled = false;
-            }
+            OnSoundOptions.SetActive(false);
             PlayerPrefs.SetInt("isSoundOn", 0);
             isActiveButtonSound = true;
         }
         PlayerPrefs.Save();
     }
 
-    public void CheckSlider()
+    public void CheckSlider(string NameMixer)
     {
-        for (int i = 0; i < Audio.Length; i++)
+        if (NameMixer != "Effects")
         {
-            Audio[i].volume = slider.value;
-            PlayerPrefs.SetFloat("SliderVolume", Audio[i].volume);
-            PlayerPrefs.Save();
+            if (NameMixer == "MasterVolume")
+            {
+                ArraySave[0] = (audioSliders[0].value * 100f) - 80f;
+                audiomixer.SetFloat(NameMixer, ArraySave[0]);
+            }
+            else
+            {
+                ArraySave[1] = (audioSliders[1].value * 100f) - 80f;
+                audiomixer.SetFloat(NameMixer, ArraySave[1]);
+            }
         }
+        else
+        {
+            ArraySave[2] = (audioSliders[2].value * 100f) - 80f;
+            audiomixer.SetFloat("SFXVolume", ArraySave[2]);
+            audiomixer.SetFloat("AmbienceVolume", ArraySave[2]);
+            audiomixer.SetFloat("PlayerVolume", ArraySave[2]);
+            audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
+        }
+        EventBus.eventBus.SaveMusicValue.Invoke(ArraySave);
     }
 
     public void ChangeScreen()
@@ -143,7 +154,7 @@ public class Options : MonoBehaviour
         if (DropdownScreen.value == 0)
         {
             Screen.fullScreen = true;
-            SaveScreen(0,0);
+            SaveScreen(0, 0);
         }
         if (DropdownScreen.value == 1)
         {
@@ -162,7 +173,7 @@ public class Options : MonoBehaviour
         }
     }
 
-    private void SaveScreen(int ScreenX,int ScreenY)
+    private void SaveScreen(int ScreenX, int ScreenY)
     {
         PlayerPrefs.SetInt("KeyScreenX", ScreenX);
         PlayerPrefs.SetInt("KeyScreenY", ScreenY);

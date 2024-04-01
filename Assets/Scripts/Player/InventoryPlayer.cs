@@ -16,8 +16,8 @@ public class InventoryPlayer : MonoBehaviour
 
     public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange = false;
+    public bool isChanging = false;
 
-    private ChestCell nullChestCell;
     private void Start()
     {
         canon = GetComponentInChildren<Canon>();
@@ -25,39 +25,45 @@ public class InventoryPlayer : MonoBehaviour
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
-        WasChange = true;
 
-        if (inventory[index].inventoryItem == null ||
-            (inventory[index].inventoryItem == inventoryItem && inventory[index].count < 20))
+        isChanging = true;
+        WasChange = true;
+        if (inventory[index].inventoryItem == null)
         {
-            inventory[index].inventoryItem ??= inventoryItem;
+            inventory[index].inventoryItem = inventoryItem;
             inventory[index].count++;
-            playerAudioController.GunAddPlay();
+            isChanging = false;
             return true;
         }
-        
+        else if (inventory[index].inventoryItem == inventoryItem && inventory[index].count < 20)
+        {
+            inventory[index].count++;
+            isChanging = false;
+            return true;
+        }
         for (int i = 0; i < inventory.Length; i++)
         {
             if (inventory[i].inventoryItem == inventoryItem && inventory[index].count < 20)
             {
-                inventory[i].inventoryItem = inventoryItem;
-                inventory[i].count++;
-                playerAudioController.GunAddPlay();
+                inventory[index].count++;
+                isChanging = false;
                 return true;
-            } else if(inventory[i].inventoryItem == null && nullChestCell == null){
-                nullChestCell = inventory[i];
             }
         }
-        if(nullChestCell != null){
-            nullChestCell.inventoryItem = inventoryItem;
-            nullChestCell.count++;
-            nullChestCell = null;
-            playerAudioController.GunAddPlay();
-            return true;
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i].inventoryItem == null)
+            {
+                inventory[i].inventoryItem = inventoryItem;
+                inventory[i].count++;
+                isChanging = false;
+                return true;
+            }
+            else continue;
         }
+        /* isChanging = false; */
         return false;
     }
-
     public void RemoveItem(Vector3 spawnPos, Vector3 pos)
     {
         WasChange = true;
@@ -80,9 +86,9 @@ public class InventoryPlayer : MonoBehaviour
     {
         int lastindex = index;
         float ScrollDelta = Input.mouseScrollDelta.y;
-        if (ScrollDelta < 0 && index < 5 && Time.timeScale == 1f)
+        if (ScrollDelta < 0 && index < 5)
             ChangeIndex(-1);
-        else if (ScrollDelta > 0 && index >= 0 && Time.timeScale == 1f)
+        else if (ScrollDelta > 0 && index >= 0)
             ChangeIndex(1);
         if (Input.GetKey(KeyCode.Alpha1))
             index = 0;

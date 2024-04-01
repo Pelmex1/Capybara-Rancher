@@ -105,7 +105,7 @@ public class LorScene : MonoBehaviour
                  They decided to send a special agent you to the planet to solve the mystery and find out what happened to their robot";
                 break;
         }
-        for (int i = 0; i <= AllText.Length; i++)
+        for (int i = 0; i < AllText.Length; i++)
         {          
             text.text += AllText[i];
             yield return new WaitForSecondsRealtime(0.02f);

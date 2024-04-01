@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using DevionGames;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
@@ -8,15 +10,22 @@ public class LocalOptions : MonoBehaviour
     [SerializeField] private Button AudioButton;
     [SerializeField] private Sprite ButtonOnSprite;
     [SerializeField] private Sprite ButtonOffSprite;
-    [SerializeField] private AudioSource[] Audio;
-    [SerializeField] private Slider slider;
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private TMP_Dropdown DropdownScreen;
     [SerializeField] private TMP_Text textQuality;
 
+    [HeaderLine("Music Options")]
+    [SerializeField] private AudioMixer audiomixer;
+
+    [SerializeField] private Slider[] audioSliders = new Slider[3];
+    [SerializeField] private GameObject OnSoundOptions;
+
+
     private bool isActiveButtonSound;
 
     private int Quality;
+
+    private float[] ArraySave = new float[3];
     private void Awake()
     {
         if (PlayerPrefs.HasKey("Quality"))
@@ -62,26 +71,21 @@ public class LocalOptions : MonoBehaviour
         Time.timeScale = 1f;
         if (PlayerPrefs.GetInt("isSoundOn") == 0)
         {
+            Debug.Log("Off");
             AudioButton.image.sprite = ButtonOffSprite;
-            slider.gameObject.SetActive(false);
-            isActiveButtonSound = false;
-            for (int i = 0; i < Audio.Length; i++)
-            {
-                Audio[i].enabled = false;
-            }
+            isActiveButtonSound = true;
+            OnSoundOptions.SetActive(false);    
         }
         else
         {
+            Debug.Log("On");
             AudioButton.image.sprite = ButtonOnSprite;
-            float SaveValueSlider = PlayerPrefs.GetFloat("SliderVolume");
-            slider.gameObject.SetActive(true);
-            isActiveButtonSound = true;
-            for (int i = 0; i < Audio.Length; i++)
-            {
-                Audio[i].enabled = true;
-                Audio[i].volume = SaveValueSlider;
-            }
+            isActiveButtonSound = false;
+            OnSoundOptions.SetActive(true);
         }
+        EventBus.eventBus.GetMisicValue.Invoke(ArraySave);
+        for (int i = 0; i < ArraySave.Length; i++)
+            audioSliders[i].value = (ArraySave[i]+80) / 100;
     }
 
     public void CheckDropdown()
@@ -108,22 +112,14 @@ public class LocalOptions : MonoBehaviour
         if (isActiveButtonSound)
         {
             AudioButton.image.sprite = ButtonOnSprite;
-            slider.gameObject.SetActive(true);
-            for (int i = 0; i < Audio.Length; i++)
-            {
-                Audio[i].enabled = true;
-            }
+            OnSoundOptions.SetActive(true);
             PlayerPrefs.SetInt("isSoundOn", 1);
             isActiveButtonSound = false;
         }
         else
         {
             AudioButton.image.sprite = ButtonOffSprite;
-            slider.gameObject.SetActive(false);
-            for (int i = 0; i < Audio.Length; i++)
-            {
-                Audio[i].enabled = false;
-            }
+            OnSoundOptions.SetActive(false);
             PlayerPrefs.SetInt("isSoundOn", 0);
             isActiveButtonSound = true;
         }
@@ -131,15 +127,30 @@ public class LocalOptions : MonoBehaviour
     }
 
 
-    public void CheckSlider()
+    public void CheckSlider(string NameMixer)
     {
-        for (int i = 0; i < Audio.Length; i++)
+        if (NameMixer != "Effects")
         {
-            Audio[i].volume = slider.value;
-            PlayerPrefs.SetFloat("SliderVolume", Audio[i].volume);
-            PlayerPrefs.Save();
-            EventBus.eventBus.ChangeVolume.Invoke();
+            if (NameMixer == "MasterVolume")
+            {
+                ArraySave[0] = (audioSliders[0].value * 100f) - 80f;
+                audiomixer.SetFloat(NameMixer, ArraySave[0]);
+            }
+            else
+            {
+                ArraySave[1] = (audioSliders[1].value * 100f) - 80f;
+                audiomixer.SetFloat(NameMixer, ArraySave[1]);
+            }
         }
+        else
+        {
+            ArraySave[2] = (audioSliders[2].value * 100f) - 80f;
+            audiomixer.SetFloat("SFXVolume", ArraySave[2]);
+            audiomixer.SetFloat("AmbienceVolume", ArraySave[2]);
+            audiomixer.SetFloat("PlayerVolume", ArraySave[2]);
+            audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
+        }
+        EventBus.eventBus.SaveMusicValue.Invoke(ArraySave);
     }
 
     public void ChangeScreen()
