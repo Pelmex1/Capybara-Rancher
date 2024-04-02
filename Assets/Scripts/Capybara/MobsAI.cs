@@ -117,6 +117,10 @@ public class MobsAi : MonoBehaviour
             yield return new WaitForSecondsRealtime(Random.Range(5f, 20f));
         }
     }
+    private void OnEnable()
+    {
+        StartCoroutine(Moving());
+    }
 
     public void IsFoodFound(Transform foodTransform)
     {

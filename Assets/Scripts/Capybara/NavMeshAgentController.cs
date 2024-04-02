@@ -5,7 +5,7 @@ public class NavMeshAgentController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Rigidbody rb;
-    private float raycastDistance = 0.7f;
+    private float raycastDistance = 0.8f;
     public bool isGrounded;// {get; set;}
     private void Start()
     {
