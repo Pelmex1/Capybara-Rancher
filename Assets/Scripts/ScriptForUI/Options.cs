@@ -84,7 +84,7 @@ public class Options : MonoBehaviour
             AudioButton.image.sprite = ButtonOnSprite;
             isActiveButtonSound = false;
             OnSoundOptions.SetActive(true);
-            EventBus.eventBus.GetMisicValue.Invoke(ArraySave);
+            EventBus.eventBus.GetMusicValue.Invoke(ArraySave);
             for (int i = 0; i < ArraySave.Length; i++)
                 audioSliders[i].value = (ArraySave[i] + 80) / 100;
         }

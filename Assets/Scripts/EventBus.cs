@@ -1,4 +1,3 @@
-using UnityEngine;
 using System;
 
 public class EventBus
@@ -12,7 +11,7 @@ public class EventBus
     public static EventBus eventBus => _eventBus ?? (_eventBus = new EventBus());
 
     public Action ChnageGrassMod;
-    public Action<float[]> GetMisicValue;
+    public Action<float[]> GetMusicValue;
 
     public Action<float[]> SaveMusicValue;
 }

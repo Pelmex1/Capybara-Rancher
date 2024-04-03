@@ -1,27 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class VolumeController : MonoBehaviour
 {
     [SerializeField] private AudioMixer mixer;
-    private string volumeParameter = "MasterVolume";
-
     private EventBus eventBus;
-
 
     private void OnEnable()
     {
         eventBus = EventBus.eventBus;
-        eventBus.GetMisicValue += GetVolume;
+        eventBus.GetMusicValue += GetVolume;
         eventBus.SaveMusicValue += SaveVolume;
     }
     private void OnDisable()
     {
-        eventBus.GetMisicValue -= GetVolume;
+        eventBus.GetMusicValue -= GetVolume;
         eventBus.SaveMusicValue -= SaveVolume;
     }
 
