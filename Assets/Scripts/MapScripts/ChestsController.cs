@@ -16,8 +16,8 @@ public class ChestsController : MonoBehaviour
 
     private void Start()
     {
-        inventoryUI = InventoryPanel.GetComponentsInChildren<ChestCell>();
-        chestsUI = ChestPanel.GetComponentsInChildren<ChestCell>();
+        //inventoryUI = InventoryPanel.GetComponentsInChildren<ChestCell>();
+        //chestsUI = ChestPanel.GetComponentsInChildren<ChestCell>();
     }
     private ChestCell CellUpdate(ChestCell cell, ChestCell data){
         Debug.Log(cell);
