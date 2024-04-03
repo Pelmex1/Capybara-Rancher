@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ContainerInventory : MonoBehaviour
 {
@@ -13,9 +10,14 @@ public class ContainerInventory : MonoBehaviour
     public static event AddItemCollection UpdateInventoryUI;
     public static event AddItemCollection UpdateChestUI;
     private bool isNearChest = false;
-    private readonly ChestCell[] chestCell = new ChestCell[20];
+    private ChestCell[] chestCell = new ChestCell[12];
 
     private InventoryPlayer playerInventory;
+    private void Start() {
+        for(int i = 0; i < 12; i++){
+            chestCell[i] = new();
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

@@ -13,11 +13,10 @@ public class InventoryPlayer : MonoBehaviour
     private readonly float speed = 10f;
     private Canon canon;
     private PlayerAudioController playerAudioController;
+    private ChestCell nullChestCell;
 
     public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange = false;
-
-    private ChestCell nullChestCell;
     private void Start()
     {
         canon = GetComponentInChildren<Canon>();
