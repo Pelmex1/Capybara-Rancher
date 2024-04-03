@@ -10,7 +10,7 @@ public class ChestsController : MonoBehaviour
     [SerializeField] private GameObject ChestPanel;
     [SerializeField] private Transform CellsCanvas;
     [SerializeField] private Image defaultSprite;
-    public ChestCell[] chestsUI = new ChestCell[20];
+    public ChestCell[] chestsUI = new ChestCell[12];
     public ChestCell[] inventoryUI = new ChestCell[5];
 
 
@@ -19,28 +19,29 @@ public class ChestsController : MonoBehaviour
         inventoryUI = InventoryPanel.GetComponentsInChildren<ChestCell>();
         chestsUI = ChestPanel.GetComponentsInChildren<ChestCell>();
     }
-    private void CellUpdate(ref ChestCell cell, ChestCell data){
+    private ChestCell CellUpdate(ChestCell cell, ChestCell data){
         Debug.Log(cell);
         Debug.Log(cell.inventoryItem);
-        cell.inventoryItem = data.inventoryItem;
+        //cell.inventoryItem = data.inventoryItem;
         Debug.Log(cell);
         cell.count = data.count != 0 ? data.count : 0;
         Debug.Log(cell);
         cell.image = data.image != null ? data.image : defaultSprite;
         Debug.Log(cell);
+        return cell;
     }
     private void UpdateChestCells(ChestCell[] chestCells)
     {
         for (int i = 0; i < chestCells.Length; i++)
         {
-            CellUpdate(ref chestsUI[i],chestCells[i]);
+            chestsUI[i] = CellUpdate(chestsUI[i],chestCells[i]);
         }
     }
     private void UpdateInventoryCells(ChestCell[] inventoryCells)
     {
         for (int i = 0; i < inventoryCells.Length; i++)
         {
-            CellUpdate(ref inventoryUI[i], inventoryCells[i]);
+            chestsUI[i] = CellUpdate(inventoryUI[i], inventoryCells[i]);
         }
     }
     private ChestCell FoundPos(Vector3 positionNow, ChestCell chestCell)
@@ -52,7 +53,7 @@ public class ChestsController : MonoBehaviour
             if (tmp2 > pos)
             {
                 pos = tmp2;
-                CellUpdate(ref chestCell, inventoryUI[i]);
+                chestCell = CellUpdate(chestCell, inventoryUI[i]);
             }
         }
         for (int j = 0; j < inventoryUI.Length; j++)
@@ -61,7 +62,7 @@ public class ChestsController : MonoBehaviour
             if (tmp > pos)
             {
                 pos = tmp;
-                CellUpdate(ref chestCell, inventoryUI[j]);
+                chestCell = CellUpdate(chestCell, inventoryUI[j]);
             }
         }
         return chestCell;
