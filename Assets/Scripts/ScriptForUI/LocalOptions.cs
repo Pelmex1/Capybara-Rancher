@@ -1,4 +1,4 @@
-﻿using DevionGames;
+using DevionGames;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -85,7 +85,6 @@ public class LocalOptions : MonoBehaviour
             for (int i = 0; i < ArraySave.Length; i++)
                 audioSliders[i].value = (ArraySave[i] + 80) / 100;
         }
-
     }
 
     public void CheckDropdown()
