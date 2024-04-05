@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerAudioController : MonoBehaviour
 {
-    [SerializeField] private event Action sliderCheck;
-
     [SerializeField] private AudioSource walkAudio;
     [SerializeField] private AudioSource runAudio;
     [SerializeField] private AudioSource jumpAudio;

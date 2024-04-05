@@ -117,8 +117,8 @@ GameObject:
   - component: {fileID: 4569315748195144981}
   - component: {fileID: 632372997135145648}
   - component: {fileID: 3396370158545727098}
-  - component: {fileID: 1477932375899172237}
-  - component: {fileID: 1943364221036272565}
+  - component: {fileID: 8547309900643911158}
+  - component: {fileID: 3112731497758081534}
   m_Layer: 0
   m_Name: Tree_10
   m_TagString: Untagged
@@ -196,8 +196,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1477932375899172237
-BoxCollider:
+--- !u!136 &8547309900643911158
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -214,11 +214,13 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.31686518, y: 2.5064158, z: 0.36380115}
-  m_Center: {x: -0.0766744, y: 1.2485778, z: -0.025748467}
---- !u!65 &1943364221036272565
-BoxCollider:
+  serializedVersion: 2
+  m_Radius: 0.16741636
+  m_Height: 3.0523183
+  m_Direction: 1
+  m_Center: {x: -0.10018126, y: 1.0773126, z: -0.042546052}
+--- !u!136 &3112731497758081534
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -235,9 +237,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.52811545, y: 0.446409, z: 0.49514303}
-  m_Center: {x: -0.011170208, y: 0.2185744, z: -0.005193043}
+  serializedVersion: 2
+  m_Radius: 0.32093993
+  m_Height: 1.6046996
+  m_Direction: 1
+  m_Center: {x: -0.0050240518, y: -0.0018235445, z: 0.0045646667}
 --- !u!1 &7709525293042012635
 GameObject:
   m_ObjectHideFlags: 0
