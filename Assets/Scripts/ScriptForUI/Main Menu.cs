@@ -1,18 +1,16 @@
 using System.Collections.Generic;
+using CustomEventBus;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private readonly SaveData savedata = new();
-    private readonly Inventory inventory = new();
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private GameObject PanelMultiplayer;
     [SerializeField] private GameObject PanelLoad;
     [SerializeField] private GameObject PanelNewGame;
-    [SerializeField] private LoadingScript loadingScript;
 
     private void Start()
     {
@@ -26,18 +24,7 @@ public class MainMenu : MonoBehaviour
     } 
     public void PlayContinue()
     {
-        savedata.LoadFromJson();
-        List<Items> items = inventory.items;
-        for (int i = 0; i < items.Count; i++)
-        {
-            if(i == items.Count -1)
-            {
-                string name = items[i].NameGame;
-                PlayerPrefs.SetString("KeyGame",name);
-            }
-        }
-        loadingScript.LoadlevelBtn("Map");
-        PlayerPrefs.Save();
+        EventBus.LodingScene.Invoke("Map");
     }
 
     public void OnOptions()

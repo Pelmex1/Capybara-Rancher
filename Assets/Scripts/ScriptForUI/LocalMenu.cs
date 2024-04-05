@@ -7,10 +7,10 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private GameObject PausePanel;
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private MovingPlayer movingPlayer;
-    private int indexCheck = 0;
-
     [SerializeField] private Image energyBar;
     [SerializeField] private Image hpBar;
+
+    private int indexCheck = 0;
     private float energyMaxValue;
     private float energyCurrentValue;
     private float hpMaxValue;

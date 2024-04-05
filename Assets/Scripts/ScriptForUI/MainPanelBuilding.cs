@@ -5,6 +5,11 @@ using UnityEditor.Experimental;
 
 public class MainPanelBuilding : MonoBehaviour
 {
+    [SerializeField] private GameObject FarmInfoPanel;
+    [SerializeField] private GameObject EnclosureInfoPanel;
+    [SerializeField] private GameObject Area;
+    [SerializeField] private TMP_Text TextMoney;
+
     public int IndexPlace;
     public Transform PositionPlace;
     public GameObject FirstPlace;
@@ -12,17 +17,12 @@ public class MainPanelBuilding : MonoBehaviour
     public GameObject ParentObject;
     public UIBilding UIBuilding;
 
-    [SerializeField] private GameObject FarmInfoPanel;
-    [SerializeField] private GameObject EnclosureInfoPanel;
-    [SerializeField] private GameObject Area;
-    [SerializeField] private TMP_Text TextMoney;
 
-
-/*     private void Start()
-    {
-        PlayerPrefs.DeleteAll();
-    }
- */
+    /*     private void Start()
+        {
+            PlayerPrefs.DeleteAll();
+        }
+     */
     private void LateUpdate()
     {
         TextMoney.text = $"{Iinstance.instance.money}";

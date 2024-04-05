@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class CreatNewGame : MonoBehaviour
 {
 
-    [SerializeField] private Inventory inventory;
-
     [SerializeField] private Sprite SelectMod;
     [SerializeField] private Sprite NotSelectMod;
     [SerializeField] private Image[] AllSelectImage = new Image[3];
@@ -19,9 +17,10 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private LorScene lorScene;
     [SerializeField] private TMP_Text TextNameGame;
+    private AudioSource audioSource;
 
     public Image SelectIcon;
-    private AudioSource audioSource;
+
 
     private void Awake()
     {
@@ -74,7 +73,7 @@ public class CreatNewGame : MonoBehaviour
         }
 
         PlayerPrefs.SetString("KeyMod", NameMod);
-/*         TextNameMod = NameMod; */
+        /*         TextNameMod = NameMod; */
         PlayerPrefs.Save();
     }
 
