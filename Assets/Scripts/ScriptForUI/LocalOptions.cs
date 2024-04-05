@@ -2,8 +2,8 @@ using DevionGames;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using CustomEventBus;
 
 public class LocalOptions : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class LocalOptions : MonoBehaviour
     [SerializeField] private Sprite ButtonOffSprite;
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private TMP_Dropdown DropdownScreen;
-    [SerializeField] private TMP_Text textQuality;
 
     [HeaderLine("Music Options")]
     [SerializeField] private AudioMixer audiomixer;
@@ -28,32 +27,6 @@ public class LocalOptions : MonoBehaviour
     private float[] ArraySave = new float[3];
     private void Awake()
     {
-        if (PlayerPrefs.HasKey("Quality"))
-        {
-            Quality = PlayerPrefs.GetInt("Quality");
-            QualitySettings.SetQualityLevel(Quality, true);
-            EventBus.eventBus.ChnageGrassMod.Invoke();
-            /*             switch (Quality)
-                        {
-                            case 1:
-                                Debug.Log(Quality);
-                                textQuality.text = "Low";
-                                break;
-                            case 2:
-                                Debug.Log(Quality);
-                                textQuality.text = "Medium";
-                                break;
-                            case 3:
-                                Debug.Log(Quality);
-                                textQuality.text = "High";
-                                break;
-                        } */
-        }
-        else
-        {
-            textQuality.text = "Low";
-            QualitySettings.SetQualityLevel(0, true);
-        }
         if (PlayerPrefs.GetInt("KeyScreenX") == 0)
         {
             Screen.fullScreen = true;
@@ -69,19 +42,30 @@ public class LocalOptions : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
+        if (PlayerPrefs.HasKey("Quality"))
+        {
+            Quality = PlayerPrefs.GetInt("Quality");
+            QualitySettings.SetQualityLevel(Quality, true);
+            EventBus.ChnageGrassMod.Invoke();
+        }
+        else
+        {
+            EventBus.ChnageGrassMod.Invoke();
+            QualitySettings.SetQualityLevel(0, true);
+        }
         if (PlayerPrefs.GetInt("isSoundOn") == 0)
         {
             AudioButton.image.sprite = ButtonOffSprite;
             isActiveButtonSound = true;
             OnSoundOptions.SetActive(false);
-            audiomixer.SetFloat("MasterVolume", 0f);
+            audiomixer.SetFloat("MasterVolume", -80f);
         }
         else
         {
             AudioButton.image.sprite = ButtonOnSprite;
             isActiveButtonSound = false;
             OnSoundOptions.SetActive(true);
-            EventBus.eventBus.GetMusicValue.Invoke(ArraySave);
+            EventBus.GetMusicValue.Invoke(ArraySave);
             for (int i = 0; i < ArraySave.Length; i++)
                 audioSliders[i].value = (ArraySave[i] + 80) / 100;
         }
@@ -91,19 +75,7 @@ public class LocalOptions : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(dropdown.value, true);
         PlayerPrefs.SetInt("Quality", dropdown.value);
-        switch (Quality)
-        {
-            case 1:
-                textQuality.text = "Low";
-                break;
-            case 2:
-                textQuality.text = "Medium";
-                break;
-            case 3:
-                textQuality.text = "High";
-                break;
-        }
-        EventBus.eventBus.ChnageGrassMod.Invoke();
+        EventBus.ChnageGrassMod.Invoke();
         PlayerPrefs.Save();
     }
     public void ButtonSoundOnClick()
@@ -114,12 +86,16 @@ public class LocalOptions : MonoBehaviour
             OnSoundOptions.SetActive(true);
             PlayerPrefs.SetInt("isSoundOn", 1);
             isActiveButtonSound = false;
+            EventBus.GetMusicValue.Invoke(ArraySave);
+            for (int i = 0; i < ArraySave.Length; i++)
+                audioSliders[i].value = (ArraySave[i] + 80) / 100;
         }
         else
         {
             AudioButton.image.sprite = ButtonOffSprite;
             OnSoundOptions.SetActive(false);
             PlayerPrefs.SetInt("isSoundOn", 0);
+            audiomixer.SetFloat("MasterVolume", -80f);
             isActiveButtonSound = true;
         }
         PlayerPrefs.Save();
@@ -149,7 +125,7 @@ public class LocalOptions : MonoBehaviour
             audiomixer.SetFloat("PlayerVolume", ArraySave[2]);
             audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
         }
-        EventBus.eventBus.SaveMusicValue.Invoke(ArraySave);
+        EventBus.SaveMusicValue.Invoke(ArraySave);
     }
 
     public void ChangeScreen()

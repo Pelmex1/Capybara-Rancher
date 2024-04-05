@@ -1,26 +1,28 @@
 using UnityEngine;
+using CustomEventBus;
+using TMPro;
 
 public class ChangeGrassMod : MonoBehaviour
 {
     [SerializeField] private GameObject[] Grasses = new GameObject[3];
 
-    private EventBus eventBus;
+    [SerializeField] private TMP_Text Graghtext;
 
     private void OnEnable()
     {
-        eventBus = EventBus.eventBus;
-        eventBus.ChnageGrassMod += OnGrass;
+        EventBus.ChnageGrassMod += OnGrass;
     }
 
     private void OnDisable()
     {
-        eventBus.ChnageGrassMod -= OnGrass;
+        EventBus.ChnageGrassMod -= OnGrass;
     }
 
     private void OnGrass()
     {
         int indexQuality = QualitySettings.GetQualityLevel();
         string Quality = QualitySettings.names[indexQuality];
+        Graghtext.text = Quality;
         switch (Quality)
         {
             case "Low":
@@ -34,9 +36,9 @@ public class ChangeGrassMod : MonoBehaviour
                 Grasses[2].SetActive(false);
                 break;
             case "High":
-                Grasses[2].SetActive(true);
                 Grasses[0].SetActive(true);
                 Grasses[1].SetActive(true);
+                Grasses[2].SetActive(true);
                 break;
         }
     }

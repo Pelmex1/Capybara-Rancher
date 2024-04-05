@@ -1,38 +1,43 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using CustomEventBus;
 
 public class VolumeController : MonoBehaviour
 {
     [SerializeField] private AudioMixer mixer;
-    private EventBus eventBus;
-
     private void OnEnable()
     {
-        eventBus = EventBus.eventBus;
-        eventBus.GetMusicValue += GetVolume;
-        eventBus.SaveMusicValue += SaveVolume;
+        EventBus.GetMusicValue += GetVolume;
+        EventBus.SaveMusicValue += SaveVolume;
     }
     private void OnDisable()
     {
-        eventBus.GetMusicValue -= GetVolume;
-        eventBus.SaveMusicValue -= SaveVolume;
+        EventBus.GetMusicValue -= GetVolume;
+        EventBus.SaveMusicValue -= SaveVolume;
     }
 
     private void GetVolume(float[] GetArray)
     {
         if (PlayerPrefs.HasKey($"Mixer{0}"))
         {
-            for (int i = 0; i < 3; i++)
-            {
-                Debug.Log($"Work {PlayerPrefs.GetFloat($"Mixer{i}")}");
-                GetArray[i] = PlayerPrefs.GetFloat($"Mixer{i}");
-            }
+            for (int i = 0; i < 3; i++)            
+                GetArray[i] = PlayerPrefs.GetFloat($"Mixer{i}");            
             mixer.SetFloat("MasterVolume", GetArray[0]);
             mixer.SetFloat("MusicVolume", GetArray[1]);
             mixer.SetFloat("SFXVolume", GetArray[2]);
             mixer.SetFloat("AmbienceVolume", GetArray[2]);
             mixer.SetFloat("PlayerVolume", GetArray[2]);
             mixer.SetFloat("CapybaraVolume", GetArray[2]);
+        }
+        else
+        {
+            float midleValue = -30f;
+            mixer.SetFloat("MasterVolume", midleValue);
+            mixer.SetFloat("MusicVolume", midleValue);
+            mixer.SetFloat("SFXVolume", midleValue);
+            mixer.SetFloat("AmbienceVolume", midleValue);
+            mixer.SetFloat("PlayerVolume", midleValue);
+            mixer.SetFloat("CapybaraVolume", midleValue);
         }
     }
 

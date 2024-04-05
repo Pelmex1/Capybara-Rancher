@@ -1,17 +1,18 @@
 using System;
 
-public class EventBus
+namespace CustomEventBus
 {
-    private EventBus()
+    public static class EventBus
     {
-        
+/*         private EventBus() { }
+        private static EventBus _eventBus;
+
+        public static EventBus eventBus => _eventBus ?? (_eventBus = new EventBus()); */
+
+        public static Action ChnageGrassMod;
+        public static Action<float[]> GetMusicValue;
+
+        public static Action<float[]> SaveMusicValue;
     }
-    private static EventBus _eventBus;
 
-    public static EventBus eventBus => _eventBus ?? (_eventBus = new EventBus());
-
-    public Action ChnageGrassMod;
-    public Action<float[]> GetMusicValue;
-
-    public Action<float[]> SaveMusicValue;
 }

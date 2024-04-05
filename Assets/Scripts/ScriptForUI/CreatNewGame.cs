@@ -20,7 +20,6 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private LorScene lorScene;
     [SerializeField] private TMP_Text TextNameGame;
 
-    private readonly SaveData saveData = new();
     public Image SelectIcon;
     private AudioSource audioSource;
 
