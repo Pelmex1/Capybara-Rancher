@@ -1,10 +1,9 @@
+using CustomEventBus;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ContainerInventory : MonoBehaviour
 {
     public delegate void HelpUIEnable(bool isEnable);
-    public static event HelpUIEnable EnableHelpUI;
     public static event HelpUIEnable EnableBaseUI;
     public delegate void AddItemCollection(ChestCell[] chestCells);
     public static event AddItemCollection UpdateInventoryUI;
@@ -23,7 +22,7 @@ public class ContainerInventory : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerInventory = other.gameObject.GetComponent<InventoryPlayer>();
-            EnableHelpUI.Invoke(true);
+            EventBus.EnableHelpUi(true);
             isNearChest = true;
         }
     }
@@ -32,7 +31,7 @@ public class ContainerInventory : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isNearChest = false;
-            EnableHelpUI.Invoke(false);
+            EventBus.EnableHelpUi(false);
         }
     }
     private void Update()
@@ -43,7 +42,7 @@ public class ContainerInventory : MonoBehaviour
             UpdateInventoryUI(playerInventory.inventory);
             Cursor.lockState = CursorLockMode.Confined;
             EnableBaseUI.Invoke(true);
-            EnableHelpUI.Invoke(false);
+            EventBus.EnableHelpUi(false);
         }
     }
 

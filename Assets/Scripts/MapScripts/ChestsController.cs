@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
+using CustomEventBus;
 
 public class ChestsController : MonoBehaviour
 {
@@ -12,18 +13,13 @@ public class ChestsController : MonoBehaviour
     [SerializeField] private Sprite defaultSprite;
     public ChestCell[] chestsUI = new ChestCell[12];
     public ChestCell[] inventoryUI = new ChestCell[5];
-
-
-    private void Start()
-    {
-        //inventoryUI = InventoryPanel.GetComponentsInChildren<ChestCell>();
-        //chestsUI = ChestPanel.GetComponentsInChildren<ChestCell>();
+    private void Awake() {
+        EventBus.EnableHelpUi = EnableHelpUI;
     }
     private ChestCell CellUpdate(ChestCell cell, ChestCell data){
         cell.inventoryItem = data.inventoryItem;
         cell.count = data.count != 0 ? data.count : 0;
         cell.image.sprite = data.inventoryItem?.image.sprite ?? defaultSprite;
-        Debug.Log(cell);
         return cell;
     }
     private void UpdateChestCells(ChestCell[] chestCells)
@@ -67,9 +63,7 @@ public class ChestsController : MonoBehaviour
     {
         transformGameObject.SetParent(CellsCanvas);
     }
-    private void EnableHelpUI(bool isEnable){
-        HelpUi.SetActive(isEnable);
-    }
+    private void EnableHelpUI(bool isEnable) => HelpUi.SetActive(isEnable);
     private void EnableUI(bool isEnable){
         InventoryPanel.SetActive(isEnable);
         ChestPanel.SetActive(isEnable);
@@ -80,7 +74,6 @@ public class ChestsController : MonoBehaviour
         ChestCell.FoundDistance += FoundPos;
         ContainerInventory.UpdateChestUI += UpdateChestCells;
         ContainerInventory.UpdateInventoryUI += UpdateInventoryCells;
-        ContainerInventory.EnableHelpUI +=EnableHelpUI;
         ContainerInventory.EnableBaseUI += EnableUI;
     }
     private void OnDisable()
@@ -89,7 +82,6 @@ public class ChestsController : MonoBehaviour
         ChestCell.FoundDistance -= FoundPos;
         ContainerInventory.UpdateChestUI -= UpdateChestCells;
         ContainerInventory.UpdateInventoryUI -= UpdateInventoryCells;
-        ContainerInventory.EnableHelpUI -= EnableHelpUI;
         ContainerInventory.EnableBaseUI -= EnableUI;
     }
 }

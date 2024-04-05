@@ -1,30 +1,35 @@
 using System.Collections.Generic;
+using CustomEventBus;
 using UnityEngine;
 
 public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
-    [SerializeField] private PlayerAudioController playerAudioController;
-    public GameObject Portal2;
+    //[SerializeField] private PlayerAudioController playerAudioController;
+    //public GameObject Portal2;
     private readonly float speed = 3f;
     private Collider colliderCanon;
     private bool oneFunc = true;
 
     public List<MovebleObject> obdjectsInCollider = new();
 
-    public bool IsIenumeratorenabled { get; set; }
+    public bool Ienumeratorenabled { get; set; }
+    private void Awake() {
+        EventBus.RemoveFromList = RemoveFromList;
+        EventBus.InumeratorIsEnabled = EnamuratorEnable;
+    }
     private void Start()
     {
         colliderCanon = GetComponent<BoxCollider>();
     }
     private void FixedUpdate()
     {
-        playerAudioController.GunAttractionPlay();
+        //playerAudioController.GunAttractionPlay();
         if (Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked)
         {
-            if (!IsIenumeratorenabled)
+            if (!Ienumeratorenabled)
             {
-                Portal2.SetActive(true);
+                //Portal2.SetActive(true);
                 canonEnter.enabled = true;
             }
             colliderCanon.enabled = true;
@@ -37,7 +42,7 @@ public class Canon : MonoBehaviour
         }
         else
         {
-            Portal2.SetActive(false);
+            //Portal2.SetActive(false);
             if (oneFunc)
             {
                 for (int i = 0; i < obdjectsInCollider.Count; i++)
@@ -65,4 +70,6 @@ public class Canon : MonoBehaviour
             obdjectsInCollider.Remove(other.gameObject.GetComponent<MovebleObject>());
         }
     }
+    private void RemoveFromList(MovebleObject movebleObject) => obdjectsInCollider.Remove(movebleObject);
+    private void EnamuratorEnable(bool isEnable) => Ienumeratorenabled = isEnable;
 }

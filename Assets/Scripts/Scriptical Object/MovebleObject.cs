@@ -1,3 +1,4 @@
+using CustomEventBus;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,5 +14,14 @@ public class MovebleObject : MonoBehaviour
     {
         if(navMeshAgent == null) return;
         _ = IsMoved ? (navMeshAgent.enabled = false) : (navMeshAgent.enabled = true);
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("CanonEnter")){
+            if(EventBus.AddItemInInventory(data))
+            {   
+                EventBus.RemoveFromList(this);
+                Destroy(other.gameObject);
+            }
+        };
     }
 }

@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
+using CustomEventBus;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 public class InventoryPlayer : MonoBehaviour
 {
@@ -11,16 +9,18 @@ public class InventoryPlayer : MonoBehaviour
 
     private int index = 0;
     private readonly float speed = 10f;
-    private Canon canon;
-    private PlayerAudioController playerAudioController;
+    //private Canon canon;
+    //private PlayerAudioController playerAudioController;
     private ChestCell nullChestCell;
-
+    private Dictionary<InventoryItem, int> CellsData;
     public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange = false;
+    private void Awake() {
+        EventBus.AddItemInInventory = AddItemInInventory;
+    }
     private void Start()
     {
-        canon = GetComponentInChildren<Canon>();
-        playerAudioController = GetComponent<PlayerAudioController>();
+        //playerAudioController = GetComponent<PlayerAudioController>();
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
@@ -31,7 +31,7 @@ public class InventoryPlayer : MonoBehaviour
         {
             inventory[index].inventoryItem ??= inventoryItem;
             inventory[index].count++;
-            playerAudioController.GunAddPlay();
+            //playerAudioController.GunAddPlay();
             return true;
         }
         
@@ -41,7 +41,7 @@ public class InventoryPlayer : MonoBehaviour
             {
                 inventory[i].inventoryItem = inventoryItem;
                 inventory[i].count++;
-                playerAudioController.GunAddPlay();
+                //playerAudioController.GunAddPlay();
                 return true;
             } else if(inventory[i].inventoryItem == null && nullChestCell == null){
                 nullChestCell = inventory[i];
@@ -51,7 +51,7 @@ public class InventoryPlayer : MonoBehaviour
             nullChestCell.inventoryItem = inventoryItem;
             nullChestCell.count++;
             nullChestCell = null;
-            playerAudioController.GunAddPlay();
+            //playerAudioController.GunAddPlay();
             return true;
         }
         return false;
@@ -60,11 +60,11 @@ public class InventoryPlayer : MonoBehaviour
     public void RemoveItem(Vector3 spawnPos, Vector3 pos)
     {
         WasChange = true;
-        if (inventory[index].inventoryItem == null)
+        /*if (inventory[index].inventoryItem == null)
         {
             canon.Portal2.SetActive(false);
             return;
-        }
+        }*/
         inventory[index].count--;
         StartCoroutine(Recherge());
         Instantiate(inventory[index].inventoryItem.prefab, spawnPos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
@@ -73,7 +73,7 @@ public class InventoryPlayer : MonoBehaviour
             inventory[index].inventoryItem = null;
         }
 
-        playerAudioController.GunRemovePlay();
+        //playerAudioController.GunRemovePlay();
     }
     private void Update()
     {
@@ -112,12 +112,10 @@ public class InventoryPlayer : MonoBehaviour
     }
     private IEnumerator Recherge()
     {
-
-        canon.IsIenumeratorenabled = true;
+        EventBus.InumeratorIsEnabled(true);
         canonEnter.enabled = false;
-        yield return new WaitForSecondsRealtime(2);
-
+        yield return new WaitForSecondsRealtime(3);
         canonEnter.enabled = true;
-        canon.IsIenumeratorenabled = false;
+        EventBus.InumeratorIsEnabled(false);
     }
 }

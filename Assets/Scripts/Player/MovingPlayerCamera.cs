@@ -15,7 +15,7 @@ public class MovingPlayer : MonoBehaviour
     private float startSpeed;
     private bool isRunning = false;
     private bool isGrounded;
-    private PlayerAudioController playerAudioController;
+    //private PlayerAudioController playerAudioController;
 
     public float mouseSensitivy;
     public float energy;
@@ -26,7 +26,7 @@ public class MovingPlayer : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerAudioController = GetComponent<PlayerAudioController>();
+        //playerAudioController = GetComponent<PlayerAudioController>();
         Cursor.lockState = CursorLockMode.Locked;
         startHeadRotation = head.rotation;
         xRotationCamera = head.localRotation.eulerAngles.x;
@@ -57,7 +57,7 @@ public class MovingPlayer : MonoBehaviour
             {
                 isGrounded = false;
                 rb.AddForce(transform.up, ForceMode.Impulse);
-                playerAudioController.JumpPlay();
+                //playerAudioController.JumpPlay();
             }
         if (Cursor.lockState == CursorLockMode.Locked){
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
@@ -81,6 +81,6 @@ public class MovingPlayer : MonoBehaviour
             speed = startSpeed;
         }
         
-        playerAudioController.FootStepPlay(isGrounded, isRunning && Input.GetKey(KeyCode.LeftShift));
+        //playerAudioController.FootStepPlay(isGrounded, isRunning && Input.GetKey(KeyCode.LeftShift));
     }
 }
