@@ -1,4 +1,5 @@
 using System;
+using CustomEventBus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +16,6 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private GameObject ObjectIcons;
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
-    [SerializeField] private LorScene lorScene;
     [SerializeField] private TMP_Text TextNameGame;
     private AudioSource audioSource;
 
@@ -42,7 +42,7 @@ public class CreatNewGame : MonoBehaviour
     public void Confirm()
     {
         audioSource.Stop();
-        lorScene.OnLorScene();
+        EventBus.OnLorScene.Invoke();
         PlayerPrefs.DeleteAll();
     }
 

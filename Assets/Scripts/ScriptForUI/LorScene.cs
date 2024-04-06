@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using CustomEventBus;
 using DevionGames;
 using TMPro;
 using UnityEngine;
@@ -30,7 +31,18 @@ public class LorScene : MonoBehaviour
     {
         audioSourceMusic = gameObject.GetComponent<AudioSource>();
     }
-    public void OnLorScene()
+
+    private void OnEnable()
+    {
+        EventBus.OnLorScene += OnLorScene;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.OnLorScene -= OnLorScene;
+    }
+
+    private void OnLorScene()
     {
         audioSourceMusic.Play();
         StartAlfa = FirstImage.color.a;

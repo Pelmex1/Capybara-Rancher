@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using CustomEventBus;
 
 public class UIBilding : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class UIBilding : MonoBehaviour
 
     private bool tryon = false;
 
-    public MainPanelBuilding mainPanelBuilding;
     public int IndexPlace;
     public Transform ParentPosition;
     public GameObject ParentPlace;
@@ -32,7 +32,7 @@ public class UIBilding : MonoBehaviour
                     Destroy(FirstObject);
                     NewObject = Instantiate(AllBuilding[i], ParentPosition.transform);
                     if (NewObject.TryGetComponent<Receptacle>(out var receptacle))
-                            receptacle.UIBuilding = this;
+                            receptacle.GetData(ParentPosition, NewObject);
                     break;
                 }
                 else
@@ -46,13 +46,20 @@ public class UIBilding : MonoBehaviour
     private void Update()
     {
         if (tryon)
-        {
-            OnUi();
-            mainPanelBuilding.UIBuilding = this;
-        }
+            OnUi();        
     }
 
-    public void OffBuilding()
+    private void OnEnable()
+    {
+        EventBus.OffBuilding += OffBuilding;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.OffBuilding -= OffBuilding;
+    }
+
+    private void OffBuilding()
     {
         MainButtonPanel.SetActive(false);
         FarmPanel.SetActive(false);
@@ -73,32 +80,22 @@ public class UIBilding : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Cursor.lockState = CursorLockMode.Confined;
+            EventBus.TransitionBuildingData.Invoke(IndexPlace, ParentPosition, FirstObject, NewObject);
             if (!PlayerPrefs.HasKey($"{IndexPlace}"))
             {
                 MainButtonPanel.SetActive(true);
-                mainPanelBuilding.IndexPlace = IndexPlace;
-                mainPanelBuilding.PositionPlace = ParentPosition;
-                mainPanelBuilding.FirstPlace = FirstObject;
-                NewObject = mainPanelBuilding.NewPlace;
             }
             else
             {
                 string ValueKey = PlayerPrefs.GetString($"{IndexPlace}");
-                if (ValueKey == "Farm")
-                {
-                    FarmPanel.SetActive(true);
-                    mainPanelBuilding.IndexPlace = IndexPlace;
-                    mainPanelBuilding.PositionPlace = ParentPosition;
-                }
+                if (ValueKey == "Farm")                
+                    FarmPanel.SetActive(true);                
                 else
-                {
-                    EnclosurePanel.SetActive(true);
-                    mainPanelBuilding.IndexPlace = IndexPlace;
-                    mainPanelBuilding.PositionPlace = ParentPosition;
-                }
+                    EnclosurePanel.SetActive(true);                
             }
         }
     }
+
 
     private void OnTriggerExit(Collider other)
     {

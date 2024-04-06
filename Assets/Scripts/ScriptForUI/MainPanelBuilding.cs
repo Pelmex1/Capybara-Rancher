@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Experimental;
+using CustomEventBus;
 
 public class MainPanelBuilding : MonoBehaviour
 {
@@ -15,17 +14,28 @@ public class MainPanelBuilding : MonoBehaviour
     public GameObject FirstPlace;
     public GameObject NewPlace;
     public GameObject ParentObject;
-    public UIBilding UIBuilding;
 
-
-    /*     private void Start()
-        {
-            PlayerPrefs.DeleteAll();
-        }
-     */
     private void LateUpdate()
     {
         TextMoney.text = $"{Iinstance.instance.money}";
+    }
+
+    private void OnEnable()
+    {
+        EventBus.TransitionBuildingData += GetBuildingData;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.TransitionBuildingData -= GetBuildingData;
+    }
+
+    private void GetBuildingData(int index, Transform ParentPosition, GameObject FirstObject, GameObject NewObject)
+    {
+        IndexPlace = index;
+        PositionPlace = ParentPosition;
+        FirstPlace = FirstObject;
+        NewPlace = NewObject != null ? NewObject : NewPlace;
     }
 
     public void SelectBuild(GameObject PanelsInfPlace)
@@ -39,13 +49,9 @@ public class MainPanelBuilding : MonoBehaviour
         {
             string Value = PlayerPrefs.GetString("PanelsInfo");
             if (Value == "PaneInfoFarme")
-            {
                 FarmInfoPanel.SetActive(false);
-            }
             else
-            {
                 EnclosureInfoPanel.SetActive(false);
-            }
             PanelsInfPlace.SetActive(true);
             PlayerPrefs.SetString("PanelsInfo", PanelsInfPlace.name);
         }
@@ -54,16 +60,16 @@ public class MainPanelBuilding : MonoBehaviour
 
     public void Buy(GameObject objectWichBuy)
     {
-        if (UIBuilding.NewObject == null && Iinstance.instance.money >= 150)
+        if (NewPlace == null && Iinstance.instance.money >= 150)
         {
             Iinstance.instance.money -= 150;
             Destroy(FirstPlace);
-            UIBuilding.NewObject = Instantiate(objectWichBuy, PositionPlace, ParentObject);
-            if (UIBuilding.NewObject.TryGetComponent<Receptacle>(out var receptacle))
-                receptacle.UIBuilding = UIBuilding;
+            NewPlace = Instantiate(objectWichBuy, PositionPlace, ParentObject);
+            if (NewPlace.TryGetComponent<Receptacle>(out var receptacle))
+                receptacle.GetData(PositionPlace, NewPlace);
             PlayerPrefs.SetString($"{IndexPlace}", objectWichBuy.name);
             PlayerPrefs.Save();
-            UIBuilding.OffBuilding();
+            EventBus.OffBuilding.Invoke();
         }
         else
         {
@@ -73,13 +79,13 @@ public class MainPanelBuilding : MonoBehaviour
 
     public void Delte()
     {
-        if (UIBuilding.NewObject != null)
+        if (NewPlace != null)
         {
-            Destroy(UIBuilding.NewObject);
+            Destroy(NewPlace);
             Instantiate(Area, PositionPlace, ParentObject);
             PlayerPrefs.DeleteKey($"{IndexPlace}");
             PlayerPrefs.Save();
-            UIBuilding.OffBuilding();
+            EventBus.OffBuilding.Invoke();
         }
         else
         {
@@ -87,5 +93,3 @@ public class MainPanelBuilding : MonoBehaviour
         }
     }
 }
-
-

@@ -1,9 +1,8 @@
+using CustomEventBus;
 using UnityEngine;
 
 public class GettingCollider : MonoBehaviour
 {
-    [SerializeField] private Receptacle receptacleScript;
-
     private void OnCollisionEnter(Collision collision)
     {
         FoodItem food;
@@ -12,9 +11,8 @@ public class GettingCollider : MonoBehaviour
             if (food.isGenerable)
             {
                 int spawnIndex = food.indexForSpawnFarm;
-                receptacleScript.ChangeFarm(spawnIndex);
+                EventBus.WasChangeFarm.Invoke(spawnIndex);
                 Destroy(collision.gameObject);
-
                 GetComponent<GettingCollider>().enabled = false;
             }
     }

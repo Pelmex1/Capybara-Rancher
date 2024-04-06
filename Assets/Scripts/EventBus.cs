@@ -1,13 +1,10 @@
 using System;
+using UnityEngine;
 
 namespace CustomEventBus
 {
     public static class EventBus
     {
-/*         private EventBus() { }
-        private static EventBus _eventBus;
-
-        public static EventBus eventBus => _eventBus ?? (_eventBus = new EventBus()); */
         #region Artem Action
         public static Predicate<InventoryItem> AddItemInInventory;
         //public static Action CanonIsEnum
@@ -18,10 +15,15 @@ namespace CustomEventBus
 
         public static Action ChnageGrassMod;
 
+        public static Action OnLorScene;
+
         public static Action<string> LodingScene;
         public static Action<float[]> GetMusicValue;
-
         public static Action<float[]> SaveMusicValue;
+        public static Action<int, Transform, GameObject, GameObject> TransitionBuildingData;
+        public static Action OffBuilding;
+
+        public static Action<int> WasChangeFarm;
     }
 
 }
