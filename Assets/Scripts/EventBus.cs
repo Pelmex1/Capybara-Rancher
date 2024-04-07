@@ -6,11 +6,12 @@ namespace CustomEventBus
     public static class EventBus
     {
         #region Artem Action
-        public static Predicate<InventoryItem> AddItemInInventory;
-        //public static Action CanonIsEnum
+        public static Action<float> AddMoney;
         public static Action<MovebleObject> RemoveFromList;
         public static Action<bool> InumeratorIsEnabled;
         public static Action<bool> EnableHelpUi;
+        public static Predicate<InventoryItem> AddItemInInventory;
+        public static Func<float> GetMoney;
         #endregion
 
         #region  Options and Loaading Scenes

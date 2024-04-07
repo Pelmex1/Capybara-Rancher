@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class ItemActivator : MonoBehaviour
 {
-    private const float TIMEMISTAKE = 0.01f;
+    private const float TIME_MISTAKE = 0.01f;
 
     [SerializeField] private int _distanceFromPlayer;
     [SerializeField] private GameObject _player;
@@ -34,11 +34,11 @@ public class ItemActivator : MonoBehaviour
                     else
                         ActivatorItems[i].SetActive(true);
 
-                    yield return new WaitForSeconds(TIMEMISTAKE);
+                    yield return new WaitForSeconds(TIME_MISTAKE);
                 }
             }
 
-            yield return new WaitForSeconds(TIMEMISTAKE);
+            yield return new WaitForSeconds(TIME_MISTAKE);
         }
     }
 }

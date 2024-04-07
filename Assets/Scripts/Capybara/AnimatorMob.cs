@@ -39,7 +39,7 @@ public class AnimatorMob : MonoBehaviour{
         anim.SetFloat ("velx", velocity.x);
         anim.SetFloat ("vely", velocity.y);
 
-        LookAt lookAt = GetComponent<LookAt> ();
+        LookAtNoSystem lookAt = GetComponent<LookAtNoSystem> ();
         if (lookAt) lookAt.lookAtTargetPosition = agent.steeringTarget + transform.forward;
         if (worldDeltaPosition.magnitude > agent.radius) agent.nextPosition = transform.position + 0.9f*worldDeltaPosition;
     }

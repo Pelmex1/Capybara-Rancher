@@ -17,7 +17,7 @@ public class MainPanelBuilding : MonoBehaviour
 
     private void LateUpdate()
     {
-        TextMoney.text = $"{Iinstance.instance.money}";
+        TextMoney.text = $"{EventBus.GetMoney()}";
     }
 
     private void OnEnable()
@@ -60,9 +60,9 @@ public class MainPanelBuilding : MonoBehaviour
 
     public void Buy(GameObject objectWichBuy)
     {
-        if (NewPlace == null && Iinstance.instance.money >= 150)
+        if (NewPlace == null && EventBus.GetMoney() >= 150)
         {
-            Iinstance.instance.money -= 150;
+            EventBus.AddMoney(-150);
             Destroy(FirstPlace);
             NewPlace = Instantiate(objectWichBuy, PositionPlace, ParentObject);
             if (NewPlace.TryGetComponent<Receptacle>(out var receptacle))

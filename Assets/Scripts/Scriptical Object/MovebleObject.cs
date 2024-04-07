@@ -12,8 +12,10 @@ public class MovebleObject : MonoBehaviour
     }
     private void Update() 
     {
-        if(navMeshAgent == null) return;
-        _ = IsMoved ? (navMeshAgent.enabled = false) : (navMeshAgent.enabled = true);
+        if(Input.GetKeyDown(KeyCode.E) && Time.timeScale == 1f){
+            if(navMeshAgent == null) return;
+            _ = IsMoved ? (navMeshAgent.enabled = false) : (navMeshAgent.enabled = true);
+        }
     }
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("CanonEnter")){

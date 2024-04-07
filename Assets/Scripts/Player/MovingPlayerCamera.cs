@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class MovingPlayer : MonoBehaviour
 {
-    private const float ROTATIONCAMERAMISTAKEY = 85f;
-    private const float ROTATIONCAMERAMISTAKEZ = 40f;
-    private const float MINENERGYVALUE = 5;
-    private const float SPEEDBOOST = 1.8f;
+    private const float ROTATION_CAMERA_MISTAKEY = 85f;
+    private const float ROTATION_CAMERA_MISTAKE = 40f;
+    private const float MIN_ENERGY_VALUE = 5;
+    private const float SPEED_BOOST = 1.8f;
 
     [SerializeField] private Transform _head;
     [SerializeField] private float _speed;
@@ -69,18 +69,18 @@ public class MovingPlayer : MonoBehaviour
             float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivy * Time.deltaTime;
 
             _xRotationCamera -= mouseY;
-            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATIONCAMERAMISTAKEY, _startHeadRotation.z + ROTATIONCAMERAMISTAKEZ);
+            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATION_CAMERA_MISTAKEY, _startHeadRotation.z + ROTATION_CAMERA_MISTAKE);
             _head.localRotation = Quaternion.Euler(_xRotationCamera, 0, 0);
             transform.Rotate(Vector3.up * mouseX);
         }
 
-        if (Energy > MINENERGYVALUE && Input.GetKey(KeyCode.LeftShift))
+        if (Energy > MIN_ENERGY_VALUE && Input.GetKey(KeyCode.LeftShift))
         {
             Energy -= _energyConsumptionRate * Time.deltaTime;
-            _speed = _startSpeed * SPEEDBOOST;
+            _speed = _startSpeed * SPEED_BOOST;
             _isRunning = true;
         }
-        else if (!(Energy > MINENERGYVALUE) && _isRunning)
+        else if (!(Energy > MIN_ENERGY_VALUE) && _isRunning)
         {
             Energy = 0;
             _isRunning = false;

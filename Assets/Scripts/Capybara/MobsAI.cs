@@ -4,12 +4,12 @@ using UnityEngine.AI;
 
 public class MobsAi : MonoBehaviour//, IMobsAi
 {
-    private const float MINTIMETOFIENDNEWTARGET = 5f;
-    private const float MAXTIMETOFIENDNEWTARGET = 20f;
-    private const float RADIUSTOFINDTARGET = 5f;
-    private const string TERRITORYOFMAPTAG = "TerritoryOfMap";
-    private const string OBSTACLETAG = "Obstacle";
-    private const string ANIMATORKAYFORRUNING = "IsRunning";
+    private const float MIN_TIME_TO_FIEND_NEW_TARGET = 5f;
+    private const float MAX_TIME_OF_FIND_NEW_TARGET = 20f;
+    private const float RADIUS_OF_TARGET = 5f;
+    private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
+    private const string OBSTACLE_TAG = "Obstacle";
+    private const string ANIMATORKAY_FORRUNING = "IsRunning";
 
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -25,12 +25,12 @@ public class MobsAi : MonoBehaviour//, IMobsAi
     }
     private void Update()
     {
-        _animator.SetBool(ANIMATORKAYFORRUNING, _agent.velocity.magnitude > 0.1f);
+        _animator.SetBool(ANIMATORKAY_FORRUNING, _agent.velocity.magnitude > 0.1f);
     }
     private Vector3 RandomPosition()
     {
-        float posX = Random.Range(transform.position.x + RADIUSTOFINDTARGET, transform.position.x - RADIUSTOFINDTARGET);
-        float posZ = Random.Range(transform.position.z + RADIUSTOFINDTARGET, transform.position.z - RADIUSTOFINDTARGET);
+        float posX = Random.Range(transform.position.x + RADIUS_OF_TARGET, transform.position.x - RADIUS_OF_TARGET);
+        float posZ = Random.Range(transform.position.z + RADIUS_OF_TARGET, transform.position.z - RADIUS_OF_TARGET);
         Vector3 pos = new(posX, transform.position.y, posZ);
         return pos;
     }
@@ -41,7 +41,7 @@ public class MobsAi : MonoBehaviour//, IMobsAi
 
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag(TERRITORYOFMAPTAG) && !collider.CompareTag(OBSTACLETAG))
+            if (collider.CompareTag(TERRITORY_OF_MAP_TAG) && !collider.CompareTag(OBSTACLE_TAG))
             {
                 return pos;
             }
@@ -63,7 +63,7 @@ public class MobsAi : MonoBehaviour//, IMobsAi
                 yield return new WaitForSecondsRealtime(1f);
                 continue;            
             }
-            yield return new WaitForSecondsRealtime(Random.Range(MINTIMETOFIENDNEWTARGET, MAXTIMETOFIENDNEWTARGET));
+            yield return new WaitForSecondsRealtime(Random.Range(MIN_TIME_TO_FIEND_NEW_TARGET, MAX_TIME_OF_FIND_NEW_TARGET));
         }
     }
     private void OnEnable()

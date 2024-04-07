@@ -18,10 +18,6 @@ public class InventoryPlayer : MonoBehaviour
     private void Awake() {
         EventBus.AddItemInInventory = AddItemInInventory;
     }
-    private void Start()
-    {
-        //playerAudioController = GetComponent<PlayerAudioController>();
-    }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         WasChange = true;

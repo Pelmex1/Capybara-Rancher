@@ -11,7 +11,7 @@ public class UIBilding : MonoBehaviour
     [SerializeField] private GameObject EnclosurePanel;
     [SerializeField] private GameObject[] AllBuilding = new GameObject[3];
 
-    private bool tryon = false;
+    private bool isNear = false;
 
     public int IndexPlace;
     public Transform ParentPosition;
@@ -45,7 +45,7 @@ public class UIBilding : MonoBehaviour
 
     private void Update()
     {
-        if (tryon)
+        if (isNear)
             OnUi();        
     }
 
@@ -71,7 +71,7 @@ public class UIBilding : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             InfoText.text = "Press Key E";
-            tryon = true;
+            isNear = true;
         }
     }
 
@@ -102,7 +102,7 @@ public class UIBilding : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             InfoText.text = "";
-            tryon = false;
+            isNear = false;
             Cursor.lockState = CursorLockMode.Locked;
             OffBuilding();
         }

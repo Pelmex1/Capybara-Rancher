@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LookAt : MonoBehaviour
+public class LookAtNoSystem : MonoBehaviour
 {
     public Transform head = null;
     public Vector3 lookAtTargetPosition;

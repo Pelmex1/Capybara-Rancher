@@ -14,8 +14,8 @@ public class Canon : MonoBehaviour
 
     public bool Ienumeratorenabled { get; set; }
     private void Awake() {
-        EventBus.RemoveFromList = RemoveFromList;
-        EventBus.InumeratorIsEnabled = EnamuratorEnable;
+        EventBus.RemoveFromList = (MovebleObject movebleObject) => obdjectsInCollider.Remove(movebleObject);
+        EventBus.InumeratorIsEnabled = (bool isEnable) => Ienumeratorenabled = isEnable;
     }
     private void Start()
     {
@@ -69,6 +69,4 @@ public class Canon : MonoBehaviour
             obdjectsInCollider.Remove(other.gameObject.GetComponent<MovebleObject>());
         }
     }
-    private void RemoveFromList(MovebleObject movebleObject) => obdjectsInCollider.Remove(movebleObject);
-    private void EnamuratorEnable(bool isEnable) => Ienumeratorenabled = isEnable;
 }

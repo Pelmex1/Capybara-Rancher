@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class CrystalsController : MonoBehaviour
 {
-    private const string MOVEBLEOBJECTTAG = "movebleObject";
-    private const float YBOOSTFORCRYSTAL = 0.5f;
-    private const float SIZEBOOSTAFTERTRANSFORMATION = 1.5f;
+    private const string MOVEBLE_OBJECT_TAG = "movebleObject";
+    private const float YBOOST_FOR_CRYSTAL = 0.5f;
+    private const float SIZE_BOOST_AFTER_TRANSFORMATION = 1.5f;
 
     [SerializeField] private float _delayBeforeCrystalSpawn = 10f;
     [SerializeField] private float _delayBeforeStarving = 60f;
@@ -22,9 +22,9 @@ public class CrystalsController : MonoBehaviour
     private string _nameOfFavouriteFood2;
     private CapybaraAudioController _audioController;
     private MobsAi _mobsAi;
-    private bool _hasTransformed { get; set; } = false;
+    private bool _hasTransformed  = false;
 
-    public bool isHungry {get; set;} = false;
+    public bool IsHungry {get; set;} = false;
     public GameObject NewCrystal { get; set; }
     private void Start()
     {
@@ -43,9 +43,9 @@ public class CrystalsController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag(MOVEBLEOBJECTTAG))
+        if (collision.gameObject.CompareTag(MOVEBLE_OBJECT_TAG))
         {
-            if (collision.gameObject.GetComponent<FoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && isHungry)
+            if (collision.gameObject.GetComponent<FoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
             {
                 string nameOfFood = collision.gameObject.GetComponent<MovebleObject>().data.name;
                 FoodType typeOfFood = collision.gameObject.GetComponent<FoodItem>().Type;
@@ -74,7 +74,7 @@ public class CrystalsController : MonoBehaviour
     }
     public IEnumerator GenerateCrystals(bool isFavouriteFood)
     {
-        isHungry = false;
+        IsHungry = false;
         _isAngry = false;
         _mobsAi.SetFoodFound(false);
 
@@ -100,19 +100,19 @@ public class CrystalsController : MonoBehaviour
         float radius = 1f;
         float posx = Random.Range(transform.position.x + radius, transform.position.x - radius);
         float posZ = Random.Range(transform.position.z + radius, transform.position.z - radius);
-        Vector3 pos = new (posx, transform.position.y + YBOOSTFORCRYSTAL, posZ);
+        Vector3 pos = new (posx, transform.position.y + YBOOST_FOR_CRYSTAL, posZ);
         return pos;
     }
     private IEnumerator LoopToStarving()
     {
         yield return new WaitForSecondsRealtime(_delayBeforeStarving);
-        isHungry = true;
+        IsHungry = true;
         StartCoroutine(LoopToAnger());
     }
     private IEnumerator LoopToAnger()
     {
         yield return new WaitForSecondsRealtime(_delayBeforeStarving);
-        if (isHungry)
+        if (IsHungry)
         {
             _isAngry = true;
             _audioController.SetAngryStatus(); // i dont know why it errors
@@ -129,7 +129,7 @@ public class CrystalsController : MonoBehaviour
         else
         {
             _angryParticle.SetActive(false);
-            if (isHungry)
+            if (IsHungry)
             {
                 _hungryParticle.SetActive(true);
                 _wellfedParticle.SetActive(false);
@@ -143,7 +143,7 @@ public class CrystalsController : MonoBehaviour
     }
     private void TransformationToAnotherCapybara(GameObject _newCrystal, GameObject modification, string nameOfSecondFavouriteFood, FoodType whatEatSecond)
     {
-        transform.localScale *= SIZEBOOSTAFTERTRANSFORMATION;
+        transform.localScale *= SIZE_BOOST_AFTER_TRANSFORMATION;
         NewCrystal = _newCrystal;
         _nameOfFavouriteFood2 = nameOfSecondFavouriteFood;
         _whatEat2 = whatEatSecond;

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using CustomEventBus;
 using UnityEngine;
 
 public class ItemAccept : MonoBehaviour
@@ -10,7 +9,7 @@ public class ItemAccept : MonoBehaviour
         {
             if (other.gameObject.TryGetComponent<CrystalItem>(out var crystalItem))
             {
-                Iinstance.instance.money += crystalItem.Price;
+                EventBus.AddMoney(crystalItem.Price);
                 Destroy(other.gameObject);
             }
         }
