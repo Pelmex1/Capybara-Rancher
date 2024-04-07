@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CustomEventBus;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class InventoryPlayer : MonoBehaviour
 {
@@ -79,17 +80,7 @@ public class InventoryPlayer : MonoBehaviour
             ChangeIndex(-1);
         else if (ScrollDelta > 0 && index >= 0 && Time.timeScale == 1f)
             ChangeIndex(1);
-        if (Input.GetKey(KeyCode.Alpha1))
-            index = 0;
-        if (Input.GetKey(KeyCode.Alpha2))
-            index = 1;
-        if (Input.GetKey(KeyCode.Alpha3))
-            index = 2;
-        if (Input.GetKey(KeyCode.Alpha4))
-            index = 3;
-        if (Input.GetKey(KeyCode.Alpha5))
-            index = 4;
-
+        index = IsButton();
         if (inventory[lastindex] != null && inventory[index] != null)
         {
             inventory[lastindex].image.color = Color.white;
@@ -100,7 +91,14 @@ public class InventoryPlayer : MonoBehaviour
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * speed);
         }
     }
-
+    private int IsButton() => Input.inputString switch {
+        "1" => 0,
+        "2" => 1,
+        "3" => 2,
+        "4" => 3,
+        "5" => 4,
+        _ => index
+    };
     private void ChangeIndex(int delta)
     {
         index += delta;

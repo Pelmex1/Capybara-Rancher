@@ -37,7 +37,14 @@ public class PlayerAudioController : MonoBehaviour
     }
     public void FootStepPlay(bool isGrounded, bool isRunning)
     {
-        bool moving = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && isGrounded;
+        static bool IsMoving() => Input.inputString switch {
+            "W" => true,
+            "A" => true,
+            "S" => true,
+            "D" => true,
+            _ => false,
+        };
+        bool moving = IsMoving() && isGrounded;
         if (moving)
         {
             if (!isRunning && !_walkAudio.isPlaying)
@@ -57,18 +64,10 @@ public class PlayerAudioController : MonoBehaviour
             _runAudio.Stop();
         }
     }
-    private void JumpPlay()
-    {
-        _jumpAudio.Play();
-    }
-    private void GunRemovePlay()
-    {
-        _gunRemoveAudio.Play();
-    }
-    private void GunAddPlay()
-    {
-        _gunAddAudio.Play();
-    }
+    private void JumpPlay() => _jumpAudio.Play();
+    private void GunRemovePlay() => _gunRemoveAudio.Play();
+    private void GunAddPlay() => _gunAddAudio.Play();
+    
     private void GunAttractionPlay()
     {
         if (!(Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked))

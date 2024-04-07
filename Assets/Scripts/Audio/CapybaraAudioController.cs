@@ -24,18 +24,9 @@ public class CapybaraAudioController : MonoBehaviour, ICapybaraAudioController
         _noiseAudio.Play();
     }
 
-    public void SetHappyStatus()
-    {
-        _noiseAudio = _happyAudio;
-    }
+    public void SetHappyStatus() => _noiseAudio = _happyAudio;
 
-    public void SetAngryStatus()
-    {
-        _noiseAudio = _angryAudio;
-    }
+    public void SetAngryStatus() => _noiseAudio = _angryAudio;
 
-    public void Eating()
-    {
-        _eatingAudio.Play();
-    }
+    public void Eating() => _eatingAudio.Play();
 }
