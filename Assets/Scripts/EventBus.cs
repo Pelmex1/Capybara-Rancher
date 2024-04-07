@@ -13,6 +13,7 @@ namespace CustomEventBus
         public static Action<bool> EnableHelpUi;
         #endregion
 
+        #region  Options and Loaading Scenes
         public static Action ChnageGrassMod;
 
         public static Action OnLorScene;
@@ -20,10 +21,13 @@ namespace CustomEventBus
         public static Action<string> LodingScene;
         public static Action<float[]> GetMusicValue;
         public static Action<float[]> SaveMusicValue;
+        #endregion Options and Loaading Scenes
+
+        #region  Building
         public static Action<int, Transform, GameObject, GameObject> TransitionBuildingData;
         public static Action OffBuilding;
-
         public static Action<int> WasChangeFarm;
+        #endregion Building
 
         #region Audio Action
         public static Action<bool, bool> PlayerMove;
