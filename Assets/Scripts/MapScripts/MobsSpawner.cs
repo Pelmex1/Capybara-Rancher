@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MobsSpawner : MonoBehaviour
 {
-    private const string TERRITORYOFMAPTAG = "TerritoryOfMap";
-    private const string OBSTACLETAG = "Obstacle";
+    private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
+    private const string OBSTACLE_TAG = "Obstacle";
 
     [SerializeField] private float _radiusOfSpawn = 5f;
     [SerializeField] private int _amountOfMobs = 8;
@@ -66,7 +66,7 @@ public class MobsSpawner : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(pos, 0.1f, 1 << LayerMask.NameToLayer("Default"));
 
         foreach (Collider collider in colliders)
-            if (collider.CompareTag(TERRITORYOFMAPTAG) && !collider.CompareTag(OBSTACLETAG))
+            if (collider.CompareTag(TERRITORY_OF_MAP_TAG) && !collider.CompareTag(OBSTACLE_TAG))
                 return pos;
 
         return SpawnPos();

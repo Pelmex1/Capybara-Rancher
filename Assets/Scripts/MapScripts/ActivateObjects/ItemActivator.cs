@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ItemActivator : MonoBehaviour
+public class ItemActivator : MonoBehaviour, IItemActivator
 {
     private const float TIME_MISTAKE = 0.01f;
 
@@ -40,5 +40,13 @@ public class ItemActivator : MonoBehaviour
 
             yield return new WaitForSeconds(TIME_MISTAKE);
         }
+    }
+    public void ActivatorItemsAdd(GameObject addObject)
+    {
+        ActivatorItems.Add(addObject);
+    }
+    public void ActivatorItemsRemove(GameObject removeObject)
+    {
+        ActivatorItems.Remove(removeObject);
     }
 }

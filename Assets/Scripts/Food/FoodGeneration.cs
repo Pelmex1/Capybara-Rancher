@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class FoodGeneration : MonoBehaviour
 {
-    private const string UNDERRIPETAG = "Untagged";
-    private const string RIPETAG = "movebleObject";
-    private const float STARTGROWINGSCALE = 0.1f;
+    private const string UNDERRIPE_TAG = "Untagged";
+    private const string RIPE_TAG = "movebleObject";
+    private const float START_GROWING_SCALE = 0.1f;
 
     [SerializeField] private GameObject _foodPrefab;
 
@@ -13,7 +13,7 @@ public class FoodGeneration : MonoBehaviour
 
     private void Start()
     {
-        _generationInterval = _foodPrefab.GetComponent<FoodItem>().TimeGeneration;
+        _generationInterval = _foodPrefab.GetComponent<IFoodItem>().TimeGeneration;
 
         StartCoroutine(GenerationLoop());
     }
@@ -26,8 +26,8 @@ public class FoodGeneration : MonoBehaviour
             harvest.transform.parent = transform;
             Rigidbody harvestRB = harvest.GetComponent<Rigidbody>();
             harvestRB.isKinematic = true;
-            harvest.tag = UNDERRIPETAG;
-            harvest.transform.localScale = new Vector3(STARTGROWINGSCALE, STARTGROWINGSCALE, STARTGROWINGSCALE);
+            harvest.tag = UNDERRIPE_TAG;
+            harvest.transform.localScale = new Vector3(START_GROWING_SCALE, START_GROWING_SCALE, START_GROWING_SCALE);
 
             Vector3 startSize = harvest.transform.localScale;
             Vector3 endSize = _foodPrefab.transform.localScale;
@@ -45,7 +45,7 @@ public class FoodGeneration : MonoBehaviour
 
             harvest.transform.localScale = endSize;
             harvestRB.isKinematic = false;
-            harvest.tag = RIPETAG;
+            harvest.tag = RIPE_TAG;
         }
     }
 }

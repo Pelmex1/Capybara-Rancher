@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerAudioController : MonoBehaviour
 {
-    private const float REDUCEVOLUMERATE = 5f;
-    private const float REDUCEINTERVAL = 0.1f;
+    private const float REDUCE_VOLUME_RATE = 5f;
+    private const float REDUCE_INTERVAL = 0.1f;
 
     [SerializeField] private AudioSource _walkAudio;
     [SerializeField] private AudioSource _runAudio;
@@ -84,8 +84,8 @@ public class PlayerAudioController : MonoBehaviour
     {
         while (_gunAttractionAudio.volume > 0)
         {
-            _gunAttractionAudio.volume -= _initialGunAttractionVolume / REDUCEVOLUMERATE;
-            yield return new WaitForSeconds(REDUCEINTERVAL);
+            _gunAttractionAudio.volume -= _initialGunAttractionVolume / REDUCE_VOLUME_RATE;
+            yield return new WaitForSeconds(REDUCE_INTERVAL);
         }
         _gunAttractionAudio.Stop();
     }
@@ -94,8 +94,8 @@ public class PlayerAudioController : MonoBehaviour
         _gunAttractionAudio.Play();
         while (_gunAttractionAudio.volume < _initialGunAttractionVolume)
         {
-            _gunAttractionAudio.volume += _initialGunAttractionVolume / REDUCEVOLUMERATE;
-            yield return new WaitForSeconds(REDUCEINTERVAL);
+            _gunAttractionAudio.volume += _initialGunAttractionVolume / REDUCE_VOLUME_RATE;
+            yield return new WaitForSeconds(REDUCE_INTERVAL);
         }
     }
 }

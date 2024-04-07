@@ -9,7 +9,7 @@ public class FoodSpoilage : MonoBehaviour
     private Renderer _objectRenderer;
     void Start()
     {
-        _waitingTime = GetComponent<FoodItem>().TimeGeneration;
+        _waitingTime = GetComponent<IFoodItem>().TimeGeneration;
         _objectRenderer = GetComponent<Renderer>();
         StartCoroutine(SpoilagingLoop());
     }

@@ -5,9 +5,8 @@ public class GettingCollider : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        FoodItem food;
-        collision.gameObject.TryGetComponent(out food);
-        if (food)
+        IFoodItem food;
+        if (collision.gameObject.TryGetComponent(out food))
             if (food.IsGenerable)
             {
                 int spawnIndex = food.IndexForSpawnFarm;

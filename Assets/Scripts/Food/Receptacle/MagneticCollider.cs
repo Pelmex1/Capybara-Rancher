@@ -13,9 +13,8 @@ public class MagneticCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        FoodItem foodItem;
-        other.gameObject.TryGetComponent(out foodItem);
-        if (foodItem)
+        IFoodItem foodItem;
+        if (other.gameObject.TryGetComponent(out foodItem))
             if (foodItem.IsGenerable)
                 StartCoroutine(MagnetismToTargetPos(other.transform));
     }

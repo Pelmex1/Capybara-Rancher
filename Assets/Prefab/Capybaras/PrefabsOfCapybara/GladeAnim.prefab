@@ -15329,10 +15329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f82ec9f6cf91f564ca9e261642605092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CrystalPrefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba,
+  crystalPrefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba,
     type: 3}
-  WhatEat: 1
-  NameOfFavouriteFood: '-'
+  whatEat: 1
+  nameOfFavouriteFood: '-'
 --- !u!114 &7086976881853122888
 MonoBehaviour:
   m_ObjectHideFlags: 0

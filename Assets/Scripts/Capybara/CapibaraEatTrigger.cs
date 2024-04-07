@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class CapibaraEatTrigger : MonoBehaviour
 {
-    private MobsAi mobsAi;
+    private IMobsAi mobsAi;
     private void Start() 
     {
-        mobsAi = GetComponentInParent<MobsAi>();
+        mobsAi = GetComponentInParent<IMobsAi>();
     }
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.GetComponent<FoodItem>())
+        if(other.gameObject.GetComponent<IFoodItem>() != null)
         {
             mobsAi.IsFoodFound(other.transform);
         }

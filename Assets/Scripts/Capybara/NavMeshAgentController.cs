@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class NavMeshAgentController : MonoBehaviour
 {
-    private const string GROUNDTAG = "Ground";
+    private const string GROUND_TAG = "Ground";
 
     private NavMeshAgent _agent;
     private Rigidbody _rb;
@@ -35,7 +35,7 @@ public class NavMeshAgentController : MonoBehaviour
         Debug.DrawRay(raycastOrigin, raycastDirection * _raycastDistance, Color.green);
         if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, _raycastDistance))
         {
-            if (hit.collider.CompareTag(GROUNDTAG))
+            if (hit.collider.CompareTag(GROUND_TAG))
                 IsGrounded = true;
             else if (hit.collider == null)
                 IsGrounded = false;

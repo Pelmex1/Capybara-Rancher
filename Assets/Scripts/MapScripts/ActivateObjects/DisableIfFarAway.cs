@@ -5,7 +5,7 @@ public class DisableIfFarAway : MonoBehaviour
 {
     private const float TIMEMISTAKE = 0.1f;
 
-    private ItemActivator _activation;
+    private IItemActivator _activation;
 
     private void Start()
     {
@@ -16,13 +16,13 @@ public class DisableIfFarAway : MonoBehaviour
 
     private void OnDestroy()
     {
-        _activation.ActivatorItems.Remove(gameObject);
+        _activation.ActivatorItemsRemove(gameObject);
     }
 
     private IEnumerator AddToList()
     {
         yield return new WaitForSeconds(TIMEMISTAKE);
         
-        _activation.ActivatorItems.Add(gameObject);
+        _activation.ActivatorItemsAdd(gameObject);
     }
 }

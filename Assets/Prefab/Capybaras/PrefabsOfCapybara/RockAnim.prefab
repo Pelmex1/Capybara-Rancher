@@ -16456,10 +16456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f82ec9f6cf91f564ca9e261642605092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CrystalPrefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17,
+  crystalPrefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17,
     type: 3}
-  WhatEat: 3
-  NameOfFavouriteFood: Carrot
+  whatEat: 3
+  nameOfFavouriteFood: Carrot
 --- !u!114 &-2388520379149261065
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class MovingPlayer : MonoBehaviour
 {
-    private const float ROTATION_CAMERA_MISTAKEY = 85f;
-    private const float ROTATION_CAMERA_MISTAKE = 40f;
+    private const float ROTATION_CAMERA_MISTAKE_Y = 85f;
+    private const float ROTATION_CAMERA_MISTAKE_Z = 40f;
     private const float MIN_ENERGY_VALUE = 5;
     private const float SPEED_BOOST = 1.8f;
 
@@ -69,7 +69,7 @@ public class MovingPlayer : MonoBehaviour
             float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivy * Time.deltaTime;
 
             _xRotationCamera -= mouseY;
-            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATION_CAMERA_MISTAKEY, _startHeadRotation.z + ROTATION_CAMERA_MISTAKE);
+            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATION_CAMERA_MISTAKE_Y, _startHeadRotation.z + ROTATION_CAMERA_MISTAKE_Z);
             _head.localRotation = Quaternion.Euler(_xRotationCamera, 0, 0);
             transform.Rotate(Vector3.up * mouseX);
         }

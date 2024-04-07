@@ -164,10 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf5d66001b78004f940b43001a931b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IndexForSpawnFarm: 0
-  TimeGeneration: 180
-  IsGenerable: 1
-  Type: 2
+  indexForSpawnFarm: 0
+  timeGeneration: 180
+  isGenerable: 1
+  type: 2
 --- !u!114 &4931975971623334155
 MonoBehaviour:
   m_ObjectHideFlags: 0

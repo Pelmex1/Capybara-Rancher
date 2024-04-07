@@ -2,14 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MobsAi : MonoBehaviour//, IMobsAi
+public class MobsAi : MonoBehaviour, IMobsAi
 {
-    private const float MIN_TIME_TO_FIEND_NEW_TARGET = 5f;
+    private const float MIN_TIME_TO_FIND_NEW_TARGET = 5f;
     private const float MAX_TIME_OF_FIND_NEW_TARGET = 20f;
     private const float RADIUS_OF_TARGET = 5f;
     private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
     private const string OBSTACLE_TAG = "Obstacle";
-    private const string ANIMATORKAY_FORRUNING = "IsRunning";
+    private const string ANIMATOR_KEY_FOR_RUNING = "IsRunning";
 
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -25,7 +25,7 @@ public class MobsAi : MonoBehaviour//, IMobsAi
     }
     private void Update()
     {
-        _animator.SetBool(ANIMATORKAY_FORRUNING, _agent.velocity.magnitude > 0.1f);
+        _animator.SetBool(ANIMATOR_KEY_FOR_RUNING, _agent.velocity.magnitude > 0.1f);
     }
     private Vector3 RandomPosition()
     {
@@ -63,7 +63,7 @@ public class MobsAi : MonoBehaviour//, IMobsAi
                 yield return new WaitForSecondsRealtime(1f);
                 continue;            
             }
-            yield return new WaitForSecondsRealtime(Random.Range(MIN_TIME_TO_FIEND_NEW_TARGET, MAX_TIME_OF_FIND_NEW_TARGET));
+            yield return new WaitForSecondsRealtime(Random.Range(MIN_TIME_TO_FIND_NEW_TARGET, MAX_TIME_OF_FIND_NEW_TARGET));
         }
     }
     private void OnEnable()

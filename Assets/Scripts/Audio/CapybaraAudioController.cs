@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class CapybaraAudioController : MonoBehaviour//, ICapybaraAudioController
+public class CapybaraAudioController : MonoBehaviour, ICapybaraAudioController
 {
-    private const float MININTERVALTONOISESOUND = 5f;
-    private const float MAXINTERVALTONOISESOUND = 10f;
+    private const float MIN_INTERVAL_TO_NOISE_SOUND = 5f;
+    private const float MAX_INTERVAL_TO_NOISE_SOUND = 10f;
 
     [SerializeField] private AudioSource _angryAudio;
     [SerializeField] private AudioSource _happyAudio;
@@ -20,7 +20,7 @@ public class CapybaraAudioController : MonoBehaviour//, ICapybaraAudioController
 
     private IEnumerator CapybaraNoiseLoop()
     {
-        yield return new WaitForSecondsRealtime(Random.Range(MININTERVALTONOISESOUND, MAXINTERVALTONOISESOUND));
+        yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_TO_NOISE_SOUND, MAX_INTERVAL_TO_NOISE_SOUND));
         _noiseAudio.Play();
     }
 

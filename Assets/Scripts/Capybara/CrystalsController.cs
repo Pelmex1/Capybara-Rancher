@@ -4,7 +4,7 @@ using UnityEngine;
 public class CrystalsController : MonoBehaviour
 {
     private const string MOVEBLE_OBJECT_TAG = "movebleObject";
-    private const float YBOOST_FOR_CRYSTAL = 0.5f;
+    private const float Y_BOOST_FOR_CRYSTAL = 0.5f;
     private const float SIZE_BOOST_AFTER_TRANSFORMATION = 1.5f;
 
     [SerializeField] private float _delayBeforeCrystalSpawn = 10f;
@@ -13,24 +13,24 @@ public class CrystalsController : MonoBehaviour
     [SerializeField] private GameObject _hungryParticle;
     [SerializeField] private GameObject _angryParticle;
 
-    private CapybaraItem _capybaraData;
     private bool _isAngry = false;
     private MovebleObject _movebleObject;
     private FoodType _whatEat1;
     private FoodType _whatEat2;
     private string _nameOfFavouriteFood1;
     private string _nameOfFavouriteFood2;
-    private CapybaraAudioController _audioController;
-    private MobsAi _mobsAi;
-    private bool _hasTransformed  = false;
+    private bool _hasTransformed = false;
+    private ICapybaraAudioController _audioController;
+    private IMobsAi _mobsAi;
+    private ICapybaraItem _capybaraData;
 
     public bool IsHungry {get; set;} = false;
     public GameObject NewCrystal { get; set; }
     private void Start()
     {
-        _audioController = GetComponent<CapybaraAudioController>();
-        _mobsAi = GetComponent<MobsAi>();
-        _capybaraData = GetComponent<CapybaraItem>();
+        _audioController = GetComponent<ICapybaraAudioController>();
+        _mobsAi = GetComponent<IMobsAi>();
+        _capybaraData = GetComponent<ICapybaraItem>();
 
         _whatEat1 = _capybaraData.WhatEat;
         _nameOfFavouriteFood1 = _capybaraData.NameOfFavouriteFood;
@@ -45,10 +45,10 @@ public class CrystalsController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(MOVEBLE_OBJECT_TAG))
         {
-            if (collision.gameObject.GetComponent<FoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
+            if (collision.gameObject.GetComponent<IFoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
             {
                 string nameOfFood = collision.gameObject.GetComponent<MovebleObject>().data.name;
-                FoodType typeOfFood = collision.gameObject.GetComponent<FoodItem>().Type;
+                FoodType typeOfFood = collision.gameObject.GetComponent<IFoodItem>().Type;
                 if (_nameOfFavouriteFood1 == nameOfFood || _nameOfFavouriteFood2 == nameOfFood)
                 {
                     StartCoroutine(GenerateCrystals(true));
@@ -60,9 +60,9 @@ public class CrystalsController : MonoBehaviour
                     Destroy(collision.gameObject);
                 }
             }
-            else if (collision.gameObject.GetComponent<CrystalItem>() != null)
+            else if (collision.gameObject.GetComponent<ICrystalItem>() != null)
             {
-                CrystalItem dataCr = collision.gameObject.GetComponent<CrystalItem>();
+                ICrystalItem dataCr = collision.gameObject.GetComponent<ICrystalItem>();
                 InventoryItem dataIn = collision.gameObject.GetComponent<MovebleObject>().data;
                 if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.prefab && NewCrystal != dataIn.prefab) && !_hasTransformed)
                 {
@@ -100,7 +100,7 @@ public class CrystalsController : MonoBehaviour
         float radius = 1f;
         float posx = Random.Range(transform.position.x + radius, transform.position.x - radius);
         float posZ = Random.Range(transform.position.z + radius, transform.position.z - radius);
-        Vector3 pos = new (posx, transform.position.y + YBOOST_FOR_CRYSTAL, posZ);
+        Vector3 pos = new (posx, transform.position.y + Y_BOOST_FOR_CRYSTAL, posZ);
         return pos;
     }
     private IEnumerator LoopToStarving()
