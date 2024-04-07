@@ -4,15 +4,17 @@ using System.Collections.Generic;
 
 public class ItemActivator : MonoBehaviour
 {
-    [SerializeField] private int distanceFromPlayer;
-    [SerializeField] private GameObject player;
+    private const float TIMEMISTAKE = 0.01f;
 
-    public List<GameObject> activatorItems;
+    [SerializeField] private int _distanceFromPlayer;
+    [SerializeField] private GameObject _player;
+
+    public List<GameObject> ActivatorItems;
 
     private void Awake()
     {
-        distanceFromPlayer = (int)(Camera.main.farClipPlane);
-        ItemActivatorHolder.itemActivator = this;
+        _distanceFromPlayer = (int)(Camera.main.farClipPlane);
+        ItemActivatorHolder.ItemActivator = this;
     }
     private void Start()
     {
@@ -23,20 +25,20 @@ public class ItemActivator : MonoBehaviour
     {
         while (true)
         {
-            if (activatorItems.Count > 0)
+            if (ActivatorItems.Count > 0)
             {
-                for (int i = 0; i < activatorItems.Count; i++)
+                for (int i = 0; i < ActivatorItems.Count; i++)
                 {
-                    if (Vector3.Distance(player.transform.position, activatorItems[i].transform.position) > distanceFromPlayer)
-                        activatorItems[i].SetActive(false);
+                    if (Vector3.Distance(_player.transform.position, ActivatorItems[i].transform.position) > _distanceFromPlayer)
+                        ActivatorItems[i].SetActive(false);
                     else
-                        activatorItems[i].SetActive(true);
+                        ActivatorItems[i].SetActive(true);
 
-                    yield return new WaitForSeconds(0.01f);
+                    yield return new WaitForSeconds(TIMEMISTAKE);
                 }
             }
 
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(TIMEMISTAKE);
         }
     }
 }

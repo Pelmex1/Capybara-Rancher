@@ -53,5 +53,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8460608b3c930846889b2fce6380cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPrefab: {fileID: 6361594820006480700, guid: 61bcadc7115dedb4491b573b5acf63ec,
+  _foodPrefab: {fileID: 6361594820006480700, guid: 61bcadc7115dedb4491b573b5acf63ec,
     type: 3}

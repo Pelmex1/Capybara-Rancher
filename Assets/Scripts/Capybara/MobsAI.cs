@@ -2,16 +2,22 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MobsAi : MonoBehaviour
+public class MobsAi : MonoBehaviour//, IMobsAi
 {
-    private NavMeshAgent agent;
-    public bool isfoodfound {get; set;} = false;
+    private const float MINTIMETOFIENDNEWTARGET = 5f;
+    private const float MAXTIMETOFIENDNEWTARGET = 20f;
+    private const float RADIUSTOFINDTARGET = 5f;
+    private const string TERRITORYOFMAPTAG = "TerritoryOfMap";
+    private const string OBSTACLETAG = "Obstacle";
+    private const string ANIMATORKAYFORRUNING = "IsRunning";
 
-    private Animator animator;
+    private NavMeshAgent _agent;
+    private Animator _animator;
+    private bool _isfoodfound {get; set;} = false;
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
     }
     private void Start() 
     {
@@ -19,13 +25,12 @@ public class MobsAi : MonoBehaviour
     }
     private void Update()
     {
-        animator.SetBool("IsRunning", agent.velocity.magnitude > 0.1f);
+        _animator.SetBool(ANIMATORKAYFORRUNING, _agent.velocity.magnitude > 0.1f);
     }
     private Vector3 RandomPosition()
     {
-        float radius = 5f;
-        float posX = Random.Range(transform.position.x + radius, transform.position.x - radius);
-        float posZ = Random.Range(transform.position.z + radius, transform.position.z - radius);
+        float posX = Random.Range(transform.position.x + RADIUSTOFINDTARGET, transform.position.x - RADIUSTOFINDTARGET);
+        float posZ = Random.Range(transform.position.z + RADIUSTOFINDTARGET, transform.position.z - RADIUSTOFINDTARGET);
         Vector3 pos = new(posX, transform.position.y, posZ);
         return pos;
     }
@@ -36,7 +41,7 @@ public class MobsAi : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("TerritoryOfMap") && !collider.CompareTag("Obstacle"))
+            if (collider.CompareTag(TERRITORYOFMAPTAG) && !collider.CompareTag(OBSTACLETAG))
             {
                 return pos;
             }
@@ -48,17 +53,17 @@ public class MobsAi : MonoBehaviour
     {
         while (true)
         {
-            if (!isfoodfound && Time.timeScale == 1f)
+            if (!_isfoodfound && Time.timeScale == 1f)
             {
-                if(agent.enabled)
-                    agent.SetDestination(FoundTarget());
+                if(_agent.enabled == true)
+                    _agent.SetDestination(FoundTarget());
             }
-            if(!agent.enabled)
+            if(!_agent.enabled)
             {
                 yield return new WaitForSecondsRealtime(1f);
                 continue;            
             }
-            yield return new WaitForSecondsRealtime(Random.Range(5f, 20f));
+            yield return new WaitForSecondsRealtime(Random.Range(MINTIMETOFIENDNEWTARGET, MAXTIMETOFIENDNEWTARGET));
         }
     }
     private void OnEnable()
@@ -68,11 +73,15 @@ public class MobsAi : MonoBehaviour
 
     public void IsFoodFound(Transform foodTransform)
     {
-        if (agent.enabled)
+        if (_agent.enabled)
         {
-            isfoodfound = true;
-            agent.SetDestination(foodTransform.position);
+            _isfoodfound = true;
+            _agent.SetDestination(foodTransform.position);
         }
     }
     
+    public void SetFoodFound(bool _input)
+    {
+        _isfoodfound = _input;
+    }
 }

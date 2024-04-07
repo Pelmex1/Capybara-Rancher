@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - TerritoryOfMap
   - Ground
+  - CanonEnter
   layers:
   - Default
   - TransparentFX

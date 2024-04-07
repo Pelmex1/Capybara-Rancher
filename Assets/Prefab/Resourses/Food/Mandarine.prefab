@@ -164,10 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf5d66001b78004f940b43001a931b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indexForSpawnFarm: 0
-  timeGeneration: 300
-  isGenerable: 1
-  type: 1
+  IndexForSpawnFarm: 0
+  TimeGeneration: 180
+  IsGenerable: 1
+  Type: 2
 --- !u!114 &4931975971623334155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d503048bc7768dd4aadf427f7704477c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeSpoilage: 30
+  _timeBeforeSpoilage: 30
 --- !u!1 &829490631437043335
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
 public static class ItemActivatorHolder
 {
-    public static ItemActivator itemActivator;
+    public static ItemActivator ItemActivator;
 }

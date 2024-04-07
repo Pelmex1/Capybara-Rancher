@@ -4,12 +4,14 @@ using CustomEventBus;
 
 public class VolumeController : MonoBehaviour
 {
-    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private AudioMixer _mixer;
+
     private void OnEnable()
     {
         EventBus.GetMusicValue += GetVolume;
         EventBus.SaveMusicValue += SaveVolume;
     }
+
     private void OnDisable()
     {
         EventBus.GetMusicValue -= GetVolume;
@@ -22,22 +24,22 @@ public class VolumeController : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)            
                 GetArray[i] = PlayerPrefs.GetFloat($"Mixer{i}");            
-            mixer.SetFloat("MasterVolume", GetArray[0]);
-            mixer.SetFloat("MusicVolume", GetArray[1]);
-            mixer.SetFloat("SFXVolume", GetArray[2]);
-            mixer.SetFloat("AmbienceVolume", GetArray[2]);
-            mixer.SetFloat("PlayerVolume", GetArray[2]);
-            mixer.SetFloat("CapybaraVolume", GetArray[2]);
+            _mixer.SetFloat("MasterVolume", GetArray[0]);
+            _mixer.SetFloat("MusicVolume", GetArray[1]);
+            _mixer.SetFloat("SFXVolume", GetArray[2]);
+            _mixer.SetFloat("AmbienceVolume", GetArray[2]);
+            _mixer.SetFloat("PlayerVolume", GetArray[2]);
+            _mixer.SetFloat("CapybaraVolume", GetArray[2]);
         }
         else
         {
             float midleValue = -30f;
-            mixer.SetFloat("MasterVolume", midleValue);
-            mixer.SetFloat("MusicVolume", midleValue);
-            mixer.SetFloat("SFXVolume", midleValue);
-            mixer.SetFloat("AmbienceVolume", midleValue);
-            mixer.SetFloat("PlayerVolume", midleValue);
-            mixer.SetFloat("CapybaraVolume", midleValue);
+            _mixer.SetFloat("MasterVolume", midleValue);
+            _mixer.SetFloat("MusicVolume", midleValue);
+            _mixer.SetFloat("SFXVolume", midleValue);
+            _mixer.SetFloat("AmbienceVolume", midleValue);
+            _mixer.SetFloat("PlayerVolume", midleValue);
+            _mixer.SetFloat("CapybaraVolume", midleValue);
         }
     }
 

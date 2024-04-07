@@ -1,86 +1,96 @@
+using CustomEventBus;
 using UnityEngine;
 
 public class MovingPlayer : MonoBehaviour
 {
-    [SerializeField] private Transform head;
-    [SerializeField] private float speed;
+    private const float ROTATIONCAMERAMISTAKEY = 85f;
+    private const float ROTATIONCAMERAMISTAKEZ = 40f;
+    private const float MINENERGYVALUE = 5;
+    private const float SPEEDBOOST = 1.8f;
 
-    private Rigidbody rb;
-    private Quaternion startHeadRotation;
-    private readonly float energyRegenRate = 5f;
-    private readonly float energyConsumptionRate = 10f;
-    private float vertical;
-    private float horizontal;
-    private float xRotationCamera;
-    private float startSpeed;
-    private bool isRunning = false;
-    private bool isGrounded;
-    //private PlayerAudioController playerAudioController;
+    [SerializeField] private Transform _head;
+    [SerializeField] private float _speed;
 
-    public float mouseSensitivy;
-    public float energy;
-    public float hp = 100f;
-    public readonly float energyMaxValue = 50f;
-    public readonly float hpMaxValue = 100f;
+    private Rigidbody _rb;
+    private Quaternion _startHeadRotation;
+    private readonly float _energyRegenRate = 5f;
+    private readonly float _energyConsumptionRate = 10f;
+    private float _vertical;
+    private float _horizontal;
+    private float _xRotationCamera;
+    private float _startSpeed;
+    private bool _isRunning = false;
+    private bool _isGrounded;
+
+    public float MouseSensitivy;
+    public float Energy;
+    public float Hp = 100f;
+    public readonly float EnergyMaxValue = 50f;
+    public readonly float HpMaxValue = 100f;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        //playerAudioController = GetComponent<PlayerAudioController>();
+        _rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
-        startHeadRotation = head.rotation;
-        xRotationCamera = head.localRotation.eulerAngles.x;
-        energy = energyMaxValue;
-        startSpeed = speed;
+        _startHeadRotation = _head.rotation;
+        _xRotationCamera = _head.localRotation.eulerAngles.x;
+        Energy = EnergyMaxValue;
+        _startSpeed = _speed;
     }
     private void OnCollisionEnter(Collision other)
     {
-        isGrounded = true;
+        _isGrounded = true;
     }
 
     private void FixedUpdate()
     {
-        if(isGrounded)
+        if (_isGrounded)
         {
-            vertical = Input.GetAxisRaw("Vertical");
-            horizontal = Input.GetAxisRaw("Horizontal");
+            _vertical = Input.GetAxisRaw("Vertical");
+            _horizontal = Input.GetAxisRaw("Horizontal");
         }
-        rb.MovePosition(rb.position + vertical * speed * Time.fixedDeltaTime * transform.forward);
-        rb.MovePosition(rb.position + horizontal * speed * Time.fixedDeltaTime * transform.right);
-        
+        _rb.MovePosition(_rb.position + _vertical * _speed * Time.fixedDeltaTime * transform.forward);
+        _rb.MovePosition(_rb.position + _horizontal * _speed * Time.fixedDeltaTime * transform.right);
+
     }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.Space))
-            if (isGrounded)
+            if (_isGrounded)
             {
-                isGrounded = false;
-                rb.AddForce(transform.up, ForceMode.Impulse);
-                //playerAudioController.JumpPlay();
+                _isGrounded = false;
+                _rb.AddForce(transform.up, ForceMode.Impulse);
+                EventBus.PlayerJump.Invoke();
             }
-        if (Cursor.lockState == CursorLockMode.Locked){
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivy * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivy * Time.deltaTime;
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * MouseSensitivy * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivy * Time.deltaTime;
 
-            xRotationCamera -= mouseY;
-            xRotationCamera = Mathf.Clamp(xRotationCamera, startHeadRotation.y - 85f, startHeadRotation.z + 40f);
-            head.localRotation = Quaternion.Euler(xRotationCamera, 0, 0);
+            _xRotationCamera -= mouseY;
+            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATIONCAMERAMISTAKEY, _startHeadRotation.z + ROTATIONCAMERAMISTAKEZ);
+            _head.localRotation = Quaternion.Euler(_xRotationCamera, 0, 0);
             transform.Rotate(Vector3.up * mouseX);
         }
 
-        if(energy > 5 && Input.GetKey(KeyCode.LeftShift)){
-            energy -= energyConsumptionRate * Time.deltaTime;
-            speed = startSpeed * 1.8f;
-            isRunning = true;
-        }else if(!(energy > 5) && isRunning){
-            energy = 0;
-            isRunning = false;
-        } else if (energy < energyMaxValue){
-            energy += energyRegenRate * Time.deltaTime;
-            speed = startSpeed;
+        if (Energy > MINENERGYVALUE && Input.GetKey(KeyCode.LeftShift))
+        {
+            Energy -= _energyConsumptionRate * Time.deltaTime;
+            _speed = _startSpeed * SPEEDBOOST;
+            _isRunning = true;
         }
-        
-        //playerAudioController.FootStepPlay(isGrounded, isRunning && Input.GetKey(KeyCode.LeftShift));
+        else if (!(Energy > MINENERGYVALUE) && _isRunning)
+        {
+            Energy = 0;
+            _isRunning = false;
+        }
+        else if (Energy < EnergyMaxValue)
+        {
+            Energy += _energyRegenRate * Time.deltaTime;
+            _speed = _startSpeed;
+        }
+
+        EventBus.PlayerMove.Invoke(_isGrounded, _isRunning && Input.GetKey(KeyCode.LeftShift));
     }
 }

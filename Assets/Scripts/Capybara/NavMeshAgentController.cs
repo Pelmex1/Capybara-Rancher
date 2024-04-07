@@ -3,41 +3,44 @@ using UnityEngine.AI;
 
 public class NavMeshAgentController : MonoBehaviour
 {
-    private NavMeshAgent agent;
-    private Rigidbody rb;
-    private float raycastDistance = 0.2f;
-    public bool isGrounded;// {get; set;}
+    private const string GROUNDTAG = "Ground";
+
+    private NavMeshAgent _agent;
+    private Rigidbody _rb;
+    private float _raycastDistance = 0.2f;
+
+    public bool IsGrounded { get; set; }
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        rb = GetComponent<Rigidbody>();
+        _agent = GetComponent<NavMeshAgent>();
+        _rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
-        IsGrounded();
+        CheckIsGrounded();
         ChangeComponents();
     }
     private void ChangeComponents()
     {
-        rb.useGravity = !isGrounded;
-        rb.isKinematic = isGrounded;
-        agent.enabled = isGrounded;
+        _rb.useGravity = !IsGrounded;
+        _rb.isKinematic = IsGrounded;
+        _agent.enabled = IsGrounded;
         
     }
-    private void IsGrounded()
+    private void CheckIsGrounded()
     {
         Vector3 raycastOrigin = transform.position;
         Vector3 raycastDirection = Vector3.down;
         RaycastHit hit;
-        Debug.DrawRay(raycastOrigin, raycastDirection * raycastDistance, Color.green);
-        if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, raycastDistance))
+        Debug.DrawRay(raycastOrigin, raycastDirection * _raycastDistance, Color.green);
+        if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, _raycastDistance))
         {
-            if (hit.collider.CompareTag("Ground"))
-                isGrounded = true;
+            if (hit.collider.CompareTag(GROUNDTAG))
+                IsGrounded = true;
             else if (hit.collider == null)
-                isGrounded = false;
+                IsGrounded = false;
         }
         else
-            isGrounded = false;
+            IsGrounded = false;
     }
 }

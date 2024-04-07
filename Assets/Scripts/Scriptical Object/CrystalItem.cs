@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CrystalItem : MonoBehaviour
 {
-    public GameObject nextCapibara;
-    public float price;
-    public string nameOfFavouriteFoodThisType;
-    public FoodType whatEatThisType;
+    public GameObject NextCapibara;
+    public float Price;
+    public string NameOfFavouriteFoodThisType;
+    public FoodType WhatEatThisType;
 }

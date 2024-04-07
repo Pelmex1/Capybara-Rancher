@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4f2fc39bec45946b47839830ae1dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextCapibara: {fileID: 1885999244023908055, guid: e1a21cdf62440784aab78bfa66bfc319,
+  NextCapibara: {fileID: 1885999244023908055, guid: e1a21cdf62440784aab78bfa66bfc319,
     type: 3}
-  price: 10
-  nameOfFavouriteFoodThisType: Carrot
-  whatEatThisType: 3
+  Price: 20
+  NameOfFavouriteFoodThisType: Carrot
+  WhatEatThisType: 3

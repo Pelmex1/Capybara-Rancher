@@ -6,8 +6,8 @@ public enum FoodType
 }
 public class FoodItem : MonoBehaviour
 {
-    public int indexForSpawnFarm;
-    public float timeGeneration;
-    public bool isGenerable;
-    public FoodType type;
+    public int IndexForSpawnFarm;
+    public float TimeGeneration;
+    public bool IsGenerable;
+    public FoodType Type;
 }

@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class FoodSpoilage : MonoBehaviour
 {
-    [SerializeField] private float timeBeforeSpoilage = 30f;
+    [SerializeField] private float _timeBeforeSpoilage = 30f;
 
-    private float waitingTime;
-    private Renderer objectRenderer;
+    private float _waitingTime;
+    private Renderer _objectRenderer;
     void Start()
     {
-        waitingTime = GetComponent<FoodItem>().timeGeneration;
-        objectRenderer = GetComponent<Renderer>();
+        _waitingTime = GetComponent<FoodItem>().TimeGeneration;
+        _objectRenderer = GetComponent<Renderer>();
         StartCoroutine(SpoilagingLoop());
     }
     IEnumerator SpoilagingLoop()
     {
         while (true)
         {
-            yield return new WaitForSeconds(waitingTime * 2 - timeBeforeSpoilage);
-            Color startColor = objectRenderer.material.color;
-            float timeLeft = timeBeforeSpoilage;
+            yield return new WaitForSeconds(_waitingTime * 2 - _timeBeforeSpoilage);
+            Color startColor = _objectRenderer.material.color;
+            float timeLeft = _timeBeforeSpoilage;
 
             while (timeLeft >= 0)
             {
-                float percentOfRemainingTime = timeLeft / timeBeforeSpoilage;
-                objectRenderer.material.color = Color.Lerp(Color.gray, startColor, percentOfRemainingTime);
+                float percentOfRemainingTime = timeLeft / _timeBeforeSpoilage;
+                _objectRenderer.material.color = Color.Lerp(Color.gray, startColor, percentOfRemainingTime);
 
                 timeLeft -= Time.deltaTime;
                 yield return new WaitForSeconds(Time.deltaTime);

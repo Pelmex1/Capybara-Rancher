@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class WallScript : MonoBehaviour
 {
-    private Collider wallCollider;
+    private const string PLAYERTAG = "Player";
+
+    private Collider _wallCollider;
+
     private void Start()
     {
-        wallCollider = GetComponent<Collider>();
+        _wallCollider = GetComponent<Collider>();
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-        wallCollider.isTrigger = collision.gameObject.CompareTag("Player");
+        _wallCollider.isTrigger = collision.gameObject.CompareTag(PLAYERTAG);
     }
 }

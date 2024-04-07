@@ -10,7 +10,7 @@ public class ItemAccept : MonoBehaviour
         {
             if (other.gameObject.TryGetComponent<CrystalItem>(out var crystalItem))
             {
-                Iinstance.instance.money += crystalItem.price;
+                Iinstance.instance.money += crystalItem.Price;
                 Destroy(other.gameObject);
             }
         }

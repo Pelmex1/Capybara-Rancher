@@ -1,36 +1,41 @@
 using System.Collections;
 using UnityEngine;
 
-public class CapybaraAudioController : MonoBehaviour
+public class CapybaraAudioController : MonoBehaviour//, ICapybaraAudioController
 {
-    [SerializeField] private AudioSource angryAudio;
-    [SerializeField] private AudioSource happyAudio;
-    [SerializeField] private AudioSource eatingAudio;
-    private AudioSource noiseAudio;
+    private const float MININTERVALTONOISESOUND = 5f;
+    private const float MAXINTERVALTONOISESOUND = 10f;
+
+    [SerializeField] private AudioSource _angryAudio;
+    [SerializeField] private AudioSource _happyAudio;
+    [SerializeField] private AudioSource _eatingAudio;
+
+    private AudioSource _noiseAudio;
+
     private void Start()
     {
         StartCoroutine(CapybaraNoiseLoop());
-        noiseAudio = happyAudio;
+        _noiseAudio = _happyAudio;
     }
 
     private IEnumerator CapybaraNoiseLoop()
     {
-        yield return new WaitForSecondsRealtime(Random.Range(5f, 10f));
-        noiseAudio.Play();
+        yield return new WaitForSecondsRealtime(Random.Range(MININTERVALTONOISESOUND, MAXINTERVALTONOISESOUND));
+        _noiseAudio.Play();
     }
 
     public void SetHappyStatus()
     {
-        noiseAudio = happyAudio;
+        _noiseAudio = _happyAudio;
     }
 
     public void SetAngryStatus()
     {
-        noiseAudio = angryAudio;
+        _noiseAudio = _angryAudio;
     }
 
     public void Eating()
     {
-        eatingAudio.Play();
+        _eatingAudio.Play();
     }
 }

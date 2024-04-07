@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CapybaraItem : MonoBehaviour
 {
-    public GameObject crystalPrefab;
-    public FoodType whatEat;
-    public string nameOfFavouriteFood;
+    public GameObject CrystalPrefab;
+    public FoodType WhatEat;
+    public string NameOfFavouriteFood;
 }

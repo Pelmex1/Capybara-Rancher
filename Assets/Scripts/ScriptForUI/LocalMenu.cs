@@ -18,8 +18,8 @@ public class LocalMenu : MonoBehaviour
 
     private void Start()
     {
-        energyMaxValue = movingPlayer.energyMaxValue;
-        hpMaxValue = movingPlayer.hpMaxValue;
+        energyMaxValue = movingPlayer.EnergyMaxValue;
+        hpMaxValue = movingPlayer.HpMaxValue;
     }
     private void Update()
     {
@@ -44,8 +44,8 @@ public class LocalMenu : MonoBehaviour
     }
     private void UpdateBars()
     {
-        energyCurrentValue = movingPlayer.energy;
-        hpCurrentValue = movingPlayer.hp;
+        energyCurrentValue = movingPlayer.Energy;
+        hpCurrentValue = movingPlayer.Hp;
         energyBar.fillAmount = (energyCurrentValue - 5) / (energyMaxValue - 5);
         hpBar.fillAmount = hpCurrentValue / hpMaxValue;
     }

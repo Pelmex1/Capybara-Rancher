@@ -5,7 +5,6 @@ using UnityEngine;
 public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
-    //[SerializeField] private PlayerAudioController playerAudioController;
     //public GameObject Portal2;
     private readonly float speed = 3f;
     private Collider colliderCanon;
@@ -24,7 +23,7 @@ public class Canon : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //playerAudioController.GunAttractionPlay();
+        EventBus.PlayerGunAttraction.Invoke();
         if (Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked)
         {
             if (!Ienumeratorenabled)

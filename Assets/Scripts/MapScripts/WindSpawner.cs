@@ -3,9 +3,15 @@ using UnityEngine;
 
 public class WindSpawner : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private float intervalBetweenWindGenerete = 2f;
-    [SerializeField] private GameObject[] winds;
+    private const float MINVARIATIONDISTANCEFORXANDZ = -30f;
+    private const float MAXVARIATIONDISTANCEFORXANDZ = 30f;
+    private const float MINVARIATIONDISTANCEFORY = 5f;
+    private const float MAXVARIATIONDISTANCEFORY = 10f;
+    private const float DESTROYDELAY = 5f;
+
+    [SerializeField] private Transform _player;
+    [SerializeField] private float _intervalBetweenWindGenerete = 2f;
+    [SerializeField] private GameObject[] _winds;
 
     private void Start()
     {
@@ -16,17 +22,17 @@ public class WindSpawner : MonoBehaviour
     {
         while (true)
         {
-            Vector3 spawnPos = player.position;
-            spawnPos.x += Random.Range(-30f, 30f);
-            spawnPos.y += Random.Range(5f, 10f);
-            spawnPos.z += Random.Range(-30f, 30f);
+            Vector3 spawnPos = _player.position;
+            spawnPos.x += Random.Range(MINVARIATIONDISTANCEFORXANDZ, MAXVARIATIONDISTANCEFORXANDZ);
+            spawnPos.y += Random.Range(MINVARIATIONDISTANCEFORY, MAXVARIATIONDISTANCEFORY);
+            spawnPos.z += Random.Range(MINVARIATIONDISTANCEFORXANDZ, MAXVARIATIONDISTANCEFORXANDZ);
 
-            GameObject spawnedWind = Instantiate(winds[Random.Range(0, winds.Length)], spawnPos, Quaternion.identity);
+            GameObject spawnedWind = Instantiate(_winds[Random.Range(0, _winds.Length - 1)], spawnPos, Quaternion.identity);
             spawnedWind.transform.parent = transform;
 
-            Destroy(spawnedWind, 5f);
+            Destroy(spawnedWind, DESTROYDELAY);
 
-            yield return new WaitForSecondsRealtime(intervalBetweenWindGenerete);
+            yield return new WaitForSecondsRealtime(_intervalBetweenWindGenerete);
         }
     }
 }

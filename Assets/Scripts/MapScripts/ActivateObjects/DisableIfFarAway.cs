@@ -3,24 +3,26 @@ using System.Collections;
 
 public class DisableIfFarAway : MonoBehaviour
 {
-    private ItemActivator activation;
+    private const float TIMEMISTAKE = 0.1f;
+
+    private ItemActivator _activation;
 
     private void Start()
     {
-        activation = ItemActivatorHolder.itemActivator;
+        _activation = ItemActivatorHolder.ItemActivator;
 
         StartCoroutine(AddToList());
     }
 
-    private IEnumerator AddToList()
-    {
-        yield return new WaitForSeconds(0.1f);
-        
-        activation.activatorItems.Add(gameObject);
-    }
-
     private void OnDestroy()
     {
-        activation.activatorItems.Remove(gameObject);
+        _activation.ActivatorItems.Remove(gameObject);
+    }
+
+    private IEnumerator AddToList()
+    {
+        yield return new WaitForSeconds(TIMEMISTAKE);
+        
+        _activation.ActivatorItems.Add(gameObject);
     }
 }

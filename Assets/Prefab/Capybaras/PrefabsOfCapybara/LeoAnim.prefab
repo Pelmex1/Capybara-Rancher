@@ -15298,7 +15298,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4960024192017108369}
+      addedObject: {fileID: -4406902448100249973}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7277c663702627646be1776b208400c6,
         type: 3}
       insertIndex: -1
@@ -15427,7 +15427,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4960024192017108369
+--- !u!114 &-4406902448100249973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15464,10 +15464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f82ec9f6cf91f564ca9e261642605092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crystalPrefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc,
+  CrystalPrefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc,
     type: 3}
-  whatEat: 4
-  nameOfFavouriteFood: Pink Chicken
+  WhatEat: 4
+  NameOfFavouriteFood: Pink Chicken
 --- !u!114 &118377664978626739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15480,7 +15480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
 --- !u!114 &-6901179415855493431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15493,11 +15492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394bc715a2fd5044c848960961715f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayBeforeCrystalSpawn: 10
-  delayBeforeStarving: 60
-  wellfedParticle: {fileID: 6272624208854744409}
-  hungryParticle: {fileID: 8356220584649440889}
-  angryParticle: {fileID: 3315599936401137596}
+  _delayBeforeCrystalSpawn: 10
+  _delayBeforeStarving: 60
+  _wellfedParticle: {fileID: 6272624208854744409}
+  _hungryParticle: {fileID: 8356220584649440889}
+  _angryParticle: {fileID: 3315599936401137596}
 --- !u!114 &5184722773380856720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15510,9 +15509,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2c58d3c65e93c4395fe0742f805a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angryAudio: {fileID: 869926188752347591}
-  happyAudio: {fileID: 2411617536878575249}
-  eatingAudio: {fileID: 8265450246989522058}
+  _angryAudio: {fileID: 869926188752347591}
+  _happyAudio: {fileID: 2411617536878575249}
+  _eatingAudio: {fileID: 8265450246989522058}
 --- !u!114 &7165171120384292864
 MonoBehaviour:
   m_ObjectHideFlags: 0

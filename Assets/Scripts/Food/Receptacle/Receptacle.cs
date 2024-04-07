@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using CustomEventBus;
 using UnityEngine;
+
 public class Receptacle : MonoBehaviour
 {
-    [SerializeField] private Collider gettingCollider;
-    [SerializeField] private GameObject emptyFarm;
-    [SerializeField] private List<GameObject> farmPrefabs;
-    
+    [SerializeField] private Collider _gettingCollider;
+    [SerializeField] private GameObject _emptyFarm;
+    [SerializeField] private List<GameObject> _farmPrefabs;
 
-    public Transform spawnTransform;
-
+    public Transform SpawnTransform;
     public GameObject NewPlace;
 
     private void OnEnable()
@@ -24,14 +23,14 @@ public class Receptacle : MonoBehaviour
 
     public void GetData(Transform ParentPosition, GameObject NewObject)
     {
-        spawnTransform = ParentPosition;
+        SpawnTransform = ParentPosition;
         NewObject = NewPlace;
     }
 
     public void ChangeFarm(int spawnIndex)
     {
-        NewPlace = Instantiate(farmPrefabs[spawnIndex], spawnTransform.position, spawnTransform.rotation);
-        Destroy(emptyFarm);
+        NewPlace = Instantiate(_farmPrefabs[spawnIndex], SpawnTransform.position, SpawnTransform.rotation);
+        Destroy(_emptyFarm);
 
         GetComponent<Receptacle>().enabled = false;
     }

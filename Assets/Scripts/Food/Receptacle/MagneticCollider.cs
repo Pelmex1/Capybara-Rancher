@@ -3,27 +3,27 @@ using UnityEngine;
 
 public class MagneticCollider : MonoBehaviour
 {
-    [SerializeField] private float speedOfMagnetism = 1f;
-    [SerializeField] private Transform targetPosTransform;
-    private Vector3 targetPos;
-    private Transform targetObject;
+    [SerializeField] private float _speedOfMagnetism = 1f;
+    [SerializeField] private Transform _targetPosTransform;
+
+    private Vector3 _targetPos;
     private void Start()
     {
-        targetPos = targetPosTransform.position;
+        _targetPos = _targetPosTransform.position;
     }
     private void OnTriggerEnter(Collider other)
     {
         FoodItem foodItem;
         other.gameObject.TryGetComponent(out foodItem);
         if (foodItem)
-            if (foodItem.isGenerable)
+            if (foodItem.IsGenerable)
                 StartCoroutine(MagnetismToTargetPos(other.transform));
     }
-     IEnumerator MagnetismToTargetPos(Transform thisTargetObject)
+    IEnumerator MagnetismToTargetPos(Transform thisTargetObject)
     {
         while(thisTargetObject != null)
         {
-            thisTargetObject.position = Vector3.Lerp(thisTargetObject.position, targetPos, speedOfMagnetism * Time.deltaTime);
+            thisTargetObject.position = Vector3.Lerp(thisTargetObject.position, _targetPos, _speedOfMagnetism * Time.deltaTime);
             yield return null;
         }
     }

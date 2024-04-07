@@ -24,6 +24,14 @@ namespace CustomEventBus
         public static Action OffBuilding;
 
         public static Action<int> WasChangeFarm;
+
+        #region Audio Action
+        public static Action<bool, bool> PlayerMove;
+        public static Action PlayerJump;
+        public static Action PlayerGunRemove;
+        public static Action PlayerGunAdd;
+        public static Action PlayerGunAttraction;
+        #endregion
     }
 
 }

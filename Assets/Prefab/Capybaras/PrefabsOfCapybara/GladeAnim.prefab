@@ -15163,7 +15163,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5463800758722442348}
+      addedObject: {fileID: 8283960500461072696}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
         type: 3}
       insertIndex: -1
@@ -15292,7 +15292,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5463800758722442348
+--- !u!114 &8283960500461072696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15329,10 +15329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f82ec9f6cf91f564ca9e261642605092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crystalPrefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba,
+  CrystalPrefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba,
     type: 3}
-  whatEat: 1
-  nameOfFavouriteFood: '-'
+  WhatEat: 1
+  NameOfFavouriteFood: '-'
 --- !u!114 &7086976881853122888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15345,7 +15345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
 --- !u!114 &4371163672620574781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15358,11 +15357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394bc715a2fd5044c848960961715f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayBeforeCrystalSpawn: 10
-  delayBeforeStarving: 60
-  wellfedParticle: {fileID: 5179834450778661773}
-  hungryParticle: {fileID: 7463800308982296831}
-  angryParticle: {fileID: 607710275870390373}
+  _delayBeforeCrystalSpawn: 10
+  _delayBeforeStarving: 60
+  _wellfedParticle: {fileID: 5179834450778661773}
+  _hungryParticle: {fileID: 7463800308982296831}
+  _angryParticle: {fileID: 607710275870390373}
 --- !u!114 &7919799747238497833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15375,9 +15374,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2c58d3c65e93c4395fe0742f805a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angryAudio: {fileID: 4643562320802316852}
-  happyAudio: {fileID: 3811926610177747115}
-  eatingAudio: {fileID: 54106831020952700}
+  _angryAudio: {fileID: 4643562320802316852}
+  _happyAudio: {fileID: 3811926610177747115}
+  _eatingAudio: {fileID: 54106831020952700}
 --- !u!114 &-226777861493728224
 MonoBehaviour:
   m_ObjectHideFlags: 0

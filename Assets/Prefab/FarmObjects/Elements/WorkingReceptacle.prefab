@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c23c84e102dee4b96e0e07bcea9696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  receptacleScript: {fileID: 5742056620973012831}
 --- !u!1 &4482502868249144084
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,8 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcce0718d4bd6ec4daf5a714bd40c9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOfMagnetism: 1
-  targetPosTransform: {fileID: 3975363169583636411}
+  _speedOfMagnetism: 1
+  _targetPosTransform: {fileID: 0}
 --- !u!1 &7192125958294231599
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,12 +455,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d1be3dd49dfb4ea3358f8a5eb4ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gettingCollider: {fileID: 2784556780689332656}
-  emptyFarm: {fileID: 0}
-  farmPrefabs:
+  _gettingCollider: {fileID: 2784556780689332656}
+  _emptyFarm: {fileID: 0}
+  _farmPrefabs:
   - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
   - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
-  UIBuilding: {fileID: 0}
+  - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
+  SpawnTransform: {fileID: 0}
+  NewPlace: {fileID: 0}
 --- !u!1001 &4715727041448334224
 PrefabInstance:
   m_ObjectHideFlags: 0

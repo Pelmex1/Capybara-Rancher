@@ -8,13 +8,12 @@ public class GettingCollider : MonoBehaviour
         FoodItem food;
         collision.gameObject.TryGetComponent(out food);
         if (food)
-            if (food.isGenerable)
+            if (food.IsGenerable)
             {
-                int spawnIndex = food.indexForSpawnFarm;
+                int spawnIndex = food.IndexForSpawnFarm;
                 EventBus.WasChangeFarm.Invoke(spawnIndex);
                 Destroy(collision.gameObject);
                 GetComponent<GettingCollider>().enabled = false;
             }
     }
-
 }
