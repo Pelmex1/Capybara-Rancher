@@ -30,7 +30,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             if(EventBus.AddItemInInventory(Data))
             {   
                 EventBus.RemoveFromList(gameObject);
-                Destroy(other.gameObject);
+                Destroy(gameObject);
             }
         };
     }

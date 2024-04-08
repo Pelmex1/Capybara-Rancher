@@ -32,7 +32,7 @@ public class Receptacle : MonoBehaviour
         NewPlace = Instantiate(_farmPrefabs[spawnIndex], SpawnTransform.position, SpawnTransform.rotation);
         Destroy(_emptyFarm);
 
-        GetComponent<Receptacle>().enabled = false;
+        enabled = false;
     }
 }
 

@@ -12,7 +12,7 @@ public class GettingCollider : MonoBehaviour
                 int spawnIndex = food.IndexForSpawnFarm;
                 EventBus.WasChangeFarm.Invoke(spawnIndex);
                 Destroy(collision.gameObject);
-                GetComponent<GettingCollider>().enabled = false;
+                enabled = false;
             }
     }
 }

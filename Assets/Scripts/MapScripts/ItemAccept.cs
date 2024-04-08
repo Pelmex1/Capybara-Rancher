@@ -7,7 +7,7 @@ public class ItemAccept : MonoBehaviour
     {
         if (other.gameObject.CompareTag("movebleObject"))
         {
-            if (other.gameObject.TryGetComponent<CrystalItem>(out var crystalItem))
+            if (other.gameObject.TryGetComponent<ICrystalItem>(out var crystalItem))
             {
                 EventBus.AddMoney(crystalItem.Price);
                 Destroy(other.gameObject);
