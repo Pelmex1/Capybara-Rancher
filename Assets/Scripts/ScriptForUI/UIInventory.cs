@@ -19,7 +19,7 @@ public class UIInventory : MonoBehaviour
         chestCell = inventoryPlayer.inventory;
         for(int i = 0; i < chestCell.Length;i++)
         {
-            Crosses[i] = chestCell[i].image;
+            Crosses[i] = chestCell[i].Image;
         }       
     }
 
@@ -36,12 +36,12 @@ public class UIInventory : MonoBehaviour
     {
         for (int i = 0; i < chestCell.Length; i++)
         {
-            if (chestCell[i].inventoryItem != null)
+            if (chestCell[i].InventoryItem != null)
             {
-                Crosses[i].sprite = chestCell[i].inventoryItem.image.sprite;
+                Crosses[i].sprite = chestCell[i].InventoryItem.Image.sprite;
                 Docker[i].sprite = Background.sprite;
                 Crosses[i].gameObject.transform.localScale = new Vector2(2f,2f); 
-                ImageAmount[i].text = $"{chestCell[i].count}";
+                ImageAmount[i].text = $"{chestCell[i].Count}";
             }
             else
             {

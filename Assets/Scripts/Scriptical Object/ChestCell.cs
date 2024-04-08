@@ -4,22 +4,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChestCell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class ChestCell : MonoBehaviour, ICell,IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    public Image image;
-    public InventoryItem inventoryItem;
-    public int count;
+    public Image Image {get; set;}
+    public InventoryItem InventoryItem {get; set;}
+    public int Count {get; set;}
     public delegate void AddDragEvent(Transform transform);
     public static event AddDragEvent SetCanvasParent;
     public delegate ChestCell AddCell(Vector3 position, ChestCell chestCell);
     public static event AddCell FoundDistance;
-    private Vector3 pos;
-    private Transform parentTransform;
-    private ChestCell newChestCell;
+    private Vector3 _pos;
+    private Transform _parentTransform;
+    private ChestCell _newChestCell;
     private void Start()
     {
-        pos = transform.position;
-        parentTransform = transform.parent;
+        _pos = transform.position;
+        _parentTransform = transform.parent;
     }
     public void OnDrag(PointerEventData pointerEventData)
     {
@@ -31,29 +31,29 @@ public class ChestCell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnEndDrag(PointerEventData pointerEventData)
     {
-        newChestCell = FoundDistance.Invoke(transform.position, newChestCell);
-        if (newChestCell.inventoryItem == null)
+        _newChestCell = FoundDistance.Invoke(transform.position, _newChestCell);
+        if (_newChestCell.InventoryItem == null)
         {
-            SetCellsData(ref newChestCell, inventoryItem, count);
-            inventoryItem = null;
-            count = 0;
-            transform.position = pos;
-            transform.SetParent(parentTransform);
+            SetCellsData(ref _newChestCell, InventoryItem, Count);
+            InventoryItem = null;
+            Count = 0;
+            transform.position = _pos;
+            transform.SetParent(_parentTransform);
         }
         else
         {
-            InventoryItem inventoryItemTMP = newChestCell.inventoryItem;
-            int countTMP = newChestCell.count;
-            SetCellsData(ref newChestCell, inventoryItem, count);
-            inventoryItem = inventoryItemTMP;
-            count = countTMP;
-            transform.position = pos;
-            transform.SetParent(parentTransform);
+            InventoryItem inventoryItemTMP = _newChestCell.InventoryItem;
+            int countTMP = _newChestCell.Count;
+            SetCellsData(ref _newChestCell, InventoryItem, Count);
+            InventoryItem = inventoryItemTMP;
+            Count = countTMP;
+            transform.position = _pos;
+            transform.SetParent(_parentTransform);
         }
     }
     private void SetCellsData(ref ChestCell chestCell, InventoryItem inventoryItem, int count)
     {
-        chestCell.inventoryItem = inventoryItem;
-        chestCell.count = count;
+        chestCell.InventoryItem = inventoryItem;
+        chestCell.Count = count;
     }
 }

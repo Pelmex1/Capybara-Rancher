@@ -14,7 +14,6 @@ public class CrystalsController : MonoBehaviour
     [SerializeField] private GameObject _angryParticle;
 
     private bool _isAngry = false;
-    private MovebleObject _movebleObject;
     private FoodType _whatEat1;
     private FoodType _whatEat2;
     private string _nameOfFavouriteFood1;
@@ -45,9 +44,10 @@ public class CrystalsController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(MOVEBLE_OBJECT_TAG))
         {
+            IMovebleObject localMovebleObject= collision.gameObject.GetComponent<IMovebleObject>();
             if (collision.gameObject.GetComponent<IFoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
             {
-                string nameOfFood = collision.gameObject.GetComponent<MovebleObject>().data.name;
+                string nameOfFood = localMovebleObject.Data.name;
                 FoodType typeOfFood = collision.gameObject.GetComponent<IFoodItem>().Type;
                 if (_nameOfFavouriteFood1 == nameOfFood || _nameOfFavouriteFood2 == nameOfFood)
                 {
@@ -63,10 +63,10 @@ public class CrystalsController : MonoBehaviour
             else if (collision.gameObject.GetComponent<ICrystalItem>() != null)
             {
                 ICrystalItem dataCr = collision.gameObject.GetComponent<ICrystalItem>();
-                InventoryItem dataIn = collision.gameObject.GetComponent<MovebleObject>().data;
-                if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.prefab && NewCrystal != dataIn.prefab) && !_hasTransformed)
+                InventoryItem dataIn = localMovebleObject.Data;
+                if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab && NewCrystal != dataIn.Prefab) && !_hasTransformed)
                 {
-                    TransformationToAnotherCapybara(dataIn.prefab, dataCr.NextCapibara, dataCr.NameOfFavouriteFoodThisType, dataCr.WhatEatThisType);
+                    TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, dataCr.NameOfFavouriteFoodThisType, dataCr.WhatEatThisType);
                     Destroy(collision.gameObject);
                 }
             }
@@ -148,7 +148,6 @@ public class CrystalsController : MonoBehaviour
         _nameOfFavouriteFood2 = nameOfSecondFavouriteFood;
         _whatEat2 = whatEatSecond;
         Instantiate(modification, transform);
-        _movebleObject.enabled = false;
         tag = "Untagged";
         _hasTransformed = true;
     }

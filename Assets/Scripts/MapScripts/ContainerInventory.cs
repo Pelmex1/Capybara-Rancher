@@ -8,13 +8,13 @@ public class ContainerInventory : MonoBehaviour
     public delegate void AddItemCollection(ChestCell[] chestCells);
     public static event AddItemCollection UpdateInventoryUI;
     public static event AddItemCollection UpdateChestUI;
-    private bool isNearChest = false;
-    private ChestCell[] chestCell = new ChestCell[12];
+    private bool _isNearChest = false;
+    private readonly ChestCell[] _chestCell = new ChestCell[12];
 
     private InventoryPlayer playerInventory;
     private void Start() {
         for(int i = 0; i < 12; i++){
-            chestCell[i] = new();
+            _chestCell[i] = new();
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -23,22 +23,22 @@ public class ContainerInventory : MonoBehaviour
         {
             playerInventory = other.gameObject.GetComponent<InventoryPlayer>();
             EventBus.EnableHelpUi(true);
-            isNearChest = true;
+            _isNearChest = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            isNearChest = false;
+            _isNearChest = false;
             EventBus.EnableHelpUi(false);
         }
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isNearChest)
+        if (Input.GetKeyDown(KeyCode.E) && _isNearChest)
         {
-            UpdateChestUI(chestCell);
+            UpdateChestUI(_chestCell);
             UpdateInventoryUI(playerInventory.inventory);
             Cursor.lockState = CursorLockMode.Confined;
             EnableBaseUI.Invoke(true);

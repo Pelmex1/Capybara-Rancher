@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public interface ICapybaraAudioController
 {
@@ -35,4 +36,16 @@ public interface ICapybaraItem
     public GameObject CrystalPrefab { get; }
     public FoodType WhatEat { get; }
     public string NameOfFavouriteFood { get; }
+}
+internal interface ICell
+{
+    public Image Image {get; set;}
+    public InventoryItem InventoryItem {get; set;}
+    public int Count {get; set;}
+}
+internal interface IMovebleObject
+{
+    public InventoryItem Data {get; set;}
+    public GameObject Localgameobject {get; set;}
+    public void SetLocalObject();
 }

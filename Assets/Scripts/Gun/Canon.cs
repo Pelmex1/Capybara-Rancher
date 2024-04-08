@@ -6,20 +6,21 @@ public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
     //public GameObject Portal2;
-    private readonly float speed = 3f;
-    private Collider colliderCanon;
-    private bool oneFunc = true;
+    private const float SPEED = 3f;
+    private Collider _colliderCanon;
+    private bool _oneFunc = true;
 
-    public List<MovebleObject> obdjectsInCollider = new();
+    public List<GameObject> obdjectsInCollider = new();
 
     public bool Ienumeratorenabled { get; set; }
     private void Awake() {
-        EventBus.RemoveFromList = (MovebleObject movebleObject) => obdjectsInCollider.Remove(movebleObject);
+        EventBus.RemoveFromList = (GameObject gameObject) => obdjectsInCollider.Remove(gameObject);
         EventBus.InumeratorIsEnabled = (bool isEnable) => Ienumeratorenabled = isEnable;
+        EventBus.CheckList = (GameObject check) => obdjectsInCollider.Contains(check);
     }
     private void Start()
     {
-        colliderCanon = GetComponent<BoxCollider>();
+        _colliderCanon = GetComponent<BoxCollider>();
     }
     private void FixedUpdate()
     {
@@ -31,27 +32,22 @@ public class Canon : MonoBehaviour
                 //Portal2.SetActive(true);
                 canonEnter.enabled = true;
             }
-            colliderCanon.enabled = true;
+            _colliderCanon.enabled = true;
             for (int i = 0; i < obdjectsInCollider.Count; i++)
             {
-                obdjectsInCollider[i].IsMoved = true;
-                obdjectsInCollider[i].transform.position = Vector3.SlerpUnclamped(obdjectsInCollider[i].transform.position, canonEnter.transform.position, speed * Time.deltaTime);
-                oneFunc = true;
+                obdjectsInCollider[i].transform.position = Vector3.SlerpUnclamped(obdjectsInCollider[i].transform.position, canonEnter.transform.position, SPEED * Time.deltaTime);
+                _oneFunc = true;
             }
         }
         else
         {
             //Portal2.SetActive(false);
-            if (oneFunc)
-            {
-                for (int i = 0; i < obdjectsInCollider.Count; i++)
-                {
-                    obdjectsInCollider[i].IsMoved = false;
-                }              
+            if (_oneFunc)
+            {             
                 canonEnter.enabled = false;
-                colliderCanon.enabled = false;
+                _colliderCanon.enabled = false;
                 obdjectsInCollider.Clear();
-                oneFunc = false;
+                _oneFunc = false;
             }
         }
     }
@@ -59,14 +55,14 @@ public class Canon : MonoBehaviour
     {
         if (other.gameObject.CompareTag("movebleObject"))
         {
-            obdjectsInCollider.Add(other.gameObject.GetComponent<MovebleObject>());
+            obdjectsInCollider.Add(other.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("movebleObject"))
         {
-            obdjectsInCollider.Remove(other.gameObject.GetComponent<MovebleObject>());
+            obdjectsInCollider.Remove(other.gameObject);
         }
     }
 }

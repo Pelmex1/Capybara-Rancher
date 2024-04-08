@@ -17,9 +17,9 @@ public class ChestsController : MonoBehaviour
         EventBus.EnableHelpUi = EnableHelpUI;
     }
     private ChestCell CellUpdate(ChestCell cell, ChestCell data){
-        cell.inventoryItem = data.inventoryItem;
-        cell.count = data.count != 0 ? data.count : 0;
-        cell.image.sprite = data.inventoryItem?.image.sprite ?? defaultSprite;
+        cell.InventoryItem = data.InventoryItem;
+        cell.Count = data.Count != 0 ? data.Count : 0;
+        cell.Image.sprite = data.InventoryItem?.Image.sprite ?? defaultSprite;
         return cell;
     }
     private void UpdateChestCells(ChestCell[] chestCells)

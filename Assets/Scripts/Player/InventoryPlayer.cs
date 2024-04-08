@@ -1,19 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using CustomEventBus;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class InventoryPlayer : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
 
     private int index = 0;
-    private readonly float speed = 10f;
+    private const float SPEED = 10f;
     //private Canon canon;
     //private PlayerAudioController playerAudioController;
-    private ChestCell nullChestCell;
-    private Dictionary<InventoryItem, int> CellsData;
+    private ChestCell _nullChestCell;
     public ChestCell[] inventory = new ChestCell[5];
     public bool WasChange = false;
     private void Awake() {
@@ -23,31 +20,31 @@ public class InventoryPlayer : MonoBehaviour
     {
         WasChange = true;
 
-        if (inventory[index].inventoryItem == null ||
-            (inventory[index].inventoryItem == inventoryItem && inventory[index].count < 20))
+        if (inventory[index].InventoryItem == null ||
+            (inventory[index].InventoryItem == inventoryItem && inventory[index].Count < 20))
         {
-            inventory[index].inventoryItem ??= inventoryItem;
-            inventory[index].count++;
+            inventory[index].InventoryItem ??= inventoryItem;
+            inventory[index].Count++;
             //playerAudioController.GunAddPlay();
             return true;
         }
         
         for (int i = 0; i < inventory.Length; i++)
         {
-            if (inventory[i].inventoryItem == inventoryItem && inventory[index].count < 20)
+            if (inventory[i].InventoryItem == inventoryItem && inventory[index].Count < 20)
             {
-                inventory[i].inventoryItem = inventoryItem;
-                inventory[i].count++;
+                inventory[i].InventoryItem = inventoryItem;
+                inventory[i].Count++;
                 //playerAudioController.GunAddPlay();
                 return true;
-            } else if(inventory[i].inventoryItem == null && nullChestCell == null){
-                nullChestCell = inventory[i];
+            } else if(inventory[i].InventoryItem == null && _nullChestCell == null){
+                _nullChestCell = inventory[i];
             }
         }
-        if(nullChestCell != null){
-            nullChestCell.inventoryItem = inventoryItem;
-            nullChestCell.count++;
-            nullChestCell = null;
+        if(_nullChestCell != null){
+            _nullChestCell.InventoryItem = inventoryItem;
+            _nullChestCell.Count++;
+            _nullChestCell = null;
             //playerAudioController.GunAddPlay();
             return true;
         }
@@ -62,12 +59,13 @@ public class InventoryPlayer : MonoBehaviour
             canon.Portal2.SetActive(false);
             return;
         }*/
-        inventory[index].count--;
+        inventory[index].Count--;
         StartCoroutine(Recherge());
-        Instantiate(inventory[index].inventoryItem.prefab, spawnPos, Quaternion.identity).GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
-        if (inventory[index].count == 0)
+        GameObject localObject = Instantiate(inventory[index].InventoryItem.Prefab, spawnPos, Quaternion.identity);
+        localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+        if (inventory[index].Count == 0)
         {
-            inventory[index].inventoryItem = null;
+            inventory[index].InventoryItem = null;
         }
 
         //playerAudioController.GunRemovePlay();
@@ -83,12 +81,12 @@ public class InventoryPlayer : MonoBehaviour
         index = IsButton();
         if (inventory[lastindex] != null && inventory[index] != null)
         {
-            inventory[lastindex].image.color = Color.white;
-            inventory[index].image.color = Color.grey;
+            inventory[lastindex].Image.color = Color.white;
+            inventory[index].Image.color = Color.grey;
         }
         if (Input.GetMouseButtonDown(1))
         {
-            RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * speed);
+            RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
         }
     }
     private int IsButton() => Input.inputString switch {

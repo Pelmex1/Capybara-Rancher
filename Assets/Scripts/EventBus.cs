@@ -7,7 +7,8 @@ namespace CustomEventBus
     {
         #region Artem Action
         public static Action<float> AddMoney;
-        public static Action<MovebleObject> RemoveFromList;
+        public static Action<GameObject> RemoveFromList;
+        public static Predicate <GameObject> CheckList;
         public static Action<bool> InumeratorIsEnabled;
         public static Action<bool> EnableHelpUi;
         public static Predicate<InventoryItem> AddItemInInventory;
