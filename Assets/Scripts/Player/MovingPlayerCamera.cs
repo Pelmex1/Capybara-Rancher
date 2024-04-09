@@ -1,7 +1,7 @@
 using CustomEventBus;
 using UnityEngine;
 
-public class MovingPlayer : MonoBehaviour
+public class MovingPlayer : MonoBehaviour, IMovingPlayer
 {
     private const float ROTATION_CAMERA_MISTAKE_Y = 85f;
     private const float ROTATION_CAMERA_MISTAKE_Z = 40f;
@@ -23,10 +23,10 @@ public class MovingPlayer : MonoBehaviour
     private bool _isGrounded;
 
     public float MouseSensitivy;
-    public float Energy;
-    public float Hp = 100f;
-    public readonly float EnergyMaxValue = 50f;
-    public readonly float HpMaxValue = 100f;
+    public float Energy { get; set; }
+    public float Hp { get; set; }
+    public float EnergyMaxValue { get; set; } = 50f;
+    public float HpMaxValue { get; set; } = 100f;
 
     private void Start()
     {
@@ -35,6 +35,7 @@ public class MovingPlayer : MonoBehaviour
         _startHeadRotation = _head.rotation;
         _xRotationCamera = _head.localRotation.eulerAngles.x;
         Energy = EnergyMaxValue;
+        Hp = HpMaxValue;
         _startSpeed = _speed;
     }
     private void OnCollisionEnter(Collision other)

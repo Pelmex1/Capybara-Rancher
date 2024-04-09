@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CustomEventBus;
 using UnityEngine;
 
-public class Receptacle : MonoBehaviour
+public class Receptacle : MonoBehaviour, IReceptacle
 {
     [SerializeField] private Collider _gettingCollider;
     [SerializeField] private GameObject _emptyFarm;

@@ -31,7 +31,7 @@ public class UIBilding : MonoBehaviour
                 {
                     Destroy(FirstObject);
                     NewObject = Instantiate(AllBuilding[i], ParentPosition.transform);
-                    if (NewObject.TryGetComponent<Receptacle>(out var receptacle))
+                    if (NewObject.TryGetComponent<IReceptacle>(out var receptacle))
                             receptacle.GetData(ParentPosition, NewObject);
                     break;
                 }

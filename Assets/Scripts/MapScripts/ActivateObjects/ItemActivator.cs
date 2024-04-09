@@ -2,19 +2,19 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ItemActivator : MonoBehaviour, IItemActivator
+public class ItemActivator : MonoBehaviour
 {
     private const float TIME_MISTAKE = 0.01f;
 
-    [SerializeField] private int _distanceFromPlayer;
     [SerializeField] private GameObject _player;
 
-    public List<GameObject> ActivatorItems;
+    private int _distanceFromPlayer;
+
+    public static List<GameObject> ActivatorItems = new List<GameObject>();
 
     private void Awake()
     {
         _distanceFromPlayer = (int)(Camera.main.farClipPlane);
-        ItemActivatorHolder.ItemActivator = this;
     }
     private void Start()
     {
@@ -41,11 +41,11 @@ public class ItemActivator : MonoBehaviour, IItemActivator
             yield return new WaitForSeconds(TIME_MISTAKE);
         }
     }
-    public void ActivatorItemsAdd(GameObject addObject)
+    public static void ActivatorItemsAdd(GameObject addObject)
     {
         ActivatorItems.Add(addObject);
     }
-    public void ActivatorItemsRemove(GameObject removeObject)
+    public static void ActivatorItemsRemove(GameObject removeObject)
     {
         ActivatorItems.Remove(removeObject);
     }

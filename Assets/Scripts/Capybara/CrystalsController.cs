@@ -44,7 +44,8 @@ public class CrystalsController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(MOVEBLE_OBJECT_TAG))
         {
-            IMovebleObject localMovebleObject= collision.gameObject.GetComponent<IMovebleObject>();
+            IMovebleObject localMovebleObject = collision.gameObject.GetComponent<IMovebleObject>();
+            ICrystalItem dataCr;
             if (collision.gameObject.GetComponent<IFoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
             {
                 string nameOfFood = localMovebleObject.Data.name;
@@ -60,13 +61,13 @@ public class CrystalsController : MonoBehaviour
                     Destroy(collision.gameObject);
                 }
             }
-            else if (collision.gameObject.GetComponent<ICrystalItem>() != null)
+            else if (collision.gameObject.TryGetComponent<ICrystalItem>(out dataCr))
             {
-                ICrystalItem dataCr = collision.gameObject.GetComponent<ICrystalItem>();
                 InventoryItem dataIn = localMovebleObject.Data;
                 if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab && NewCrystal != dataIn.Prefab) && !_hasTransformed)
                 {
                     TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, dataCr.NameOfFavouriteFoodThisType, dataCr.WhatEatThisType);
+                    localMovebleObject.Localgameobject.SetActive(false);
                     Destroy(collision.gameObject);
                 }
             }
@@ -115,7 +116,7 @@ public class CrystalsController : MonoBehaviour
         if (IsHungry)
         {
             _isAngry = true;
-            _audioController.SetAngryStatus(); // i dont know why it errors
+            _audioController.SetAngryStatus();
         }
     }
     private void UpdateStats()
