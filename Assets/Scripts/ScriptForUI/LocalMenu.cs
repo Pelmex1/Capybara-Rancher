@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using CustomEventBus;
 
 public class LocalMenu : MonoBehaviour
 {
     [SerializeField] private GameObject PausePanel;
     [SerializeField] private GameObject PanelOptions;
-    [SerializeField] private MovingPlayer movingPlayer;
     [SerializeField] private Image energyBar;
     [SerializeField] private Image hpBar;
 
@@ -16,11 +16,6 @@ public class LocalMenu : MonoBehaviour
     private float hpMaxValue;
     private float hpCurrentValue;
 
-    private void Start()
-    {
-        energyMaxValue = movingPlayer.EnergyMaxValue;
-        hpMaxValue = movingPlayer.HpMaxValue;
-    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -42,21 +37,39 @@ public class LocalMenu : MonoBehaviour
         }
         UpdateBars();
     }
+
+    private void OnEnable()
+    {
+        EventBus.GetEnergyPlayerData += GetEnergy;
+        EventBus.GiveEnergyPlayerData += GiveEnergyData;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.GetEnergyPlayerData += GetEnergy;
+        EventBus.GiveEnergyPlayerData += GiveEnergyData;
+    }
+
+    private void GetEnergy(float EnergyMaxValue, float HpMaxValue)
+    {
+        energyMaxValue = EnergyMaxValue;
+        hpMaxValue = HpMaxValue;
+    }
+
+    private void GiveEnergyData(float Hp, float Energy)
+    {
+        PanelOptions.SetActive(false);
+        hpCurrentValue = Hp;
+        energyCurrentValue = Energy;
+    }
+
     private void UpdateBars()
     {
-        energyCurrentValue = movingPlayer.Energy;
-        hpCurrentValue = movingPlayer.Hp;
         energyBar.fillAmount = (energyCurrentValue - 5) / (energyMaxValue - 5);
         hpBar.fillAmount = hpCurrentValue / hpMaxValue;
     }
-    public void OnOptions()
-    {
-        PanelOptions.SetActive(true);
-    }
-    public void OffOptions()
-    {
-        PanelOptions.SetActive(false);
-    }
+    public void OnOptions() => PanelOptions.SetActive(true);
+    public void OffOptions() => PanelOptions.SetActive(false);
 
     public void Resume()
     {
@@ -65,8 +78,5 @@ public class LocalMenu : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void SaveQuit()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
+    public void SaveQuit() => SceneManager.LoadScene("MainMenu");
 }

@@ -37,6 +37,7 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
         Energy = EnergyMaxValue;
         Hp = HpMaxValue;
         _startSpeed = _speed;
+        EventBus.GetEnergyPlayerData(EnergyMaxValue, HpMaxValue);
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -57,6 +58,7 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
 
     private void Update()
     {
+        EventBus.GiveEnergyPlayerData.Invoke(Hp, Energy);   
         if (Input.GetKey(KeyCode.Space))
             if (_isGrounded)
             {

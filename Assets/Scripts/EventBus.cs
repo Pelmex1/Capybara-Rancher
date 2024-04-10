@@ -8,7 +8,7 @@ namespace CustomEventBus
         #region Artem Action
         public static Action<float> AddMoney;
         public static Action<GameObject> RemoveFromList;
-        public static Predicate <GameObject> CheckList;
+        public static Predicate<GameObject> CheckList;
         public static Action<bool> InumeratorIsEnabled;
         public static Action<bool> EnableHelpUi;
         public static Predicate<InventoryItem> AddItemInInventory;
@@ -23,6 +23,8 @@ namespace CustomEventBus
         public static Action<string> LodingScene;
         public static Action<float[]> GetMusicValue;
         public static Action<float[]> SaveMusicValue;
+        public static Action<float, float> GetEnergyPlayerData;
+        public static Action<float, float> GiveEnergyPlayerData;
         #endregion Options and Loaading Scenes
 
         #region  Building
