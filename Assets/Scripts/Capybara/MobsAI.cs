@@ -4,8 +4,8 @@ using UnityEngine.AI;
 
 public class MobsAi : MonoBehaviour, IMobsAi
 {
-    private const float MIN_TIME_TO_FIND_NEW_TARGET = 5f;
-    private const float MAX_TIME_OF_FIND_NEW_TARGET = 20f;
+    private const float MIN_INTERVAL_NEW_TARGET = 5f;
+    private const float MAX_INTERVAL_NEW_TARGET = 20f;
     private const float RADIUS_OF_TARGET = 5f;
     private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
     private const string OBSTACLE_TAG = "Obstacle";
@@ -13,20 +13,30 @@ public class MobsAi : MonoBehaviour, IMobsAi
 
     private NavMeshAgent _agent;
     private Animator _animator;
-    private bool _isfoodfound {get; set;} = false;
+    private bool _isfoodfound;
+
     private void Awake()
     {
+        _isfoodfound = false;
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
     }
-    private void Start() 
+
+    private void Start()
     {
         StartCoroutine(Moving());
     }
+
+    private void OnEnable()
+    {
+        StartCoroutine(Moving());
+    }
+
     private void Update()
     {
         _animator.SetBool(ANIMATOR_KEY_FOR_RUNING, _agent.velocity.magnitude > 0.1f);
     }
+
     private Vector3 RandomPosition()
     {
         float posX = Random.Range(transform.position.x + RADIUS_OF_TARGET, transform.position.x - RADIUS_OF_TARGET);
@@ -34,6 +44,7 @@ public class MobsAi : MonoBehaviour, IMobsAi
         Vector3 pos = new(posX, transform.position.y, posZ);
         return pos;
     }
+
     public Vector3 FoundTarget()
     {
         Vector3 pos = RandomPosition();
@@ -49,6 +60,7 @@ public class MobsAi : MonoBehaviour, IMobsAi
 
         return FoundTarget();
     }
+
     private IEnumerator Moving()
     {
         while (true)
@@ -63,12 +75,8 @@ public class MobsAi : MonoBehaviour, IMobsAi
                 yield return new WaitForSecondsRealtime(1f);
                 continue;            
             }
-            yield return new WaitForSecondsRealtime(Random.Range(MIN_TIME_TO_FIND_NEW_TARGET, MAX_TIME_OF_FIND_NEW_TARGET));
+            yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_NEW_TARGET, MAX_INTERVAL_NEW_TARGET));
         }
-    }
-    private void OnEnable()
-    {
-        StartCoroutine(Moving());
     }
 
     public void IsFoodFound(Transform foodTransform)

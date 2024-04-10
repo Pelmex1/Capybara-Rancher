@@ -32,7 +32,6 @@ public class NavMeshAgentController : MonoBehaviour
         Vector3 raycastOrigin = transform.position;
         Vector3 raycastDirection = Vector3.down;
         RaycastHit hit;
-        Debug.DrawRay(raycastOrigin, raycastDirection * _raycastDistance, Color.green);
         if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, _raycastDistance))
         {
             if (hit.collider.CompareTag(GROUND_TAG))

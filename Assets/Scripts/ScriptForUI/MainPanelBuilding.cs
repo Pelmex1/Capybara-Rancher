@@ -55,7 +55,7 @@ public class MainPanelBuilding : MonoBehaviour
             EventBus.AddMoney(-150);
             Destroy(FirstPlace);
             NewPlace = Instantiate(objectWichBuy, PositionPlace, ParentObject);
-            if (NewPlace.TryGetComponent<Receptacle>(out var receptacle))
+            if (NewPlace.TryGetComponent<IReceptacle>(out var receptacle))
                 receptacle.GetData(PositionPlace, NewPlace);
             PlayerPrefs.SetString($"{IndexPlace}", objectWichBuy.name);
             PlayerPrefs.Save();

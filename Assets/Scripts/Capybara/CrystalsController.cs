@@ -46,7 +46,8 @@ public class CrystalsController : MonoBehaviour
         {
             IMovebleObject localMovebleObject = collision.gameObject.GetComponent<IMovebleObject>();
             ICrystalItem dataCr;
-            if (collision.gameObject.GetComponent<IFoodItem>() != null && collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
+            if (collision.gameObject.GetComponent<IFoodItem>() != null && 
+                collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
             {
                 string nameOfFood = localMovebleObject.Data.name;
                 FoodType typeOfFood = collision.gameObject.GetComponent<IFoodItem>().Type;
@@ -55,7 +56,8 @@ public class CrystalsController : MonoBehaviour
                     StartCoroutine(GenerateCrystals(true));
                     Destroy(collision.gameObject);
                 }
-                else if ((_whatEat1 == FoodType.All || _whatEat1 == typeOfFood) || (_whatEat2 == FoodType.All || _whatEat2 == typeOfFood))
+                else if ((_whatEat1 == FoodType.All || _whatEat1 == typeOfFood) || 
+                    (_whatEat2 == FoodType.All || _whatEat2 == typeOfFood))
                 {
                     StartCoroutine(GenerateCrystals(false));
                     Destroy(collision.gameObject);
@@ -64,9 +66,11 @@ public class CrystalsController : MonoBehaviour
             else if (collision.gameObject.TryGetComponent<ICrystalItem>(out dataCr))
             {
                 InventoryItem dataIn = localMovebleObject.Data;
-                if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab && NewCrystal != dataIn.Prefab) && !_hasTransformed)
+                if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab && 
+                    NewCrystal != dataIn.Prefab) && !_hasTransformed)
                 {
-                    TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, dataCr.NameOfFavouriteFoodThisType, dataCr.WhatEatThisType);
+                    TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, 
+                        dataCr.NameOfFavouriteFoodThisType, dataCr.WhatEatThisType);
                     localMovebleObject.Localgameobject.SetActive(false);
                     Destroy(collision.gameObject);
                 }

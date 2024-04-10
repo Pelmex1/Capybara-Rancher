@@ -8,13 +8,13 @@ public class ItemActivator : MonoBehaviour
 
     [SerializeField] private GameObject _player;
 
-    private int _distanceFromPlayer;
+    private float _distanceFromPlayer;
 
     public static List<GameObject> ActivatorItems = new List<GameObject>();
 
     private void Awake()
     {
-        _distanceFromPlayer = (int)(Camera.main.farClipPlane);
+        _distanceFromPlayer = Camera.main.farClipPlane;
     }
     private void Start()
     {

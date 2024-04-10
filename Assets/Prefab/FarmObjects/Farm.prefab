@@ -258,12 +258,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d1be3dd49dfb4ea3358f8a5eb4ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gettingCollider: {fileID: 2456049015664507400}
-  emptyFarm: {fileID: 2237386376475203733}
-  farmPrefabs:
+  _gettingCollider: {fileID: 2456049015664507400}
+  _emptyFarm: {fileID: 761088668149535016}
+  _farmPrefabs:
   - {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
   - {fileID: 2237386376475203733, guid: 122f1721abd9f4c4788028b6c739ed44, type: 3}
-  UIBuilding: {fileID: 0}
+  SpawnTransform: {fileID: 0}
+  NewPlace: {fileID: 0}
 --- !u!1 &3735369793800304957
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,6 +628,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.521
       objectReference: {fileID: 0}
+    - target: {fileID: 5670775676190843804, guid: c0f274166d8c44b40b6c054d24f4e197,
+        type: 3}
+      propertyPath: _targetPosTransform
+      value: 
+      objectReference: {fileID: 3718367520578731011}
     - target: {fileID: 5742056620973012831, guid: c0f274166d8c44b40b6c054d24f4e197,
         type: 3}
       propertyPath: emptyFarm
@@ -706,6 +712,12 @@ PrefabInstance:
 --- !u!135 &2456049015664507400 stripped
 SphereCollider:
   m_CorrespondingSourceObject: {fileID: 2784556780689332656, guid: c0f274166d8c44b40b6c054d24f4e197,
+    type: 3}
+  m_PrefabInstance: {fileID: 338078052745864120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3718367520578731011 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3975363169583636411, guid: c0f274166d8c44b40b6c054d24f4e197,
     type: 3}
   m_PrefabInstance: {fileID: 338078052745864120}
   m_PrefabAsset: {fileID: 0}
