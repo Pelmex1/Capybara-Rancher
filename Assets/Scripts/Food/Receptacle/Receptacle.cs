@@ -11,15 +11,8 @@ public class Receptacle : MonoBehaviour, IReceptacle
     public Transform SpawnTransform;
     public GameObject NewPlace;
 
-    private void OnEnable()
-    {
-        EventBus.WasChangeFarm += ChangeFarm;
-    }
-
-    private void OnDisable()
-    {
-        EventBus.WasChangeFarm -= ChangeFarm;
-    }
+    private void OnEnable() => EventBus.WasChangeFarm += ChangeFarm; 
+    private void OnDisable() => EventBus.WasChangeFarm -= ChangeFarm;
 
     public void GetData(Transform ParentPosition, GameObject NewObject)
     {

@@ -15,15 +15,9 @@ public class LoadingScrip : MonoBehaviour
     [Header("Slider")]
     [SerializeField] private Slider LoaidingSlader;
 
-    private void OnEnable()
-    {
-        EventBus.LodingScene += LoadlevelBtn;
-    }
+    private void OnEnable() => EventBus.LodingScene += LoadlevelBtn;
 
-    private void OnDisable()
-    {
-        EventBus.LodingScene -= LoadlevelBtn;
-    }
+    private void OnDisable() => EventBus.LodingScene -= LoadlevelBtn;
 
     public void LoadlevelBtn(string levelToLoad)
     {

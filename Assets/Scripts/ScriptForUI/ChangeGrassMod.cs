@@ -8,16 +8,8 @@ public class ChangeGrassMod : MonoBehaviour
 
     [SerializeField] private TMP_Text Graghtext;
 
-    private void OnEnable()
-    {
-        EventBus.ChnageGrassMod += OnGrass;
-    }
-
-    private void OnDisable()
-    {
-        EventBus.ChnageGrassMod -= OnGrass;
-    }
-
+    private void OnEnable() => EventBus.ChnageGrassMod += OnGrass;
+    private void OnDisable() => EventBus.ChnageGrassMod -= OnGrass;
     private void OnGrass()
     {
         int indexQuality = QualitySettings.GetQualityLevel();

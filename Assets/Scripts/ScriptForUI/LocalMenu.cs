@@ -58,7 +58,6 @@ public class LocalMenu : MonoBehaviour
 
     private void GiveEnergyData(float Hp, float Energy)
     {
-        PanelOptions.SetActive(false);
         hpCurrentValue = Hp;
         energyCurrentValue = Energy;
     }

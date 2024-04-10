@@ -141,27 +141,35 @@ public class Options : MonoBehaviour
 
     public void ChangeScreen()
     {
-        if (DropdownScreen.value == 0)
+        int screenX = 0;
+        int screenY = 0;
+
+        switch (DropdownScreen.value)
         {
-            Screen.fullScreen = true;
-            SaveScreen(0, 0);
+            case 0:
+                Screen.fullScreen = true;
+                break;
+            case 1:
+                Screen.SetResolution(1920, 1080, true);
+                screenX = 1920;
+                screenY = 1080;
+                break;
+            case 2:
+                Screen.SetResolution(1536, 864, true);
+                screenX = 1536;
+                screenY = 864;
+                break;
+            case 3:
+                Screen.SetResolution(1366, 768, true);
+                screenX = 1366;
+                screenY = 768;
+                break;
         }
-        if (DropdownScreen.value == 1)
-        {
-            Screen.SetResolution(1920, 1080, true);
-            SaveScreen(1920, 1080);
-        }
-        if (DropdownScreen.value == 2)
-        {
-            Screen.SetResolution(1536, 864, true);
-            SaveScreen(1536, 864);
-        }
-        if (DropdownScreen.value == 3)
-        {
-            Screen.SetResolution(1366, 768, true);
-            SaveScreen(1366, 768);
-        }
+
+        SaveScreen(screenX, screenY);
     }
+
+
 
     private void SaveScreen(int ScreenX, int ScreenY)
     {

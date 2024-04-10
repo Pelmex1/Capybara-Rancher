@@ -49,15 +49,9 @@ public class UIBilding : MonoBehaviour
             OnUi();        
     }
 
-    private void OnEnable()
-    {
-        EventBus.OffBuilding += OffBuilding;
-    }
+    private void OnEnable() => EventBus.OffBuilding += OffBuilding;
 
-    private void OnDisable()
-    {
-        EventBus.OffBuilding -= OffBuilding;
-    }
+    private void OnDisable() => EventBus.OffBuilding -= OffBuilding;
 
     private void OffBuilding()
     {

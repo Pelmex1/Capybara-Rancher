@@ -2,7 +2,6 @@ using System;
 using CustomEventBus;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CreatNewGame : MonoBehaviour
@@ -22,15 +21,11 @@ public class CreatNewGame : MonoBehaviour
     public Image SelectIcon;
 
 
-    private void Awake()
-    {
-        audioSource = gameObject.GetComponent<AudioSource>();
-    }
+    private void Awake() => audioSource = gameObject.GetComponent<AudioSource>();
     private void Start()
     {
         AllSelectImage[0].sprite = SelectMod;
         TextOfMode.text = "Live the life of a Capybara Ranher and explore the wonders of the Robot, Robot Ranger at your own pace.";
-        //localItems = inventory.items;
     }
 
     public void BackToMain()
