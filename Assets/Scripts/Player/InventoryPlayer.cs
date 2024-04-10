@@ -16,7 +16,6 @@ public class InventoryPlayer : MonoBehaviour
     private void Awake() {
         EventBus.AddItemInInventory = AddItemInInventory;
     }
-    private void Start() => EventBus.GetInventoryData.Invoke(inventory);
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         WasChange = true;
@@ -82,8 +81,6 @@ public class InventoryPlayer : MonoBehaviour
         index = IsButton();
         if (inventory[lastindex] != null && inventory[index] != null)
         {
-            if(inventory[lastindex].Image == null)
-                Debug.Log(lastindex);
             inventory[lastindex].Image.color = Color.white;
             inventory[index].Image.color = Color.grey;
         }
@@ -91,7 +88,6 @@ public class InventoryPlayer : MonoBehaviour
         {
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
         }
-        EventBus.CheckInventory(WasChange);
     }
     private int IsButton() => Input.inputString switch {
         "1" => 0,

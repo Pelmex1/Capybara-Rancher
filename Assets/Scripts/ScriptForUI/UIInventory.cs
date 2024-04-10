@@ -1,4 +1,3 @@
-using CustomEventBus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,59 +14,42 @@ public class UIInventory : MonoBehaviour
     private Image[] Crosses = new Image[5];
     private ChestCell[] chestCell;
 
-    private void Awake() => EventBus.CheckInventory = Repaint;
-    // private void LateUpdate()
-    // {
-    //     // if (inventoryPlayer.WasChange == true)
-    //     // {
-    //     //     Repaint();
-    //     //     inventoryPlayer.WasChange = false;
-    //     // }
-    // }
-
-    private void OnEnable()
+    private void Awake()
     {
-        EventBus.GetInventoryData += GetInventoryData;
-    }
-
-    private void OnDisable()
-    {
-        EventBus.GetInventoryData += GetInventoryData;
-    }
-
-    private void GetInventoryData(ChestCell[] inventory)
-    {
-        chestCell = inventory;
-        for (int i = 0; i < chestCell.Length; i++)
+        chestCell = inventoryPlayer.inventory;
+        for(int i = 0; i < chestCell.Length;i++)
         {
             Crosses[i] = chestCell[i].Image;
+        }       
+    }
+
+    private void LateUpdate()
+    {
+        if (inventoryPlayer.WasChange == true)
+        {
+            Repaint();
+            inventoryPlayer.WasChange = false;
         }
     }
 
-    public bool Repaint(bool WasChange)
+    private void Repaint()
     {
-        if (WasChange)
+        for (int i = 0; i < chestCell.Length; i++)
         {
-            for (int i = 0; i < chestCell.Length; i++)
+            if (chestCell[i].InventoryItem != null)
             {
-                if (chestCell[i].InventoryItem != null)
-                {
-                    Crosses[i].sprite = chestCell[i].InventoryItem.Image.sprite;
-                    Docker[i].sprite = Background.sprite;
-                    Crosses[i].gameObject.transform.localScale = new Vector2(2f, 2f);
-                    ImageAmount[i].text = $"{chestCell[i].Count}";
-                }
-                else
-                {
-                    Docker[i].sprite = EmptyDocker.sprite;
-                    Crosses[i].gameObject.transform.localScale = new Vector2(1f, 1f);
-                    Crosses[i].sprite = ImageCrosses.sprite;
-                    ImageAmount[i].text = "";
-                }
+                Crosses[i].sprite = chestCell[i].InventoryItem.Image.sprite;
+                Docker[i].sprite = Background.sprite;
+                Crosses[i].gameObject.transform.localScale = new Vector2(2f,2f); 
+                ImageAmount[i].text = $"{chestCell[i].Count}";
             }
-            return true;
+            else
+            {
+                Docker[i].sprite = EmptyDocker.sprite;
+                Crosses[i].gameObject.transform.localScale = new Vector2(1f,1f); 
+                Crosses[i].sprite = ImageCrosses.sprite;
+                ImageAmount[i].text = "";
+            }
         }
-        else
-            return false;
     }
 }
