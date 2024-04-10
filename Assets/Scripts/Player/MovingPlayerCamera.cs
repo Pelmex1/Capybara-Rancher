@@ -1,3 +1,4 @@
+using System.IO;
 using CustomEventBus;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        EventBus.GetEnergyPlayerData(EnergyMaxValue, HpMaxValue);
         Cursor.lockState = CursorLockMode.Locked;
         _startHeadRotation = _head.rotation;
         _xRotationCamera = _head.localRotation.eulerAngles.x;
@@ -52,11 +54,11 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
         }
         _rb.MovePosition(_rb.position + _vertical * _speed * Time.fixedDeltaTime * transform.forward);
         _rb.MovePosition(_rb.position + _horizontal * _speed * Time.fixedDeltaTime * transform.right);
-
     }
 
     private void Update()
     {
+        EventBus.GiveEnergyPlayerData.Invoke(Hp, Energy);   
         if (Input.GetKey(KeyCode.Space))
             if (_isGrounded)
             {
@@ -65,7 +67,7 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
                 EventBus.PlayerJump.Invoke();
             }
         if (Cursor.lockState == CursorLockMode.Locked)
-        {
+        {           
             float mouseX = Input.GetAxis("Mouse X") * MouseSensitivy * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivy * Time.deltaTime;
 

@@ -23,6 +23,8 @@ namespace CustomEventBus
         public static Action<string> LodingScene;
         public static Action<float[]> GetMusicValue;
         public static Action<float[]> SaveMusicValue;
+        public static Action<float, float> GetEnergyPlayerData;
+        public static Action<float, float> GiveEnergyPlayerData;
         #endregion Options and Loaading Scenes
 
         #region  Building
@@ -38,6 +40,11 @@ namespace CustomEventBus
         public static Action PlayerGunAdd;
         public static Action PlayerGunAttraction;
         #endregion
+        #region  UIInventory
+        public static Action<ChestCell[]> GetInventoryData;
+        public static Predicate<bool> CheckInventory;
+        
+        #endregion UIInventory
     }
 
 }
