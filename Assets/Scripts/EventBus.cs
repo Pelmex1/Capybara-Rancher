@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CustomEventBus
 {
     public static class EventBus
     {
         #region Artem Action
+        public static Func<Sprite> GetDefaultSprite;
+        public static Func<InventoryItem> GetDefaultItem;
         public static Action<float> AddMoney;
         public static Action<GameObject> RemoveFromList;
         public static Predicate<GameObject> CheckList;
@@ -13,6 +16,12 @@ namespace CustomEventBus
         public static Action<bool> EnableHelpUi;
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
+        public static Action<InventoryItem, Sprite, int, int> SetCellsData;
+        #region Inventory
+        public static Func<int, int> GetInt;
+        public static Func<int, InventoryItem> GetInventoryItem;
+        public static Func<int, Image> GetImage;
+        #endregion
         #endregion
 
         #region  Options and Loaading Scenes

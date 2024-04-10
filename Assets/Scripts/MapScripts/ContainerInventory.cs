@@ -39,7 +39,7 @@ public class ContainerInventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && _isNearChest)
         {
             UpdateChestUI(_chestCell);
-            UpdateInventoryUI(playerInventory.inventory);
+            //UpdateInventoryUI(playerInventory.inventory);
             Cursor.lockState = CursorLockMode.Confined;
             EnableBaseUI.Invoke(true);
             EventBus.EnableHelpUi(false);
