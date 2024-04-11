@@ -16,8 +16,8 @@ public class CrystalsController : MonoBehaviour
     private bool _isAngry = false;
     private FoodType _whatEat1;
     private FoodType _whatEat2;
-    private string _nameOfFavouriteFood1;
-    private string _nameOfFavouriteFood2;
+    private string _favouriteFoodName1;
+    private string _favouriteFoodName2;
     private bool _hasTransformed = false;
     private ICapybaraAudioController _audioController;
     private IMobsAi _mobsAi;
@@ -32,7 +32,7 @@ public class CrystalsController : MonoBehaviour
         _capybaraData = GetComponent<ICapybaraItem>();
 
         _whatEat1 = _capybaraData.WhatEat;
-        _nameOfFavouriteFood1 = _capybaraData.NameOfFavouriteFood;
+        _favouriteFoodName1 = _capybaraData.NameOfFavouriteFood;
 
         StartCoroutine(LoopToStarving());
     }
@@ -51,7 +51,7 @@ public class CrystalsController : MonoBehaviour
             {
                 string nameOfFood = localMovebleObject.Data.name;
                 FoodType typeOfFood = collision.gameObject.GetComponent<IFoodItem>().Type;
-                if (_nameOfFavouriteFood1 == nameOfFood || _nameOfFavouriteFood2 == nameOfFood)
+                if (_favouriteFoodName1 == nameOfFood || _favouriteFoodName2 == nameOfFood)
                 {
                     StartCoroutine(GenerateCrystals(true));
                     Destroy(collision.gameObject);
@@ -70,7 +70,7 @@ public class CrystalsController : MonoBehaviour
                     NewCrystal != dataIn.Prefab) && !_hasTransformed)
                 {
                     TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, 
-                        dataCr.NameOfFavouriteFoodThisType, dataCr.WhatEatThisType);
+                        dataCr.FavouriteFoodName, dataCr.WhatEatThisType);
                     localMovebleObject.Localgameobject.SetActive(false);
                     Destroy(collision.gameObject);
                 }
@@ -150,7 +150,7 @@ public class CrystalsController : MonoBehaviour
     {
         transform.localScale *= SIZE_BOOST_AFTER_TRANSFORMATION;
         NewCrystal = _newCrystal;
-        _nameOfFavouriteFood2 = nameOfSecondFavouriteFood;
+        _favouriteFoodName2 = nameOfSecondFavouriteFood;
         _whatEat2 = whatEatSecond;
         Instantiate(modification, transform);
         tag = "Untagged";

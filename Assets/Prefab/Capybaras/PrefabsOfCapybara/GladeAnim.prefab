@@ -15070,6 +15070,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bf035663c646eff4481429cf3117a200,
+        type: 3}
       propertyPath: m_TagString
       value: movebleObject
       objectReference: {fileID: 0}
@@ -15316,7 +15321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: b69d3d38e87a3864e85e0c88764fcfd9, type: 2}
 --- !u!114 &3180365835458560116
 MonoBehaviour:
   m_ObjectHideFlags: 0

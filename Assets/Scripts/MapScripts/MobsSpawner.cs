@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobsSpawner : MonoBehaviour
+public class MobsSpawner : MonoBehaviour, IMobsSpawner
 {
     private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
     private const string OBSTACLE_TAG = "Obstacle";
@@ -10,12 +10,15 @@ public class MobsSpawner : MonoBehaviour
     [SerializeField] private float _radiusOfSpawn = 5f;
     [SerializeField] private int _amountOfMobs = 8;
     [SerializeField] private float _delayBetweenRespawn = 30f;
+    [SerializeField] private int _startMobsPool = 50;
     [SerializeField] private GameObject _mobPrefab;
-    [SerializeField] private List<GameObject> _mobsPool;
+    [SerializeField] private List<GameObject> _activeMobsPool;
+    [SerializeField] private List<GameObject> _deactiveMobsPool;
     private bool _inPlayerVision = false;
 
     private void Start()
     {
+        InstantiateObjects(_startMobsPool);
         StartCoroutine(SpawnLoop());
     }
 
@@ -38,18 +41,37 @@ public class MobsSpawner : MonoBehaviour
 
     private void CheckValueOfMobs()
     {
-        for(int i = _mobsPool.Count - 1; i >= 0; i--)
-            if (_mobsPool[i] == null)
-                _mobsPool.Remove(_mobsPool[i]);
-        while (_mobsPool.Count <= _amountOfMobs && !_inPlayerVision)
-            SpawnNewMob();
+        for(int i = _activeMobsPool.Count - 1; i >= 0; i--)
+            if (_activeMobsPool[i] == null)
+                _activeMobsPool.Remove(_activeMobsPool[i]);
+        while (_activeMobsPool.Count < _amountOfMobs && !_inPlayerVision)
+            ActivateNewMob();
     }
 
-    private void SpawnNewMob()
+    private void InstantiateObjects(int number)
     {
-        GameObject spawnedMob = Instantiate(_mobPrefab, SpawnPos(), Quaternion.identity);
-        _mobsPool.Add(spawnedMob);
-        spawnedMob.transform.parent = gameObject.transform;
+        for (int i = 0; i < number; i++)
+        {
+            GameObject spawnedMob = Instantiate(_mobPrefab);
+            _deactiveMobsPool.Add(spawnedMob);
+            spawnedMob.transform.parent = gameObject.transform;
+        }
+    }
+
+    private void ActivateNewMob()
+    {
+        GameObject newMob = _deactiveMobsPool[0];
+        newMob.SetActive(true);
+        newMob.transform.position = SpawnPos();
+        _activeMobsPool.Add(newMob);
+        _deactiveMobsPool.Remove(newMob);
+    }
+
+    public void ReturnToPool(GameObject returnObject)
+    {
+        _activeMobsPool.Remove(returnObject);
+        _deactiveMobsPool.Add(returnObject);
+        returnObject.SetActive(false);
     }
 
     private Vector3 RandomPosition()

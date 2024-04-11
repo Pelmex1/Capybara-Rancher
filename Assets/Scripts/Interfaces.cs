@@ -23,7 +23,7 @@ internal interface ICrystalItem
 {
     public GameObject NextCapibara { get; }
     public float Price { get; }
-    public string NameOfFavouriteFoodThisType { get; }
+    public string FavouriteFoodName { get; }
     public FoodType WhatEatThisType { get; }
 }
 internal interface ICapybaraItem
@@ -54,4 +54,8 @@ internal interface IMovingPlayer
     public float Hp { get; set; }
     public float EnergyMaxValue { get; }
     public float HpMaxValue { get; }
+}
+internal interface IMobsSpawner
+{
+    public void ReturnToPool(GameObject returnObject);
 }

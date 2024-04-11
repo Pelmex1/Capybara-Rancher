@@ -43,7 +43,6 @@ public class InventoryPlayer : MonoBehaviour
                 inventory[i].InventoryItem = inventoryItem;
                 inventory[i]++;
                 EventBus.SetCellsData(inventory[i].InventoryItem, inventory[i].InventoryItem?.Image.sprite, inventory[i].Count, index);
-                //playerAudioController.GunAddPlay();
                 return true;
             } else if(inventory[i].InventoryItem == null && _nullChestCell == null){
                 _nullChestCell = inventory[i];
@@ -56,7 +55,6 @@ public class InventoryPlayer : MonoBehaviour
             inventory[_localIndex] = _nullChestCell;
             EventBus.SetCellsData(inventory[_localIndex].InventoryItem, inventory[_localIndex].InventoryItem?.Image.sprite, inventory[_localIndex].Count, index);
             _nullChestCell = new CellData.Data();
-            //playerAudioController.GunAddPlay();
             return true;
         }
         return false;
@@ -78,8 +76,6 @@ public class InventoryPlayer : MonoBehaviour
         {
             inventory[index].InventoryItem = null;
         }
-
-        //playerAudioController.GunRemovePlay();
     }
     private void Update()
     {

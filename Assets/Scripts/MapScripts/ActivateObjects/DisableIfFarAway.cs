@@ -5,12 +5,12 @@ public class DisableIfFarAway : MonoBehaviour
 {
     private const float TIMEMISTAKE = 0.1f;
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(AddToList());
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         ItemActivator.ActivatorItemsRemove(gameObject);
     }
