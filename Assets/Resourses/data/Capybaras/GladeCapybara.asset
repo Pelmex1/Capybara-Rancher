@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GladeCapybara
   m_EditorClassIdentifier: 
   Name: Glade Capybara
-  image: {fileID: 547092272219251028, guid: cff1552b8f455c742b83cfd45acd69f0, type: 3}
-  prefab: {fileID: 852176107350716984, guid: 073d5fe4594c4e142ad7c25f9e914a59, type: 3}
-  color: {r: 0.6745098, g: 0.52156866, b: 0.37254903, a: 0}
+  Image: {fileID: 547092272219251028, guid: cff1552b8f455c742b83cfd45acd69f0, type: 3}
+  Prefab: {fileID: 852176107350716984, guid: 073d5fe4594c4e142ad7c25f9e914a59, type: 3}
+  Color: {r: 0.6132076, g: 0.38364, b: 0.130162, a: 1}

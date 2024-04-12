@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RockCapybara
   m_EditorClassIdentifier: 
   Name: Rock Capybara
-  image: {fileID: 547092272219251028, guid: 1bbb223ed6b0eda4aa367f44c25e34f0, type: 3}
-  prefab: {fileID: 852176107350716984, guid: 6bdffc7cc7d18ce479d3bed0aeaa6f06, type: 3}
-  color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
+  Image: {fileID: 547092272219251028, guid: 1bbb223ed6b0eda4aa367f44c25e34f0, type: 3}
+  Prefab: {fileID: 852176107350716984, guid: 6bdffc7cc7d18ce479d3bed0aeaa6f06, type: 3}
+  Color: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
