@@ -7,15 +7,18 @@ using CustomEventBus;
 
 public class Options : MonoBehaviour
 {
+    [SerializeField] private GameObject[] OptionsPanels = new GameObject[2];
+
+    [HeaderLine("Main Options")]
+    [SerializeField] private Camera Camera;
     [SerializeField] private Button AudioButton;
     [SerializeField] private Sprite ButtonOnSprite;
     [SerializeField] private Sprite ButtonOffSprite;
-
-    [SerializeField] private GameObject PanelSetinx;
-    [SerializeField] private GameObject PanelButton;
-
     [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private TMP_Dropdown DropdownScreen;
+
+    [SerializeField] private Slider RenderingSlider;
+    [SerializeField] private Slider DPISlider;
 
     [HeaderLine("Music Options")]
     [SerializeField] private AudioMixer audiomixer;
@@ -29,7 +32,6 @@ public class Options : MonoBehaviour
     private int Quality;
 
     private float[] ArraySave = new float[3];
-
     private void Awake()
     {
         if (PlayerPrefs.GetInt("KeyScreenX") == 0)
@@ -42,11 +44,30 @@ public class Options : MonoBehaviour
             int ScreenY = PlayerPrefs.GetInt("KeyScreenY");
             Screen.SetResolution(ScreenX, ScreenY, true);
         }
+        if (!PlayerPrefs.HasKey("Far"))
+        {
+            float value = 100f;
+            RenderingSlider.value = value;
+            Camera.farClipPlane = value;
+        }
+        else
+        {
+            float value = PlayerPrefs.GetFloat("Far");
+            RenderingSlider.value = value;
+            Camera.farClipPlane = value;
+        }
     }
 
     private void Start()
     {
         Time.timeScale = 1f;
+        GetDataQualty();
+        GetDataSound();
+        GetDataSensetive();
+    }
+
+    private void GetDataQualty()
+    {
         if (PlayerPrefs.HasKey("Quality"))
         {
             Quality = PlayerPrefs.GetInt("Quality");
@@ -55,9 +76,13 @@ public class Options : MonoBehaviour
         }
         else
         {
-            QualitySettings.SetQualityLevel(0, true);
             EventBus.ChnageGrassMod.Invoke();
+            QualitySettings.SetQualityLevel(0, true);
         }
+    }
+
+    private void GetDataSound()
+    {
         if (PlayerPrefs.GetInt("isSoundOn") == 0)
         {
             AudioButton.image.sprite = ButtonOffSprite;
@@ -76,12 +101,29 @@ public class Options : MonoBehaviour
         }
     }
 
-    public void OnMainPanel()
+    private void GetDataSensetive()
     {
-        PanelSetinx.SetActive(false);
-        PanelButton.SetActive(true);
+        if (!PlayerPrefs.HasKey("DPI"))
+        {
+            EventBus.WasChangeMouseSensetive.Invoke(50);
+            DPISlider.value = 50;
+            PlayerPrefs.SetFloat("DPI", 50);
+        }
+        else
+        {
+            float value = PlayerPrefs.GetFloat("DPI");
+            EventBus.WasChangeMouseSensetive.Invoke(value);
+            DPISlider.value = value;
+            PlayerPrefs.SetFloat("DPI", value);
+        }
+        PlayerPrefs.Save();
     }
-
+    public void ChangeMouseSensetive()
+    {
+        EventBus.WasChangeMouseSensetive.Invoke(DPISlider.value);
+        PlayerPrefs.SetFloat("DPI", DPISlider.value);
+        PlayerPrefs.Save();
+    }
 
     public void CheckDropdown()
     {
@@ -113,6 +155,21 @@ public class Options : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void ChangePanel(int IndexPanel)
+    {
+        switch (IndexPanel)
+        {
+            case 0:
+                OptionsPanels[0].SetActive(true);
+                OptionsPanels[1].SetActive(false);
+                break;
+            case 1:
+                OptionsPanels[1].SetActive(true);
+                OptionsPanels[0].SetActive(false);
+                break;
+        }
+    }
+
     public void CheckSlider(string NameMixer)
     {
         if (NameMixer != "Effects")
@@ -137,6 +194,14 @@ public class Options : MonoBehaviour
             audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
         }
         EventBus.SaveMusicValue.Invoke(ArraySave);
+    }
+
+    public void ChangeRendering()
+    {
+        float value = RenderingSlider.value;
+        Camera.farClipPlane = value;
+        PlayerPrefs.SetFloat("Far", value);
+        PlayerPrefs.Save();
     }
 
     public void ChangeScreen()

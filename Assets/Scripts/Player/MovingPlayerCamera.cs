@@ -96,4 +96,16 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
 
         EventBus.PlayerMove.Invoke(_isGrounded, _isRunning && Input.GetKey(KeyCode.LeftShift));
     }
+
+    private void OnEnable()
+    {
+        EventBus.WasChangeMouseSensetive += WasChangeSenstive;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
+    }
+
+    private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative; 
 }

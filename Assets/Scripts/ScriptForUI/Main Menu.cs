@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour
     {
         PanelButton.SetActive(false);
         PanelNewGame.SetActive(true);
-    } 
+    }
     public void PlayContinue()
     {
         EventBus.LodingScene.Invoke("Map");
@@ -31,6 +31,12 @@ public class MainMenu : MonoBehaviour
     {
         PanelButton.SetActive(false);
         PanelOptions.SetActive(true);
+    }
+
+    public void OffOptions()
+    {
+        PanelButton.SetActive(true);
+        PanelOptions.SetActive(false);
     }
 
     public void PlayMultiplayer()
