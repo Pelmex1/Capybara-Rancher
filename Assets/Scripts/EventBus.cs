@@ -37,6 +37,8 @@ namespace CustomEventBus
         public static Action<float[]> SaveMusicValue;      
         public static Action<float, float> GetEnergyPlayerData;
         public static Action<float, float> GiveEnergyPlayerData;
+
+        public static Action PlayerRespawned;
         #endregion Options and Loaading Scenes
 
         #region  Building
