@@ -4,18 +4,19 @@ using UnityEngine.AI;
 
 public class MovebleObject : MonoBehaviour, IMovebleObject
 {
+    private const string CANON_TAG = "CanonEnter";
     private NavMeshAgent _navMeshAgent;
     private IMobsSpawner _mobsSpawner;
 
-    public InventoryItem Data { get => Data; set {return;} }
-    public GameObject Localgameobject {get => Localgameobject; set {return;}}
+    public InventoryItem Data { get; set; }
+    public GameObject Localgameobject {get; set;}
     public bool IsMoved {get; set;} = false;
     private void Awake() {
         SetLocalObject();
     }
     private void Start() {
         TryGetComponent(out _navMeshAgent);
-        transform.parent.TryGetComponent(out _mobsSpawner);
+        transform.parent?.TryGetComponent(out _mobsSpawner);
     }
     private void Update() 
     {
@@ -30,23 +31,16 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("CanonEnter"))
+        if (other.CompareTag(CANON_TAG))
         {
             if (EventBus.AddItemInInventory(Data))
             {
                 EventBus.RemoveFromList(gameObject);
-                if (_mobsSpawner == null) { Destroy(gameObject); }
-                else { _mobsSpawner.ReturnToPool(gameObject); }
+                if (_mobsSpawner == null) {
+                    Destroy(gameObject); 
+                }
             }
-            _mobsSpawner.ReturnToPool(gameObject);
         };
-    }
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            _mobsSpawner.ReturnToPool(gameObject);
-        }
     }
     public void SetLocalObject(){
         Localgameobject = gameObject;

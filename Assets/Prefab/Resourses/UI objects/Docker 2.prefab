@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4822682754216270793}
   - component: {fileID: 8258166214637430539}
   - component: {fileID: 664414286338659192}
-  - component: {fileID: 8255692551174502037}
+  - component: {fileID: 7896993682322038549}
   m_Layer: 5
   m_Name: Docker 2
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8255692551174502037
+--- !u!114 &7896993682322038549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,9 +85,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5525476642976321723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23e3aea2b65caac439ee01aae04f5acf, type: 3}
+  m_Script: {fileID: 11500000, guid: e42b92d7bf396ed4bad210f6919f1492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  inventoryItem: {fileID: 0}
-  count: 0

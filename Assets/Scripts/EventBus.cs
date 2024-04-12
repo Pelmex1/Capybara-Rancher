@@ -20,7 +20,7 @@ namespace CustomEventBus
         #region Inventory
         public static Func<int, int> GetInt;
         public static Func<int, InventoryItem> GetInventoryItem;
-        public static Func<int, Image> GetImage;
+        public static Action<IInventory> AddImageInInventory;
         #endregion
         #endregion
 

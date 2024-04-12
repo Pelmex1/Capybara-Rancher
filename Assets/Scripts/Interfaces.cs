@@ -59,3 +59,9 @@ internal interface IMobsSpawner
 {
     public void ReturnToPool(GameObject returnObject);
 }
+public interface IInventory
+{
+    public CapybaraRancher.CustomStructures.Data[] Inventory { get; set; }
+    public bool AddItemInInventory(InventoryItem inventoryItem);
+    public void RemoveItem(Vector3 spawnPos, Vector3 pos);
+}

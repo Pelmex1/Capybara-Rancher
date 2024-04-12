@@ -11,8 +11,10 @@ public class Cell : MonoBehaviour, ICell
     public int Count { get; set; } = 0;
     private int index;
     private void Start() {
+        Image = GetComponentInChildren<Image>(); 
         index = Convert.ToInt32(name); // Так як у нас всього 5 комірок то ми можемо зробити так ( по іншому я не знаю як передавати індекс)
     }
+    private void GetImage(IInventory inventory) => inventory.Inventory[index].Image = Image;
     private int GetInt(int index){
         if(index == this.index){
             return Count;
@@ -48,10 +50,12 @@ public class Cell : MonoBehaviour, ICell
         EventBus.SetCellsData += SetData;
         EventBus.GetInt += GetInt;
         EventBus.GetInventoryItem += GetItem;
+        EventBus.AddImageInInventory += GetImage;
     }
     private void OnDisable() {
         EventBus.SetCellsData -= SetData;
         EventBus.GetInt -= GetInt;
         EventBus.GetInventoryItem -= GetItem;
+        EventBus.AddImageInInventory -= GetImage;
     }
 }

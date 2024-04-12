@@ -2,59 +2,61 @@ using CapybaraRancher.CustomStructures;
 using System.Collections;
 using CustomEventBus;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InventoryPlayer : MonoBehaviour
+public class InventoryPlayer : MonoBehaviour, IInventory
 {
     [SerializeField] private BoxCollider canonEnter;
 
-    private int index = 0;
+    private int _index = 0;
     private int _localIndex;
     private const float SPEED = 10f;
-    private CellData.Data _nullChestCell;
-    public CellData.Data[] inventory = new CellData.Data[5];
-    public bool WasChange = false;
+    private Data _nullChestCell;
+    public Data[] Inventory { get; set; } = new Data[5];
     private void Awake() {
         EventBus.AddItemInInventory = AddItemInInventory;
+        EventBus.AddImageInInventory(this);
     }
     private void Start() {
-        for (int i = 0; i < inventory.Length; i++)
+        for(int i =0; i < 5; i++)
         {
-            inventory[i].Image = EventBus.GetImage(i);
-        }
+            Debug.Log(Inventory[i].Image);
+        } 
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
-        WasChange = true;
-
-        if (inventory[index].InventoryItem == null ||
-            (inventory[index].InventoryItem == inventoryItem && inventory[index].Count < 20))
+        if (Inventory[_index].InventoryItem == null ||
+            (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
-            inventory[index].InventoryItem ??= inventoryItem;
-            inventory[index]++;
-            CellData.Data tmp = inventory[index];
-            EventBus.SetCellsData(tmp.InventoryItem, tmp.InventoryItem?.Image.sprite, tmp.Count, index);
+            Inventory[_index].InventoryItem ??= inventoryItem;
+            Inventory[_index].Image.sprite = inventoryItem.Image.sprite;
+            Inventory[_index]++;
+            Data tmp = Inventory[_index];
+            //EventBus.SetCellsData(tmp.InventoryItem, tmp.Count, _index);
             return true;
         }
         
-        for (int i = 0; i < inventory.Length; i++)
+        for (int i = 0; i < Inventory.Length; i++)
         {
-            if (inventory[i].InventoryItem == inventoryItem && inventory[index].Count < 20)
+            if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
             {
-                inventory[i].InventoryItem = inventoryItem;
-                inventory[i]++;
-                EventBus.SetCellsData(inventory[i].InventoryItem, inventory[i].InventoryItem?.Image.sprite, inventory[i].Count, index);
+                Inventory[i].InventoryItem = inventoryItem;
+                Inventory[i].Image.sprite = inventoryItem.Image.sprite;
+                Inventory[i]++;
+                EventBus.SetCellsData(inventoryItem, inventoryItem.Image.sprite,Inventory[i].Count, i);
+                //playerAudioController.GunAddPlay();
                 return true;
-            } else if(inventory[i].InventoryItem == null && _nullChestCell == null){
-                _nullChestCell = inventory[i];
+            } else if(Inventory[i].InventoryItem == null && _nullChestCell.Equals(null)){
+                _nullChestCell = Inventory[i];
                 _localIndex = i;
             }
         }
-        if(_nullChestCell != null){
+        if(!_nullChestCell.Equals(null)){
             _nullChestCell.InventoryItem = inventoryItem;
             _nullChestCell++;
-            inventory[_localIndex] = _nullChestCell;
-            EventBus.SetCellsData(inventory[_localIndex].InventoryItem, inventory[_localIndex].InventoryItem?.Image.sprite, inventory[_localIndex].Count, index);
-            _nullChestCell = new CellData.Data();
+            Inventory[_localIndex] = _nullChestCell;
+            EventBus.SetCellsData(inventoryItem, inventoryItem.Image.sprite,Inventory[_localIndex].Count, _localIndex);
+            _nullChestCell = new Data();
             return true;
         }
         return false;
@@ -62,35 +64,28 @@ public class InventoryPlayer : MonoBehaviour
 
     public void RemoveItem(Vector3 spawnPos, Vector3 pos)
     {
-        WasChange = true;
         /*if (inventory[index].inventoryItem == null)
         {
             canon.Portal2.SetActive(false);
             return;
         }*/
-        inventory[index].Count--;
+        Inventory[_index]--;
         StartCoroutine(Recherge());
-        GameObject localObject = Instantiate(inventory[index].InventoryItem.Prefab, spawnPos, Quaternion.identity);
+        GameObject localObject = Instantiate(Inventory[_index].InventoryItem.Prefab, spawnPos, Quaternion.identity);
         localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
-        if (inventory[index].Count == 0)
+        if (Inventory[_index].Count == 0)
         {
-            inventory[index].InventoryItem = null;
+            Inventory[_index].InventoryItem = null;
         }
     }
     private void Update()
     {
-        int lastindex = index;
         float ScrollDelta = Input.mouseScrollDelta.y;
-        if (ScrollDelta < 0 && index < 5 && Time.timeScale == 1f)
+        if (ScrollDelta < 0 && _index < 5 && Time.timeScale == 1f)
             ChangeIndex(-1);
-        else if (ScrollDelta > 0 && index >= 0 && Time.timeScale == 1f)
+        else if (ScrollDelta > 0 && _index >= 0 && Time.timeScale == 1f)
             ChangeIndex(1);
-        index = IsButton();
-        if (inventory[lastindex] != null && inventory[index] != null)
-        {
-            inventory[lastindex].Image.color = Color.white;
-            inventory[index].Image.color = Color.grey;
-        }
+        _index = IsButton();
         if (Input.GetMouseButtonDown(1))
         {
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
@@ -102,12 +97,12 @@ public class InventoryPlayer : MonoBehaviour
         "3" => 2,
         "4" => 3,
         "5" => 4,
-        _ => index
+        _ => _index
     };
     private void ChangeIndex(int delta)
     {
-        index += delta;
-        index = Mathf.Clamp(index, 0, 4);
+        _index += delta;
+        _index = Mathf.Clamp(_index, 0, 4);
     }
     private IEnumerator Recherge()
     {
