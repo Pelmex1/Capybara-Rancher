@@ -31,6 +31,7 @@ public class Cell : MonoBehaviour, ICell
         } else return EventBus.GetDefaultItem();
     }
     private void SetData(InventoryItem inventoryItem, Sprite image, int count, int index){
+        Debug.Log("Start Inviking");
         if(index == this.index)
         {
             InventoryItem = count > 0 ? InventoryItem : inventoryItem;

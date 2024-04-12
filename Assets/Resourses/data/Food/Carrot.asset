@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Carrot
   m_EditorClassIdentifier: 
   Name: Carrot
-  Image: {fileID: 547092272219251028, guid: d74da426d515d61469b0c634fbc057d1, type: 3}
+  Sprite: {fileID: 21300000, guid: 050c384f6421eee4ca8a19e0101c29cb, type: 3}
   Prefab: {fileID: 5438235292126757285, guid: 8762de67fb676f54da22c5d4321847a3, type: 3}
   Color: {r: 0.7735849, g: 0.3636524, b: 0, a: 1}
