@@ -6,7 +6,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
 {
     private const string CANON_TAG = "CanonEnter";
     private NavMeshAgent _navMeshAgent;
-    private IMobsSpawner _mobsSpawner;
+    private IObjectSpawner _mobsSpawner;
 
     public InventoryItem Data { get; set; }
     public GameObject Localgameobject {get; set;}

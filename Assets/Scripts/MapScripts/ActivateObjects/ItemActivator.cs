@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using CustomEventBus;
 
 public class ItemActivator : MonoBehaviour
 {
@@ -8,13 +9,21 @@ public class ItemActivator : MonoBehaviour
 
     [SerializeField] private GameObject _player;
 
-    private float _distanceFromPlayer;
+    private float _renderDistance;
 
     public static List<GameObject> ActivatorItems = new List<GameObject>();
-
-    private void Awake()
+    private void OnEnable()
     {
-        _distanceFromPlayer = Camera.main.farClipPlane;
+        EventBus.ChangeRendering += ChangeRenderDistance;
+    }
+    private void OnDisable()
+    {
+        EventBus.ChangeRendering -= ChangeRenderDistance;
+    }
+
+    private void ChangeRenderDistance()
+    {
+        _renderDistance = Camera.main.farClipPlane;
     }
     private void Start()
     {
@@ -29,7 +38,7 @@ public class ItemActivator : MonoBehaviour
             {
                 for (int i = 0; i < ActivatorItems.Count; i++)
                 {
-                    if (Vector3.Distance(_player.transform.position, ActivatorItems[i].transform.position) > _distanceFromPlayer)
+                    if (Vector3.Distance(_player.transform.position, ActivatorItems[i].transform.position) > _renderDistance)
                         ActivatorItems[i].SetActive(false);
                     else
                         ActivatorItems[i].SetActive(true);

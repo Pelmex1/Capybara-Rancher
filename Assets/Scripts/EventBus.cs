@@ -26,6 +26,7 @@ namespace CustomEventBus
 
         #region  Options and Loaading Scenes
         public static Action ChnageGrassMod;
+        public static Action ChangeRendering;
 
         public static Action OnLorScene;
 

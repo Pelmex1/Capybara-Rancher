@@ -55,7 +55,7 @@ internal interface IMovingPlayer
     public float EnergyMaxValue { get; }
     public float HpMaxValue { get; }
 }
-internal interface IMobsSpawner
+internal interface IObjectSpawner
 {
     public void ReturnToPool(GameObject returnObject);
 }

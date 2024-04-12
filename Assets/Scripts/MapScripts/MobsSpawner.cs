@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobsSpawner : MonoBehaviour, IMobsSpawner
+public class MobsSpawner : MonoBehaviour, IObjectSpawner
 {
     private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
     private const string OBSTACLE_TAG = "Obstacle";
@@ -27,7 +27,6 @@ public class MobsSpawner : MonoBehaviour, IMobsSpawner
         Camera mainCamera = Camera.main;
         Vector3 viewportPoint = mainCamera.WorldToViewportPoint(transform.position);
         _inPlayerVision = viewportPoint.z > 0 && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
-
     }
 
     private IEnumerator SpawnLoop()
@@ -45,26 +44,26 @@ public class MobsSpawner : MonoBehaviour, IMobsSpawner
             if (_activeMobsPool[i] == null)
                 _activeMobsPool.Remove(_activeMobsPool[i]);
         while (_activeMobsPool.Count < _amountOfMobs && !_inPlayerVision)
-            ActivateNewMob();
+            ActivateObject();
     }
 
     private void InstantiateObjects(int number)
     {
         for (int i = 0; i < number; i++)
         {
-            GameObject spawnedMob = Instantiate(_mobPrefab);
-            _deactiveMobsPool.Add(spawnedMob);
-            spawnedMob.transform.parent = gameObject.transform;
+            GameObject spawnedObject = Instantiate(_mobPrefab);
+            _deactiveMobsPool.Add(spawnedObject);
+            spawnedObject.transform.parent = gameObject.transform;
         }
     }
 
-    private void ActivateNewMob()
+    private void ActivateObject()
     {
-        GameObject newMob = _deactiveMobsPool[0];
-        newMob.SetActive(true);
-        newMob.transform.position = SpawnPos();
-        _activeMobsPool.Add(newMob);
-        _deactiveMobsPool.Remove(newMob);
+        GameObject activatedObject = _deactiveMobsPool[0];
+        activatedObject.SetActive(true);
+        activatedObject.transform.position = SpawnPos();
+        _activeMobsPool.Add(activatedObject);
+        _deactiveMobsPool.Remove(activatedObject);
     }
 
     public void ReturnToPool(GameObject returnObject)

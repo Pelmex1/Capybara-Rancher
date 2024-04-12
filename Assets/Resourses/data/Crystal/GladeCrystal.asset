@@ -13,14 +13,6 @@ MonoBehaviour:
   m_Name: GladeCrystal
   m_EditorClassIdentifier: 
   Name: Glade Crystal
-  image: {fileID: 547092272219251028, guid: 76710e299b1c47343a48aa908c735eb0, type: 3}
-  prefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba, type: 3}
-  color: {r: 0.816, g: 0, b: 0.9761739, a: 0}
-  indexForSpawnFarm: 0
-  timeGeneration: 0
-  isGenerable: 0
-  point: {fileID: 0}
-  modThisKind: {fileID: 1885999244023908055, guid: 90877c75fec5b6f458322d494956b6bb,
-    type: 3}
-  minPrice: 5
-  maxPrice: 15
+  Image: {fileID: 547092272219251028, guid: 76710e299b1c47343a48aa908c735eb0, type: 3}
+  Prefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba, type: 3}
+  Color: {r: 0.9827938, g: 0, b: 1, a: 1}

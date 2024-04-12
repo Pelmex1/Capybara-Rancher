@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LeoCrystal
   m_EditorClassIdentifier: 
   Name: Leo Crystal
-  image: {fileID: 547092272219251028, guid: 7df56375ce599044683fe1834a1c5378, type: 3}
-  prefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc, type: 3}
-  color: {r: 1, g: 0.7848825, b: 0, a: 0}
+  Image: {fileID: 547092272219251028, guid: 7df56375ce599044683fe1834a1c5378, type: 3}
+  Prefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc, type: 3}
+  Color: {r: 1, g: 0.92036945, b: 0, a: 1}

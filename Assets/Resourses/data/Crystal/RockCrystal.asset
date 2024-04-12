@@ -13,14 +13,6 @@ MonoBehaviour:
   m_Name: RockCrystal
   m_EditorClassIdentifier: 
   Name: Rock Crystal
-  image: {fileID: 547092272219251028, guid: 09ba16adbabf9e34280ef07b85e5ccab, type: 3}
-  prefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17, type: 3}
-  color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 0}
-  indexForSpawnFarm: 0
-  timeGeneration: 0
-  isGenerable: 0
-  point: {fileID: 0}
-  modThisKind: {fileID: 1885999244023908055, guid: e1a21cdf62440784aab78bfa66bfc319,
-    type: 3}
-  minPrice: 10
-  maxPrice: 20
+  Image: {fileID: 547092272219251028, guid: 09ba16adbabf9e34280ef07b85e5ccab, type: 3}
+  Prefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17, type: 3}
+  Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}

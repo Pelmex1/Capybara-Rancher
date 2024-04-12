@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Banana
   m_EditorClassIdentifier: 
   Name: Banana
-  image: {fileID: 547092272219251028, guid: 14d985b6dac076842bd842b4ba8de1bc, type: 3}
-  prefab: {fileID: 6361594820006480700, guid: 61bcadc7115dedb4491b573b5acf63ec, type: 3}
-  color: {r: 1, g: 0.8301325, b: 0, a: 0}
+  Image: {fileID: 0}
+  Prefab: {fileID: 6361594820006480700, guid: 61bcadc7115dedb4491b573b5acf63ec, type: 3}
+  Color: {r: 1, g: 0.88714695, b: 0, a: 0}

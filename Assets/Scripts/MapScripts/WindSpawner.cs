@@ -13,8 +13,8 @@ public class WindSpawner : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private float _intervalBetweenWindGenerete = 2f;
     [SerializeField] private GameObject[] _windsPrefabs;
-    [SerializeField] private List<GameObject> _activeWindsPool;
-    [SerializeField] private List<GameObject> _deactiveWindsPool;
+    private List<GameObject> _activeWindsPool = new List<GameObject>();
+    private List<GameObject> _deactiveWindsPool = new List<GameObject>();
 
     private void Start()
     {
@@ -49,12 +49,13 @@ public class WindSpawner : MonoBehaviour
 
     private GameObject ActiveObject(Vector3 spawnPos)
     {
-        GameObject activatingObject = _deactiveWindsPool[0];
-        activatingObject.SetActive(true);
-        _activeWindsPool.Add(activatingObject);
-        _deactiveWindsPool.Remove(activatingObject);
-        activatingObject.transform.position = spawnPos;
-        return activatingObject;
+        GameObject activatedObject = _deactiveWindsPool[0];
+        activatedObject.SetActive(true);
+        _activeWindsPool.Add(activatedObject);
+        _deactiveWindsPool.Remove(activatedObject);
+        activatedObject.transform.position = spawnPos;
+
+        return activatedObject;
     }
     private IEnumerator ReturnToPoolObject(GameObject returnObject)
     {

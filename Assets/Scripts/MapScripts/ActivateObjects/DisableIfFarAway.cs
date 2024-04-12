@@ -10,7 +10,7 @@ public class DisableIfFarAway : MonoBehaviour
         StartCoroutine(AddToList());
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         ItemActivator.ActivatorItemsRemove(gameObject);
     }

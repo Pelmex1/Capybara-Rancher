@@ -202,6 +202,7 @@ public class LocalOptions : MonoBehaviour
         Camera.farClipPlane = value;
         PlayerPrefs.SetFloat("Far", value);
         PlayerPrefs.Save();
+        EventBus.ChangeRendering.Invoke();
     }
 
     public void ChangeScreen()
