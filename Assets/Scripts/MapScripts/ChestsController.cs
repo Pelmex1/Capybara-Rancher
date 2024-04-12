@@ -22,7 +22,7 @@ public class ChestsController : MonoBehaviour
     private ChestCell CellUpdate(ChestCell cell, ChestCell data){
         cell.InventoryItem = data.InventoryItem;
         cell.Count = data.Count != 0 ? data.Count : 0;
-        cell.Image.sprite = data.InventoryItem?.Image.sprite ?? defaultSprite;
+        cell.Image.sprite = data.InventoryItem?.Image ?? defaultSprite;
         return cell;
     }
     private void UpdateChestCells(ChestCell[] chestCells)
