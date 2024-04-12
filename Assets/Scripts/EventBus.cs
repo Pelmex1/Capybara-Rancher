@@ -16,8 +16,9 @@ namespace CustomEventBus
         public static Action<bool> EnableHelpUi;
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
-        public static Action<InventoryItem, Sprite, int, int> SetCellsData;
         #region Inventory
+        public static Action<InventoryItem, Sprite, int, int> SetCellsData;
+        public static Action<Sprite, int> SetImageSprite;
         public static Func<int, int> GetInt;
         public static Func<int, InventoryItem> GetInventoryItem;
         public static Action<IInventory> AddImageInInventory;

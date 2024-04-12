@@ -16448,6 +16448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 11400000, guid: dba045e09c3636240bc34b1c1e9e1ef1, type: 2}
 --- !u!114 &8454320133152906254
 MonoBehaviour:
   m_ObjectHideFlags: 0

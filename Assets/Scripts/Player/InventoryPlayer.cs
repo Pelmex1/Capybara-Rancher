@@ -17,22 +17,14 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         EventBus.AddItemInInventory = AddItemInInventory;
         EventBus.AddImageInInventory(this);
     }
-    private void Start() {
-        for(int i =0; i < 5; i++)
-        {
-            Debug.Log(Inventory[i].Image);
-        } 
-    }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         if (Inventory[_index].InventoryItem == null ||
             (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
             Inventory[_index].InventoryItem ??= inventoryItem;
-            Inventory[_index].Image.sprite = inventoryItem.Image.sprite;
             Inventory[_index]++;
-            Data tmp = Inventory[_index];
-            //EventBus.SetCellsData(tmp.InventoryItem, tmp.Count, _index);
+            EventBus.SetCellsData(inventoryItem, inventoryItem.Image.sprite,(int)Inventory[_index], _index);
             return true;
         }
         
@@ -41,7 +33,6 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
             {
                 Inventory[i].InventoryItem = inventoryItem;
-                Inventory[i].Image.sprite = inventoryItem.Image.sprite;
                 Inventory[i]++;
                 EventBus.SetCellsData(inventoryItem, inventoryItem.Image.sprite,Inventory[i].Count, i);
                 //playerAudioController.GunAddPlay();

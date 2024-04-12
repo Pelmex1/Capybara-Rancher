@@ -4,16 +4,14 @@ using UnityEngine.AI;
 
 public class MovebleObject : MonoBehaviour, IMovebleObject
 {
+    [SerializeField] private InventoryItem inventoryItem;
     private const string CANON_TAG = "CanonEnter";
     private NavMeshAgent _navMeshAgent;
     private IObjectSpawner _mobsSpawner;
 
-    public InventoryItem Data { get; set; }
-    public GameObject Localgameobject {get; set;}
+    public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
+    public GameObject Localgameobject {get => gameObject; set{return;}}
     public bool IsMoved {get; set;} = false;
-    private void Awake() {
-        SetLocalObject();
-    }
     private void Start() {
         TryGetComponent(out _navMeshAgent);
         transform.parent?.TryGetComponent(out _mobsSpawner);
@@ -41,8 +39,5 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
                 }
             }
         };
-    }
-    public void SetLocalObject(){
-        Localgameobject = gameObject;
     }
 }

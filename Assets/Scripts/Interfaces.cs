@@ -42,7 +42,6 @@ internal interface IMovebleObject
 {
     public InventoryItem Data {get; set;}
     public GameObject Localgameobject {get; set;}
-    public void SetLocalObject();
 }
 internal interface IReceptacle
 {

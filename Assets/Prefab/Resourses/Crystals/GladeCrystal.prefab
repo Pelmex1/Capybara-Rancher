@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 8c565919f9974bb43a475d1a451a42b6, type: 2}
+  inventoryItem: {fileID: 11400000, guid: 8c565919f9974bb43a475d1a451a42b6, type: 2}
 --- !u!114 &6020069300033679918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,5 +165,5 @@ MonoBehaviour:
   nextCapibara: {fileID: 1885999244023908055, guid: 90877c75fec5b6f458322d494956b6bb,
     type: 3}
   price: 8
-  nameOfFavouriteFoodThisType: '-'
+  favouriteFoodName: 
   whatEatThisType: 1
