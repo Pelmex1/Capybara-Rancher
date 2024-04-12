@@ -112,8 +112,7 @@ public class Options : MonoBehaviour
         else
         {
             float value = PlayerPrefs.GetFloat("DPI");
-            EventBus.WasChangeMouseSensetive.Invoke(value);
-            DPISlider.value = value;
+            DPISlider.value = value;        
             PlayerPrefs.SetFloat("DPI", value);
         }
         PlayerPrefs.Save();

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "InventoryItem", menuName = "Capybara-Rancher/InventoryItem")]
 public class InventoryItem : ScriptableObject {
     public string Name;
-    public Sprite Sprite;
+    public Sprite Image;
     public GameObject Prefab;
     public Color Color;
 }

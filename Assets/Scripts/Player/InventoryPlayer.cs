@@ -17,6 +17,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         EventBus.AddItemInInventory = AddItemInInventory;
         EventBus.AddImageInInventory(this);
     }
+
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         if (Inventory[_index].InventoryItem == null ||
@@ -24,7 +25,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         {
             Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
-            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Sprite,(int)Inventory[_index], _index);
+            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image,(int)Inventory[_index], _index);
             return true;
         }
         
@@ -34,7 +35,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             {
                 Inventory[i].InventoryItem = inventoryItem;
                 Inventory[i]++;
-                EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Sprite,Inventory[i].Count, i);
+                EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image,Inventory[i].Count, i);
                 //playerAudioController.GunAddPlay();
                 return true;
             } else if(Inventory[i].InventoryItem == null && _nullChestCell.Equals(null)){
@@ -46,7 +47,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             _nullChestCell.InventoryItem = inventoryItem;
             _nullChestCell++;
             Inventory[_localIndex] = _nullChestCell;
-            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Sprite,Inventory[_localIndex].Count, _localIndex);
+            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image,Inventory[_localIndex].Count, _localIndex);
             _nullChestCell = new Data();
             return true;
         }
