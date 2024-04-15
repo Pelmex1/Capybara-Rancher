@@ -7,14 +7,14 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     [SerializeField] private InventoryItem inventoryItem;
     private const string CANON_TAG = "CanonEnter";
     private NavMeshAgent _navMeshAgent;
-    private IObjectSpawner _mobsSpawner;
+    private IObjectSpawner _objectSpawner;
 
     public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
     public GameObject Localgameobject {get => gameObject; set{return;}}
     public bool IsMoved {get; set;} = false;
     private void Start() {
         TryGetComponent(out _navMeshAgent);
-        transform.parent?.TryGetComponent(out _mobsSpawner);
+        transform.parent?.TryGetComponent(out _objectSpawner);
     }
     protected virtual void Update() 
     {
@@ -34,9 +34,10 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             if (EventBus.AddItemInInventory(Data))
             {
                 EventBus.RemoveFromList(gameObject);
-                if (_mobsSpawner == null) {
-                    Destroy(gameObject); 
-                }
+                if (_objectSpawner == null)
+                    Destroy(gameObject);
+                else
+                    _objectSpawner.ReturnToPool(gameObject);
             }
         };
     }

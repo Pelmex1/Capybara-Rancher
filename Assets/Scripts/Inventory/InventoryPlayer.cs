@@ -35,11 +35,12 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             {
                 Inventory[i]++;
                 EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image,(int)Inventory[i], i);
-                //playerAudioController.GunAddPlay();
+                EventBus.PlayerGunAdd();
                 return true;
             } else if(Inventory[i].InventoryItem == null && _nullChestCell.Equals(null)){
                 _nullChestCell = Inventory[i];
                 _localIndex = i;
+                EventBus.PlayerGunAdd();
             }
         }
         if(!_nullChestCell.Equals(null)){
@@ -70,6 +71,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             Inventory[_index].InventoryItem = null;
             EventBus.SetCellsData.Invoke(null, null,0, _index);
         }
+        EventBus.PlayerGunRemove();
     }
     private void Update()
     {

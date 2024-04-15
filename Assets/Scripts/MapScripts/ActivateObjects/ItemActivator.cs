@@ -38,15 +38,17 @@ public class ItemActivator : MonoBehaviour
             {
                 for (int i = 0; i < ActivatorItems.Count; i++)
                 {
+                    if (ActivatorItems[i] == null)
+                        ActivatorItems.Remove(ActivatorItems[i]);
                     if (Vector3.Distance(_player.transform.position, ActivatorItems[i].transform.position) > _renderDistance)
                         ActivatorItems[i].SetActive(false);
-                    else
+                    else if (ActivatorItems[i].activeInHierarchy == false)
+                    {
                         ActivatorItems[i].SetActive(true);
-
-                    yield return new WaitForSeconds(TIME_MISTAKE);
+                        Debug.Log("Activate");
+                    }
                 }
             }
-
             yield return new WaitForSeconds(TIME_MISTAKE);
         }
     }

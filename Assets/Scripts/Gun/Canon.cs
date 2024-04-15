@@ -24,7 +24,6 @@ public class Canon : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        EventBus.PlayerGunAttraction.Invoke();
         if (Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked)
         {
             if (!Ienumeratorenabled)
@@ -35,7 +34,7 @@ public class Canon : MonoBehaviour
             _colliderCanon.enabled = true;
             for (int i = 0; i < obdjectsInCollider.Count; i++)
             {
-                if(obdjectsInCollider[i]!= null)
+                if (obdjectsInCollider[i] != null)
                     obdjectsInCollider[i].transform.position = Vector3.SlerpUnclamped(obdjectsInCollider[i].transform.position, canonEnter.transform.position, SPEED * Time.deltaTime);
                 _oneFunc = true;
             }
@@ -44,13 +43,14 @@ public class Canon : MonoBehaviour
         {
             //Portal2.SetActive(false);
             if (_oneFunc)
-            {             
+            {
                 canonEnter.enabled = false;
                 _colliderCanon.enabled = false;
                 obdjectsInCollider.Clear();
                 _oneFunc = false;
             }
         }
+        EventBus.PlayerGunAttraction.Invoke(Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked);
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -13,7 +13,9 @@ public class PlayerAudioController : MonoBehaviour
     [SerializeField] private AudioSource _gunRemoveAudio;
     [SerializeField] private AudioSource _gunAddAudio;
     [SerializeField] private AudioSource _gunAttractionAudio;
+
     private float _initialGunAttractionVolume;
+    private Coroutine _volumeChangeCoroutine;
 
     private void OnEnable()
     {
@@ -21,7 +23,7 @@ public class PlayerAudioController : MonoBehaviour
         EventBus.PlayerJump += JumpPlay;
         EventBus.PlayerGunRemove += GunRemovePlay;
         EventBus.PlayerGunAdd += GunAddPlay;
-        EventBus.PlayerGunAttraction += GunAttractionPlay;
+        EventBus.PlayerGunAttraction += HandleGunAttraction;
     }
     private void OnDisable()
     {
@@ -29,7 +31,7 @@ public class PlayerAudioController : MonoBehaviour
         EventBus.PlayerJump -= JumpPlay;
         EventBus.PlayerGunRemove -= GunRemovePlay;
         EventBus.PlayerGunAdd -= GunAddPlay;
-        EventBus.PlayerGunAttraction -= GunAttractionPlay;
+        EventBus.PlayerGunAttraction -= HandleGunAttraction;
     }
     private void Start()
     {
@@ -67,19 +69,40 @@ public class PlayerAudioController : MonoBehaviour
     private void JumpPlay() => _jumpAudio.Play();
     private void GunRemovePlay() => _gunRemoveAudio.Play();
     private void GunAddPlay() => _gunAddAudio.Play();
-    
-    private void GunAttractionPlay()
+
+    private void HandleGunAttraction(bool isAttracting)
     {
-        if (!(Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked))
+        if (isAttracting && !_gunAttractionAudio.isPlaying)
         {
-            StartCoroutine(ReduceGunAttractionVolume());
+            PlayGunAttraction();
         }
-        else if (!_gunAttractionAudio.isPlaying)
+        else if (!isAttracting && _gunAttractionAudio.isPlaying)
         {
-            StartCoroutine(IncreaseGunAttractionVolume());
+            StopGunAttraction();
         }
     }
-    IEnumerator ReduceGunAttractionVolume()
+
+    private void PlayGunAttraction()
+    {
+        if (_volumeChangeCoroutine != null)
+        {
+            StopCoroutine(_volumeChangeCoroutine);
+        }
+        _gunAttractionAudio.volume = 0f;
+        _gunAttractionAudio.Play();
+        _volumeChangeCoroutine = StartCoroutine(IncreaseGunAttractionVolume());
+    }
+
+    private void StopGunAttraction()
+    {
+        if (_volumeChangeCoroutine != null)
+        {
+            StopCoroutine(_volumeChangeCoroutine);
+        }
+        _volumeChangeCoroutine = StartCoroutine(ReduceGunAttractionVolume());
+    }
+
+    private IEnumerator ReduceGunAttractionVolume()
     {
         while (_gunAttractionAudio.volume > 0)
         {
@@ -88,9 +111,9 @@ public class PlayerAudioController : MonoBehaviour
         }
         _gunAttractionAudio.Stop();
     }
-    IEnumerator IncreaseGunAttractionVolume()
+
+    private IEnumerator IncreaseGunAttractionVolume()
     {
-        _gunAttractionAudio.Play();
         while (_gunAttractionAudio.volume < _initialGunAttractionVolume)
         {
             _gunAttractionAudio.volume += _initialGunAttractionVolume / REDUCE_VOLUME_RATE;

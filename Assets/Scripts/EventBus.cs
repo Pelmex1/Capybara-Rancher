@@ -52,7 +52,7 @@ namespace CustomEventBus
         public static Action PlayerJump;
         public static Action PlayerGunRemove;
         public static Action PlayerGunAdd;
-        public static Action PlayerGunAttraction;
+        public static Action<bool> PlayerGunAttraction;
         #endregion
         #region OldRobotAction
         public static Action<string> OnMovebleObject;
