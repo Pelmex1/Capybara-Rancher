@@ -16,7 +16,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
         TryGetComponent(out _navMeshAgent);
         transform.parent?.TryGetComponent(out _mobsSpawner);
     }
-    private void Update() 
+    protected virtual void Update() 
     {
         if(Input.GetMouseButton(0) && Time.timeScale > 0){
             if(EventBus.CheckList(gameObject)) IsMoved = true;

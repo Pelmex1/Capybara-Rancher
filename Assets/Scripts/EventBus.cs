@@ -54,6 +54,9 @@ namespace CustomEventBus
         public static Action PlayerGunAdd;
         public static Action PlayerGunAttraction;
         #endregion
+        #region OldRobotAction
+        public static Action<string> OnMovebleObject;
+        #endregion OldRobotAction
     }
 
 }

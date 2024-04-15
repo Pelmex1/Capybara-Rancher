@@ -35,7 +35,8 @@ public class Canon : MonoBehaviour
             _colliderCanon.enabled = true;
             for (int i = 0; i < obdjectsInCollider.Count; i++)
             {
-                obdjectsInCollider[i].transform.position = Vector3.SlerpUnclamped(obdjectsInCollider[i].transform.position, canonEnter.transform.position, SPEED * Time.deltaTime);
+                if(obdjectsInCollider[i]!= null)
+                    obdjectsInCollider[i].transform.position = Vector3.SlerpUnclamped(obdjectsInCollider[i].transform.position, canonEnter.transform.position, SPEED * Time.deltaTime);
                 _oneFunc = true;
             }
         }
