@@ -2,7 +2,6 @@ using CapybaraRancher.CustomStructures;
 using System.Collections;
 using CustomEventBus;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventoryPlayer : MonoBehaviour, IInventory
 {
@@ -12,11 +11,30 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     private int _localIndex;
     private const float SPEED = 10f;
     private Data _nullChestCell;
+    private int n = 0;
     public Data[] Inventory { get; set; } = new Data[5];
-    private void Awake() {
+    private void Awake()
+    {
         EventBus.AddItemInInventory = AddItemInInventory;
         EventBus.AddImageInInventory(this);
     }
+
+    // private void OnEnable()
+    // {
+    //     EventBus.GetIndex += GetIndex;
+    // }
+
+    // private void OnDisable()
+    // {
+    //     EventBus.GetIndex -= GetIndex;
+    // }
+
+    // private void GetIndex(int index)
+    // {
+    //     ref int localindex = ref index;
+    //     localindex = n;
+    //     n++;
+    // }
 
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
@@ -25,29 +43,32 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         {
             Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
-            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image,(int)Inventory[_index], _index);
+            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image, (int)Inventory[_index], _index);
             return true;
         }
-        
+
         for (int i = 0; i < Inventory.Length; i++)
         {
             if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
             {
                 Inventory[i]++;
-                EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image,(int)Inventory[i], i);
+                EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image, (int)Inventory[i], i);
                 EventBus.PlayerGunAdd();
                 return true;
-            } else if(Inventory[i].InventoryItem == null && _nullChestCell.Equals(null)){
+            }
+            else if (Inventory[i].InventoryItem == null && _nullChestCell.Equals(null))
+            {
                 _nullChestCell = Inventory[i];
                 _localIndex = i;
                 EventBus.PlayerGunAdd();
             }
         }
-        if(!_nullChestCell.Equals(null)){
+        if (!_nullChestCell.Equals(null))
+        {
             _nullChestCell.InventoryItem = inventoryItem;
             _nullChestCell++;
             Inventory[_localIndex] = _nullChestCell;
-            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image,Inventory[_localIndex].Count, _localIndex);
+            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image, Inventory[_localIndex].Count, _localIndex);
             _nullChestCell = new Data();
             return true;
         }
@@ -62,14 +83,14 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             return;
         }
         Inventory[_index]--;
-        EventBus.SetCellsData.Invoke(Inventory[_index].InventoryItem, Inventory[_index].InventoryItem.Image,Inventory[_index].Count, _index);
+        EventBus.SetCellsData.Invoke(Inventory[_index].InventoryItem, Inventory[_index].InventoryItem.Image, Inventory[_index].Count, _index);
         StartCoroutine(Recherge());
         GameObject localObject = Instantiate(Inventory[_index].InventoryItem.Prefab, spawnPos, Quaternion.identity);
         localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
         if (Inventory[_index].Count == 0)
         {
             Inventory[_index].InventoryItem = null;
-            EventBus.SetCellsData.Invoke(null, null,0, _index);
+            EventBus.SetCellsData.Invoke(null, null, 0, _index);
         }
         EventBus.PlayerGunRemove();
     }
@@ -86,7 +107,8 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
         }
     }
-    private int IsButton() => Input.inputString switch {
+    private int IsButton() => Input.inputString switch
+    {
         "1" => 0,
         "2" => 1,
         "3" => 2,

@@ -14,6 +14,7 @@ namespace CustomEventBus
         public static Predicate<GameObject> CheckList;
         public static Action<bool> InumeratorIsEnabled;
         public static Action<bool> EnableHelpUi;
+        public static Action<int> GetIndex;
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
         #region Inventory
