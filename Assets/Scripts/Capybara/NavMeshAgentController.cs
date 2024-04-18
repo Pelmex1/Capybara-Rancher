@@ -15,9 +15,12 @@ public class NavMeshAgentController : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _rb = GetComponent<Rigidbody>();
     }
-    private void Update()
+    private void FixedUpdate()
     {
         CheckIsGrounded();
+    }
+    private void Update()
+    {
         ChangeComponents();
     }
     private void ChangeComponents()
@@ -25,7 +28,6 @@ public class NavMeshAgentController : MonoBehaviour
         _rb.useGravity = !IsGrounded;
         _rb.isKinematic = IsGrounded;
         _agent.enabled = IsGrounded;
-        
     }
     private void CheckIsGrounded()
     {

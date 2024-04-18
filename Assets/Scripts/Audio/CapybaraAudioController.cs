@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CapybaraAudioController : MonoBehaviour, ICapybaraAudioController
 {
-    private const float MIN_INTERVAL_TO_NOISE_SOUND = 5f;
-    private const float MAX_INTERVAL_TO_NOISE_SOUND = 10f;
+    private const float MIN_SOUND_INTERVAL = 5f;
+    private const float MAX_SOUND_INTERVAL = 10f;
 
     [SerializeField] private AudioSource _angryAudio;
     [SerializeField] private AudioSource _happyAudio;
@@ -14,13 +14,13 @@ public class CapybaraAudioController : MonoBehaviour, ICapybaraAudioController
 
     private void Start()
     {
-        StartCoroutine(CapybaraNoiseLoop());
+        StartCoroutine(NoiseLoop());
         _noiseAudio = _happyAudio;
     }
 
-    private IEnumerator CapybaraNoiseLoop()
+    private IEnumerator NoiseLoop()
     {
-        yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_TO_NOISE_SOUND, MAX_INTERVAL_TO_NOISE_SOUND));
+        yield return new WaitForSecondsRealtime(Random.Range(MIN_SOUND_INTERVAL, MAX_SOUND_INTERVAL));
         _noiseAudio.Play();
     }
 
