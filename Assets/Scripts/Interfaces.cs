@@ -37,6 +37,7 @@ internal interface ICell
     public Image Image {get; set;}
     public InventoryItem InventoryItem {get; set;}
     public int Count {get; set;}
+    public SaveCellData SaveCellData {get; set;}
 }
 internal interface IMovebleObject
 {

@@ -1,4 +1,5 @@
 using System;
+using CapybaraRancher.CustomStructures;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,14 +18,12 @@ namespace CustomEventBus
         public static Action<int> GetIndex;
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
-        #region Inventory
-        public static Action<InventoryItem, Sprite, int, int> SetCellsData;
-        public static Action<Sprite, int> SetImageSprite;
-        public static Func<int, int> GetInt;
-        public static Func<int, InventoryItem> GetInventoryItem;
-        public static Action<IInventory> AddImageInInventory;
-        #endregion
-        #endregion
+        #endregion Artem Action
+
+        #region  UIinventory
+        public static Action<Data[]> TransitionData;
+        public static Action OnRepaint;
+        #endregion UIinventory
 
         #region  Options and Loaading Scenes
         public static Action ChnageGrassMod;

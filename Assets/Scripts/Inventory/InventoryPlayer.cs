@@ -2,10 +2,13 @@ using CapybaraRancher.CustomStructures;
 using System.Collections;
 using CustomEventBus;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InventoryPlayer : MonoBehaviour, IInventory
 {
     [SerializeField] private BoxCollider canonEnter;
+
+    [SerializeField] private GameObject _panel;
 
     private int _index = 0;
     private int _localIndex;
@@ -16,25 +19,32 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     private void Awake()
     {
         EventBus.AddItemInInventory = AddItemInInventory;
-        EventBus.AddImageInInventory(this);
+        EventBus.TransitionData = TransitionData;
+
     }
 
-    // private void OnEnable()
-    // {
-    //     EventBus.GetIndex += GetIndex;
-    // }
+    private void Start()
+    {
+        ICell[] cells = GetComponentsInChildren<ICell>();
+        for (int i = 0; i < cells.Length; i++)
+        {
+            Inventory[i].InventoryItem = cells[i].InventoryItem;
+            Inventory[i].Count = cells[i].Count;
+            Inventory[i].Image = cells[i].Image;
+            Inventory[i].SaveCellData = cells[i].SaveCellData;
+        }
+    }
 
-    // private void OnDisable()
-    // {
-    //     EventBus.GetIndex -= GetIndex;
-    // }
-
-    // private void GetIndex(int index)
-    // {
-    //     ref int localindex = ref index;
-    //     localindex = n;
-    //     n++;
-    // }
+    private void TransitionData(Data[] data)
+    {
+        for(int i = 0; i < data.Length; i++)
+        {
+            Inventory[i].InventoryItem = data[i].InventoryItem;
+            Inventory[i].Image = data[i].Image;
+            Inventory[i].Count = data[i].Count;
+            Inventory[i].SaveCellData = data[i].SaveCellData;
+        }
+    } 
 
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
@@ -43,7 +53,6 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         {
             Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
-            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image, (int)Inventory[_index], _index);
             return true;
         }
 
@@ -52,7 +61,6 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
             {
                 Inventory[i]++;
-                EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image, (int)Inventory[i], i);
                 EventBus.PlayerGunAdd();
                 return true;
             }
@@ -68,10 +76,10 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             _nullChestCell.InventoryItem = inventoryItem;
             _nullChestCell++;
             Inventory[_localIndex] = _nullChestCell;
-            EventBus.SetCellsData.Invoke(inventoryItem, inventoryItem.Image, Inventory[_localIndex].Count, _localIndex);
             _nullChestCell = new Data();
             return true;
         }
+        EventBus.OnRepaint.Invoke();
         return false;
     }
 
@@ -83,16 +91,15 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             return;
         }
         Inventory[_index]--;
-        EventBus.SetCellsData.Invoke(Inventory[_index].InventoryItem, Inventory[_index].InventoryItem.Image, Inventory[_index].Count, _index);
         StartCoroutine(Recherge());
         GameObject localObject = Instantiate(Inventory[_index].InventoryItem.Prefab, spawnPos, Quaternion.identity);
         localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
         if (Inventory[_index].Count == 0)
         {
             Inventory[_index].InventoryItem = null;
-            EventBus.SetCellsData.Invoke(null, null, 0, _index);
         }
         EventBus.PlayerGunRemove();
+        EventBus.OnRepaint.Invoke();
     }
     private void Update()
     {
@@ -128,5 +135,15 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         yield return new WaitForSecondsRealtime(3);
         canonEnter.enabled = true;
         EventBus.InumeratorIsEnabled(false);
+    }
+
+    private void OnApplicationQuit()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Inventory[i].SaveCellData.InventoryItem = Inventory[i].InventoryItem;
+            Inventory[i].SaveCellData.Count = Inventory[i].Count;
+            Inventory[i].SaveCellData.Image = Inventory[i].Image;
+        }
     }
 }
