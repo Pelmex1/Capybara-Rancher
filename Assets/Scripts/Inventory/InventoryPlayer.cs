@@ -20,7 +20,6 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     {
         EventBus.AddItemInInventory = AddItemInInventory;
         EventBus.TransitionData = TransitionData;
-
     }
 
     private void Start()
@@ -37,17 +36,19 @@ public class InventoryPlayer : MonoBehaviour, IInventory
 
     private void TransitionData(Data[] data)
     {
+        Debug.Log("Work");
         for(int i = 0; i < data.Length; i++)
         {
-            Inventory[i].InventoryItem = data[i].InventoryItem;
-            Inventory[i].Image = data[i].Image;
-            Inventory[i].Count = data[i].Count;
-            Inventory[i].SaveCellData = data[i].SaveCellData;
+            data[i].InventoryItem = Inventory[i].InventoryItem;
+            data[i].Image = Inventory[i].Image;
+            data[i].Count = Inventory[i].Count;
+            data[i].SaveCellData = Inventory[i].SaveCellData;
         }
     } 
 
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
+        EventBus.OnRepaint.Invoke();
         if (Inventory[_index].InventoryItem == null ||
             (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
@@ -55,7 +56,6 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             Inventory[_index]++;
             return true;
         }
-
         for (int i = 0; i < Inventory.Length; i++)
         {
             if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
@@ -79,12 +79,13 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             _nullChestCell = new Data();
             return true;
         }
-        EventBus.OnRepaint.Invoke();
+        
         return false;
     }
 
     public void RemoveItem(Vector3 spawnPos, Vector3 pos)
     {
+
         if (Inventory[_index].InventoryItem == null)
         {
             //canon.Portal2.SetActive(false);

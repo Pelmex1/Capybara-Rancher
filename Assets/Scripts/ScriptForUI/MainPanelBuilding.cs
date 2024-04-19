@@ -15,7 +15,7 @@ public class MainPanelBuilding : MonoBehaviour
     public GameObject NewPlace;
     public GameObject ParentObject;
 
-    private void LateUpdate() => TextMoney.text = $"{EventBus.GetMoney()}";
+    // private void LateUpdate() => TextMoney.text = $"{EventBus.GetMoney()}";
     private void OnEnable() => EventBus.TransitionBuildingData += GetBuildingData;
 
     private void OnDisable() => EventBus.TransitionBuildingData -= GetBuildingData;

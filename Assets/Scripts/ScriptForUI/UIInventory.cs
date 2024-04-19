@@ -11,40 +11,52 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private Image Background;
     [SerializeField] private Image ImageCrosses;
 
-    [SerializeField] private Image[] Docker;
-    private Image[] Crosses = new Image[5];
+    [SerializeField] private Image[] _docker;
+    private Image[] _crosses = new Image[5];
     private Data[] _data;
-
-    private void Awake()
-    {
-        EventBus.OnRepaint = Repaint;
-
-    }
     private void Start()
     {
         EventBus.TransitionData.Invoke(_data);
-        for (int i = 0; i < _data.Length; i++)
+        if (_data == null)
         {
-            Crosses[i] = _data[i].Image;
+            Debug.Log("WasTransitionData");
+            for (int i = 0; i < _data.Length; i++)
+            {
+
+                _crosses[i] = _data[i].Image;
+            }
         }
+
+    }
+
+    private void OnEnable()
+    {
+        EventBus.OnRepaint += Repaint;
+    }
+    private void OnDisable()
+    {
+        EventBus.OnRepaint -= Repaint;
     }
 
     private void Repaint()
     {
+        Debug.Log("Work1");
         for (int i = 0; i < _data.Length; i++)
         {
             if (_data[i].InventoryItem != null)
             {
-                Crosses[i].sprite = _data[i].InventoryItem.Image;
-                Docker[i].sprite = Background.sprite;
-                Crosses[i].gameObject.transform.localScale = new Vector2(2f, 2f);
+
+                _crosses[i].sprite = _data[i].InventoryItem.Image;
+                _docker[i].sprite = Background.sprite;
+                _crosses[i].gameObject.transform.localScale = new Vector2(2f, 2f);
                 ImageAmount[i].text = $"{_data[i].Count}";
             }
             else
             {
-                Docker[i].sprite = EmptyDocker.sprite;
-                Crosses[i].gameObject.transform.localScale = new Vector2(1f, 1f);
-                Crosses[i].sprite = ImageCrosses.sprite;
+                Debug.Log("Work2");
+                _docker[i].sprite = EmptyDocker.sprite;
+                _crosses[i].gameObject.transform.localScale = new Vector2(1f, 1f);
+                _crosses[i].sprite = ImageCrosses.sprite;
                 ImageAmount[i].text = "";
             }
         }
