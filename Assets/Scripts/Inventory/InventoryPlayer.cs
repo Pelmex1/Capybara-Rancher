@@ -2,7 +2,6 @@ using CapybaraRancher.CustomStructures;
 using System.Collections;
 using CustomEventBus;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class InventoryPlayer : MonoBehaviour, IInventory
 {
@@ -14,7 +13,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     private int _localIndex;
     private const float SPEED = 10f;
     private Data _nullChestCell;
-    private int n = 0;
+    private int _lastindex;
     public Data[] Inventory { get; set; } = new Data[5];
     private void Awake()
     {
@@ -36,24 +35,26 @@ public class InventoryPlayer : MonoBehaviour, IInventory
 
     private void TransitionData(Data[] data)
     {
-        Debug.Log("Work");
-        for(int i = 0; i < data.Length; i++)
+        if (Inventory != null)
         {
-            data[i].InventoryItem = Inventory[i].InventoryItem;
-            data[i].Image = Inventory[i].Image;
-            data[i].Count = Inventory[i].Count;
-            data[i].SaveCellData = Inventory[i].SaveCellData;
+            for (int i = 0; i < Inventory.Length; i++)
+            {
+                data[i].InventoryItem = Inventory[i].InventoryItem;
+                data[i].Image = Inventory[i].Image;
+                data[i].Count = Inventory[i].Count;
+                data[i].SaveCellData = Inventory[i].SaveCellData;
+            }
         }
-    } 
+    }
 
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
-        EventBus.OnRepaint.Invoke();
         if (Inventory[_index].InventoryItem == null ||
             (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
             Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
+            EventBus.OnRepaint.Invoke();
             return true;
         }
         for (int i = 0; i < Inventory.Length; i++)
@@ -62,6 +63,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             {
                 Inventory[i]++;
                 EventBus.PlayerGunAdd();
+                EventBus.OnRepaint.Invoke();
                 return true;
             }
             else if (Inventory[i].InventoryItem == null && _nullChestCell.Equals(null))
@@ -77,9 +79,10 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             _nullChestCell++;
             Inventory[_localIndex] = _nullChestCell;
             _nullChestCell = new Data();
+            EventBus.OnRepaint.Invoke();
             return true;
         }
-        
+        EventBus.OnRepaint.Invoke();
         return false;
     }
 
@@ -104,12 +107,15 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     }
     private void Update()
     {
+        _lastindex = _index;
         float ScrollDelta = Input.mouseScrollDelta.y;
         if (ScrollDelta < 0 && _index < 5 && Time.timeScale == 1f)
             ChangeIndex(-1);
         else if (ScrollDelta > 0 && _index >= 0 && Time.timeScale == 1f)
             ChangeIndex(1);
         _index = IsButton();
+        EventBus.WasChangeIndexCell.Invoke(_lastindex,_index);
+        _lastindex = _index;
         if (Input.GetMouseButtonDown(1))
         {
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LeoCapybara
   m_EditorClassIdentifier: 
   Name: Leo Capybara
-  Sprite: {fileID: 21300000, guid: 87334eb538c7db640bda19e284bca476, type: 3}
+  Image: {fileID: 21300000, guid: 87334eb538c7db640bda19e284bca476, type: 3}
   Prefab: {fileID: 2994373093089687005, guid: 808266644c38ceb4683acb25d16c1125, type: 3}
   Color: {r: 1, g: 0.7341389, b: 0, a: 1}

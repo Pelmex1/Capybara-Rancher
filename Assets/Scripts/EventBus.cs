@@ -23,6 +23,7 @@ namespace CustomEventBus
         #region  UIinventory
         public static Action<Data[]> TransitionData;
         public static Action OnRepaint;
+        public static Action<int,int> WasChangeIndexCell;
         #endregion UIinventory
 
         #region  Options and Loaading Scenes

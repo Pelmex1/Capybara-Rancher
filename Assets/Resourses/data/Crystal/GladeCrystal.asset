@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GladeCrystal
   m_EditorClassIdentifier: 
   Name: Glade Crystal
-  Sprite: {fileID: 21300000, guid: d10660eebbb9e3b418ff4e9fbadefc91, type: 3}
+  Image: {fileID: 21300000, guid: d10660eebbb9e3b418ff4e9fbadefc91, type: 3}
   Prefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba, type: 3}
   Color: {r: 0.9827938, g: 0, b: 1, a: 1}
