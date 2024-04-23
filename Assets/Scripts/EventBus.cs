@@ -27,9 +27,6 @@ namespace CustomEventBus
 =======
         public static Action<Data[]> TransitionData;
         public static Action OnRepaint;
-<<<<<<< HEAD
->>>>>>> parent of 1f7d724 (update)
-=======
 >>>>>>> parent of 1f7d724 (update)
         #endregion UIinventory
 
