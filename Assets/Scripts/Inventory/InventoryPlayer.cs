@@ -46,6 +46,9 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             data[i].Image = Inventory[i].Image;
             data[i].Count = Inventory[i].Count;
             data[i].SaveCellData = Inventory[i].SaveCellData;
+<<<<<<< HEAD
+>>>>>>> parent of 1f7d724 (update)
+=======
 >>>>>>> parent of 1f7d724 (update)
         }
     } 
@@ -59,7 +62,10 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             Inventory[_index].InventoryItem = inventoryItem;
             Inventory[_index]++;
 <<<<<<< HEAD
+<<<<<<< HEAD
             EventBus.OnRepaint.Invoke(Inventory);
+=======
+>>>>>>> parent of 1f7d724 (update)
 =======
 >>>>>>> parent of 1f7d724 (update)
             return true;
@@ -100,6 +106,9 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             return true;
         }
         
+<<<<<<< HEAD
+>>>>>>> parent of 1f7d724 (update)
+=======
 >>>>>>> parent of 1f7d724 (update)
         return false;
     }
