@@ -21,8 +21,7 @@ namespace CustomEventBus
         #endregion Artem Action
 
         #region  UIinventory
-        public static Action<Data[]> TransitionData;
-        public static Action OnRepaint;
+        public static Action<Data[]> OnRepaint;
         public static Action<int,int> WasChangeIndexCell;
         #endregion UIinventory
 

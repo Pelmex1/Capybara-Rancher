@@ -18,7 +18,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     private void Awake()
     {
         EventBus.AddItemInInventory = AddItemInInventory;
-        EventBus.TransitionData = TransitionData;
+        //EventBus.TransitionData = TransitionData;
     }
 
     private void Start()
@@ -28,22 +28,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         {
             Inventory[i].InventoryItem = cells[i].InventoryItem;
             Inventory[i].Count = cells[i].Count;
-            Inventory[i].Image = cells[i].Image;
-            Inventory[i].SaveCellData = cells[i].SaveCellData;
-        }
-    }
-
-    private void TransitionData(Data[] data)
-    {
-        if (Inventory != null)
-        {
-            for (int i = 0; i < Inventory.Length; i++)
-            {
-                data[i].InventoryItem = Inventory[i].InventoryItem;
-                data[i].Image = Inventory[i].Image;
-                data[i].Count = Inventory[i].Count;
-                data[i].SaveCellData = Inventory[i].SaveCellData;
-            }
+            Inventory[i].Image = cells[i].Image.sprite;
         }
     }
 
@@ -52,37 +37,25 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         if (Inventory[_index].InventoryItem == null ||
             (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
-            Inventory[_index].InventoryItem ??= inventoryItem;
+            Inventory[_index].InventoryItem = inventoryItem;
             Inventory[_index]++;
-            EventBus.OnRepaint.Invoke();
+            EventBus.OnRepaint.Invoke(Inventory);
             return true;
         }
-        for (int i = 0; i < Inventory.Length; i++)
+        else
         {
-            if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
+            for (int i = 0; i < Inventory.Length; i++)
             {
-                Inventory[i]++;
-                EventBus.PlayerGunAdd();
-                EventBus.OnRepaint.Invoke();
-                return true;
-            }
-            else if (Inventory[i].InventoryItem == null && _nullChestCell.Equals(null))
-            {
-                _nullChestCell = Inventory[i];
-                _localIndex = i;
-                EventBus.PlayerGunAdd();
+                if (Inventory[i].InventoryItem == null || Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
+                {
+                    Inventory[i].InventoryItem = inventoryItem;
+                    Inventory[i]++;
+                    EventBus.OnRepaint.Invoke(Inventory);
+                    return true;
+                }
             }
         }
-        if (!_nullChestCell.Equals(null))
-        {
-            _nullChestCell.InventoryItem = inventoryItem;
-            _nullChestCell++;
-            Inventory[_localIndex] = _nullChestCell;
-            _nullChestCell = new Data();
-            EventBus.OnRepaint.Invoke();
-            return true;
-        }
-        EventBus.OnRepaint.Invoke();
+        EventBus.OnRepaint.Invoke(Inventory);
         return false;
     }
 
@@ -91,7 +64,6 @@ public class InventoryPlayer : MonoBehaviour, IInventory
 
         if (Inventory[_index].InventoryItem == null)
         {
-            //canon.Portal2.SetActive(false);
             return;
         }
         Inventory[_index]--;
@@ -103,7 +75,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             Inventory[_index].InventoryItem = null;
         }
         EventBus.PlayerGunRemove();
-        EventBus.OnRepaint.Invoke();
+        EventBus.OnRepaint.Invoke(Inventory);
     }
     private void Update()
     {
@@ -144,13 +116,13 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         EventBus.InumeratorIsEnabled(false);
     }
 
-    private void OnApplicationQuit()
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            Inventory[i].SaveCellData.InventoryItem = Inventory[i].InventoryItem;
-            Inventory[i].SaveCellData.Count = Inventory[i].Count;
-            Inventory[i].SaveCellData.Image = Inventory[i].Image;
-        }
-    }
+    //private void OnApplicationQuit()
+    //{
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        Inventory[i].SaveCellData.InventoryItem = Inventory[i].InventoryItem;
+    //        Inventory[i].SaveCellData.Count = Inventory[i].Count;
+    //        Inventory[i].SaveCellData.Image.sprite = Inventory[i].Image;
+    //    }
+    //}
 }

@@ -13,7 +13,7 @@ public class ChestCell : MonoBehaviour, ICell,IDragHandler, IBeginDragHandler, I
     public static event AddDragEvent SetCanvasParent;
     public delegate ChestCell AddCell(Vector3 position, ChestCell chestCell);
     public static event AddCell FoundDistance;
-    public SaveCellData SaveCellData {get; set;}  
+
     private Vector3 _pos;
     private Transform _parentTransform;
     private ChestCell _newChestCell;

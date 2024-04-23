@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace CapybaraRancher.CustomStructures
@@ -7,12 +8,11 @@ namespace CapybaraRancher.CustomStructures
     {
         public InventoryItem InventoryItem;
         public int Count;
-        public Image Image;
-        public SaveCellData SaveCellData;
+        public Sprite Image;
 
         public static Data operator ++(Data cell)
         {
-            return new Data { InventoryItem = cell.InventoryItem, Image = cell.Image, Count = ++cell.Count };
+            return new Data { InventoryItem = cell.InventoryItem, Image = cell.InventoryItem.Image, Count = ++cell.Count };
         }
         public static Data operator --(Data cell)
         {
