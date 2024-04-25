@@ -1,3 +1,4 @@
+using CustomEventBus;
 using UnityEngine;
 
 public class CrystalItem : MonoBehaviour, ICrystalItem
@@ -6,7 +7,6 @@ public class CrystalItem : MonoBehaviour, ICrystalItem
     [SerializeField] private float price;
     [SerializeField] private string favouriteFoodName;
     [SerializeField] private FoodType whatEatThisType;
-
     public GameObject NextCapibara
     {
         get { return nextCapibara; }

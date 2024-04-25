@@ -401,7 +401,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771922286071952390}
   m_Enabled: 0
-  m_AgentTypeID: -1923039037
+  m_AgentTypeID: 1479372276
   m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8

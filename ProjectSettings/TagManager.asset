@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - movebleObject
-  - Food
   - Obstacle
   - TerritoryOfMap
-  - Ground
   - CanonEnter
+  - movebleObject
+  - Ground
+  - PartsRobot
   layers:
   - Default
   - TransparentFX
@@ -17,8 +17,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
-  - Water
+  - 
+  - 
   - 
   - 
   - 

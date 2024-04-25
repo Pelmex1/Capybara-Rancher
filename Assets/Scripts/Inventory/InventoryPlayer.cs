@@ -3,6 +3,7 @@ using System.Collections;
 using CustomEventBus;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class InventoryPlayer : MonoBehaviour, IInventory
 {
@@ -14,12 +15,11 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     private int _localIndex;
     private const float SPEED = 10f;
     private Data _nullChestCell;
-    private int n = 0;
+    private int _lastindex;
     public Data[] Inventory { get; set; } = new Data[5];
     private void Awake()
     {
         EventBus.AddItemInInventory = AddItemInInventory;
-        //EventBus.TransitionData = TransitionData;
     }
 
     private void Start()
@@ -29,47 +29,35 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         {
             Inventory[i].InventoryItem = cells[i].InventoryItem;
             Inventory[i].Count = cells[i].Count;
-<<<<<<< HEAD
             Inventory[i].Image = cells[i].Image.sprite;
-=======
-            Inventory[i].Image = cells[i].Image;
-            Inventory[i].SaveCellData = cells[i].SaveCellData;
         }
     }
 
-    private void TransitionData(Data[] data)
-    {
-        Debug.Log("Work");
-        for(int i = 0; i < data.Length; i++)
-        {
-            data[i].InventoryItem = Inventory[i].InventoryItem;
-            data[i].Image = Inventory[i].Image;
-            data[i].Count = Inventory[i].Count;
-            data[i].SaveCellData = Inventory[i].SaveCellData;
->>>>>>> parent of 1f7d724 (update)
-        }
-    } 
-
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
-        EventBus.OnRepaint.Invoke();
         if (Inventory[_index].InventoryItem == null ||
             (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
             Inventory[_index].InventoryItem = inventoryItem;
             Inventory[_index]++;
-<<<<<<< HEAD
             EventBus.OnRepaint.Invoke(Inventory);
-=======
->>>>>>> parent of 1f7d724 (update)
             return true;
         }
         else
         {
             for (int i = 0; i < Inventory.Length; i++)
             {
-<<<<<<< HEAD
-                if (Inventory[i].InventoryItem == null || Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
+                if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
+                {
+                    Inventory[i].InventoryItem = inventoryItem;
+                    Inventory[i]++;
+                    EventBus.OnRepaint.Invoke(Inventory);
+                    return true;
+                }
+            }
+            for (int i = 0; i < Inventory.Length; i++)
+            {
+                if (Inventory[i].InventoryItem == null)
                 {
                     Inventory[i].InventoryItem = inventoryItem;
                     Inventory[i]++;
@@ -79,28 +67,6 @@ public class InventoryPlayer : MonoBehaviour, IInventory
             }
         }
         EventBus.OnRepaint.Invoke(Inventory);
-=======
-                Inventory[i]++;
-                EventBus.PlayerGunAdd();
-                return true;
-            }
-            else if (Inventory[i].InventoryItem == null && _nullChestCell.Equals(null))
-            {
-                _nullChestCell = Inventory[i];
-                _localIndex = i;
-                EventBus.PlayerGunAdd();
-            }
-        }
-        if (!_nullChestCell.Equals(null))
-        {
-            _nullChestCell.InventoryItem = inventoryItem;
-            _nullChestCell++;
-            Inventory[_localIndex] = _nullChestCell;
-            _nullChestCell = new Data();
-            return true;
-        }
-        
->>>>>>> parent of 1f7d724 (update)
         return false;
     }
 
@@ -114,6 +80,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         Inventory[_index]--;
         StartCoroutine(Recherge());
         GameObject localObject = Instantiate(Inventory[_index].InventoryItem.Prefab, spawnPos, Quaternion.identity);
+        localObject.SetActive(true);
         localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
         if (Inventory[_index].Count == 0)
         {
@@ -124,12 +91,15 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     }
     private void Update()
     {
+        _lastindex = _index;
         float ScrollDelta = Input.mouseScrollDelta.y;
         if (ScrollDelta < 0 && _index < 5 && Time.timeScale == 1f)
             ChangeIndex(-1);
         else if (ScrollDelta > 0 && _index >= 0 && Time.timeScale == 1f)
             ChangeIndex(1);
         _index = IsButton();
+        EventBus.WasChangeIndexCell.Invoke(_lastindex,_index);
+        _lastindex = _index;
         if (Input.GetMouseButtonDown(1))
         {
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
@@ -158,13 +128,13 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         EventBus.InumeratorIsEnabled(false);
     }
 
-    //private void OnApplicationQuit()
-    //{
-    //    for (int i = 0; i < 5; i++)
-    //    {
-    //        Inventory[i].SaveCellData.InventoryItem = Inventory[i].InventoryItem;
-    //        Inventory[i].SaveCellData.Count = Inventory[i].Count;
-    //        Inventory[i].SaveCellData.Image.sprite = Inventory[i].Image;
-    //    }
-    //}
+    // private void OnApplicationQuit()
+    // {
+    //     for (int i = 0; i < 5; i++)
+    //     {
+    //         Inventory[i].SaveCellData.InventoryItem = Inventory[i].InventoryItem;
+    //         Inventory[i].SaveCellData.Count = Inventory[i].Count;
+    //         Inventory[i].SaveCellData.Image = Inventory[i].Image;
+    //     }
+    // }
 }

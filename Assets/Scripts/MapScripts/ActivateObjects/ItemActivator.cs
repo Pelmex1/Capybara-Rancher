@@ -5,8 +5,6 @@ using CustomEventBus;
 
 public class ItemActivator : MonoBehaviour
 {
-    private const float TIME_MISTAKE = 0.01f;
-
     [SerializeField] private GameObject _player;
 
     private float _renderDistance;
@@ -27,6 +25,7 @@ public class ItemActivator : MonoBehaviour
     }
     private void Start()
     {
+        ChangeRenderDistance();
         StartCoroutine(CheckActivation());
     }
 
@@ -39,17 +38,19 @@ public class ItemActivator : MonoBehaviour
                 for (int i = 0; i < ActivatorItems.Count; i++)
                 {
                     if (ActivatorItems[i] == null)
+                    {
                         ActivatorItems.Remove(ActivatorItems[i]);
+                        continue;
+                    }
                     if (Vector3.Distance(_player.transform.position, ActivatorItems[i].transform.position) > _renderDistance)
                         ActivatorItems[i].SetActive(false);
                     else if (ActivatorItems[i].activeInHierarchy == false)
                     {
                         ActivatorItems[i].SetActive(true);
-                        Debug.Log("Activate");
                     }
                 }
             }
-            yield return new WaitForSeconds(TIME_MISTAKE);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
     public static void ActivatorItemsAdd(GameObject addObject)

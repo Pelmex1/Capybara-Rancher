@@ -47,6 +47,12 @@ internal interface IReceptacle
 {
     public void GetData(Transform ParentPosition, GameObject NewObject);
 }
+internal interface IRobotParts
+{
+    public int IndexofPart {get; set;}
+    public bool CheckMoving {get; set;}
+    public GameObject[] AllPartsObject {get; set;}
+}
 internal interface IMovingPlayer
 {
     public float Energy { get; set; }

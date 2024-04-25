@@ -8,11 +8,13 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     private const string CANON_TAG = "CanonEnter";
     private NavMeshAgent _navMeshAgent;
     private IObjectSpawner _objectSpawner;
+    private int _looted = 1;
 
     public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
     public GameObject Localgameobject {get => gameObject; set{return;}}
     public bool IsMoved {get; set;} = false;
-    private void Start() {
+    private void Start()
+    {
         TryGetComponent(out _navMeshAgent);
         transform.parent?.TryGetComponent(out _objectSpawner);
     }
@@ -29,8 +31,9 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(CANON_TAG))
+        if (other.CompareTag(CANON_TAG) && _looted == 1)
         {
+            _looted = 0;
             if (EventBus.AddItemInInventory(Data))
             {
                 EventBus.RemoveFromList(gameObject);

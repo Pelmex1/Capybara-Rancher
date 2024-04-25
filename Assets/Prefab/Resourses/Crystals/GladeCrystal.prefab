@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3222630322113809888}
   - component: {fileID: 6417253930812893213}
   - component: {fileID: 6020069300033679918}
+  - component: {fileID: -8019283886214149150}
   m_Layer: 0
   m_Name: GladeCrystal
   m_TagString: movebleObject
@@ -166,4 +167,16 @@ MonoBehaviour:
     type: 3}
   price: 8
   favouriteFoodName: 
-  whatEatThisType: 1
+  whatEatThisType: 0
+--- !u!114 &-8019283886214149150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13763372814719393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7120a796e1c494f48b6e4e73bbcbf73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

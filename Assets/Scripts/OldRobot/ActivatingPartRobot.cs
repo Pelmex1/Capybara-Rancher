@@ -5,37 +5,47 @@ using UnityEngine;
 
 public class ActivatingPartRobot : MonoBehaviour
 {
-    private Dictionary<String,int> CheckDataCrusyl = new Dictionary<string, int>();
+    private Dictionary<string, int> CheckDataCrusyl = new Dictionary<string, int>();
     private int AmountCrystal;
+    private List<string> UsedParts = new List<string>();
 
     private void Awake()
     {
-        CheckDataCrusyl.Add("GladeCrystal", 0);
-        CheckDataCrusyl.Add("LeoCrystal", 0);
-        CheckDataCrusyl.Add("RockCrystal", 0);
+        EventBus.TranstionCrystallData = TransitionData;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "movebleObject"  && CheckDataCrusyl[other.name]== 0)
+        if (other.tag == "movebleObject")
         {
-            Destroy(other.gameObject);
-            CheckDataCrusyl[other.name]++;
-            CheckActiveCrystal();
+            if (CheckDataCrusyl.ContainsKey(other.name) && CheckDataCrusyl[other.name] == 0)
+            {
+                Destroy(other.gameObject);
+                CheckDataCrusyl[other.name]++;
+                CheckActiveCrystal();
+            }
         }
         else
-           return;
+            return;
     }
 
     private void CheckActiveCrystal()
     {
-        foreach(var item in CheckDataCrusyl)
+        foreach (var item in CheckDataCrusyl)
         {
-            if(item.Value == 1 & AmountCrystal !=3)
+            if (item.Value == 1 & AmountCrystal != 3 & UsedParts.Contains(item.Key)!)
+            {
                 AmountCrystal++;
+            }
+            UsedParts.Add(item.Key);
         }
-        if(AmountCrystal == 3)  
+        // Debug.Log(AmountCrystal);
+        if (AmountCrystal == 3)
             gameObject.tag = "movebleObject";
-            EventBus.OnMovebleObject.Invoke(gameObject.name);
+        EventBus.OnMovebleObject.Invoke(gameObject.name, gameObject.GetComponent<IRobotParts>().IndexofPart);
+    }
+    private void TransitionData(Dictionary<string, int> TransitionData)
+    {
+        CheckDataCrusyl = TransitionData;
     }
 }

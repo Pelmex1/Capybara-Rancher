@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using CapybaraRancher.CustomStructures;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CustomEventBus
 {
@@ -21,13 +21,8 @@ namespace CustomEventBus
         #endregion Artem Action
 
         #region  UIinventory
-<<<<<<< HEAD
         public static Action<Data[]> OnRepaint;
         public static Action<int,int> WasChangeIndexCell;
-=======
-        public static Action<Data[]> TransitionData;
-        public static Action OnRepaint;
->>>>>>> parent of 1f7d724 (update)
         #endregion UIinventory
 
         #region  Options and Loaading Scenes
@@ -60,7 +55,11 @@ namespace CustomEventBus
         public static Action<bool> PlayerGunAttraction;
         #endregion
         #region OldRobotAction
-        public static Action<string> OnMovebleObject;
+        public static Action<string> SetNameCrystal = delegate {};
+        public static Action<Dictionary<string,int>> TranstionCrystallData;
+        public static Action<GameObject> TransitionPratsData = delegate {};
+        public static Action<string,int> OnMovebleObject;
+        public static Action<string,int, Transform> OffMovebleObject;
         #endregion OldRobotAction
     }
 
