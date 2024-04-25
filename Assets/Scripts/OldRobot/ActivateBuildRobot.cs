@@ -22,7 +22,6 @@ public class ActivateBuildRobot : MonoBehaviour
         }
         else
         {
-            Debug.Log(AmountPartsRobot);
             return;
         }
     }

@@ -31,6 +31,7 @@ public class RoborMoveble : MovebleObject, IRobotParts
             CheckMoving = true;
             gameObject.tag = "movebleObject";
         }
+        Debug.Log(CheckMoving + $" {gameObject.name}");
         EventBus.TransitionPratsData.Invoke(gameObject);
     }
 
@@ -42,6 +43,7 @@ public class RoborMoveble : MovebleObject, IRobotParts
         else
             PlayerPrefs.SetInt($"CanMoving{_index}", 0);
         PlayerPrefs.Save();
+        Debug.Log(CheckMoving + $" {gameObject.name}");
     }
 
 
@@ -49,9 +51,9 @@ public class RoborMoveble : MovebleObject, IRobotParts
     {
         for (int i = 0; i < AllPartsObject.Length; i++)
         {
-            if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].gameObject.name == NameObject)
+            if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].name == NameObject)
             {
-                AllPartsObject[OnIndexofPart].gameObject.GetComponent<IRobotParts>().CheckMoving = true;
+                AllPartsObject[OnIndexofPart].GetComponent<IRobotParts>().CheckMoving = true;
             }
         }
     }
@@ -62,18 +64,11 @@ public class RoborMoveble : MovebleObject, IRobotParts
         {
             if (i == OffIndexofPart & AllPartsObject[OffIndexofPart].gameObject.name == NameObject)
             {
-                AllPartsObject[OffIndexofPart].gameObject.GetComponent<IRobotParts>().CheckMoving = false;
-                AllPartsObject[OffIndexofPart].gameObject.tag = "PartsRobot";
-                AllPartsObject[OffIndexofPart].gameObject.transform.position = stateTransform.position;
+                AllPartsObject[OffIndexofPart].GetComponent<IRobotParts>().CheckMoving = false;
+                AllPartsObject[OffIndexofPart].tag = "PartsRobot";
+                AllPartsObject[OffIndexofPart].transform.position = stateTransform.position;
             }
         }
-        // if (AllPartsObject[OffIndexofPart].gameObject.name == NameObject)
-        // {
-        //     gameObject.tag = "PartsRobot";
-        //     gameObject.transform.position = stateTransform.position;
-        //     gameObject.transform.rotation = stateTransform.rotation;
-        //     gameObject.transform.localScale = stateTransform.localScale;
-        // }
     }
 
 }

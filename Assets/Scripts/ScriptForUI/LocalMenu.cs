@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using CustomEventBus;
+using UnityEditor.Search;
+using TMPro;
 
 public class LocalMenu : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private Image energyBar;
     [SerializeField] private Image hpBar;
+    [SerializeField] private TMP_Text _money;
 
     private int indexCheck = 0;
     private float energyMaxValue;
@@ -18,6 +21,8 @@ public class LocalMenu : MonoBehaviour
 
     private void Update()
     {
+        float money = EventBus.GetMoney.Invoke();
+        _money.text = $"{money}";
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (indexCheck == 0)
