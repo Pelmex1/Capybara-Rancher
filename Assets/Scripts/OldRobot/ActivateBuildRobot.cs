@@ -10,8 +10,6 @@ public class ActivateBuildRobot : MonoBehaviour
     private void Awake()
     {
         EventBus.TransitionPratsData = TransitionPartsRobotData;
-        if(EventBus.TransitionPratsData!= null)
-            Debug.Log("Action is not null");
     }
     private void OnTriggerEnter(Collider other)
     {

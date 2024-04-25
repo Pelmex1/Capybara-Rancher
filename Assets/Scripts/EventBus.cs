@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using CapybaraRancher.CustomStructures;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CustomEventBus
 {
     public static class EventBus
     {
         #region Artem Action
-        public static Func<Sprite> GetDefaultSprite;
-        public static Func<InventoryItem> GetDefaultItem;
         public static Action<float> AddMoney;
         public static Action<GameObject> RemoveFromList;
         public static Predicate<GameObject> CheckList;

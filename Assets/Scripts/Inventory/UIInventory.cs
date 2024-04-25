@@ -10,7 +10,7 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private Sprite ImageCrosses;
 
     [SerializeField] private Image[] _docker;
-    private Image[] _crosses = new Image[5];
+    private readonly Image[] _crosses = new Image[5];
 
     private void Awake()
     {
@@ -19,10 +19,6 @@ public class UIInventory : MonoBehaviour
         for (int i = 0; i < _docker.Length; i++)
             _crosses[i] = _docker[i].gameObject.GetComponentInChildren<Image>();
     }
-    private void Start()
-    {
-    }
-
     private void ChangeDocker(int lastindex,int index)
     {
         _crosses[lastindex].color = Color.white;

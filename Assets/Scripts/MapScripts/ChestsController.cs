@@ -11,13 +11,10 @@ public class ChestsController : MonoBehaviour
     [SerializeField] private GameObject ChestPanel;
     [SerializeField] private Transform CellsCanvas;
     [SerializeField] private Sprite defaultSprite;
-    [SerializeField] private InventoryItem DefaultInventoryItem;
     public ChestCell[] chestsUI = new ChestCell[12];
     public ChestCell[] inventoryUI = new ChestCell[5];
     private void Awake() {
         EventBus.EnableHelpUi = EnableHelpUI;
-        EventBus.GetDefaultSprite = () => defaultSprite;
-        EventBus.GetDefaultItem = () => DefaultInventoryItem;
     }
     private ChestCell CellUpdate(ChestCell cell, ChestCell data){
         cell.InventoryItem = data.InventoryItem;

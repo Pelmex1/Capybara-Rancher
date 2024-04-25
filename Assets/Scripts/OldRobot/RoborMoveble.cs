@@ -32,7 +32,6 @@ public class RoborMoveble : MovebleObject, IRobotParts
             gameObject.tag = "movebleObject";
         }
         EventBus.TransitionPratsData.Invoke(gameObject);
-        Debug.Log(CheckMoving + $" {gameObject.name}");
     }
 
     private void OnDisable()

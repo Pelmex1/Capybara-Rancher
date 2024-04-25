@@ -21,5 +21,25 @@ namespace CapybaraRancher.CustomStructures
         {
             return counter.Count;
         }
+        // override object.Equals
+        public override readonly bool Equals(object obj)
+        {
+            if(obj == null && Image == null)
+            {
+                return true;
+            }
+            if(obj != null && obj is Data data)
+            {
+                if(data.InventoryItem == InventoryItem)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

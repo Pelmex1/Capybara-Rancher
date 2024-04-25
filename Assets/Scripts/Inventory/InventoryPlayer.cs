@@ -2,7 +2,7 @@ using CapybaraRancher.CustomStructures;
 using System.Collections;
 using CustomEventBus;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using System;
 
 public class InventoryPlayer : MonoBehaviour, IInventory
@@ -21,52 +21,43 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     {
         EventBus.AddItemInInventory = AddItemInInventory;
     }
-
-    private void Start()
-    {
-        ICell[] cells = GetComponentsInChildren<ICell>();
-        for (int i = 0; i < cells.Length; i++)
-        {
-            Inventory[i].InventoryItem = cells[i].InventoryItem;
-            Inventory[i].Count = cells[i].Count;
-            Inventory[i].Image = cells[i].Image.sprite;
-        }
-    }
-
-    public bool AddItemInInventory(InventoryItem inventoryItem)
+     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         if (Inventory[_index].InventoryItem == null ||
             (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
-            Inventory[_index].InventoryItem = inventoryItem;
+            Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
+            EventBus.PlayerGunAdd();
             EventBus.OnRepaint.Invoke(Inventory);
             return true;
         }
-        else
+        for (int i = 0; i < Inventory.Length; i++)
         {
-            for (int i = 0; i < Inventory.Length; i++)
+            if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
             {
-                if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
-                {
-                    Inventory[i].InventoryItem = inventoryItem;
-                    Inventory[i]++;
-                    EventBus.OnRepaint.Invoke(Inventory);
-                    return true;
-                }
+                Inventory[i]++;
+                EventBus.PlayerGunAdd();
+                EventBus.OnRepaint.Invoke(Inventory);
+                return true;
             }
-            for (int i = 0; i < Inventory.Length; i++)
-            {
-                if (Inventory[i].InventoryItem == null)
-                {
-                    Inventory[i].InventoryItem = inventoryItem;
-                    Inventory[i]++;
-                    EventBus.OnRepaint.Invoke(Inventory);
-                    return true;
-                }
+            else if (Inventory[i].InventoryItem == null && _nullChestCell.Equals(null))
+            {       
+                _nullChestCell = Inventory[i];
+                _nullChestCell.Image = inventoryItem.Image;
+                _localIndex = i;
             }
         }
-        EventBus.OnRepaint.Invoke(Inventory);
+        if (!_nullChestCell.Equals(null))
+        {
+            _nullChestCell.InventoryItem = inventoryItem;
+            _nullChestCell++;
+            Inventory[_localIndex] = _nullChestCell;
+            _nullChestCell = new Data();
+            EventBus.OnRepaint.Invoke(Inventory);
+            EventBus.PlayerGunAdd();
+            return true;
+        }
         return false;
     }
 
