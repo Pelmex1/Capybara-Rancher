@@ -6,13 +6,13 @@ public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
     //public GameObject Portal2;
+    private (string, int, short) set; 
     private const float SPEED = 3f;
     private Collider _colliderCanon;
     private bool _oneFunc = true;
 
     public List<GameObject> obdjectsInCollider = new();
-
-    public bool Ienumeratorenabled { get; set; }
+    public bool Ienumeratorenabled { get; set; } = false;
     private void Awake() {
         EventBus.RemoveFromList = (GameObject gameObject) => obdjectsInCollider.Remove(gameObject);
         EventBus.InumeratorIsEnabled = (bool isEnable) => Ienumeratorenabled = isEnable;

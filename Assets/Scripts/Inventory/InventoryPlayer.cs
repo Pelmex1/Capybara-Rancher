@@ -2,14 +2,11 @@ using CapybaraRancher.CustomStructures;
 using System.Collections;
 using CustomEventBus;
 using UnityEngine;
-using UnityEngine.UI;
-using System;
 
 public class InventoryPlayer : MonoBehaviour, IInventory
 {
     [SerializeField] private BoxCollider canonEnter;
-
-    [SerializeField] private GameObject _panel;
+    [SerializeField] private SavingCellData[] _saves;
 
     private int _index = 0;
     private int _localIndex;
@@ -20,6 +17,15 @@ public class InventoryPlayer : MonoBehaviour, IInventory
     private void Awake()
     {
         EventBus.AddItemInInventory = AddItemInInventory;
+    }
+    private void Start() {
+        if(_saves.Length == 5){
+            for(int i =0; i < 5; i++){
+                Inventory[i].InventoryItem = _saves[i].InventoryItem;
+                Inventory[i].Count = _saves[i].Count;
+            }
+        }
+        EventBus.OnRepaint.Invoke(Inventory);
     }
      public bool AddItemInInventory(InventoryItem inventoryItem)
     {
@@ -119,13 +125,12 @@ public class InventoryPlayer : MonoBehaviour, IInventory
         EventBus.InumeratorIsEnabled(false);
     }
 
-    // private void OnApplicationQuit()
-    // {
-    //     for (int i = 0; i < 5; i++)
-    //     {
-    //         Inventory[i].SaveCellData.InventoryItem = Inventory[i].InventoryItem;
-    //         Inventory[i].SaveCellData.Count = Inventory[i].Count;
-    //         Inventory[i].SaveCellData.Image = Inventory[i].Image;
-    //     }
-    // }
+    private void OnApplicationQuit()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            _saves[i].InventoryItem = Inventory[i].InventoryItem;
+            _saves[i].Count = Inventory[i].Count;
+        }
+    }
 }
