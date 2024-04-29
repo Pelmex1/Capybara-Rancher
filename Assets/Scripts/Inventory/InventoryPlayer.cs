@@ -3,7 +3,7 @@ using System.Collections;
 using CustomEventBus;
 using UnityEngine;
 
-public class InventoryPlayer : MonoBehaviour, IInventory
+public class InventoryPlayer : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
     [SerializeField] private SavingCellData[] _saves;

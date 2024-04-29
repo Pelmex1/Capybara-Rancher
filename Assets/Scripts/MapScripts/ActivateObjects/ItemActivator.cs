@@ -9,7 +9,7 @@ public class ItemActivator : MonoBehaviour
 
     private float _renderDistance;
 
-    public static List<GameObject> ActivatorItems = new List<GameObject>();
+    public static List<GameObject> ActivatorItems = new();
     private void OnEnable()
     {
         EventBus.ChangeRendering += ChangeRenderDistance;

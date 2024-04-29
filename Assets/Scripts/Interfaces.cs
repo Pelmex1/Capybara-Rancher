@@ -1,3 +1,4 @@
+using CapybaraRancher.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -67,9 +68,6 @@ internal interface IObjectSpawner
 {
     public void ReturnToPool(GameObject returnObject);
 }
-public interface IInventory
-{
-    public CapybaraRancher.CustomStructures.Data[] Inventory { get; set; }
-    public bool AddItemInInventory(InventoryItem inventoryItem);
-    public void RemoveItem(Vector3 spawnPos, Vector3 pos);
+internal interface IPooledMovebleObject{
+    public TypeGameObject typeGameObject { get; set; }
 }

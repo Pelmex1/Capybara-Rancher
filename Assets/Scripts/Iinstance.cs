@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using CapybaraRancher.Enums;
 using CustomEventBus;
 using UnityEngine;
 
@@ -6,6 +8,7 @@ public class Iinstance : MonoBehaviour
     public static Iinstance instance;
 
     public float Money;
+    private Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch - 1];
     private void Awake()
     {
         if (instance == null)
@@ -28,6 +31,12 @@ public class Iinstance : MonoBehaviour
     //private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
 //
     //}
+    private void AddInQueue(GameObject localGameObject,TypeGameObject typeGameObject){
+        _movebleobjects[(int)typeGameObject].Enqueue(localGameObject);
+    }
+    private GameObject RemoveFromQueue(TypeGameObject typeGameObject) {
+        return _movebleobjects[(int)typeGameObject].Dequeue();
+    }
     public void SaveData(){
         PlayerPrefs.SetFloat("Money", Money);
     } 
