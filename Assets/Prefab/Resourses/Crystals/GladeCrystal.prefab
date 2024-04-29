@@ -166,8 +166,9 @@ MonoBehaviour:
   nextCapibara: {fileID: 1885999244023908055, guid: 90877c75fec5b6f458322d494956b6bb,
     type: 3}
   price: 8
-  favouriteFoodName: 
-  whatEatThisType: 0
+  percentOfRegen: 5
+  favouriteFoodName: '-'
+  whatEatThisType: 1
 --- !u!114 &-8019283886214149150
 MonoBehaviour:
   m_ObjectHideFlags: 0

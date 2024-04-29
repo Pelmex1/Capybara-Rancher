@@ -5,6 +5,7 @@ public class CrystalItem : MonoBehaviour, ICrystalItem
 {
     [SerializeField] private GameObject nextCapibara;
     [SerializeField] private float price;
+    [SerializeField] private float percentOfRegen;
     [SerializeField] private string favouriteFoodName;
     [SerializeField] private FoodType whatEatThisType;
     public GameObject NextCapibara
@@ -17,6 +18,12 @@ public class CrystalItem : MonoBehaviour, ICrystalItem
     {
         get { return price; }
         set { price = value; }
+    }
+
+    public float PercentOfRegen
+    {
+        get { return percentOfRegen; }
+        set { percentOfRegen = value; }
     }
 
     public string FavouriteFoodName

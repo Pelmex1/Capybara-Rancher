@@ -7,7 +7,7 @@ public class RespawnPlayer : MonoBehaviour
     private const string PLAYER_TAG = "Player";
 
     [SerializeField] private Transform _spawnTransform;
-    [SerializeField] private float _respawnDelay;
+    [SerializeField] private float _respawnDelay = 0.5f;
 
     private void OnTriggerEnter(Collider other)
     {

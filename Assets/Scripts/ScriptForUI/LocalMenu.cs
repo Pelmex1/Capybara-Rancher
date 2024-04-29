@@ -10,6 +10,7 @@ public class LocalMenu : MonoBehaviour
     [SerializeField] private GameObject PausePanel;
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private Image energyBar;
+    [SerializeField] private Image hungerBar;
     [SerializeField] private Image hpBar;
     [SerializeField] private TMP_Text _money;
 
@@ -18,6 +19,8 @@ public class LocalMenu : MonoBehaviour
     private float energyCurrentValue;
     private float hpMaxValue;
     private float hpCurrentValue;
+    private float hungerMaxValue;
+    private float hungerCurrentValue;
 
     private void Update()
     {
@@ -55,22 +58,25 @@ public class LocalMenu : MonoBehaviour
         EventBus.GiveEnergyPlayerData += GiveEnergyData;
     }
 
-    private void GetEnergy(float EnergyMaxValue, float HpMaxValue)
+    private void GetEnergy(float EnergyMaxValue, float HpMaxValue, float HungerMaxValue)
     {
         energyMaxValue = EnergyMaxValue;
         hpMaxValue = HpMaxValue;
+        hungerMaxValue = HungerMaxValue;
     }
 
-    private void GiveEnergyData(float Hp, float Energy)
+    private void GiveEnergyData(float Hp, float Energy, float Hunger)
     {
         hpCurrentValue = Hp;
         energyCurrentValue = Energy;
+        hungerCurrentValue = Hunger;
     }
 
     private void UpdateBars()
     {
         energyBar.fillAmount = (energyCurrentValue - 5) / (energyMaxValue - 5);
         hpBar.fillAmount = hpCurrentValue / hpMaxValue;
+        hungerBar.fillAmount = hungerCurrentValue / hungerMaxValue;
     }
     public void OnOptions() => PanelOptions.SetActive(true);
     public void OffOptions() => PanelOptions.SetActive(false);

@@ -33,9 +33,9 @@ namespace CustomEventBus
         public static Action<string> LodingScene;
         public static Action<float> WasChangeMouseSensetive;
         public static Action<float[]> GetMusicValue;
-        public static Action<float[]> SaveMusicValue;      
-        public static Action<float, float> GetEnergyPlayerData;
-        public static Action<float, float> GiveEnergyPlayerData;
+        public static Action<float[]> SaveMusicValue;
+        public static Action<float, float, float> GetEnergyPlayerData;
+        public static Action<float, float, float> GiveEnergyPlayerData;
 
         public static Action PlayerRespawned;
         #endregion Options and Loaading Scenes

@@ -23,6 +23,7 @@ internal interface ICrystalItem
 {
     public GameObject NextCapibara { get; }
     public float Price { get; }
+    public float PercentOfRegen { get; }
     public string FavouriteFoodName { get; }
     public FoodType WhatEatThisType { get; }
 }
@@ -56,9 +57,11 @@ internal interface IRobotParts
 internal interface IMovingPlayer
 {
     public float Energy { get; set; }
-    public float Hp { get; set; }
+    public float Health { get; set; }
+    public float Hunger { get; set; }
     public float EnergyMaxValue { get; }
-    public float HpMaxValue { get; }
+    public float HealthMaxValue { get; }
+    public float HungerMaxValue { get; }
 }
 internal interface IObjectSpawner
 {

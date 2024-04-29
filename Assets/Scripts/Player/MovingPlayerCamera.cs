@@ -1,4 +1,5 @@
 using CustomEventBus;
+using System.Collections;
 using UnityEngine;
 
 public class MovingPlayer : MonoBehaviour, IMovingPlayer
@@ -10,6 +11,8 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
 
     [SerializeField] private Transform _head;
     [SerializeField] private float _speed;
+    [SerializeField] private Transform _spawnTransform;
+    [SerializeField] private float _respawnDelay = 0.5f;
 
     private Rigidbody _rb;
     private Quaternion _startHeadRotation;
@@ -24,20 +27,31 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
 
     public float MouseSensitivy;
     public float Energy { get; set; }
-    public float Hp { get; set; }
-    public float EnergyMaxValue { get; set; } = 50f;
-    public float HpMaxValue { get; set; } = 100f;
+    public float Health { get; set; }
+    public float Hunger { get; set; }
+    public float EnergyMaxValue { get; set; }
+    public float HealthMaxValue { get; set; }
+    public float HungerMaxValue { get; set; }
 
+    private void Awake()
+    {
+        EnergyMaxValue = 50f;
+        HealthMaxValue = 100f;
+        HungerMaxValue = 100f;
+        Energy = EnergyMaxValue;
+        Health = HealthMaxValue;
+        Hunger = HungerMaxValue;
+    }
+    
     private void Start()
     {
+        EventBus.GetEnergyPlayerData(EnergyMaxValue, HealthMaxValue, HungerMaxValue);
+        EventBus.PlayerRespawned += FullStats;
         _rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         _startHeadRotation = _head.rotation;
         _xRotationCamera = _head.localRotation.eulerAngles.x;
-        Energy = EnergyMaxValue;
-        Hp = HpMaxValue;
         _startSpeed = _speed;
-        EventBus.GetEnergyPlayerData(EnergyMaxValue, HpMaxValue);
     }
     private void OnCollisionEnter(Collision other)
     {
@@ -58,7 +72,7 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
 
     private void Update()
     {
-        EventBus.GiveEnergyPlayerData.Invoke(Hp, Energy);   
+        EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
         if (Input.GetKey(KeyCode.Space))
             if (_isGrounded)
             {
@@ -95,6 +109,10 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
         }
 
         EventBus.PlayerMove.Invoke(_isGrounded, _isRunning && Input.GetKey(KeyCode.LeftShift));
+
+        EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
+        if (Health <= 0)
+            StartCoroutine(Respawn(gameObject));
     }
 
     private void OnEnable()
@@ -107,5 +125,21 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
         EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
     }
 
-    private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative; 
+    private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative;
+
+    private IEnumerator Respawn(GameObject player)
+    {
+        EventBus.PlayerRespawned.Invoke();
+
+        yield return new WaitForSeconds(_respawnDelay);
+
+        player.transform.position = _spawnTransform.position;
+        player.transform.rotation = _spawnTransform.rotation;
+    }
+    private void FullStats()
+    {
+        Energy = EnergyMaxValue;
+        Health = HealthMaxValue;
+        Hunger = HungerMaxValue;
+    }
 }
