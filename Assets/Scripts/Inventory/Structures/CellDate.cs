@@ -21,7 +21,6 @@ namespace CapybaraRancher.CustomStructures
         {
             return counter.Count;
         }
-        // override object.Equals
         public override readonly bool Equals(object obj)
         {
             if(obj == null && Image == null)

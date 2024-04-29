@@ -24,7 +24,7 @@ public class InventoryPlayer : MonoBehaviour, IInventory
                 Inventory[i].InventoryItem = _saves[i].InventoryItem;
                 Inventory[i].Count = _saves[i].Count;
             }
-        }
+        } else throw new System.ArgumentOutOfRangeException();
         EventBus.OnRepaint.Invoke(Inventory);
     }
      public bool AddItemInInventory(InventoryItem inventoryItem)
