@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 using UnityEngine;
 
 public class Canon : MonoBehaviour

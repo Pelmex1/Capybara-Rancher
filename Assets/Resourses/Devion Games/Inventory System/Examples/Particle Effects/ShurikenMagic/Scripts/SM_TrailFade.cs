@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SM_TrailFade : MonoBehaviour {
 	public float fadeInTime=0.1f;

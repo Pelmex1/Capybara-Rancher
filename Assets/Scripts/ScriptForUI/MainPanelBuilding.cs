@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
-using CustomEventBus;
+using CapybaraRancher.Interfaces;
+using CapybaraRancher.EventBus;
 
 public class MainPanelBuilding : MonoBehaviour
 {

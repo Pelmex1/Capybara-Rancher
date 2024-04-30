@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SM_AnimSpeedRandomizer : MonoBehaviour {
 	public float minSpeed=0.7f;

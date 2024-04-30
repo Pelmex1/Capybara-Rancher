@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using CapybaraRancher.Enums;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 using UnityEngine;
 
 public class Iinstance : MonoBehaviour
@@ -42,5 +42,9 @@ public class Iinstance : MonoBehaviour
     } 
     private void OnApplicationQuit() {
         SaveData();
+    }
+    private void OnEnable() {
+        EventBus.AddInPool = AddInQueue;
+        EventBus.RemoveFromThePool = RemoveFromQueue;
     }
 }

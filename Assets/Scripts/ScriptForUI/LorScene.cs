@@ -1,6 +1,5 @@
-using System;
 using System.Collections;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 using DevionGames;
 using TMPro;
 using UnityEngine;

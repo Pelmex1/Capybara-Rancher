@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class Receptacle : MonoBehaviour, IReceptacle

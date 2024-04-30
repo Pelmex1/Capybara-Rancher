@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 
 public class ItemActivator : MonoBehaviour
 {

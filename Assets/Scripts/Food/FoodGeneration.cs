@@ -1,7 +1,6 @@
-using DevionGames.UIWidgets;
+using CapybaraRancher.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class FoodGeneration : MonoBehaviour, IObjectSpawner

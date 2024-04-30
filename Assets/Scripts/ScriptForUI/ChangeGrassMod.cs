@@ -1,6 +1,6 @@
 using UnityEngine;
-using CustomEventBus;
 using TMPro;
+using CapybaraRancher.EventBus;
 
 public class ChangeGrassMod : MonoBehaviour
 {

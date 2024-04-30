@@ -1,6 +1,6 @@
+using CapybaraRancher.EventBus;
 using UnityEngine;
 using UnityEngine.Audio;
-using CustomEventBus;
 
 public class VolumeController : MonoBehaviour
 {

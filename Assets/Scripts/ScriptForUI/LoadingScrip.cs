@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 
 public class LoadingScrip : MonoBehaviour
 {

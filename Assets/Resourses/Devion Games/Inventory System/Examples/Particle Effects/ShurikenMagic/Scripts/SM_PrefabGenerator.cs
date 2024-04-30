@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SM_PrefabGenerator : MonoBehaviour {
 	public GameObject[] createThis;  // list of possible prefabs

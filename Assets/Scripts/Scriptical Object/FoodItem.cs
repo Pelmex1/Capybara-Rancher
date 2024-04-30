@@ -1,5 +1,6 @@
 using UnityEngine;
 using CapybaraRancher.Enums;
+using CapybaraRancher.Interfaces;
 
 public class FoodItem : MonoBehaviour, IFoodItem
 {

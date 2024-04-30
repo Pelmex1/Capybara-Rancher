@@ -1,5 +1,5 @@
 using CapybaraRancher.CustomStructures;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

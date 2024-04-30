@@ -1,4 +1,5 @@
-using CustomEventBus;
+using CapybaraRancher.EventBus;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class RoborMoveble : MovebleObject, IRobotParts

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class MobsSpawner : MonoBehaviour, IObjectSpawner

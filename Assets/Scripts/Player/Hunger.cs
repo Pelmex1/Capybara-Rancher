@@ -1,4 +1,5 @@
 using System.Collections;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class Hunger : MonoBehaviour

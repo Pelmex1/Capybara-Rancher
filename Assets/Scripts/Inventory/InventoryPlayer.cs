@@ -1,6 +1,6 @@
 using CapybaraRancher.CustomStructures;
+using CapybaraRancher.EventBus;
 using System.Collections;
-using CustomEventBus;
 using UnityEngine;
 
 public class InventoryPlayer : MonoBehaviour

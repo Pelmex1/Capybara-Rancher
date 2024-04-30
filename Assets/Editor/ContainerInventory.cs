@@ -1,4 +1,4 @@
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 using UnityEngine;
 
 public class ContainerInventory : MonoBehaviour

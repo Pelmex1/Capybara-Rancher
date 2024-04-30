@@ -1,5 +1,5 @@
-using CustomEventBus;
 using System.Collections;
+using CapybaraRancher.EventBus;
 using UnityEngine;
 
 public class RespawnPlayer : MonoBehaviour

@@ -1,8 +1,6 @@
 using System;
+using CapybaraRancher.EventBus;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Analytics;
-using CustomEventBus;
 
 public class ChestsController : MonoBehaviour
 {

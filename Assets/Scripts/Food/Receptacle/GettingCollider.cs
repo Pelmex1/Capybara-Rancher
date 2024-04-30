@@ -1,12 +1,12 @@
-using CustomEventBus;
+using CapybaraRancher.EventBus;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class GettingCollider : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        IFoodItem food;
-        if (collision.gameObject.TryGetComponent(out food))
+        if (collision.gameObject.TryGetComponent(out IFoodItem food))
             if (food.IsGenerable)
             {
                 int spawnIndex = food.IndexForSpawnFarm;

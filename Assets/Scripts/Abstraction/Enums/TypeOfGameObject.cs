@@ -11,6 +11,6 @@ namespace CapybaraRancher.Enums
         GladeCrystal,
         RockCrystal,
         LionCrystal,
-        LastDontToch
+        LastDontToch // must be last
     }
 }

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

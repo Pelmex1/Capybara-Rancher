@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using CapybaraRancher.CustomStructures;
+using CapybaraRancher.Enums;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace CustomEventBus
+namespace CapybaraRancher.EventBus
 {
     public static class EventBus
     {
-        #region Artem Action
+        public static Action<GameObject,TypeGameObject> AddInPool;
+        public static Func<TypeGameObject,GameObject> RemoveFromThePool;
         public static Action<float> AddMoney;
         public static Action<GameObject> RemoveFromList;
         public static Predicate<GameObject> CheckList;
@@ -17,7 +18,6 @@ namespace CustomEventBus
         public static Action<int> GetIndex;
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
-        #endregion Artem Action
 
         #region  UIinventory
         public static Action<Data[]> OnRepaint;

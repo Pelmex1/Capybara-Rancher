@@ -1,5 +1,5 @@
 using UnityEngine;
-using CustomEventBus;
+using CapybaraRancher.EventBus;
 
 public class AddNewCrystal : MonoBehaviour
 {

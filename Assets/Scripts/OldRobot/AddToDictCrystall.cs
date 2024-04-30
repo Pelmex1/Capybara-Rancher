@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using CapybaraRancher.EventBus;
 using UnityEngine;
-using CustomEventBus;
 
 public class AddToDictCrystall : MonoBehaviour
 {

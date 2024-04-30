@@ -1,9 +1,9 @@
+using CapybaraRancher.EventBus;
 using DevionGames;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using CustomEventBus;
 
 public class LocalOptions : MonoBehaviour
 {

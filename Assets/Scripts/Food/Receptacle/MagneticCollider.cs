@@ -1,4 +1,5 @@
 using System.Collections;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class MagneticCollider : MonoBehaviour
@@ -13,8 +14,7 @@ public class MagneticCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        IFoodItem foodItem;
-        if (other.gameObject.TryGetComponent(out foodItem))
+        if (other.gameObject.TryGetComponent(out IFoodItem foodItem))
             if (foodItem.IsGenerable)
                 StartCoroutine(MagnetismToTargetPos(other.transform));
     }

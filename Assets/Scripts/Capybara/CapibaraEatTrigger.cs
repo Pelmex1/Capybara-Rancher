@@ -1,3 +1,4 @@
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class CapibaraEatTrigger : MonoBehaviour

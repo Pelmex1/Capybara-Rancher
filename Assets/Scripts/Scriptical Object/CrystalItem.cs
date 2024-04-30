@@ -1,6 +1,6 @@
-using CustomEventBus;
 using UnityEngine;
 using CapybaraRancher.Enums;
+using CapybaraRancher.Interfaces;
 
 public class CrystalItem : MonoBehaviour, ICrystalItem
 {

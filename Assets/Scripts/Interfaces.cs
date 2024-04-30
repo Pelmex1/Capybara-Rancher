@@ -2,72 +2,75 @@ using CapybaraRancher.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal interface ICapybaraAudioController
+namespace CapybaraRancher.Interfaces
 {
+    internal interface ICapybaraAudioController
+    {
     void SetHappyStatus();
     void SetAngryStatus();
     void Eating();
-}
-internal interface IMobsAi
-{
+    }
+    internal interface IMobsAi
+    {
     void SetFoodFound(bool _input);
     void IsFoodFound(Transform foodTransform);
-}
-internal interface IFoodItem
-{
+    }
+    internal interface IFoodItem
+    {
     int IndexForSpawnFarm { get; }
     float TimeGeneration { get; }
     bool IsGenerable { get; }
     FoodType Type { get; }
-}
-internal interface ICrystalItem
-{
+    }
+    internal interface ICrystalItem
+    {
     public GameObject NextCapibara { get; }
     public float Price { get; }
     public float PercentOfRegen { get; }
     public string FavouriteFoodName { get; }
     public FoodType WhatEatThisType { get; }
-}
-internal interface ICapybaraItem
-{
+    }
+    internal interface ICapybaraItem
+    {
     public GameObject CrystalPrefab { get; }
     public FoodType WhatEat { get; }
     public string NameOfFavouriteFood { get; }
-}
-internal interface ICell
-{
+    }
+    internal interface ICell
+    {
     public Image Image {get; set;}
     public InventoryItem InventoryItem {get; set;}
     public int Count {get; set;}
-}
-internal interface IMovebleObject
-{
+    }
+    internal interface IMovebleObject
+    {
     public InventoryItem Data {get; set;}
     public GameObject Localgameobject {get; set;}
-}
-internal interface IReceptacle
-{
+    }
+    internal interface IReceptacle
+    {
     public void GetData(Transform ParentPosition, GameObject NewObject);
-}
-internal interface IRobotParts
-{
+    }
+    internal interface IRobotParts
+    {
     public int IndexofPart {get; set;}
     public bool CheckMoving {get; set;}
     public GameObject[] AllPartsObject {get; set;}
-}
-internal interface IMovingPlayer
-{
+    }
+    internal interface IMovingPlayer
+    {
     public float Energy { get; set; }
     public float Health { get; set; }
     public float Hunger { get; set; }
     public float EnergyMaxValue { get; }
     public float HealthMaxValue { get; }
     public float HungerMaxValue { get; }
-}
-internal interface IObjectSpawner
-{
+    }
+    internal interface IObjectSpawner
+    {
     public void ReturnToPool(GameObject returnObject);
-}
-internal interface IPooledMovebleObject{
+    }
+    internal interface IPooledMovebleObject{
     public TypeGameObject typeGameObject { get; set; }
+    }
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SM_Rotate : MonoBehaviour {
 	public Vector3 rotation;
