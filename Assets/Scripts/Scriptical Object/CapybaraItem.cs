@@ -1,4 +1,5 @@
 using UnityEngine;
+using CapybaraRancher.Enums;
 
 public class CapybaraItem : MonoBehaviour, ICapybaraItem
 {

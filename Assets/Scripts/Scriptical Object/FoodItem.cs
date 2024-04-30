@@ -1,9 +1,6 @@
 using UnityEngine;
+using CapybaraRancher.Enums;
 
-public enum FoodType
-{
-    zero, All, Fruit, Vegetable, Meat
-}
 public class FoodItem : MonoBehaviour, IFoodItem
 {
     [SerializeField] private int indexForSpawnFarm;

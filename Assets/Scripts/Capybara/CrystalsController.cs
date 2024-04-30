@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using CapybaraRancher.Enums;
 
 public class CrystalsController : MonoBehaviour
 {
