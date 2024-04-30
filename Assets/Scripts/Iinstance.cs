@@ -23,27 +23,33 @@ public class Iinstance : MonoBehaviour
         }
         //SceneManager.sceneLoaded += OnSceneLoaded;
         EventBus.AddMoney = (float money) => Money += money;
-        EventBus.GetMoney = () => {return Money;};
+        EventBus.GetMoney = () => { return Money; };
     }
-    private void Start() {
-        Money = PlayerPrefs.GetFloat("Money",0);
+    private void Start()
+    {
+        Money = PlayerPrefs.GetFloat("Money", 0);
     }
     //private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
-//
+    //
     //}
-    private void AddInQueue(GameObject localGameObject,TypeGameObject typeGameObject){
+    private void AddInQueue(GameObject localGameObject, TypeGameObject typeGameObject)
+    {
         _movebleobjects[(int)typeGameObject].Enqueue(localGameObject);
     }
-    private GameObject RemoveFromQueue(TypeGameObject typeGameObject) {
+    private GameObject RemoveFromQueue(TypeGameObject typeGameObject)
+    {
         return _movebleobjects[(int)typeGameObject].Dequeue();
     }
-    public void SaveData(){
+    public void SaveData()
+    {
         PlayerPrefs.SetFloat("Money", Money);
-    } 
-    private void OnApplicationQuit() {
+    }
+    private void OnApplicationQuit()
+    {
         SaveData();
     }
-    private void OnEnable() {
+    private void OnEnable()
+    {
         EventBus.AddInPool = AddInQueue;
         EventBus.RemoveFromThePool = RemoveFromQueue;
     }

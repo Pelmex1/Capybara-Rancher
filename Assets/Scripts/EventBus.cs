@@ -55,8 +55,8 @@ namespace CapybaraRancher.EventBus
         #endregion
         #region OldRobotAction
         public static Action<string> SetNameCrystal = delegate {};
-        public static Action<Dictionary<string,int>> TranstionCrystallData;
         public static Action<GameObject> TransitionPratsData = delegate {};
+        public static Action<GameObject[]> TransitonprivatePartsData;
         public static Action<string,int> OnMovebleObject;
         public static Action<string,int, Transform> OffMovebleObject;
         #endregion OldRobotAction

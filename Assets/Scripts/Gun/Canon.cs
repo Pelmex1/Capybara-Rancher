@@ -5,7 +5,7 @@ using UnityEngine;
 public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
-    //public GameObject Portal2;
+    [SerializeField] private GameObject Portal2;
     private (string, int, short) set; 
     private const float SPEED = 3f;
     private Collider _colliderCanon;
@@ -28,7 +28,7 @@ public class Canon : MonoBehaviour
         {
             if (!Ienumeratorenabled)
             {
-                //Portal2.SetActive(true);
+                Portal2.SetActive(true);
                 canonEnter.enabled = true;
             }
             _colliderCanon.enabled = true;
@@ -41,7 +41,7 @@ public class Canon : MonoBehaviour
         }
         else
         {
-            //Portal2.SetActive(false);
+            Portal2.SetActive(false);
             if (_oneFunc)
             {
                 canonEnter.enabled = false;

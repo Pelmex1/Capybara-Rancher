@@ -1,30 +1,59 @@
-using System.Collections.Generic;
 using CapybaraRancher.EventBus;
 using UnityEngine;
+using CapybaraRancher.Interfaces;
+using System.Collections.Generic;
 
 public class AddToDictCrystall : MonoBehaviour
 {
-    public Dictionary<string, int> DictionaaryCrystall = new Dictionary<string, int>();
-    private Queue<string> _queueForNameCrystall = new Queue<string>();
+    // private Dictionary<string, int> DictionaaryCrystall = new();
+    // private Dictionary<int, Dictionary<string, int>> GetAllCrystallData = new();
+    private Queue<string> _queueForNameCrystall = new();
+    private GameObject[] _allPartsObject = new GameObject[3];
 
     private void Awake()
     {
         EventBus.SetNameCrystal = SetCrystalName;
+        EventBus.TransitonprivatePartsData = TransitionPartsRobot;
     }
     private void Start()
     {
-        EventBus.TranstionCrystallData.Invoke(DictionaaryCrystall);
+        for (int i = 0; i < _allPartsObject.Length; i++)
+        {
+            _allPartsObject[i].GetComponent<ITransitionCrystallData>().TransitionData();
+        }
     }
     private void SetCrystalName(string NameCrystal)
     {
         _queueForNameCrystall.Enqueue(NameCrystal);
         SortAndRemoveDuplicates();
-        while (_queueForNameCrystall.Count > 0)
+
+        for (int i = 0; i < _allPartsObject.Length; i++)
         {
-            string Name = _queueForNameCrystall.Dequeue();
-            if (!DictionaaryCrystall.ContainsKey(Name))
-                DictionaaryCrystall.Add(Name, 0);
+            if (_allPartsObject[i] != null)
+            {
+                ITransitionCrystallData transitionCrystallData = _allPartsObject[i].GetComponent<ITransitionCrystallData>();
+
+                if (transitionCrystallData != null && transitionCrystallData.DictionaaryCrystall != null)
+                {
+                    Dictionary<string, int> DictionaaryCrystall = transitionCrystallData.DictionaaryCrystall;
+                    while (_queueForNameCrystall.Count > 0)
+                    {
+                        string Name = _queueForNameCrystall.Dequeue();       
+                        if (!DictionaaryCrystall.ContainsKey(Name))
+                        {
+                            if (_allPartsObject[i].GetComponent<IRobotParts>().CheckMoving == false)
+                                DictionaaryCrystall.Add(Name, 0);
+                            else
+                                DictionaaryCrystall.Add(Name, 1);
+                        }
+                        else continue;
+                    }
+                    _allPartsObject[i].GetComponent<ITransitionCrystallData>().DictionaaryCrystall = DictionaaryCrystall;
+                }
+            }
+
         }
+
     }
 
     private void SortAndRemoveDuplicates()
@@ -42,6 +71,11 @@ public class AddToDictCrystall : MonoBehaviour
             }
         }
         _queueForNameCrystall = newqueue;
+    }
+    private void TransitionPartsRobot(GameObject[] AllPartsObject)
+    {
+        _allPartsObject = AllPartsObject;
+        Debug.Log("Work transit");
     }
 }
 public class GroupByComparator : IComparer<string>

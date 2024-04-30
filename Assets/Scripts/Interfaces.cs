@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CapybaraRancher.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,71 +7,77 @@ namespace CapybaraRancher.Interfaces
 {
     internal interface ICapybaraAudioController
     {
-    void SetHappyStatus();
-    void SetAngryStatus();
-    void Eating();
+        void SetHappyStatus();
+        void SetAngryStatus();
+        void Eating();
     }
     internal interface IMobsAi
     {
-    void SetFoodFound(bool _input);
-    void IsFoodFound(Transform foodTransform);
+        void SetFoodFound(bool _input);
+        void IsFoodFound(Transform foodTransform);
     }
     internal interface IFoodItem
     {
-    int IndexForSpawnFarm { get; }
-    float TimeGeneration { get; }
-    bool IsGenerable { get; }
-    FoodType Type { get; }
+        int IndexForSpawnFarm { get; }
+        float TimeGeneration { get; }
+        bool IsGenerable { get; }
+        FoodType Type { get; }
     }
     internal interface ICrystalItem
     {
-    public GameObject NextCapibara { get; }
-    public float Price { get; }
-    public float PercentOfRegen { get; }
-    public string FavouriteFoodName { get; }
-    public FoodType WhatEatThisType { get; }
+        public GameObject NextCapibara { get; }
+        public float Price { get; }
+        public float PercentOfRegen { get; }
+        public string FavouriteFoodName { get; }
+        public FoodType WhatEatThisType { get; }
     }
     internal interface ICapybaraItem
     {
-    public GameObject CrystalPrefab { get; }
-    public FoodType WhatEat { get; }
-    public string NameOfFavouriteFood { get; }
+        public GameObject CrystalPrefab { get; }
+        public FoodType WhatEat { get; }
+        public string NameOfFavouriteFood { get; }
     }
     internal interface ICell
     {
-    public Image Image {get; set;}
-    public InventoryItem InventoryItem {get; set;}
-    public int Count {get; set;}
+        public Image Image { get; set; }
+        public InventoryItem InventoryItem { get; set; }
+        public int Count { get; set; }
     }
     internal interface IMovebleObject
     {
-    public InventoryItem Data {get; set;}
-    public GameObject Localgameobject {get; set;}
+        public InventoryItem Data { get; set; }
+        public GameObject Localgameobject { get; set; }
     }
     internal interface IReceptacle
     {
-    public void GetData(Transform ParentPosition, GameObject NewObject);
+        public void GetData(Transform ParentPosition, GameObject NewObject);
     }
     internal interface IRobotParts
     {
-    public int IndexofPart {get; set;}
-    public bool CheckMoving {get; set;}
-    public GameObject[] AllPartsObject {get; set;}
+        public int IndexofPart { get; set; }
+        public bool CheckMoving { get; set; }
+        public GameObject[] AllPartsObject { get; set; }
+    }
+    internal interface ITransitionCrystallData
+    {
+        public Dictionary<string, int> DictionaaryCrystall {get; set;}
+        public void TransitionData();
     }
     internal interface IMovingPlayer
     {
-    public float Energy { get; set; }
-    public float Health { get; set; }
-    public float Hunger { get; set; }
-    public float EnergyMaxValue { get; }
-    public float HealthMaxValue { get; }
-    public float HungerMaxValue { get; }
+        public float Energy { get; set; }
+        public float Health { get; set; }
+        public float Hunger { get; set; }
+        public float EnergyMaxValue { get; }
+        public float HealthMaxValue { get; }
+        public float HungerMaxValue { get; }
     }
     internal interface IObjectSpawner
     {
-    public void ReturnToPool(GameObject returnObject);
+        public void ReturnToPool(GameObject returnObject);
     }
-    internal interface IPooledMovebleObject{
-    public TypeGameObject typeGameObject { get; set; }
+    internal interface IPooledMovebleObject
+    {
+        public TypeGameObject typeGameObject { get; set; }
     }
 }

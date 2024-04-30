@@ -1,20 +1,20 @@
 using CapybaraRancher.EventBus;
-using CapybaraRancher.Interfaces;
 using UnityEngine;
+using CapybaraRancher.Interfaces;
 
 public class RoborMoveble : MovebleObject, IRobotParts
 {
     public int IndexofPart { get; set; }
     public bool CheckMoving { get; set; }
-    [SerializeField] private int _index;
     public GameObject[] AllPartsObject { get; set; }
+    [SerializeField] private int _index;
     private Transform stateTransform;
     private void Awake()
     {
-        // PlayerPrefs.DeleteAll();
         EventBus.OnMovebleObject = OnObject;
         EventBus.OffMovebleObject = OffObject;
         IndexofPart = _index;
+        EventBus.TransitionPratsData.Invoke(gameObject);
     }
     protected override void Update()
     {
@@ -50,6 +50,8 @@ public class RoborMoveble : MovebleObject, IRobotParts
 
     private void OnObject(string NameObject, int OnIndexofPart)
     {
+        if(AllPartsObject == null)
+            Debug.Log("Array is null");
         for (int i = 0; i < AllPartsObject.Length; i++)
         {
             if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].name == NameObject)
