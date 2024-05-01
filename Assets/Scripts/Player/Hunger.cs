@@ -11,12 +11,12 @@ public class Hunger : MonoBehaviour
     [SerializeField] private float _hungerDelay;
     [SerializeField] private float _raycastDistance = 10f;
 
-    private IMovingPlayer _stats;
+    private IPlayer _stats;
     private float _takingAwayHunger;
 
     private void Start()
     {
-        _stats = GetComponent<IMovingPlayer>();
+        _stats = GetComponent<IPlayer>();
         _takingAwayHunger = (1f / _hungerDelay) * _stats.HungerMaxValue;
         StartCoroutine(HungerUpdate());
     }
