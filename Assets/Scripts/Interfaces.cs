@@ -78,6 +78,6 @@ namespace CapybaraRancher.Interfaces
     }
     internal interface IPooledMovebleObject
     {
-        public TypeGameObject typeGameObject { get; set; }
+        public TypeGameObject TypeGameObject { get; set; }
     }
 }

@@ -11,20 +11,20 @@ public class SavePosition : MonoBehaviour
             float z = PlayerPrefs.GetFloat("Player_Z",_positionNow.z);
             transform.position = new(x,y,z);
         } else {
-            if(PlayerPrefs.GetString($"{name}_isEnable", "true") == "false")
+            if(PlayerPrefs.GetString($"{transform.parent?.name}_{name}_isEnable", "true") == "false")
             {
                 gameObject.SetActive(false);
             } else {
                 Vector3 _positionNow = transform.position;
-                float x = PlayerPrefs.GetFloat($"{name}_X",_positionNow.x);
-                float y = PlayerPrefs.GetFloat($"{name}_Y",_positionNow.x);
-                float z = PlayerPrefs.GetFloat($"{name}_Z",_positionNow.z);            
+                float x = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_X",_positionNow.x);
+                float y = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Y",_positionNow.x);
+                float z = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Z",_positionNow.z);            
                 transform.position = new(x,y,z);
             }
         }
     }
     private void OnDisable() {
-        PlayerPrefs.SetString($"{name}_isEnable", "false");
+        PlayerPrefs.SetString($"{transform.parent?.name}_{name}_isEnable", "false");
     }
     private void OnApplicationQuit() {
         if(gameObject.CompareTag("Player"))
@@ -34,10 +34,10 @@ public class SavePosition : MonoBehaviour
             PlayerPrefs.SetFloat("Player_Z", gameObject.transform.position.z);
         } else {
             Vector3 _positionNow = transform.position;
-            PlayerPrefs.SetFloat($"{name}_X",_positionNow.x);
-            PlayerPrefs.SetFloat($"{name}_Y",_positionNow.x);
-            PlayerPrefs.SetFloat($"{name}_Z",_positionNow.z);
-            PlayerPrefs.SetString($"{name}_isEnable", "true");
+            PlayerPrefs.SetFloat($"{transform.parent?.name}_{name}_X",_positionNow.x);
+            PlayerPrefs.SetFloat($"{transform.parent?.name}_{name}_Y",_positionNow.x);
+            PlayerPrefs.SetFloat($"{transform.parent?.name}_{name}_Z",_positionNow.z);
+            PlayerPrefs.SetString($"{transform.parent?.name}_{name}_isEnable", "true");
         }
     }
 }

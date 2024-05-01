@@ -9,7 +9,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     private const string CANON_TAG = "CanonEnter";
     private NavMeshAgent _navMeshAgent;
     private IObjectSpawner _objectSpawner;
-    private int _looted = 1;
+    private bool _looted = false;
 
     public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
     public GameObject Localgameobject {get => gameObject; set{return;}}
@@ -32,17 +32,22 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(CANON_TAG) && _looted == 1)
+        if (other.CompareTag(CANON_TAG) && !_looted)
         {
-            _looted = 0;
+            _looted = true;
             if (EventBus.AddItemInInventory(Data))
             {
                 EventBus.RemoveFromList(gameObject);
                 if (_objectSpawner == null)
-                    Destroy(gameObject);
-                else
+                    gameObject.SetActive(false);
+                    EventBus.AddInPool(gameObject,Data.TypeGameObject);
+                } else {
                     _objectSpawner.ReturnToPool(gameObject);
+                }
             }
-        };
+        }
+    private void OnDisable() {
+        _looted = false;
     }
 }
+

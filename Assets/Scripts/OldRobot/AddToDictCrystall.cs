@@ -75,7 +75,7 @@ public class AddToDictCrystall : MonoBehaviour
     private void TransitionPartsRobot(GameObject[] AllPartsObject)
     {
         _allPartsObject = AllPartsObject;
-        Debug.Log("Work transit");
+        //Debug.Log("Work transit");
     }
 }
 public class GroupByComparator : IComparer<string>

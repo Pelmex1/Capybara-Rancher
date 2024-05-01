@@ -20,7 +20,7 @@ public class AddPartsToArray : MonoBehaviour
     }
     private void TransitionPartsRobotData(GameObject _usingGameObject)
     {
-        Debug.Log("Transition was");
+        //Debug.Log("Transition was");
         for (int i = 0; i < _allPartsObject.Length; i++)
         {
             if (_allPartsObject[i] == null)
