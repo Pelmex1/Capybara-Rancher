@@ -34,7 +34,7 @@ namespace CapybaraRancher.EventBus
         public static Action<float> WasChangeMouseSensetive;
         public static Action<float[]> GetMusicValue;
         public static Action<float[]> SaveMusicValue;
-        public static Action<float, float, float> GetEnergyPlayerData;
+        public static Action GetEnergyPlayerData;
         public static Action<float, float, float> GiveEnergyPlayerData;
 
         public static Action PlayerRespawned;
@@ -53,6 +53,7 @@ namespace CapybaraRancher.EventBus
         public static Action PlayerGunAdd;
         public static Action<bool> PlayerGunAttraction;
         #endregion
+
         #region OldRobotAction
         public static Action<string> SetNameCrystal = delegate {};
         public static Action<GameObject> TransitionPratsData = delegate {};
@@ -60,6 +61,10 @@ namespace CapybaraRancher.EventBus
         public static Action<string,int> OnMovebleObject;
         public static Action<string,int, Transform> OffMovebleObject;
         #endregion OldRobotAction
+
+        #region PlayerUpgrades
+        public static Action MaxValueUpgrade;
+        #endregion PlayerUpgrades
     }
 
 }

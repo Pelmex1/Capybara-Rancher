@@ -6,6 +6,10 @@ using CapybaraRancher.EventBus;
 
 public class LocalMenu : MonoBehaviour
 {
+    private const string ENERGY_KEY = "EnergyMaxValue";
+    private const string HEALTH_KEY = "HealthMaxValue";
+    private const string HUNGER_KEY = "HungerMaxValue";
+
     [SerializeField] private GameObject PausePanel;
     [SerializeField] private GameObject PanelOptions;
     [SerializeField] private Image energyBar;
@@ -57,11 +61,11 @@ public class LocalMenu : MonoBehaviour
         EventBus.GiveEnergyPlayerData += GiveEnergyData;
     }
 
-    private void GetEnergy(float EnergyMaxValue, float HpMaxValue, float HungerMaxValue)
+    private void GetEnergy()
     {
-        energyMaxValue = EnergyMaxValue;
-        hpMaxValue = HpMaxValue;
-        hungerMaxValue = HungerMaxValue;
+        energyMaxValue = PlayerPrefs.GetFloat(ENERGY_KEY);
+        hpMaxValue = PlayerPrefs.GetFloat(HEALTH_KEY);
+        hungerMaxValue = PlayerPrefs.GetFloat(HUNGER_KEY);
     }
 
     private void GiveEnergyData(float Hp, float Energy, float Hunger)

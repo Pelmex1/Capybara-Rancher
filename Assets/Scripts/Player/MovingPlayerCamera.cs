@@ -3,12 +3,15 @@ using CapybaraRancher.Interfaces;
 using System.Collections;
 using UnityEngine;
 
-public class MovingPlayer : MonoBehaviour, IMovingPlayer
+public class MovingPlayer : MonoBehaviour, IPlayer
 {
     private const float ROTATION_CAMERA_MISTAKE_Y = 85f;
     private const float ROTATION_CAMERA_MISTAKE_Z = 40f;
     private const float MIN_ENERGY_VALUE = 5;
     private const float SPEED_BOOST = 1.8f;
+    private const float DEFAULT_ENERGY_MAXVALUE = 50f;
+    private const float DEFAULT_HEALTH_MAXVALUE = 100f;
+    private const float DEFAULT_HUNGER_MAXVALUE = 100f;
 
     [SerializeField] private Transform _head;
     [SerializeField] private float _speed;
@@ -36,24 +39,20 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
 
     private void Awake()
     {
-        EnergyMaxValue = 50f;
-        HealthMaxValue = 100f;
-        HungerMaxValue = 100f;
-        Energy = EnergyMaxValue;
-        Health = HealthMaxValue;
-        Hunger = HungerMaxValue;
+        SetStats();
+        FullStats();
     }
-    
+
     private void Start()
     {
-        EventBus.GetEnergyPlayerData(EnergyMaxValue, HealthMaxValue, HungerMaxValue);
-        EventBus.PlayerRespawned += FullStats;
+        EventBus.GetEnergyPlayerData();
         _rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         _startHeadRotation = _head.rotation;
         _xRotationCamera = _head.localRotation.eulerAngles.x;
         _startSpeed = _speed;
     }
+
     private void OnCollisionEnter(Collision other)
     {
         _isGrounded = true;
@@ -118,12 +117,16 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
 
     private void OnEnable()
     {
+        EventBus.PlayerRespawned += FullStats;
         EventBus.WasChangeMouseSensetive += WasChangeSenstive;
+        EventBus.MaxValueUpgrade += SetStats;
     }
 
     private void OnDisable()
     {
         EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
+        EventBus.MaxValueUpgrade -= SetStats;
+        EventBus.PlayerRespawned -= FullStats;
     }
 
     private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative;
@@ -142,5 +145,15 @@ public class MovingPlayer : MonoBehaviour, IMovingPlayer
         Energy = EnergyMaxValue;
         Health = HealthMaxValue;
         Hunger = HungerMaxValue;
+    }
+
+    private void SetStats()
+    {
+        EnergyMaxValue = PlayerPrefs.GetFloat("EnergyMaxValue", DEFAULT_ENERGY_MAXVALUE);
+        PlayerPrefs.SetFloat("EnergyMaxValue", EnergyMaxValue);
+        HealthMaxValue = PlayerPrefs.GetFloat("HealthMaxValue", DEFAULT_HEALTH_MAXVALUE);
+        PlayerPrefs.SetFloat("HealthMaxValue", HealthMaxValue);
+        HungerMaxValue = PlayerPrefs.GetFloat("HungerMaxValue", DEFAULT_HUNGER_MAXVALUE);
+        PlayerPrefs.SetFloat("HungerMaxValue", HungerMaxValue);
     }
 }

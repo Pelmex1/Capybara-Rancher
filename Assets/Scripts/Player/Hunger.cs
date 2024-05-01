@@ -26,7 +26,7 @@ public class Hunger : MonoBehaviour
         HungerFix();
         CheckAndEatCrystal();
     }
-    private void HungerFix() => _stats.Hunger = _stats.Hunger > 100f ? 100f : _stats.Hunger < 0f ? 0f : _stats.Hunger;
+    private void HungerFix() => _stats.Hunger = _stats.Hunger > _stats.HungerMaxValue ? _stats.HungerMaxValue : _stats.Hunger < 0f ? 0f : _stats.Hunger;
     private int CheckAndEatCrystal()
     {
         Vector3 cameraForward = _camera.transform.forward;

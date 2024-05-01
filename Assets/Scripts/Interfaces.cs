@@ -63,7 +63,7 @@ namespace CapybaraRancher.Interfaces
         public Dictionary<string, int> DictionaaryCrystall {get; set;}
         public void TransitionData();
     }
-    internal interface IMovingPlayer
+    internal interface IPlayer
     {
         public float Energy { get; set; }
         public float Health { get; set; }
