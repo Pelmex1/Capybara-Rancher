@@ -16,3 +16,4 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: 0371ef8c513294b44b6e4ded1256d249, type: 3}
   Prefab: {fileID: 811346671323798238, guid: 564929e30790ca4428e0fe7085ba70a1, type: 3}
   Color: {r: 0, g: 0, b: 0, a: 0}
+  TypeGameObject: 10

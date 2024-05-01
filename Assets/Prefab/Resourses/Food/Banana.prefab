@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2379596268564266363}
   - component: {fileID: -1348146859310808607}
   - component: {fileID: -2030538048087085594}
+  - component: {fileID: -2819344763148745125}
   m_Layer: 0
   m_Name: Banana
   m_TagString: movebleObject
@@ -167,7 +168,7 @@ MonoBehaviour:
   indexForSpawnFarm: 2
   timeGeneration: 180
   isGenerable: 1
-  type: 2
+  type: 0
 --- !u!114 &-2030538048087085594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,3 +182,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeBeforeSpoilage: 30
+--- !u!114 &-2819344763148745125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361594820006480700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

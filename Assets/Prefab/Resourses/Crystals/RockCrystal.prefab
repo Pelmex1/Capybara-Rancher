@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5249966430210373390}
   - component: {fileID: 3545819480381805574}
   - component: {fileID: -6704972567795766569}
+  - component: {fileID: -6891399964991954551}
   m_Layer: 0
   m_Name: RockCrystal
   m_TagString: movebleObject
@@ -168,7 +169,7 @@ MonoBehaviour:
   price: 10
   percentOfRegen: 10
   favouriteFoodName: Carrot
-  whatEatThisType: 3
+  whatEatThisType: 0
 --- !u!114 &-6704972567795766569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,5 +180,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7120a796e1c494f48b6e4e73bbcbf73d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6891399964991954551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13763372814719393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
