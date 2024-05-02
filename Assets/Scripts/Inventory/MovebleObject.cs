@@ -39,8 +39,8 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             {
                 EventBus.RemoveFromList(gameObject);
                 if (_objectSpawner == null)
-                    gameObject.SetActive(false);
                     EventBus.AddInPool(gameObject,Data.TypeGameObject);
+                    gameObject.SetActive(false);
                 } else {
                     _objectSpawner.ReturnToPool(gameObject);
                 }

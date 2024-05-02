@@ -8,7 +8,7 @@ public class Iinstance : MonoBehaviour
     public static Iinstance instance;
 
     public float Money;
-    private Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch - 1];
+    private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch - 1];
     private void Awake()
     {
         if (instance == null)
@@ -20,6 +20,9 @@ public class Iinstance : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+        for(int i = 0; i < _movebleobjects.Length; i++){
+            _movebleobjects[i] = new();
         }
         //SceneManager.sceneLoaded += OnSceneLoaded;
         EventBus.AddMoney = (float money) => Money += money;
