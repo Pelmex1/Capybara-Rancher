@@ -8,13 +8,12 @@ public class RoborMoveble : MovebleObject, IRobotParts
     public bool CheckMoving { get; set; }
     public GameObject[] AllPartsObject { get; set; }
     [SerializeField] private int _index;
-    private Transform stateTransform;
     private void Awake()
     {
+        // PlayerPrefs.DeleteAll();
         EventBus.OnMovebleObject = OnObject;
         EventBus.OffMovebleObject = OffObject;
         IndexofPart = _index;
-        EventBus.TransitionPratsData.Invoke(gameObject);
     }
     protected override void Update()
     {
@@ -25,6 +24,7 @@ public class RoborMoveble : MovebleObject, IRobotParts
     }
     private void OnEnable()
     {
+
         if (PlayerPrefs.GetInt($"CanMoving{_index}") == 0)
             CheckMoving = false;
         else
@@ -50,8 +50,6 @@ public class RoborMoveble : MovebleObject, IRobotParts
 
     private void OnObject(string NameObject, int OnIndexofPart)
     {
-        if(AllPartsObject == null)
-            Debug.Log("Array is null");
         for (int i = 0; i < AllPartsObject.Length; i++)
         {
             if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].name == NameObject)
@@ -62,14 +60,14 @@ public class RoborMoveble : MovebleObject, IRobotParts
     }
     private void OffObject(string NameObject, int OffIndexofPart, Transform PointTransform)
     {
-        stateTransform = PointTransform;
         for (int i = 0; i < AllPartsObject.Length; i++)
         {
             if (i == OffIndexofPart & AllPartsObject[OffIndexofPart].gameObject.name == NameObject)
             {
                 AllPartsObject[OffIndexofPart].GetComponent<IRobotParts>().CheckMoving = false;
                 AllPartsObject[OffIndexofPart].tag = "PartsRobot";
-                AllPartsObject[OffIndexofPart].transform.position = stateTransform.position;
+                AllPartsObject[OffIndexofPart].transform.SetParent(PointTransform);
+                AllPartsObject[OffIndexofPart].transform.localPosition = new Vector3(0f,0f,0f);
             }
         }
     }

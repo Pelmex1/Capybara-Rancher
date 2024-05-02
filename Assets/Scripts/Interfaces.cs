@@ -60,7 +60,8 @@ namespace CapybaraRancher.Interfaces
     }
     internal interface ITransitionCrystallData
     {
-        public Dictionary<string, int> DictionaaryCrystall {get; set;}
+        public bool WasChangeDict {get; set;}
+        public Dictionary<string, int> DictionaryCrystall {get; set;}
         public void TransitionData();
     }
     internal interface IPlayer
@@ -78,6 +79,6 @@ namespace CapybaraRancher.Interfaces
     }
     internal interface IPooledMovebleObject
     {
-        public TypeGameObject TypeGameObject { get; set; }
+        public TypeGameObject typeGameObject { get; set; }
     }
 }

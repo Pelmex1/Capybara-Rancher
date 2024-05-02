@@ -8,8 +8,8 @@ namespace CapybaraRancher.EventBus
 {
     public static class EventBus
     {
-        public static Action<GameObject,TypeGameObject> AddInPool;
-        public static Func<TypeGameObject,GameObject> RemoveFromThePool;
+        public static Action<GameObject, TypeGameObject> AddInPool;
+        public static Func<TypeGameObject, GameObject> RemoveFromThePool;
         public static Action<float> AddMoney;
         public static Action<GameObject> RemoveFromList;
         public static Predicate<GameObject> CheckList;
@@ -21,7 +21,7 @@ namespace CapybaraRancher.EventBus
 
         #region  UIinventory
         public static Action<Data[]> OnRepaint;
-        public static Action<int,int> WasChangeIndexCell;
+        public static Action<int, int> WasChangeIndexCell;
         #endregion UIinventory
 
         #region  Options and Loaading Scenes
@@ -53,15 +53,15 @@ namespace CapybaraRancher.EventBus
         public static Action PlayerGunAdd;
         public static Action<bool> PlayerGunAttraction;
         #endregion
-
         #region OldRobotAction
-        public static Action<string> SetNameCrystal = delegate {};
-        public static Action<GameObject> TransitionPratsData = delegate {};
+        public static Action<string> SetNameCrystal = delegate { };
+        public static Action<GameObject> TransitionPratsData = delegate { };
         public static Action<GameObject[]> TransitonprivatePartsData;
-        public static Action<string,int> OnMovebleObject;
-        public static Action<string,int, Transform> OffMovebleObject;
+        public static Action AddToDict;
+        public static Action<string, int> OnMovebleObject;
+        public static Action<string, int, Transform> OffMovebleObject;
         #endregion OldRobotAction
-
+        
         #region PlayerUpgrades
         public static Action MaxValueUpgrade;
         #endregion PlayerUpgrades

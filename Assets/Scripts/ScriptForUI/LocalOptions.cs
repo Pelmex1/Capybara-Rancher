@@ -83,12 +83,24 @@ public class LocalOptions : MonoBehaviour
 
     private void GetDataSound()
     {
-        if (PlayerPrefs.GetInt("isSoundOn") == 0)
+        if (PlayerPrefs.HasKey("isSoundOn"))
         {
-            AudioButton.image.sprite = ButtonOffSprite;
-            isActiveButtonSound = true;
-            OnSoundOptions.SetActive(false);
-            audiomixer.SetFloat("MasterVolume", -80f);
+            if (PlayerPrefs.GetInt("isSoundOn") == 0)
+            {
+                AudioButton.image.sprite = ButtonOffSprite;
+                isActiveButtonSound = true;
+                OnSoundOptions.SetActive(false);
+                audiomixer.SetFloat("MasterVolume", -80f);
+            }
+            else
+            {
+                AudioButton.image.sprite = ButtonOnSprite;
+                isActiveButtonSound = false;
+                OnSoundOptions.SetActive(true);
+                EventBus.GetMusicValue.Invoke(ArraySave);
+                for (int i = 0; i < ArraySave.Length; i++)
+                    audioSliders[i].value = (ArraySave[i] + 80) / 100;
+            }
         }
         else
         {
