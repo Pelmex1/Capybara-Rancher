@@ -127,7 +127,7 @@ public class InventoryPlayer : MonoBehaviour
     {
         EventBus.InumeratorIsEnabled(true);
         canonEnter.enabled = false;
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(1);
         canonEnter.enabled = true;
         EventBus.InumeratorIsEnabled(false);
     }

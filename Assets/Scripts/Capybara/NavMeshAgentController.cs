@@ -33,8 +33,7 @@ public class NavMeshAgentController : MonoBehaviour
     {
         Vector3 raycastOrigin = transform.position;
         Vector3 raycastDirection = Vector3.down;
-        RaycastHit hit;
-        if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, _raycastDistance))
+        if (Physics.Raycast(raycastOrigin, raycastDirection, out RaycastHit hit, _raycastDistance))
         {
             if (hit.collider.CompareTag(GROUND_TAG))
                 IsGrounded = true;

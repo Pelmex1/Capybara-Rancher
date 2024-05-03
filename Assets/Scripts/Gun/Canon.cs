@@ -6,7 +6,6 @@ public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
     [SerializeField] private GameObject Portal2;
-    private (string, int, short) set; 
     private const float SPEED = 3f;
     private Collider _colliderCanon;
     private bool _oneFunc = true;
@@ -41,6 +40,7 @@ public class Canon : MonoBehaviour
         }
         else
         {
+            canonEnter.enabled = false;
             Portal2.SetActive(false);
             if (_oneFunc)
             {

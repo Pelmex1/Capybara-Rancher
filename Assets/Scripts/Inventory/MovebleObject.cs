@@ -1,3 +1,4 @@
+using System.Collections;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     private NavMeshAgent _navMeshAgent;
     private IObjectSpawner _objectSpawner;
     private bool _looted = false;
+    private bool _isDisabled = false;
 
     public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
     public GameObject Localgameobject {get => gameObject; set{return;}}
@@ -32,7 +34,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(CANON_TAG) && !_looted)
+        if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
         {
             _looted = true;
             if (EventBus.AddItemInInventory(Data))
@@ -48,6 +50,14 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     private void OnDisable() {
         _looted = false;
+    }
+    private void OnEnable() {
+        _isDisabled = true;
+        StartCoroutine(Disabled());
+    }
+    private IEnumerator Disabled(){
+        yield return new WaitForSecondsRealtime(2);
+        _isDisabled = false;
     }
 }
 
