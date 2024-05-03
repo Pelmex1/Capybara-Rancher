@@ -28,7 +28,7 @@ public class SavePosition : MonoBehaviour
             }
         }
     }
-    private void OnDestroy() {
+    private void OnDisable() {
         if(!_isOnAplicationQuit)
         PlayerPrefs.SetString($"{transform.parent?.name}_{name}_isEnable", "false");
     }
