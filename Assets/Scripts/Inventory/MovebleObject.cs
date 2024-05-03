@@ -39,6 +39,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             {
                 EventBus.RemoveFromList(gameObject);
                 if (_objectSpawner == null)
+                    ItemActivator.ActivatorItemsRemove(gameObject);
                     EventBus.AddInPool(gameObject,Data.TypeGameObject);
                     gameObject.SetActive(false);
                 } else {
