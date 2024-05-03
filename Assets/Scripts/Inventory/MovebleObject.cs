@@ -37,16 +37,15 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             _looted = true;
             if (EventBus.AddItemInInventory(Data))
             {
+                gameObject.SetActive(false);
+                EventBus.AddInPool(gameObject, Data.TypeGameObject);
                 EventBus.RemoveFromList(gameObject);
-                if (_objectSpawner == null)
-                    ItemActivator.ActivatorItemsRemove(gameObject);
-                    EventBus.AddInPool(gameObject,Data.TypeGameObject);
-                    gameObject.SetActive(false);
-                } else {
+                ItemActivator.ActivatorItemsRemove(gameObject);
+                if (_objectSpawner != null)
                     _objectSpawner.ReturnToPool(gameObject);
-                }
             }
         }
+    }
     private void OnDisable() {
         _looted = false;
     }

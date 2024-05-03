@@ -26,31 +26,26 @@ public class ItemActivator : MonoBehaviour
     private void Start()
     {
         ChangeRenderDistance();
-        StartCoroutine(CheckActivation());
     }
 
-    private IEnumerator CheckActivation()
+    private void LateUpdate()
     {
-        while (true)
+        if (ActivatorItems.Count > 0)
         {
-            if (ActivatorItems.Count > 0)
+            for (int i = 0; i < ActivatorItems.Count; i++)
             {
-                for (int i = 0; i < ActivatorItems.Count; i++)
+                if (ActivatorItems[i] == null)
                 {
-                    if (ActivatorItems[i] == null)
-                    {
-                        ActivatorItems.Remove(ActivatorItems[i]);
-                        continue;
-                    }
-                    if (Vector3.Distance(_player.transform.position, ActivatorItems[i].transform.position) > _renderDistance)
-                        ActivatorItems[i].SetActive(false);
-                    else if (ActivatorItems[i].activeInHierarchy == false)
-                    {
-                        ActivatorItems[i].SetActive(true);
-                    }
+                    ActivatorItems.Remove(ActivatorItems[i]);
+                    continue;
+                }
+                if (Vector3.Distance(_player.transform.position, ActivatorItems[i].transform.position) > _renderDistance)
+                    ActivatorItems[i].SetActive(false);
+                else if (ActivatorItems[i].activeInHierarchy == false)
+                {
+                    ActivatorItems[i].SetActive(true);
                 }
             }
-            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
     public static void ActivatorItemsAdd(GameObject addObject)
