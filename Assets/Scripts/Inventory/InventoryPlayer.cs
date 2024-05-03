@@ -13,17 +13,24 @@ public class InventoryPlayer : MonoBehaviour
     private const float SPEED = 10f;
     private Data _nullChestCell;
     private int _lastindex;
+    private int _dockersNumber = 5;
     public Data[] Inventory { get; set; } = new Data[5];
     private void Awake()
     {
         EventBus.AddItemInInventory = AddItemInInventory;
+        EventBus.ExtraSlotUpgrade += AddExtraSlot;
+    }
+    private void OnDisable()
+    {
+        EventBus.ExtraSlotUpgrade -= AddExtraSlot;
     }
     private void Start() {
-        if(_saves.Length == 5){
-            for(int i =0; i < 5; i++){
+        if(_saves.Length == _dockersNumber + 1){
+            for(int i = 0; i < _dockersNumber; i++){
                 Inventory[i].InventoryItem = _saves[i].InventoryItem;
                 Inventory[i].Count = _saves[i].Count;
             }
+            AddExtraSlot();
         } else throw new System.ArgumentOutOfRangeException();
         EventBus.OnRepaint.Invoke(Inventory);
     }
@@ -38,7 +45,7 @@ public class InventoryPlayer : MonoBehaviour
             EventBus.OnRepaint.Invoke(Inventory);
             return true;
         }
-        for (int i = 0; i < Inventory.Length; i++)
+        for (int i = 0; i < _dockersNumber; i++)
         {
             if (Inventory[i].InventoryItem == inventoryItem && Inventory[i].Count < 20)
             {
@@ -91,7 +98,7 @@ public class InventoryPlayer : MonoBehaviour
     {
         _lastindex = _index;
         float ScrollDelta = Input.mouseScrollDelta.y;
-        if (ScrollDelta < 0 && _index < 5 && Time.timeScale == 1f)
+        if (ScrollDelta < 0 && _index < _dockersNumber && Time.timeScale == 1f)
             ChangeIndex(-1);
         else if (ScrollDelta > 0 && _index >= 0 && Time.timeScale == 1f)
             ChangeIndex(1);
@@ -110,12 +117,13 @@ public class InventoryPlayer : MonoBehaviour
         "3" => 2,
         "4" => 3,
         "5" => 4,
+        "6" => PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1 ? 5 : _index,
         _ => _index
     };
     private void ChangeIndex(int delta)
     {
         _index += delta;
-        _index = Mathf.Clamp(_index, 0, 4);
+        _index = Mathf.Clamp(_index, 0, _dockersNumber - 1);
     }
     private IEnumerator Recherge()
     {
@@ -128,10 +136,26 @@ public class InventoryPlayer : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < _dockersNumber; i++)
         {
             _saves[i].InventoryItem = Inventory[i].InventoryItem;
             _saves[i].Count = Inventory[i].Count;
+        }
+    }
+
+    private void AddExtraSlot()
+    {
+        if(PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1)
+        {
+            Data[] newInventory = new Data[_dockersNumber + 1];
+            for (int i = 0; i < _dockersNumber; i++)
+            {
+                newInventory[i] = Inventory[i];
+            }
+            newInventory[_dockersNumber].InventoryItem = _saves[_dockersNumber].InventoryItem;
+            newInventory[_dockersNumber].Count = _saves[_dockersNumber].Count;
+            Inventory = newInventory;
+            _dockersNumber++;
         }
     }
 }

@@ -13,6 +13,8 @@ public class UpgradeTerminal : MonoBehaviour
     private const float HEALTHMAXVALUE_UPGRADE_PRICE = 150f;
     private const string HUNGER_KEY = "Hunger";
     private const float HUNGERMAXVALUE_UPGRADE_PRICE = 200f;
+    private const string EXTRASLOT_KEY = "ExtraSlotUpgrade";
+    private const float EXTRASLOT_VALUE_UPGRADE_PRICE = 400f;
 
     [SerializeField] private TMP_Text InfoText;
     [SerializeField] private GameObject _terminalPanel;
@@ -24,12 +26,7 @@ public class UpgradeTerminal : MonoBehaviour
     {
         if (isNear)
             OnUi();
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            ClearUpgradeSaves();
-        }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(PLAYER_TAG))
@@ -76,23 +73,29 @@ public class UpgradeTerminal : MonoBehaviour
                 case HUNGER_KEY: price = HUNGERMAXVALUE_UPGRADE_PRICE; break;
                 default: price = 0; break;
             }
-            EventBus.AddMoney(-1f * price);
-            float newValue = PlayerPrefs.GetFloat(parametr + "MaxValue") * VALUE_UPGRADE;
-            PlayerPrefs.SetFloat(parametr + "MaxValue", newValue);
-            PlayerPrefs.SetInt(parametr + "MaxValueUpgrade", 1);
-            EventBus.MaxValueUpgrade.Invoke();
-            EventBus.GetEnergyPlayerData.Invoke();
+            if (EventBus.GetMoney() >= price)
+            {
+                EventBus.AddMoney(-1f * price);
+                float newValue = PlayerPrefs.GetFloat(parametr + "MaxValue") * VALUE_UPGRADE;
+                PlayerPrefs.SetFloat(parametr + "MaxValue", newValue);
+                PlayerPrefs.SetInt(parametr + "MaxValueUpgrade", 1);
+                EventBus.MaxValueUpgrade.Invoke();
+                EventBus.GetEnergyPlayerData.Invoke();
+            }
         }
     }
 
-    private void ClearUpgradeSaves() // for tests
+    public void ExtraSlotUpgrade()
     {
-        PlayerPrefs.DeleteKey("EnergyMaxValue");
-        PlayerPrefs.DeleteKey("HealthMaxValue");
-        PlayerPrefs.DeleteKey("HungerMaxValue");
-        PlayerPrefs.DeleteKey("EnergyMaxValueUpgrade");
-        PlayerPrefs.DeleteKey("HealthMaxValueUpgrade");
-        PlayerPrefs.DeleteKey("HungerMaxValueUpgrade");
+        if (PlayerPrefs.GetInt(EXTRASLOT_KEY, 0) == 0)
+        {
+            if (EventBus.GetMoney() >= EXTRASLOT_VALUE_UPGRADE_PRICE)
+            {
+                EventBus.AddMoney(-1f * EXTRASLOT_VALUE_UPGRADE_PRICE);
+                PlayerPrefs.SetInt(EXTRASLOT_KEY, 1);
+                EventBus.ExtraSlotUpgrade.Invoke();
+            }
+        }
     }
 
     public void InfoPanelActivate(int numberOfPanel)
