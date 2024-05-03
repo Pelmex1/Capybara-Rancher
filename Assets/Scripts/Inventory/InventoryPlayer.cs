@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class InventoryPlayer : MonoBehaviour
 {
+    private const float SPEED = 10f;
     [SerializeField] private BoxCollider canonEnter;
     [SerializeField] private SavingCellData[] _saves;
 
     private int _index = 0;
     private int _localIndex;
-    private const float SPEED = 10f;
     private Data _nullChestCell;
     private int _lastindex;
     private bool _isEnabledSixCell = false;
@@ -25,7 +25,6 @@ public class InventoryPlayer : MonoBehaviour
             Inventory = localInventory;
             _isEnabledSixCell = true;
         };
-        EventBus.AddItemInInventory = AddItemInInventory;
     }
     private void Start() {
         if(PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1){
@@ -139,7 +138,12 @@ public class InventoryPlayer : MonoBehaviour
         canonEnter.enabled = true;
         EventBus.InumeratorIsEnabled(false);
     }
-
+    private void OnEnable() {
+        EventBus.AddItemInInventory += AddItemInInventory;
+    }
+    private void OnDisable() {
+        EventBus.AddItemInInventory -= AddItemInInventory;
+    }
     private void OnApplicationQuit()
     {
         for (int i = 0; i < 5; i++)

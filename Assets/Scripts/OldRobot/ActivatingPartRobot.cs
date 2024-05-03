@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ActivatingPartRobot : MonoBehaviour, ITransitionCrystallData
 {

@@ -1,7 +1,6 @@
 using CapybaraRancher.CustomStructures;
 using CapybaraRancher.EventBus;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,17 +14,22 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private RectTransform _dockersParentTransform;
 
     [SerializeField] private Image[] _docker;
-    private Image[] _crosses = new Image[5];
-    private int _dockersNumber = 5;
+    private readonly Image[] _crosses = new Image[6];
 
     private void Awake()
     {
         EventBus.OnRepaint = Repaint;
         EventBus.WasChangeIndexCell = ChangeDocker;
-        EventBus.ExtraSlotUpgrade += AddExtraSlot;
-        for (int i = 0; i < _dockersNumber; i++)
+        for (int i = 0; i < _crosses.Length; i++)
             _crosses[i] = _docker[i].gameObject.GetComponentInChildren<Image>();
-        AddExtraSlot();
+    }
+    private void Start() {
+        if(PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1){
+            _docker[5].gameObject.SetActive(true);
+        } else _docker[5].gameObject.SetActive(false);
+    }
+    private void OnEnable() {
+        EventBus.ExtraSlotUpgrade += AddExtraSlot;
     }
     private void OnDisable()
     {
@@ -59,20 +63,10 @@ public class UIInventory : MonoBehaviour
     }
     private void AddExtraSlot()
     {
-        if (PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1)
-        {
-            Image[] newCrosses = new Image[_dockersNumber + 1];
-            for (int i = 0; i < _dockersNumber ; i++)
-            {
-                newCrosses[i] = _crosses[i];
-            }
-            newCrosses[_dockersNumber] = _docker[_dockersNumber].gameObject.GetComponentInChildren<Image>();
-            _crosses = newCrosses;
-            _dockersNumber++;
-            Vector2 newPos = _dockersParentTransform.anchoredPosition;
-            newPos.x += SHIFT_FOR_EXTRASLOT;
-            _dockersParentTransform.anchoredPosition = newPos;
-            _extraSlotObject.SetActive(true);
-        }
+        _docker[5].gameObject.SetActive(true);
+        Vector2 newPos = _dockersParentTransform.anchoredPosition;
+        newPos.x += SHIFT_FOR_EXTRASLOT;
+        _dockersParentTransform.anchoredPosition = newPos;
+        _extraSlotObject.SetActive(true);
     }
 }
