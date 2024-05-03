@@ -30,12 +30,10 @@ public class Hunger : MonoBehaviour
     private int CheckAndEatCrystal()
     {
         Vector3 cameraForward = _camera.transform.forward;
-        Ray cameraRay = new Ray(_camera.transform.position, cameraForward);
-        ICrystalItem crystal;
-        RaycastHit hit;
-        if (Physics.Raycast(cameraRay, out hit, _raycastDistance))
+        Ray cameraRay = new(_camera.transform.position, cameraForward);
+        if (Physics.Raycast(cameraRay, out RaycastHit hit, _raycastDistance))
             if (hit.collider.CompareTag(MOVEBLE_OBJECT_TAG))
-                if (hit.collider.TryGetComponent<ICrystalItem>(out crystal))
+                if (hit.collider.TryGetComponent(out ICrystalItem crystal))
                 {
                     if (Input.GetKeyDown(KeyCode.E))
                     {

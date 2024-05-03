@@ -11,7 +11,8 @@ public class ItemAccept : MonoBehaviour
             if (other.gameObject.TryGetComponent<ICrystalItem>(out var crystalItem))
             {
                 EventBus.AddMoney(crystalItem.Price);
-                Destroy(other.gameObject);
+                EventBus.AddInPool(other.gameObject, other.gameObject.GetComponent<IMovebleObject>().Data.TypeGameObject);
+                other.gameObject.SetActive(false);
             }
         }
     }

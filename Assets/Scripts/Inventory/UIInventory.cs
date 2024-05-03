@@ -25,8 +25,8 @@ public class UIInventory : MonoBehaviour
     }
     private void Start() {
         if(PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1){
-            _docker[5].gameObject.SetActive(true);
-        } else _docker[5].gameObject.SetActive(false);
+            _docker[5].gameObject.transform.parent.gameObject.SetActive(true);
+        } else _docker[5].gameObject.transform.parent.gameObject.SetActive(false);
     }
     private void OnEnable() {
         EventBus.ExtraSlotUpgrade += AddExtraSlot;
@@ -63,7 +63,7 @@ public class UIInventory : MonoBehaviour
     }
     private void AddExtraSlot()
     {
-        _docker[5].gameObject.SetActive(true);
+        _docker[5].gameObject.transform.parent.gameObject.SetActive(true);
         Vector2 newPos = _dockersParentTransform.anchoredPosition;
         newPos.x += SHIFT_FOR_EXTRASLOT;
         _dockersParentTransform.anchoredPosition = newPos;
