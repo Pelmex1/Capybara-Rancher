@@ -91,5 +91,8 @@ public class LocalMenu : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void SaveQuit() => SceneManager.LoadScene("MainMenu");
+    public void SaveQuit()
+    {
+        SceneManager.LoadScene("MainMenu");
+    } 
 }
