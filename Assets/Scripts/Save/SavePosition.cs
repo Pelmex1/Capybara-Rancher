@@ -1,7 +1,10 @@
+using CapybaraRancher.EventBus;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 
 public class SavePosition : MonoBehaviour
 {
+    private bool _isOnAplicationQuit = false;
     private void Start() {
         if(gameObject.CompareTag("Player"))
         {
@@ -12,7 +15,8 @@ public class SavePosition : MonoBehaviour
             transform.position = new(x,y,z);
         } else {
             if(PlayerPrefs.GetString($"{transform.parent?.name}_{name}_isEnable", "true") == "false")
-            {
+            {   
+                EventBus.AddInPool(gameObject, GetComponent<IMovebleObject>().Data.TypeGameObject);
                 gameObject.SetActive(false);
             } else {
                 Vector3 _positionNow = transform.position;
@@ -25,9 +29,11 @@ public class SavePosition : MonoBehaviour
         }
     }
     private void OnDestroy() {
+        if(!_isOnAplicationQuit)
         PlayerPrefs.SetString($"{transform.parent?.name}_{name}_isEnable", "false");
     }
     private void OnApplicationQuit() {
+        _isOnAplicationQuit = true;
         if(gameObject.CompareTag("Player"))
         {
             PlayerPrefs.SetFloat("Player_X", gameObject.transform.position.x);
