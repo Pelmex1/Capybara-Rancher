@@ -49,14 +49,14 @@ public class RoborMoveble : MovebleObject, IRobotParts
 
 
     private void OnObject(string NameObject, int OnIndexofPart)
-    {
+    { 
         for (int i = 0; i < AllPartsObject.Length; i++)
         {
             if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].name == NameObject)
             {
                 AllPartsObject[OnIndexofPart].GetComponent<IRobotParts>().CheckMoving = true;
             }
-        }
+        }    
     }
     private void OffObject(string NameObject, int OffIndexofPart, Transform PointTransform)
     {
@@ -67,9 +67,10 @@ public class RoborMoveble : MovebleObject, IRobotParts
                 AllPartsObject[OffIndexofPart].GetComponent<IRobotParts>().CheckMoving = false;
                 AllPartsObject[OffIndexofPart].tag = "PartsRobot";
                 AllPartsObject[OffIndexofPart].transform.SetParent(PointTransform);
+                AllPartsObject[OffIndexofPart].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;    
                 AllPartsObject[OffIndexofPart].transform.localPosition = new Vector3(0f,0f,0f);
+                         
             }
         }
     }
-
 }

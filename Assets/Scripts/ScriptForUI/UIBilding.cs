@@ -22,7 +22,6 @@ public class UIBilding : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
         ParentPosition = ParentPlace.transform;
         if (PlayerPrefs.HasKey($"{IndexPlace}"))
         {
