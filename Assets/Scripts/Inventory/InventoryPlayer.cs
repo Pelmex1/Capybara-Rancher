@@ -17,14 +17,7 @@ public class InventoryPlayer : MonoBehaviour
     public Data[] Inventory { get; set; }
     private void Awake()
     {
-        EventBus.ExtraSlotUpgrade = () => {
-            Data[] localInventory = new Data[6];
-            for(int i = 0; i < Inventory.Length; i++){
-                localInventory[i] = Inventory[i];
-            }
-            Inventory = localInventory;
-            _isEnabledSixCell = true;
-        };
+        EventBus.AddItemInInventory = AddItemInInventory;
     }
     private void Start() {
         if(PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1){
@@ -139,10 +132,18 @@ public class InventoryPlayer : MonoBehaviour
         EventBus.InumeratorIsEnabled(false);
     }
     private void OnEnable() {
-        EventBus.AddItemInInventory += AddItemInInventory;
+        EventBus.ExtraSlotUpgrade += AddExtraSlot;
     }
     private void OnDisable() {
-        EventBus.AddItemInInventory -= AddItemInInventory;
+        EventBus.ExtraSlotUpgrade -= AddExtraSlot;
+    }
+    private void AddExtraSlot(){
+        Data[] localInventory = new Data[6];
+        for(int i = 0; i < Inventory.Length; i++){
+            localInventory[i] = Inventory[i];
+        }
+        Inventory = localInventory;
+        _isEnabledSixCell = true;
     }
     private void OnApplicationQuit()
     {

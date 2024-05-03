@@ -92,8 +92,8 @@ public class UpgradeTerminal : MonoBehaviour
             if (EventBus.GetMoney() >= EXTRASLOT_VALUE_UPGRADE_PRICE)
             {
                 EventBus.AddMoney(-1f * EXTRASLOT_VALUE_UPGRADE_PRICE);
-                PlayerPrefs.SetInt(EXTRASLOT_KEY, 1);
                 EventBus.ExtraSlotUpgrade.Invoke();
+                PlayerPrefs.SetInt(EXTRASLOT_KEY, 1);
             }
         }
     }

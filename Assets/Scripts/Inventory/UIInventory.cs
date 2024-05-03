@@ -64,9 +64,8 @@ public class UIInventory : MonoBehaviour
     private void AddExtraSlot()
     {
         _docker[5].gameObject.transform.parent.gameObject.SetActive(true);
-        Vector2 newPos = _dockersParentTransform.anchoredPosition;
-        newPos.x += SHIFT_FOR_EXTRASLOT;
-        _dockersParentTransform.anchoredPosition = newPos;
-        _extraSlotObject.SetActive(true);
+        //Vector2 newPos = _dockersParentTransform.anchoredPosition;
+        //newPos.x += SHIFT_FOR_EXTRASLOT;
+        //_dockersParentTransform.anchoredPosition = newPos;
     }
 }
