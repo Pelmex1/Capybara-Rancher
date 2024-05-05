@@ -5,6 +5,12 @@ using UnityEngine;
 public class SavePosition : MonoBehaviour
 {
     private bool _isOnAplicationQuit = false;
+    private void OnEnable() {
+        try
+        {
+            EventBus.RemoveFromList(gameObject);
+        } finally {} // Он не может существовать один
+    }
     private void Start() {
         if(gameObject.CompareTag("Player"))
         {
@@ -30,7 +36,7 @@ public class SavePosition : MonoBehaviour
     }
     private void OnDisable() {
         if(!_isOnAplicationQuit)
-        PlayerPrefs.SetString($"{transform.parent?.name}_{name}_isEnable", "false");
+        EventBus.AddInDisable(gameObject);
     }
     private void OnApplicationQuit() {
         _isOnAplicationQuit = true;

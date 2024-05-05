@@ -9,6 +9,7 @@ public class Iinstance : MonoBehaviour
 
     public float Money;
     private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch - 1];
+    private readonly List<GameObject> _QueueToDisable;
     private void Awake()
     {
         if (instance == null)
@@ -46,6 +47,9 @@ public class Iinstance : MonoBehaviour
     public void SaveData()
     {
         PlayerPrefs.SetFloat("Money", Money);
+        for(int i = 0; i < _QueueToDisable.Count; i++){
+            PlayerPrefs.SetString($"{_QueueToDisable[i].transform.parent?.name}_{_QueueToDisable[i].name}_isEnable", "false");
+        }
     }
     private void OnApplicationQuit()
     {
@@ -53,6 +57,8 @@ public class Iinstance : MonoBehaviour
     }
     private void OnEnable()
     {
+        EventBus.AddInDisable = (GameObject LocalGameObject) => _QueueToDisable.Add(LocalGameObject);
+        EventBus.RemoveFromDisable = (GameObject LocalGameObject) => _QueueToDisable.Remove(LocalGameObject);
         EventBus.AddInPool = AddInQueue;
         EventBus.RemoveFromThePool = RemoveFromQueue;
     }

@@ -7,6 +7,8 @@ namespace CapybaraRancher.EventBus
 {
     public static class EventBus
     {
+        public static Action<GameObject> AddInDisable;
+        public static Action<GameObject> RemoveFromDisable;
         public static Action<GameObject, TypeGameObject> AddInPool;
         public static Func<TypeGameObject, GameObject> RemoveFromThePool;
         public static Action<float> AddMoney;
@@ -14,7 +16,6 @@ namespace CapybaraRancher.EventBus
         public static Predicate<GameObject> CheckList;
         public static Action<bool> InumeratorIsEnabled;
         public static Action<bool> EnableHelpUi;
-        public static Action<int> GetIndex;
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
 
