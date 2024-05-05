@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CapybaraRancher.Enums;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,12 +57,17 @@ namespace CapybaraRancher.Interfaces
     {
         public int IndexofPart { get; set; }
         public bool CheckMoving { get; set; }
+        public bool WasBuilding { get; set; }
         public GameObject[] AllPartsObject { get; set; }
+    }
+    internal interface ICrystall
+    {
+        public string NameCrystal {get; set;}
     }
     internal interface ITransitionCrystallData
     {
-        public bool WasChangeDict {get; set;}
-        public Dictionary<string, int> DictionaryCrystall {get; set;}
+        public bool WasChangeDict { get; set; }
+        public Dictionary<string, int> DictionaryCrystall { get; set; }
         public void TransitionData();
     }
     internal interface IPlayer

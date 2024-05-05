@@ -13,7 +13,6 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private Image[] AllSelectImage = new Image[3];
     [SerializeField] private Image[] SaveIncons;
     [SerializeField] private TMP_Text TextOfMode;
-    [SerializeField] private GameObject ObjectIcons;
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private TMP_Text TextNameGame;

@@ -2,53 +2,49 @@ using System.Collections.Generic;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
-
-public class ActivatingPartRobot : MonoBehaviour, ITransitionCrystallData
+public class ActivatingPartRobot : MonoBehaviour
 {
-    public bool WasChangeDict { get; set; } = false;
-    public Dictionary<string, int> DictionaryCrystall { get; set; } = new();
-    private Dictionary<string, int> CheckDataCrusyl = new Dictionary<string, int>();
-    private int AmountCrystal;
-    private List<string> UsedParts = new List<string>();
+    [SerializeField] private Transform[] Points = new Transform[3];
+    [SerializeField] private GameObject[] AllParts = new GameObject[3];
+    [SerializeField] private GameObject WinPanel;
+    private int AmountActivingParts;
+    private void Awake()
+    {
+        EventBus.WasAddingAllCrystall = CheckWon;
+        EventBus.TransitonPartsData.Invoke(AllParts);
+        foreach (GameObject i in AllParts)
+        {
+            i.GetComponent<IRobotParts>().AllPartsObject = AllParts;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "movebleObject")
+        for (int i = 0; i < AllParts.Length; i++)
         {
-            EventBus.AddToDict.Invoke();
-            if (CheckDataCrusyl.ContainsKey(other.name) && CheckDataCrusyl[other.name] == 0)
+            if (other.gameObject == AllParts[i])
             {
-                Destroy(other.gameObject);
-                CheckDataCrusyl[other.name]++;
-                CheckActiveCrystal();
-            }
-            else if (CheckDataCrusyl.ContainsKey(other.name)!)
-            {
-                EventBus.AddToDict.Invoke();
-                Destroy(other.gameObject);
-                CheckDataCrusyl[other.name]++;
-                CheckActiveCrystal();
+                if (other.tag == "movebleObject" && other.GetComponent<IRobotParts>().CheckMoving == true)
+                {
+                    int index = other.GetComponent<IRobotParts>().IndexofPart;
+                    EventBus.OffMovebleObject.Invoke(index, Points[index]);
+                }
             }
         }
-        else
-            return;
+
     }
 
-    private void CheckActiveCrystal()
+    private void CheckWon()
     {
-        foreach (var item in CheckDataCrusyl)
+        for (int i = 0; i < AllParts.Length; i++)
         {
-            if (item.Value == 1 & AmountCrystal != 3 & UsedParts.Contains(item.Key)!)
-            {
-                AmountCrystal++;
-            }
-            UsedParts.Add(item.Key);
+            if (AllParts[i].GetComponent<IRobotParts>().WasBuilding)
+                AmountActivingParts++;
         }
-        if (AmountCrystal == 3)
-            gameObject.tag = "movebleObject";
-        EventBus.OnMovebleObject.Invoke(gameObject.name, gameObject.GetComponent<IRobotParts>().IndexofPart);
-    }
-    public void TransitionData()
-    {
-        CheckDataCrusyl = DictionaryCrystall;
+        if (AmountActivingParts == 3)
+        {
+            Time.timeScale = 0;
+            WinPanel.SetActive(true);
+        }
+        else return;
     }
 }
