@@ -42,7 +42,7 @@ public class RoborMoveble : MovebleObject, IRobotParts
         Debug.Log(CheckMoving + $" {gameObject.name}");
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         // Debug.Log(CheckMoving);
         if (CheckMoving)
@@ -50,9 +50,17 @@ public class RoborMoveble : MovebleObject, IRobotParts
         else
             PlayerPrefs.SetInt($"CanMoving{_index}", 1);
         PlayerPrefs.Save();
+        base.OnDisable();
         Debug.Log(CheckMoving + $" {gameObject.name}");
     }
 
+    protected override void OnTriggerEnter(Collider other)
+    {
+        if (CheckMoving)
+        {
+            base.OnTriggerEnter(other);
+        }
+    }
 
     private void OnObject(string NameObject, int OnIndexofPart)
     {
@@ -77,7 +85,7 @@ public class RoborMoveble : MovebleObject, IRobotParts
                 _usingObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 _usingObject.transform.localPosition = new Vector3(0f, 0f, 0f);
                 _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                _usingObject.transform.localScale = new Vector3(100f,100f,30f);
+                _usingObject.transform.localScale = new Vector3(100f, 100f, 30f);
             }
         }
     }

@@ -35,13 +35,14 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             _ = IsMoved ? (_navMeshAgent.enabled = false) : (_navMeshAgent.enabled = true);
         }
     }
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
         {
+
             _looted = true;
             if (EventBus.AddItemInInventory(Data))
-            { 
+            {
                 EventBus.AddInPool(gameObject, Data.TypeGameObject);
                 EventBus.RemoveFromList(gameObject);
                 ItemActivator.ActivatorItemsRemove(gameObject);
@@ -50,7 +51,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             }
         }
     }
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         _looted = false;
     }
