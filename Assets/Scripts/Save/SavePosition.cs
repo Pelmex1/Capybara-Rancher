@@ -9,7 +9,10 @@ public class SavePosition : MonoBehaviour
         try
         {
             EventBus.RemoveFromList(gameObject);
-        } finally {} // Он не может существовать один
+        }
+        catch (System.Exception)
+        {     
+        }   
     }
     private void Start() {
         if(gameObject.CompareTag("Player"))

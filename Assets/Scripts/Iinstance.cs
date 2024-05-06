@@ -9,7 +9,7 @@ public class Iinstance : MonoBehaviour
 
     public float Money;
     private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch - 1];
-    private readonly List<GameObject> _QueueToDisable;
+    private List<GameObject> _QueueToDisable = new();
     private void Awake()
     {
         if (instance == null)

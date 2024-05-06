@@ -121,7 +121,7 @@ public class InventoryPlayer : MonoBehaviour
     private void ChangeIndex(int delta)
     {
         _index += delta;
-        _index = Mathf.Clamp(_index, 0, Inventory.Length);
+        _index = Mathf.Clamp(_index, 0, Inventory.Length - 1);
     }
     private IEnumerator Recherge()
     {
