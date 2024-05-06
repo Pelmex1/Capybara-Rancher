@@ -14,21 +14,24 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     private bool _isDisabled = false;
 
     public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
-    public GameObject Localgameobject {get => gameObject; set{return;}}
-    public bool IsMoved {get; set;} = false;
+    public GameObject Localgameobject { get => gameObject; set { return; } }
+    public bool IsMoved { get; set; } = false;
     private void Start()
     {
         TryGetComponent(out _navMeshAgent);
         transform.parent?.TryGetComponent(out _objectSpawner);
     }
-    protected virtual void Update() 
+    protected virtual void Update()
     {
-        if(Input.GetMouseButton(0) && Time.timeScale > 0){
-            if(EventBus.CheckList(gameObject)) IsMoved = true;
-        } else IsMoved = false;
-        
-        if(Input.GetKeyDown(KeyCode.E) && Time.timeScale == 1f){
-            if(_navMeshAgent == null) return;
+        if (Input.GetMouseButton(0) && Time.timeScale > 0)
+        {
+            if (EventBus.CheckList(gameObject)) IsMoved = true;
+        }
+        else IsMoved = false;
+
+        if (Input.GetKeyDown(KeyCode.E) && Time.timeScale == 1f)
+        {
+            if (_navMeshAgent == null) return;
             _ = IsMoved ? (_navMeshAgent.enabled = false) : (_navMeshAgent.enabled = true);
         }
     }
@@ -47,14 +50,17 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             }
         }
     }
-    private void OnDisable() {
+    private void OnDisable()
+    {
         _looted = false;
     }
-    private void OnEnable() {
+    private void OnEnable()
+    {
         _isDisabled = true;
         StartCoroutine(Disabled());
     }
-    private IEnumerator Disabled(){
+    private IEnumerator Disabled()
+    {
         yield return new WaitForSecondsRealtime(2);
         _isDisabled = false;
     }
