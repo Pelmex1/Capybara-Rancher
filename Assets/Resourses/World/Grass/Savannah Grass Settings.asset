@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6f2421c23ff494c906c4d16cbbb7f1, type: 3}
+  m_Name: Savannah Grass Settings
+  m_EditorClassIdentifier: 
+  shaderToUse: {fileID: 7200000, guid: 2860f9998111b5f438857b8f461e7a80, type: 3}
+  materialToUse: {fileID: 2100000, guid: 2a5ab53e692215c47bd7b42565730aac, type: 2}
+  grassRandomHeightMin: 0.25
+  grassRandomHeightMax: 0.25
+  bladeRadius: 1
+  bladeForwardAmount: 0.38
+  bladeCurveAmount: 2
+  bottomWidth: 0.1
+  MinWidth: 0.025
+  MinHeight: 0.29
+  MaxWidth: 0.03
+  MaxHeight: 0.31
+  windSpeed: 2
+  windStrength: 0.05
+  allowedBladesPerVertex: 3
+  allowedSegmentsPerBlade: 4
+  affectStrength: 1
+  topTint: {r: 0.8641333, g: 0.9339623, b: 0, a: 1}
+  bottomTint: {r: 0.8412301, g: 0.8867924, b: 0.14640439, a: 1}
+  drawBounds: 0
+  minFadeDistance: 40
+  maxDrawDistance: 100
+  cullingTreeDepth: 1
+  castShadow: 0
