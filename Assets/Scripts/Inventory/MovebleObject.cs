@@ -39,7 +39,6 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     {
         if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
         {
-
             _looted = true;
             if (EventBus.AddItemInInventory(Data))
             {

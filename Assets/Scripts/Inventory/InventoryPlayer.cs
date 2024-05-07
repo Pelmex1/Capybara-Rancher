@@ -19,28 +19,36 @@ public class InventoryPlayer : MonoBehaviour
     {
         EventBus.AddItemInInventory = AddItemInInventory;
     }
-    private void Start() {
-        if(PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1){
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("ExtraSlotUpgrade", 0) == 1)
+        {
             Inventory = new Data[6];
             _isEnabledSixCell = true;
-        } else Inventory = new Data[5];
-        if(_saves.Length == 6){
-            for(int i =0; i < Inventory.Length; i++){
+        }
+        else Inventory = new Data[5];
+        if (_saves.Length == 6)
+        {
+            for (int i = 0; i < Inventory.Length; i++)
+            {
                 Inventory[i].InventoryItem = _saves[i].InventoryItem;
                 Inventory[i].Count = _saves[i].Count;
             }
-        } else throw new System.ArgumentOutOfRangeException();
+        }
+        else throw new System.ArgumentOutOfRangeException();
         EventBus.OnRepaint.Invoke(Inventory);
     }
-     public bool AddItemInInventory(InventoryItem inventoryItem)
+    public bool AddItemInInventory(InventoryItem inventoryItem)
     {
         if (Inventory[_index].InventoryItem == null ||
             (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
         {
+
             Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
             EventBus.PlayerGunAdd();
             EventBus.OnRepaint.Invoke(Inventory);
+            Debug.Log("Work Add 1");
             return true;
         }
         for (int i = 0; i < Inventory.Length; i++)
@@ -53,7 +61,7 @@ public class InventoryPlayer : MonoBehaviour
                 return true;
             }
             else if (Inventory[i].InventoryItem == null && _nullChestCell.Equals(null))
-            {       
+            {
                 _nullChestCell = Inventory[i];
                 _nullChestCell.Image = inventoryItem.Image;
                 _localIndex = i;
@@ -100,8 +108,8 @@ public class InventoryPlayer : MonoBehaviour
             ChangeIndex(-1);
         else if (ScrollDelta > 0 && _index >= 0 && Time.timeScale == 1f)
             ChangeIndex(1);
-        _index = IsButton(Input.inputString,_isEnabledSixCell);
-        EventBus.WasChangeIndexCell.Invoke(_lastindex,_index);
+        _index = IsButton(Input.inputString, _isEnabledSixCell);
+        EventBus.WasChangeIndexCell.Invoke(_lastindex, _index);
         _lastindex = _index;
         if (Input.GetMouseButtonDown(1))
         {
@@ -131,15 +139,19 @@ public class InventoryPlayer : MonoBehaviour
         canonEnter.enabled = true;
         EventBus.InumeratorIsEnabled(false);
     }
-    private void OnEnable() {
+    private void OnEnable()
+    {
         EventBus.ExtraSlotUpgrade += AddExtraSlot;
     }
-    private void OnDisable() {
+    private void OnDisable()
+    {
         EventBus.ExtraSlotUpgrade -= AddExtraSlot;
     }
-    private void AddExtraSlot(){
+    private void AddExtraSlot()
+    {
         Data[] localInventory = new Data[6];
-        for(int i = 0; i < Inventory.Length; i++){
+        for (int i = 0; i < Inventory.Length; i++)
+        {
             localInventory[i] = Inventory[i];
         }
         Inventory = localInventory;

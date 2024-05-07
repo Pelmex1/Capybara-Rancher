@@ -8,7 +8,7 @@ public class Iinstance : MonoBehaviour
     public static Iinstance instance;
 
     public float Money;
-    private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch - 1];
+    private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch];
     private List<GameObject> _QueueToDisable = new();
     private void Awake()
     {
@@ -22,7 +22,8 @@ public class Iinstance : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        for(int i = 0; i < _movebleobjects.Length; i++){
+        for (int i = 0; i < _movebleobjects.Length; i++)
+        {
             _movebleobjects[i] = new();
         }
         //SceneManager.sceneLoaded += OnSceneLoaded;
@@ -38,16 +39,20 @@ public class Iinstance : MonoBehaviour
     //}
     private void AddInQueue(GameObject localGameObject, TypeGameObject typeGameObject)
     {
-        _movebleobjects[(int)typeGameObject].Enqueue(localGameObject);
+        if(typeGameObject != TypeGameObject.LastDontToch)
+            _movebleobjects[(int)typeGameObject].Enqueue(localGameObject);
     }
     private GameObject RemoveFromQueue(TypeGameObject typeGameObject)
     {
-        return _movebleobjects[(int)typeGameObject].Dequeue();
+        if(typeGameObject != TypeGameObject.LastDontToch)
+            return _movebleobjects[(int)typeGameObject].Dequeue();
+        else return null;
     }
     public void SaveData()
     {
         PlayerPrefs.SetFloat("Money", Money);
-        for(int i = 0; i < _QueueToDisable.Count; i++){
+        for (int i = 0; i < _QueueToDisable.Count; i++)
+        {
             PlayerPrefs.SetString($"{_QueueToDisable[i].transform.parent?.name}_{_QueueToDisable[i].name}_isEnable", "false");
         }
     }
