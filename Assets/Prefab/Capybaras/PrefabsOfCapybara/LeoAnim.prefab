@@ -15504,7 +15504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delayBeforeCrystalSpawn: 10
-  _delayBeforeStarving: 60
+  _delayBeforeStarving: 1
   _wellfedParticle: {fileID: 6272624208854744409}
   _hungryParticle: {fileID: 8356220584649440889}
   _angryParticle: {fileID: 3315599936401137596}

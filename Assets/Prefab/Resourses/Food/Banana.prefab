@@ -168,7 +168,7 @@ MonoBehaviour:
   indexForSpawnFarm: 2
   timeGeneration: 180
   isGenerable: 1
-  type: 0
+  type: 2
 --- !u!114 &-2030538048087085594
 MonoBehaviour:
   m_ObjectHideFlags: 0

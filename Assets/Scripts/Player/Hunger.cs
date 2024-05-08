@@ -1,5 +1,6 @@
 using System.Collections;
 using CapybaraRancher.Interfaces;
+using CapybaraRancher.EventBus;
 using UnityEngine;
 
 public class Hunger : MonoBehaviour
@@ -38,7 +39,9 @@ public class Hunger : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         HungerRegen(crystal.PercentOfRegen);
-                        Destroy(hit.collider.gameObject);
+                        GameObject crystalGameObject = hit.collider.gameObject;
+                        crystalGameObject.SetActive(false);
+                        EventBus.AddInPool(crystalGameObject, crystalGameObject.GetComponent<IMovebleObject>().Data.TypeGameObject);
                     }
                     _infoText.SetActive(true);
                     return 1;
@@ -49,7 +52,7 @@ public class Hunger : MonoBehaviour
 
     private void HungerRegen(float percentOfRegen)
     {
-        _stats.Hunger += percentOfRegen * _stats.HungerMaxValue;
+        _stats.Hunger += percentOfRegen * 0.01f * _stats.HungerMaxValue;
     }
 
     private IEnumerator HungerUpdate()
