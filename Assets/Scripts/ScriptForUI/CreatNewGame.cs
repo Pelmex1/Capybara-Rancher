@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class CreatNewGame : MonoBehaviour
 {
 
+    [SerializeField] private SavingCellData[] savingInventoryData;
     [SerializeField] private Sprite SelectMod;
     [SerializeField] private Sprite NotSelectMod;
     [SerializeField] private Image[] AllSelectImage = new Image[3];
     [SerializeField] private Image[] SaveIncons;
     [SerializeField] private TMP_Text TextOfMode;
-    [SerializeField] private GameObject ObjectIcons;
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
     [SerializeField] private TMP_Text TextNameGame;
@@ -36,9 +36,18 @@ public class CreatNewGame : MonoBehaviour
 
     public void Confirm()
     {
-        audioSource.Stop();
-        EventBus.OnLorScene.Invoke();
-        PlayerPrefs.DeleteAll();
+        if (SelectIcon != null && TextOfMode != null && PlayerPrefs.HasKey("KeyMod"))
+        {
+            audioSource.Stop();
+            EventBus.OnLorScene.Invoke();
+            for (int i = 0; i < savingInventoryData.Length; i++)
+            {
+                savingInventoryData[i].InventoryItem = null;
+                savingInventoryData[i].Count = 0;
+            }
+            PlayerPrefs.DeleteAll();
+        }
+        else return;
     }
 
 
@@ -80,7 +89,6 @@ public class CreatNewGame : MonoBehaviour
         {
             SaveIncons[i].color = Color.white;
         }
-
         SaveIncons[indexObject].color = Color.grey;
         SelectIcon = ObjectButton.GetComponent<Image>();
         //SelectIcon = SelectImage;

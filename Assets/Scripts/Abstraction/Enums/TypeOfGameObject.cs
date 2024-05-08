@@ -1,12 +1,13 @@
 namespace CapybaraRancher.Enums
 {
-    public enum TypeGameObject{
-        GladeCapybara, 
-        RockCapybara, 
-        LeoCapybara, 
-        PinkChicken, 
-        Carrot, 
-        Mandarine, 
+    public enum TypeGameObject
+    {
+        GladeCapybara,
+        RockCapybara,
+        LeoCapybara,
+        PinkChicken,
+        Carrot,
+        Mandarine,
         Banana,
         GladeCrystal,
         RockCrystal,

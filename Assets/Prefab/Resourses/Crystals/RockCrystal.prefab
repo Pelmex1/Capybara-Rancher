@@ -182,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7120a796e1c494f48b6e4e73bbcbf73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nameCrystal: RockCrystal
 --- !u!114 &-6891399964991954551
 MonoBehaviour:
   m_ObjectHideFlags: 0

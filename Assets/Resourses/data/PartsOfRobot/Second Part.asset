@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Second Part
   Image: {fileID: 21300000, guid: ff0258a3e392e4f4983cd0f23c140a20, type: 3}
-  Prefab: {fileID: 3241679210969829724, guid: 92a5c542a4f5e5845a8e688b006d4844, type: 3}
+  Prefab: {fileID: 7932259904221330988, guid: 92a5c542a4f5e5845a8e688b006d4844, type: 3}
   Color: {r: 0, g: 0, b: 0, a: 0}
   TypeGameObject: 11
