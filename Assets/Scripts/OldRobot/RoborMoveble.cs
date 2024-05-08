@@ -2,6 +2,7 @@ using CapybaraRancher.EventBus;
 using UnityEngine;
 using CapybaraRancher.Interfaces;
 using System.Collections;
+
 public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
 {
     public int IndexofPart { get; set; }
@@ -16,12 +17,11 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
     private const string CANON_TAG = "CanonEnter";
     private bool _looted = false;
     private bool _isDisabled = false;
-    private IObjectSpawner _objectSpawner;
 
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
         EventBus.OnMovebleObject = OnObject;
         EventBus.OffMovebleObject = OffObject;
         IndexofPart = _index;
@@ -59,10 +59,11 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
     }
     private void Update()
     {
-        if (CheckMoving == true)
+        if (CheckMoving)
         {
             if (Input.GetMouseButton(0) && Time.timeScale > 0)
             {
+                Debug.Log(CheckMoving);
                 if (EventBus.CheckList(gameObject)) IsMoved = true;
             }
             else IsMoved = false;
@@ -113,11 +114,8 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
                 _usingObject.transform.SetParent(PointTransform);
                 _usingObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 _usingObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-                if (_usingObject != AllPartsObject[2])
-                    _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                else
-                    _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
                 _usingObject.transform.localScale = new Vector3(100f, 100f, 30f);
+                Debug.Log(_usingObject.GetComponent<IRobotParts>().CheckMoving);
             }
         }
     }

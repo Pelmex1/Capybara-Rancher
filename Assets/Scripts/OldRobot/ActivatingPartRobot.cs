@@ -24,6 +24,7 @@ public class ActivatingPartRobot : MonoBehaviour
         {
             if (_irobotspart.CheckMoving == true)
             {
+                Debug.Log("Work if");
                 int index = other.GetComponent<IRobotParts>().IndexofPart;
                 EventBus.OffMovebleObject.Invoke(index, Points[index]);
             }
