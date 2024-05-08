@@ -48,7 +48,6 @@ public class InventoryPlayer : MonoBehaviour
             Inventory[_index]++;
             EventBus.PlayerGunAdd();
             EventBus.OnRepaint.Invoke(Inventory);
-            Debug.Log("Work Add 1");
             return true;
         }
         for (int i = 0; i < Inventory.Length; i++)

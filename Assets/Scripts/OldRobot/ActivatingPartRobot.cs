@@ -8,6 +8,7 @@ public class ActivatingPartRobot : MonoBehaviour
     [SerializeField] private GameObject[] AllParts = new GameObject[3];
     [SerializeField] private GameObject WinPanel;
     private int AmountActivingParts;
+    IRobotParts _irobotspart;
     private void Awake()
     {
         EventBus.WasAddingAllCrystall = CheckWon;
@@ -19,18 +20,14 @@ public class ActivatingPartRobot : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        for (int i = 0; i < AllParts.Length; i++)
+        if (other.TryGetComponent(out _irobotspart))
         {
-            if (other.gameObject == AllParts[i])
+            if (_irobotspart.CheckMoving == true)
             {
-                if (other.tag == "movebleObject" && other.GetComponent<IRobotParts>().CheckMoving == true)
-                {
-                    int index = other.GetComponent<IRobotParts>().IndexofPart;
-                    EventBus.OffMovebleObject.Invoke(index, Points[index]);
-                }
+                int index = other.GetComponent<IRobotParts>().IndexofPart;
+                EventBus.OffMovebleObject.Invoke(index, Points[index]);
             }
         }
-
     }
 
     private void CheckWon()

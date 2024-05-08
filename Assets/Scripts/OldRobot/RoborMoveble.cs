@@ -21,7 +21,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
 
     private void Awake()
     {
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         EventBus.OnMovebleObject = OnObject;
         EventBus.OffMovebleObject = OffObject;
         IndexofPart = _index;
@@ -57,13 +57,9 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         _looted = false;
         Debug.Log(CheckMoving + $" {gameObject.name}");
     }
-    private void Start()
-    {
-        transform.parent?.TryGetComponent(out _objectSpawner);
-    }
     private void Update()
     {
-        if (CheckMoving)
+        if (CheckMoving == true)
         {
             if (Input.GetMouseButton(0) && Time.timeScale > 0)
             {
@@ -76,7 +72,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (CheckMoving)
+        if (CheckMoving == true)
         {
             if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
             {
@@ -85,8 +81,6 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
                 {
                     EventBus.AddInPool(gameObject, Data.TypeGameObject);
                     EventBus.RemoveFromList(gameObject);
-                    ItemActivator.ActivatorItemsRemove(gameObject);
-                    _objectSpawner?.ReturnToPool(gameObject);
                     gameObject.SetActive(false);
                 }
             }
@@ -119,9 +113,9 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
                 _usingObject.transform.SetParent(PointTransform);
                 _usingObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 _usingObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-                if(_usingObject != AllPartsObject[2])
+                if (_usingObject != AllPartsObject[2])
                     _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                else 
+                else
                     _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
                 _usingObject.transform.localScale = new Vector3(100f, 100f, 30f);
             }
