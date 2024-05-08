@@ -40,8 +40,7 @@ public class InventoryPlayer : MonoBehaviour
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
-        if (Inventory[_index].InventoryItem == null ||
-            (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20))
+        if (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20)
         {
 
             Inventory[_index].InventoryItem ??= inventoryItem;
@@ -65,6 +64,15 @@ public class InventoryPlayer : MonoBehaviour
                 _nullChestCell.Image = inventoryItem.Image;
                 _localIndex = i;
             }
+        }
+        if (Inventory[_index].InventoryItem == null)
+        {
+
+            Inventory[_index].InventoryItem = inventoryItem;
+            Inventory[_index]++;
+            EventBus.PlayerGunAdd();
+            EventBus.OnRepaint.Invoke(Inventory);
+            return true;
         }
         if (!_nullChestCell.Equals(null))
         {

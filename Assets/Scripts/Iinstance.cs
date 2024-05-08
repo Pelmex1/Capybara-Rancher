@@ -8,7 +8,7 @@ public class Iinstance : MonoBehaviour
     public static Iinstance instance;
 
     public float Money;
-    private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch];
+    private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch - 1];
     private List<GameObject> _QueueToDisable = new();
     private void Awake()
     {
@@ -39,14 +39,11 @@ public class Iinstance : MonoBehaviour
     //}
     private void AddInQueue(GameObject localGameObject, TypeGameObject typeGameObject)
     {
-        if(typeGameObject != TypeGameObject.LastDontToch)
-            _movebleobjects[(int)typeGameObject].Enqueue(localGameObject);
+        _movebleobjects[(int)typeGameObject].Enqueue(localGameObject);
     }
     private GameObject RemoveFromQueue(TypeGameObject typeGameObject)
     {
-        if(typeGameObject != TypeGameObject.LastDontToch)
-            return _movebleobjects[(int)typeGameObject].Dequeue();
-        else return null;
+        return _movebleobjects[(int)typeGameObject].Dequeue();
     }
     public void SaveData()
     {

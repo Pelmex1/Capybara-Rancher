@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using CapybaraRancher.Enums;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -85,6 +84,6 @@ namespace CapybaraRancher.Interfaces
     }
     internal interface IPooledMovebleObject
     {
-        public TypeGameObject typeGameObject { get; set; }
+        public TypeGameObject TypeGameObject { get; set; }
     }
 }
