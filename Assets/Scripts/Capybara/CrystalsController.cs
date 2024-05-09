@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using CapybaraRancher.Enums;
 using CapybaraRancher.Interfaces;
+using CapybaraRancher.EventBus;
 
 public class CrystalsController : MonoBehaviour
 {
@@ -75,12 +76,15 @@ public class CrystalsController : MonoBehaviour
                         dataCr.FavouriteFoodName, dataCr.WhatEatThisType);
                     localMovebleObject.Localgameobject.SetActive(false);
                     Destroy(collision.gameObject);
+                    EventBus.TransformationTutorial.Invoke();
                 }
             }
         }
     }
     public IEnumerator GenerateCrystals(bool isFavouriteFood)
     {
+        EventBus.FeedTutorial.Invoke();
+
         IsHungry = false;
         _isAngry = false;
         _mobsAi.SetFoodFound(false);

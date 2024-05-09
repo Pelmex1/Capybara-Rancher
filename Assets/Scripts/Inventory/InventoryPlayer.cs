@@ -40,6 +40,7 @@ public class InventoryPlayer : MonoBehaviour
     }
     public bool AddItemInInventory(InventoryItem inventoryItem)
     {
+        EventBus.InventoryTutorial.Invoke();
         if (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20)
         {
 

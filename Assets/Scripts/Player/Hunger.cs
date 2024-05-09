@@ -53,6 +53,7 @@ public class Hunger : MonoBehaviour
     private void HungerRegen(float percentOfRegen)
     {
         _stats.Hunger += percentOfRegen * 0.01f * _stats.HungerMaxValue;
+        EventBus.EatTutorial.Invoke();
     }
 
     private IEnumerator HungerUpdate()

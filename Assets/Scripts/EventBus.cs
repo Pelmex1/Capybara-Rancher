@@ -71,6 +71,16 @@ namespace CapybaraRancher.EventBus
         public static Action MaxValueUpgrade;
         public static Action ExtraSlotUpgrade;
         #endregion PlayerUpgrades
+
+        #region Tutorial
+        public static Action MovingTutorial;
+        public static Action InventoryTutorial;
+        public static Action FeedTutorial;
+        public static Action TransformationTutorial;
+        public static Action SellTutorial;
+        public static Action EatTutorial;
+        public static Action BuildTutorial;
+        #endregion Tutorial
     }
 
 }

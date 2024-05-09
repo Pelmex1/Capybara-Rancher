@@ -16483,6 +16483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isChicken: 0
 --- !u!114 &-4245501801354624778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16496,7 +16497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delayBeforeCrystalSpawn: 10
-  _delayBeforeStarving: 60
+  _delayBeforeStarving: 20
   _wellfedParticle: {fileID: 2174903778731410520}
   _hungryParticle: {fileID: 2923528550537293128}
   _angryParticle: {fileID: 6474708762373335774}

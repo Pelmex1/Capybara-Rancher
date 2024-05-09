@@ -79,6 +79,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
                 _isGrounded = false;
                 _rb.AddForce(transform.up, ForceMode.Impulse);
                 EventBus.PlayerJump.Invoke();
+                EventBus.MovingTutorial.Invoke();
             }
         if (Cursor.lockState == CursorLockMode.Locked)
         {

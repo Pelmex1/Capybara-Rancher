@@ -13,6 +13,7 @@ public class ItemAccept : MonoBehaviour
                 EventBus.AddMoney(crystalItem.Price);
                 EventBus.AddInPool(other.gameObject, other.gameObject.GetComponent<IMovebleObject>().Data.TypeGameObject);
                 other.gameObject.SetActive(false);
+                EventBus.SellTutorial.Invoke();
             }
         }
     }

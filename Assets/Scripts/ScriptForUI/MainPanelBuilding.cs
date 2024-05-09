@@ -47,6 +47,7 @@ public class MainPanelBuilding : MonoBehaviour
             values[index].disable.enabled = true;
             EventBus.AddMoney(-farmObjects[index].Price);
             EventBus.BuyFarm.Invoke(index, true);
+            EventBus.BuildTutorial.Invoke();
         }
     }
     public void Remove(int index){
