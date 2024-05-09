@@ -31,21 +31,29 @@ public class MainPanelBuilding : MonoBehaviour
             if(bools[i]){
                 values[i].button.enabled = false;
                 values[i].text.text = "Bought";
-                values[i].button.enabled = true;
+                values[i].disable.enabled = true;
             } else {
                 values[i].button.enabled = true;
                 values[i].text.text = "Buy";
-                values[i].button.enabled = false;
+                values[i].disable.enabled = false;
             }
         }
     }
-    public void Buy(int index, bool isEnable)
+    public void Buy(int index)
     {
         if(farmObjects[index].Price <= EventBus.GetMoney()){
             values[index].button.enabled = false;
             values[index].text.text = "Bought";
-            EventBus.AddMoney(farmObjects[index].Price);
-            EventBus.BuyFarm.Invoke(index, isEnable);
+            values[index].disable.enabled = true;
+            EventBus.AddMoney(-farmObjects[index].Price);
+            EventBus.BuyFarm.Invoke(index, true);
         }
+    }
+    public void Remove(int index){
+            values[index].button.enabled = false;
+            values[index].text.text = "Bought";
+            values[index].disable.enabled = false;
+            EventBus.AddMoney(farmObjects[index].Price);
+            EventBus.BuyFarm.Invoke(index, false);
     }
 }
