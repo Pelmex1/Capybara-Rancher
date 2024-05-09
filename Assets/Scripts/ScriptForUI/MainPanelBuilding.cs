@@ -1,86 +1,51 @@
 using UnityEngine;
-using TMPro;
-using CapybaraRancher.Interfaces;
 using CapybaraRancher.EventBus;
+using UnityEngine.UI;
+using TMPro;
 
 public class MainPanelBuilding : MonoBehaviour
 {
-    [SerializeField] private GameObject FarmInfoPanel;
-    [SerializeField] private GameObject EnclosureInfoPanel;
-    [SerializeField] private GameObject Area;
-    [SerializeField] private TMP_Text TextMoney;
-
-    public int IndexPlace;
-    public Transform PositionPlace;
-    public GameObject FirstPlace;
-    public GameObject NewPlace;
-    public GameObject ParentObject;
-
-    // private void LateUpdate() => TextMoney.text = $"{EventBus.GetMoney()}";
-    private void OnEnable() => EventBus.TransitionBuildingData += GetBuildingData;
-
-    private void OnDisable() => EventBus.TransitionBuildingData -= GetBuildingData;
-
-    private void GetBuildingData(int index, Transform ParentPosition, GameObject FirstObject, GameObject NewObject)
-    {
-        IndexPlace = index;
-        PositionPlace = ParentPosition;
-        FirstPlace = FirstObject;
-        NewPlace = NewObject != null ? NewObject : NewPlace;
+    [SerializeField] private GameObject _panel;
+    [SerializeField] private GameObject[] buttonsEnable;
+    [SerializeField] private Button[] buttonsDisable;
+    [SerializeField] private FarmObject[] farmObjects;
+    private (Button button, Button disable, TMP_Text text)[] values;
+    private void Awake() {
+        EventBus.ActiveFarmPanel = (bool isActive) => _panel.SetActive(isActive);
+        EventBus.UpdateFarmButtons = UpdateFarmButtons;
+        EventBus.GetBuildings = () => 
+        {
+            return farmObjects;
+        };
     }
-
-    public void SelectBuild(GameObject PanelsInfPlace)
-    {
-        if (!PlayerPrefs.HasKey("PanelsInfo"))
-        {
-            PanelsInfPlace.SetActive(true);
-            PlayerPrefs.SetString("PanelsInfo", PanelsInfPlace.name);
-        }
-        else
-        {
-            string Value = PlayerPrefs.GetString("PanelsInfo");
-            if (Value == "PaneInfoFarme")
-                FarmInfoPanel.SetActive(false);
-            else
-                EnclosureInfoPanel.SetActive(false);
-            PanelsInfPlace.SetActive(true);
-            PlayerPrefs.SetString("PanelsInfo", PanelsInfPlace.name);
-        }
-        PlayerPrefs.Save();
-    }
-
-    public void Buy(GameObject objectWichBuy)
-    {
-        if (NewPlace == null && EventBus.GetMoney() >= 150)
-        {
-            EventBus.AddMoney(-150);
-            Destroy(FirstPlace);
-            NewPlace = Instantiate(objectWichBuy, PositionPlace, ParentObject);
-            if (NewPlace.TryGetComponent<IReceptacle>(out var receptacle))
-                receptacle.GetData(PositionPlace, NewPlace);
-            PlayerPrefs.SetString($"{IndexPlace}", objectWichBuy.name);
-            PlayerPrefs.Save();
-            EventBus.OffBuilding.Invoke();
-        }
-        else
-        {
-            return;
+    private void Start() {
+        values = new (Button button, Button disable, TMP_Text text)[buttonsEnable.Length];
+        for(int i = 0; i < buttonsEnable.Length; i++){
+            values[i].button = buttonsEnable[i].GetComponent<Button>();
+            values[i].button = buttonsDisable[i];
+            values[i].text = buttonsEnable[i].GetComponentInChildren<TMP_Text>();
         }
     }
-
-    public void Delte()
-    {
-        if (NewPlace != null)
-        {
-            Destroy(NewPlace);
-            Instantiate(Area, PositionPlace, ParentObject);
-            PlayerPrefs.DeleteKey($"{IndexPlace}");
-            PlayerPrefs.Save();
-            EventBus.OffBuilding.Invoke();
+    private void UpdateFarmButtons(bool[] bools){
+        for(int i = 0; i < buttonsEnable.Length; i++){
+            if(bools[i]){
+                values[i].button.enabled = false;
+                values[i].text.text = "Bought";
+                values[i].button.enabled = true;
+            } else {
+                values[i].button.enabled = true;
+                values[i].text.text = "Buy";
+                values[i].button.enabled = false;
+            }
         }
-        else
-        {
-            return;
+    }
+    public void Buy(int index, bool isEnable)
+    {
+        if(farmObjects[index].Price <= EventBus.GetMoney()){
+            values[index].button.enabled = false;
+            values[index].text.text = "Bought";
+            EventBus.AddMoney(farmObjects[index].Price);
+            EventBus.BuyFarm.Invoke(index, isEnable);
         }
     }
 }
