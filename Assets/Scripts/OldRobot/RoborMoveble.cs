@@ -57,19 +57,6 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         _looted = false;
         Debug.Log(CheckMoving + $" {gameObject.name}");
     }
-    private void Update()
-    {
-        if (CheckMoving)
-        {
-            if (Input.GetMouseButton(0) && Time.timeScale > 0)
-            {
-                Debug.Log(CheckMoving);
-                if (EventBus.CheckList(gameObject)) IsMoved = true;
-            }
-            else IsMoved = false;
-        }
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -114,6 +101,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
                 _usingObject.transform.SetParent(PointTransform);
                 _usingObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 _usingObject.transform.localPosition = new Vector3(0f, 0f, 0f);
+                _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
                 _usingObject.transform.localScale = new Vector3(100f, 100f, 30f);
                 Debug.Log(_usingObject.GetComponent<IRobotParts>().CheckMoving);
             }

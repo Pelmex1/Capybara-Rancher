@@ -7,7 +7,6 @@ public class ActivatingPartRobot : MonoBehaviour
     [SerializeField] private Transform[] Points = new Transform[3];
     [SerializeField] private GameObject[] AllParts = new GameObject[3];
     [SerializeField] private GameObject WinPanel;
-    private int AmountActivingParts;
     IRobotParts _irobotspart;
     private void Awake()
     {
@@ -24,7 +23,6 @@ public class ActivatingPartRobot : MonoBehaviour
         {
             if (_irobotspart.CheckMoving == true)
             {
-                Debug.Log("Work if");
                 int index = other.GetComponent<IRobotParts>().IndexofPart;
                 EventBus.OffMovebleObject.Invoke(index, Points[index]);
             }
@@ -33,6 +31,7 @@ public class ActivatingPartRobot : MonoBehaviour
 
     private void CheckWon()
     {
+        int AmountActivingParts = 0;
         for (int i = 0; i < AllParts.Length; i++)
         {
             if (AllParts[i].GetComponent<IRobotParts>().WasBuilding)
@@ -40,6 +39,7 @@ public class ActivatingPartRobot : MonoBehaviour
         }
         if (AmountActivingParts == 3)
         {
+            Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
             WinPanel.SetActive(true);
         }

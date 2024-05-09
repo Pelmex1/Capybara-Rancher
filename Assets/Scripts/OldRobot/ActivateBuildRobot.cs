@@ -42,23 +42,14 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
     private void CheckActiveCrystal()
     {
         int AmountCrystal = 0;
-        Debug.Log(ParentObject.name);
         foreach (var item in CheckDataCrusyl)
         {
-            Debug.Log(item.Key);
-            Debug.Log(item.Value);
-        }
-        foreach (var item in CheckDataCrusyl)
-        {
-            if (item.Value == 1 & ParentObject.GetComponent<IRobotParts>().CheckMoving == false)
-            {
+            if (item.Value == 1)
                 AmountCrystal++;
-            }
         }
-        Debug.Log(AmountCrystal);
         if (AmountCrystal == 3)
         {
-            ParentObject.GetComponent<IRobotParts>().WasBuilding = true;
+            _irobotspart.WasBuilding = true;
             EventBus.WasAddingAllCrystall.Invoke();
         }
 

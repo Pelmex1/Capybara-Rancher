@@ -13,7 +13,7 @@ public class Canon : MonoBehaviour
     public List<GameObject> obdjectsInCollider = new();
     public bool Ienumeratorenabled { get; set; } = false;
     private void Awake() {
-        EventBus.RemoveFromList = (GameObject gameObject) => obdjectsInCollider.Remove(gameObject); Debug.Log("Work Remove");
+        EventBus.RemoveFromList = (GameObject gameObject) => obdjectsInCollider.Remove(gameObject);
         EventBus.InumeratorIsEnabled = (bool isEnable) => Ienumeratorenabled = isEnable;
         EventBus.CheckList = (GameObject check) => obdjectsInCollider.Contains(check);
     }
