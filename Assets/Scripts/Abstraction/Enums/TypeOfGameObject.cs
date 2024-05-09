@@ -2,7 +2,7 @@ namespace CapybaraRancher.Enums
 {
     public enum TypeGameObject
     {
-        GladeCapybara,
+        GladeCapybara = 0,
         RockCapybara,
         LeoCapybara,
         PinkChicken,
