@@ -12,6 +12,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private const float DEFAULT_ENERGY_MAXVALUE = 50f;
     private const float DEFAULT_HEALTH_MAXVALUE = 100f;
     private const float DEFAULT_HUNGER_MAXVALUE = 100f;
+    private const float DEFAULT_ENERGY_SPENDING = 10f;
 
     [SerializeField] private Transform _head;
     [SerializeField] private float _speed;
@@ -21,7 +22,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private Rigidbody _rb;
     private Quaternion _startHeadRotation;
     private readonly float _energyRegenRate = 5f;
-    private readonly float _energyConsumptionRate = 10f;
+    private float _energyConsumptionRate;
     private float _vertical;
     private float _horizontal;
     private float _xRotationCamera;
@@ -41,6 +42,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     {
         SetStats();
         FullStats();
+        SetEnergySpending();
     }
 
     private void Start()
@@ -121,14 +123,16 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         EventBus.PlayerRespawned += FullStats;
         EventBus.WasChangeMouseSensetive += WasChangeSenstive;
         EventBus.MaxValueUpgrade += SetStats;
+        EventBus.EnergySpendingUpgrade += SetEnergySpending;
     }
 
-    private void OnDisable()
-    {
-        EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
-        EventBus.MaxValueUpgrade -= SetStats;
-        EventBus.PlayerRespawned -= FullStats;
-    }
+private void OnDisable()
+{
+    EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
+    EventBus.MaxValueUpgrade -= SetStats;
+    EventBus.PlayerRespawned -= FullStats;
+    EventBus.EnergySpendingUpgrade -= SetEnergySpending;
+}
 
     private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative;
 
@@ -156,5 +160,10 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         PlayerPrefs.SetFloat("HealthMaxValue", HealthMaxValue);
         HungerMaxValue = PlayerPrefs.GetFloat("HungerMaxValue", DEFAULT_HUNGER_MAXVALUE);
         PlayerPrefs.SetFloat("HungerMaxValue", HungerMaxValue);
+    }
+
+    private void SetEnergySpending()
+    {
+        _energyConsumptionRate = PlayerPrefs.GetFloat("EnergySpendingRate", DEFAULT_ENERGY_SPENDING);
     }
 }
