@@ -18,6 +18,7 @@ public class FarmTerminal : MonoBehaviour
             if(PlayerPrefs.GetString($"{name}_{_spawnedGameObjects[i].name}", "false") == "true"){
                 _spawnedGameObjects[i].SetActive(true);
                 _isBuy[i] = true;
+                spawnPos.gameObject.SetActive(false);
             } else {
                 _spawnedGameObjects[i].SetActive(false);
             }
@@ -32,6 +33,7 @@ public class FarmTerminal : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.Confined;
                 EventBus.ActiveFarmPanel(true);
+                EventBus.UpdateFarmButtons(_isBuy);
             }      
         }
     }
@@ -49,9 +51,7 @@ public class FarmTerminal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             EventBus.ActiveHelpText(false);
-            EventBus.ActiveFarmPanel(false);
             _isNear = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
     }
     private void BuyOrRemove(int index, bool isEnable){
@@ -59,6 +59,7 @@ public class FarmTerminal : MonoBehaviour
         {
             _spawnedGameObjects[index].SetActive(isEnable);
             _isBuy[index] = isEnable;
+            spawnPos.gameObject.SetActive(!isEnable);
         }
     }
     private void OnEnable() {
