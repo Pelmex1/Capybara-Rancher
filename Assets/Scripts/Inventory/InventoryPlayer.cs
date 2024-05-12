@@ -43,7 +43,6 @@ public class InventoryPlayer : MonoBehaviour
         EventBus.InventoryTutorial.Invoke();
         if (Inventory[_index].InventoryItem == inventoryItem && Inventory[_index].Count < 20)
         {
-
             Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
             EventBus.PlayerGunAdd();
@@ -68,9 +67,9 @@ public class InventoryPlayer : MonoBehaviour
         }
         if (Inventory[_index].InventoryItem == null)
         {
-
             Inventory[_index].InventoryItem = inventoryItem;
             Inventory[_index]++;
+            _nullChestCell.Image = null;
             EventBus.PlayerGunAdd();
             EventBus.OnRepaint.Invoke(Inventory);
             return true;
@@ -95,12 +94,12 @@ public class InventoryPlayer : MonoBehaviour
         {
             return;
         }
-        Inventory[_index]--;
         StartCoroutine(Recherge());
         GameObject localObject = EventBus.RemoveFromThePool(Inventory[_index].InventoryItem.TypeGameObject);
         localObject.transform.position = spawnPos;
         localObject.SetActive(true);
         localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);
+        Inventory[_index]--;
         if (Inventory[_index].Count == 0)
         {
             Inventory[_index].InventoryItem = null;

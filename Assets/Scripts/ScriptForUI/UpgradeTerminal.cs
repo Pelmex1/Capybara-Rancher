@@ -15,6 +15,9 @@ public class UpgradeTerminal : MonoBehaviour
     private const float HUNGERMAXVALUE_UPGRADE_PRICE = 200f;
     private const string EXTRASLOT_KEY = "ExtraSlotUpgrade";
     private const float EXTRASLOT_VALUE_UPGRADE_PRICE = 400f;
+    private const string ENERGY_SPENDING_KEY = "EnergySpendingRate";
+    private const float ENERGY_SPENDING_PRICE = 350f;
+    private const float ENERGY_SPENDING_RATE = 5f;
 
     [SerializeField] private TMP_Text InfoText;
     [SerializeField] private GameObject _terminalPanel;
@@ -26,6 +29,10 @@ public class UpgradeTerminal : MonoBehaviour
     {
         if (isNear)
             OnUi();
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            PlayerPrefs.SetFloat(ENERGY_SPENDING_KEY, 10f);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -63,7 +70,7 @@ public class UpgradeTerminal : MonoBehaviour
 
     public void MaxValueUpgrade(string parametr)
     {
-        if(PlayerPrefs.GetInt(parametr + "MaxValueUpgrade", 0) == 0)
+        if (PlayerPrefs.GetInt(parametr + "MaxValueUpgrade", 0) == 0)
         {
             float price;
             switch (parametr)
@@ -92,8 +99,21 @@ public class UpgradeTerminal : MonoBehaviour
             if (EventBus.GetMoney() >= EXTRASLOT_VALUE_UPGRADE_PRICE)
             {
                 EventBus.AddMoney(-1f * EXTRASLOT_VALUE_UPGRADE_PRICE);
-                EventBus.ExtraSlotUpgrade.Invoke();
                 PlayerPrefs.SetInt(EXTRASLOT_KEY, 1);
+                EventBus.ExtraSlotUpgrade.Invoke();
+            }
+        }
+    }
+
+    public void EnergySpendingUpgrade()
+    {
+        if (PlayerPrefs.GetFloat(ENERGY_SPENDING_KEY, 0) != ENERGY_SPENDING_RATE)
+        {
+            if (EventBus.GetMoney() >= ENERGY_SPENDING_PRICE)
+            {
+                EventBus.AddMoney(-1f * ENERGY_SPENDING_PRICE);
+                PlayerPrefs.SetFloat(ENERGY_SPENDING_KEY, ENERGY_SPENDING_RATE);
+                EventBus.EnergySpendingUpgrade.Invoke();
             }
         }
     }

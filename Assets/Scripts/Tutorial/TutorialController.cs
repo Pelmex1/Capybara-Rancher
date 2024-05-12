@@ -21,10 +21,13 @@ public class TutorialController : MonoBehaviour
     private void Start()
     {
         if (PlayerPrefs.GetInt("TutorialComplete", 0) == 0)
+        {
             _movingTip.SetActive(true);
+            Subscriptions();
+        }
         startPos = transform.position;
     }
-    private void OnEnable()
+    private void Subscriptions()
     {
         EventBus.MovingTutorial += MovingTutorialComplete;
         EventBus.InventoryTutorial += InventoryTutorialComplete;
@@ -33,6 +36,16 @@ public class TutorialController : MonoBehaviour
         EventBus.SellTutorial += SellTutorialComplete;
         EventBus.EatTutorial += EatTutorialComplete;
         EventBus.BuildTutorial += BuildTutorialComplete;
+    }
+    private void UnSubscriptions()
+    {
+        EventBus.MovingTutorial -= MovingTutorialComplete;
+        EventBus.InventoryTutorial -= InventoryTutorialComplete;
+        EventBus.FeedTutorial -= FeedTutorialComplete;
+        EventBus.TransformationTutorial -= TransformationTutorialComplete;
+        EventBus.SellTutorial -= SellTutorialComplete;
+        EventBus.EatTutorial -= EatTutorialComplete;
+        EventBus.BuildTutorial -= BuildTutorialComplete;
     }
     private void Update()
     {
@@ -79,5 +92,9 @@ public class TutorialController : MonoBehaviour
         yield return new WaitForSeconds(DEACTIVATE_PANEL_DELAY);
         tip.SetActive(false);
     }
-    private void TutorialComplete() => PlayerPrefs.SetInt("TutorialComplete", 1);
+    private void TutorialComplete()
+    {
+        PlayerPrefs.SetInt("TutorialComplete", 1);
+        UnSubscriptions();
+    }
 }
