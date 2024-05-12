@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
 {
     public bool WasChangeDict { get; set; } = false;
     public Dictionary<string, int> DictionaryCrystall { get; set; } = new();
+    [SerializeField] private Image[] _childrenCrystallImage = new Image[3];
     private Dictionary<string, int> CheckDataCrusyl = new Dictionary<string, int>();
     private GameObject ParentObject;
     IRobotParts _irobotspart;
@@ -22,12 +24,10 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
         {
             if (_irobotspart.CheckMoving == false && _icrystall != null)
             {
-                Debug.Log("1 if was working");
                 EventBus.AddToDict.Invoke();
                 string name = _icrystall.NameCrystal;
                 if (CheckDataCrusyl.ContainsKey(name) && CheckDataCrusyl[name] == 0)
                 {
-                    Debug.Log("2 if was working");
                     Destroy(other.gameObject);
                     CheckDataCrusyl[name]++;
                     CheckActiveCrystal();
@@ -42,11 +42,25 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
     private void CheckActiveCrystal()
     {
         int AmountCrystal = 0;
-        foreach (var item in CheckDataCrusyl)
+        for (int i = 0; i < _childrenCrystallImage.Length; i++)
         {
-            if (item.Value == 1)
-                AmountCrystal++;
+            string name = _childrenCrystallImage[i].gameObject.name;
+            if (CheckDataCrusyl.ContainsKey(name))
+            {
+                if (CheckDataCrusyl[name] == 1)
+                {
+                    Color color = _childrenCrystallImage[i].color;
+                    color.a = 255f;
+                    _childrenCrystallImage[i].color = color;
+                    AmountCrystal++;
+                }
+            }
         }
+        // foreach (var item in CheckDataCrusyl)
+        // {
+        //     if (item.Value == 1)
+        //         AmountCrystal++;
+        // }
         if (AmountCrystal == 3)
         {
             _irobotspart.WasBuilding = true;

@@ -12,6 +12,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
     public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
     public GameObject Localgameobject { get => gameObject; set { return; } }
     public bool IsMoved { get; set; } = false;
+    [SerializeField] GameObject _crystallpanel;
     [SerializeField] private int _index;
     [SerializeField] private InventoryItem inventoryItem;
     private const string CANON_TAG = "CanonEnter";
@@ -95,6 +96,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         {
             if (i == OffIndexofPart)
             {
+                _crystallpanel.SetActive(true);
                 GameObject _usingObject = AllPartsObject[OffIndexofPart];
                 _usingObject.GetComponent<IRobotParts>().CheckMoving = false;
                 _usingObject.tag = "PartsRobot";
