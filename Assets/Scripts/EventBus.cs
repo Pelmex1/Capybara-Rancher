@@ -46,8 +46,6 @@ namespace CapybaraRancher.EventBus
         #endregion Options and Loaading Scenes
 
         #region  Building
-        public static Action<int, Transform, GameObject, GameObject> TransitionBuildingData;
-        public static Action OffBuilding;
         public static Action<int> WasChangeFarm;
         #endregion Building
 
@@ -82,6 +80,11 @@ namespace CapybaraRancher.EventBus
         public static Action EatTutorial = () => { };
         public static Action BuildTutorial = () => { };
         #endregion Tutorial
+        #region Chest
+        public static Action<bool> EnableChestUi;
+        public static Action<Data[],Data[]> UpdateChestUI;
+        public static Action<Transform> SetChestParent;
+        #endregion
     }
 
 }

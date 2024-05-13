@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CapybaraRancher.CustomStructures;
 using CapybaraRancher.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -85,5 +86,9 @@ namespace CapybaraRancher.Interfaces
     internal interface IPooledMovebleObject
     {
         public TypeGameObject TypeGameObject { get; set; }
+    }
+    internal interface IInventoryPlayer
+    {
+        public Data[] Inventory {get; set;}
     }
 }

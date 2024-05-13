@@ -1,9 +1,10 @@
 using CapybaraRancher.CustomStructures;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Interfaces;
 using System.Collections;
 using UnityEngine;
 
-public class InventoryPlayer : MonoBehaviour
+public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
 {
     private const float SPEED = 10f;
     [SerializeField] private BoxCollider canonEnter;
