@@ -10,11 +10,12 @@ TagManager:
   - movebleObject
   - Ground
   - PartsRobot
+  - Fire
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Don't Light
   - Water
   - UI
   - 
