@@ -9,8 +9,8 @@ namespace CapybaraRancher.EventBus
     {
         public static Action<int, bool> BuyFarm;
         public static Action<bool[]> UpdateFarmButtons;
-        public static Action<bool> ActiveFarmPanel;
-        public static Action<bool> ActiveHelpText;
+        public static Action<bool> ActiveFarmPanel = delegate {};
+        public static Action<bool> ActiveHelpText = delegate {};
         public static Func<FarmObject[]> GetBuildings;
         public static Action<GameObject> AddInDisable;
         public static Action<GameObject> RemoveFromDisable;
