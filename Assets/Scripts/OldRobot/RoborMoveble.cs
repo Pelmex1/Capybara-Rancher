@@ -5,6 +5,7 @@ using System.Collections;
 
 public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
 {
+    private const string CANON_TAG = "CanonEnter";
     public int IndexofPart { get; set; }
     public bool CheckMoving { get; set; }
     public bool WasBuilding { get; set; } = false;
@@ -14,8 +15,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
     public bool IsMoved { get; set; } = false;
     [SerializeField] GameObject _crystallpanel;
     [SerializeField] private int _index;
-    [SerializeField] private InventoryItem inventoryItem;
-    private const string CANON_TAG = "CanonEnter";
+    [SerializeField] private InventoryItem inventoryItem;    
     private bool _looted = false;
     private bool _isDisabled = false;
 
@@ -96,17 +96,20 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         {
             if (i == OffIndexofPart)
             {
-                _crystallpanel.SetActive(true);
                 GameObject _usingObject = AllPartsObject[OffIndexofPart];
                 _usingObject.GetComponent<IRobotParts>().CheckMoving = false;
+                _usingObject.GetComponent<IRobotParts>().OnUI();
                 _usingObject.tag = "PartsRobot";
                 _usingObject.transform.SetParent(PointTransform);
                 _usingObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 _usingObject.transform.localPosition = new Vector3(0f, 0f, 0f);
                 _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
                 _usingObject.transform.localScale = new Vector3(100f, 100f, 30f);
-                Debug.Log(_usingObject.GetComponent<IRobotParts>().CheckMoving);
             }
         }
+    }
+    public void OnUI()
+    {
+        _crystallpanel.SetActive(true);
     }
 }

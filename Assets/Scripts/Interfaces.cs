@@ -59,6 +59,7 @@ namespace CapybaraRancher.Interfaces
         public bool CheckMoving { get; set; }
         public bool WasBuilding { get; set; }
         public GameObject[] AllPartsObject { get; set; }
+        public void OnUI();
     }
     internal interface ICrystall
     {
@@ -68,7 +69,6 @@ namespace CapybaraRancher.Interfaces
     {
         public bool WasChangeDict { get; set; }
         public Dictionary<string, int> DictionaryCrystall { get; set; }
-        public void TransitionData();
     }
     internal interface IPlayer
     {

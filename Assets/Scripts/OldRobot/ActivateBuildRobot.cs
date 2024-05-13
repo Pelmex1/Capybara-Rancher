@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
@@ -9,7 +10,6 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
     public bool WasChangeDict { get; set; } = false;
     public Dictionary<string, int> DictionaryCrystall { get; set; } = new();
     [SerializeField] private Image[] _childrenCrystallImage = new Image[3];
-    private Dictionary<string, int> CheckDataCrusyl = new Dictionary<string, int>();
     private GameObject ParentObject;
     IRobotParts _irobotspart;
     ICrystall _icrystall;
@@ -25,11 +25,30 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
             if (_irobotspart.CheckMoving == false && _icrystall != null)
             {
                 EventBus.AddToDict.Invoke();
+
+                switch (ParentObject.GetComponent<IMovebleObject>().Data.TypeGameObject)
+                {
+                    case TypeGameObject.FirstPart:
+                        {
+                            DictionaryCrystall["GladeCrystal"] = 5;
+                            break;
+                        }
+                    case TypeGameObject.SecondPart:
+                        {
+                            DictionaryCrystall["RockCrystal"] = 5;
+                            break;
+                        }
+                    case TypeGameObject.ThirdPart:
+                        {
+                            DictionaryCrystall["LeoCrystal"] = 5;
+                            break;
+                        }
+                }
                 string name = _icrystall.NameCrystal;
-                if (CheckDataCrusyl.ContainsKey(name) && CheckDataCrusyl[name] == 0)
+                if (DictionaryCrystall.ContainsKey(name) && DictionaryCrystall[name] == 0)
                 {
                     Destroy(other.gameObject);
-                    CheckDataCrusyl[name]++;
+                    DictionaryCrystall[name]++;
                     CheckActiveCrystal();
                 }
             }
@@ -45,9 +64,9 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
         for (int i = 0; i < _childrenCrystallImage.Length; i++)
         {
             string name = _childrenCrystallImage[i].gameObject.name;
-            if (CheckDataCrusyl.ContainsKey(name))
+            if (DictionaryCrystall.ContainsKey(name))
             {
-                if (CheckDataCrusyl[name] == 1)
+                if (DictionaryCrystall[name] == 1)
                 {
                     Color color = _childrenCrystallImage[i].color;
                     color.a = 255f;
@@ -67,9 +86,5 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
             EventBus.WasAddingAllCrystall.Invoke();
         }
 
-    }
-    public void TransitionData()
-    {
-        CheckDataCrusyl = DictionaryCrystall;
     }
 }

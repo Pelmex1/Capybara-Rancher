@@ -12,6 +12,6 @@ public class EndGame : MonoBehaviour
     public void NewGame()
     {
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("MainMenu");
     }
 }

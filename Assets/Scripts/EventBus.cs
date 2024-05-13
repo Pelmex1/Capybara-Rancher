@@ -57,6 +57,7 @@ namespace CapybaraRancher.EventBus
         public static Action<bool> PlayerGunAttraction;
         #endregion
         #region OldRobotAction
+        public static Action<GameObject> RemoveObjcetFromList;
         public static Action WasAddingAllCrystall;
         public static Action<string> SetNameCrystal = delegate { };
         public static Action<GameObject[]> TransitonPartsData;

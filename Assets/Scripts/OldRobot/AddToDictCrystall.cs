@@ -41,7 +41,6 @@ public class AddToDictCrystall : MonoBehaviour
                 }
                 _allChildrenPartsObject[i].GetComponent<ITransitionCrystallData>().DictionaryCrystall = DictionaryCrystall;
                 _allChildrenPartsObject[i].GetComponent<ITransitionCrystallData>().WasChangeDict = true;
-                _allChildrenPartsObject[i].GetComponent<ITransitionCrystallData>().TransitionData();
             }
         }
     }
