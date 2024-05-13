@@ -109,9 +109,9 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         {
             Energy += _energyRegenRate * Time.deltaTime;
             _speed = _startSpeed;
+            _isRunning = false;
         }
-
-        EventBus.PlayerMove.Invoke(_isGrounded, _isRunning && Input.GetKey(KeyCode.LeftShift));
+        EventBus.PlayerMove.Invoke(_isGrounded && (_vertical != 0 || _horizontal != 0), _isRunning);
 
         EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
         if (Health <= 0)

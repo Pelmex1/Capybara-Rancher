@@ -37,17 +37,9 @@ public class PlayerAudioController : MonoBehaviour
     {
         _initialGunAttractionVolume = _gunAttractionAudio.volume;
     }
-    public void FootStepPlay(bool isGrounded, bool isRunning)
+    private void FootStepPlay(bool isMoving, bool isRunning)
     {
-        static bool IsMoving() => Input.inputString switch {
-            "W" => true,
-            "A" => true,
-            "S" => true,
-            "D" => true,
-            _ => false,
-        };
-        bool moving = IsMoving() && isGrounded;
-        if (moving)
+        if (isMoving)
         {
             if (!isRunning && !_walkAudio.isPlaying)
             {
