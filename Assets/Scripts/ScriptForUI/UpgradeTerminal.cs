@@ -1,11 +1,9 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
-using TMPro;
 
 public class UpgradeTerminal : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
-    private const string INFOTEXT_TEXT = "Press Key E";
     private const float VALUE_UPGRADE = 2f;
     private const string ENERGY_KEY = "Energy";
     private const float ENERGYMAXVALUE_UPGRADE_PRICE = 300f;
@@ -19,7 +17,7 @@ public class UpgradeTerminal : MonoBehaviour
     private const float ENERGY_SPENDING_PRICE = 350f;
     private const float ENERGY_SPENDING_RATE = 5f;
 
-    [SerializeField] private TMP_Text InfoText;
+    [SerializeField] private GameObject InfoText;
     [SerializeField] private GameObject _terminalPanel;
     [SerializeField] private GameObject[] _infoPanels;
 
@@ -38,7 +36,7 @@ public class UpgradeTerminal : MonoBehaviour
     {
         if (other.CompareTag(PLAYER_TAG))
         {
-            InfoText.text = INFOTEXT_TEXT;
+            InfoText.SetActive(true);
             isNear = true;
         }
     }
@@ -46,7 +44,7 @@ public class UpgradeTerminal : MonoBehaviour
     {
         if (other.CompareTag(PLAYER_TAG))
         {
-            InfoText.text = "";
+            InfoText.SetActive(false);
             isNear = false;
             _terminalPanel.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
@@ -59,7 +57,7 @@ public class UpgradeTerminal : MonoBehaviour
         {
             _terminalPanel.SetActive(!_terminalPanel.activeSelf);
             Cursor.lockState = _terminalPanel.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
-            InfoText.text = "";
+            InfoText.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
