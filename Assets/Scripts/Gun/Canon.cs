@@ -17,7 +17,6 @@ public class Canon : MonoBehaviour
         EventBus.RemoveFromList = (GameObject gameObject) => obdjectsInCollider.Remove(gameObject);
         EventBus.InumeratorIsEnabled = (bool isEnable) => Ienumeratorenabled = isEnable;
         EventBus.CheckList = (GameObject check) => obdjectsInCollider.Contains(check);
-        EventBus.RemoveObjcetFromList = RemoveComponent;
     }
     private void Start()
     {
@@ -67,10 +66,5 @@ public class Canon : MonoBehaviour
         {
             obdjectsInCollider.Remove(other.gameObject);
         }
-    }
-
-    private void RemoveComponent(GameObject removegameObject)
-    {
-        obdjectsInCollider.Remove(removegameObject);
     }
 }

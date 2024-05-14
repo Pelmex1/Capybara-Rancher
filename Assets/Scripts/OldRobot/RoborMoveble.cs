@@ -23,7 +23,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
     private void Awake()
     {
         // PlayerPrefs.DeleteAll();
-        EventBus.OnMovebleObject = OnObject;
+        // EventBus.OnMovebleObject = OnObject;
         EventBus.OffMovebleObject = OffObject;
         IndexofPart = _index;
     }
@@ -80,16 +80,16 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         yield return new WaitForSecondsRealtime(2);
         _isDisabled = false;
     }
-    private void OnObject(string NameObject, int OnIndexofPart)
-    {
-        for (int i = 0; i < AllPartsObject.Length; i++)
-        {
-            if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].name == NameObject)
-            {
-                AllPartsObject[OnIndexofPart].GetComponent<IRobotParts>().CheckMoving = true;
-            }
-        }
-    }
+    // private void OnObject(string NameObject, int OnIndexofPart)
+    // {
+    //     for (int i = 0; i < AllPartsObject.Length; i++)
+    //     {
+    //         if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].name == NameObject)
+    //         {
+    //             AllPartsObject[OnIndexofPart].GetComponent<IRobotParts>().CheckMoving = true;
+    //         }
+    //     }
+    // }
     private void OffObject(int OffIndexofPart, Transform PointTransform)
     {
         for (int i = 0; i < AllPartsObject.Length; i++)

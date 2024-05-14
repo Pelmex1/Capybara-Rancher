@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
@@ -17,6 +16,17 @@ public class ActivatingPartRobot : MonoBehaviour
             i.GetComponent<IRobotParts>().AllPartsObject = AllParts;
         }
     }
+    private void Start()
+    {
+        for (int i = 0; i < AllParts.Length; i++)
+        {
+            if (AllParts[i].GetComponent<IRobotParts>().CheckMoving == false)
+            {
+                int index = AllParts[i].GetComponent<IRobotParts>().IndexofPart;
+                EventBus.OffMovebleObject.Invoke(index, Points[index]);      
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out _irobotspart))
@@ -24,7 +34,7 @@ public class ActivatingPartRobot : MonoBehaviour
             if (_irobotspart.CheckMoving == true)
             {
                 int index = other.GetComponent<IRobotParts>().IndexofPart;
-                EventBus.RemoveObjcetFromList.Invoke(other.gameObject);
+                EventBus.RemoveFromList.Invoke(other.gameObject);
                 EventBus.OffMovebleObject.Invoke(index, Points[index]);
             }
         }

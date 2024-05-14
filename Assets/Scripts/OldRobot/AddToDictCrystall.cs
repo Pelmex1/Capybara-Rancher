@@ -7,7 +7,6 @@ public class AddToDictCrystall : MonoBehaviour
 {
     private Queue<string> _queueForNameCrystall = new();
     private GameObject[] _allChildrenPartsObject = new GameObject[3];
-    private GameObject[] _allParentPartsObject = new GameObject[3];
 
     private void Awake()
     {
@@ -32,12 +31,7 @@ public class AddToDictCrystall : MonoBehaviour
                 {
                     string Name = TransitionQueue.Dequeue();
                     if (!DictionaryCrystall.ContainsKey(Name))
-                    {
-                        if (_allParentPartsObject[i].GetComponent<IRobotParts>().WasBuilding == false)
-                            DictionaryCrystall.Add(Name, 0);
-                        else
-                            DictionaryCrystall.Add(Name, 1);
-                    }
+                        DictionaryCrystall.Add(Name, 0);
                 }
                 _allChildrenPartsObject[i].GetComponent<ITransitionCrystallData>().DictionaryCrystall = DictionaryCrystall;
                 _allChildrenPartsObject[i].GetComponent<ITransitionCrystallData>().WasChangeDict = true;
@@ -46,10 +40,9 @@ public class AddToDictCrystall : MonoBehaviour
     }
     private void TransitionPartsRobot(GameObject[] AllPartsObject)
     {
-        for(int i = 0; i < AllPartsObject.Length; i++)
+        for (int i = 0; i < AllPartsObject.Length; i++)
         {
-            _allChildrenPartsObject[i] = AllPartsObject[i].FindChild("Collider",true);
+            _allChildrenPartsObject[i] = AllPartsObject[i].FindChild("Collider", true);
         }
-        _allParentPartsObject = AllPartsObject;
     }
 }
