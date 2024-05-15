@@ -12,7 +12,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
 
     private int _index = 0;
     private int _localIndex;
-    private Data _nullChestCell;
+    private Data _nullChestCell = new();
     private int _lastindex;
     private bool _isEnabledSixCell = false;
     public Data[] Inventory { get; set; }
@@ -32,8 +32,11 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
         {
             for (int i = 0; i < Inventory.Length; i++)
             {
-                Inventory[i].InventoryItem = _saves[i].InventoryItem;
-                Inventory[i].Count = _saves[i].Count;
+                Inventory[i] = new()
+                {
+                    InventoryItem = _saves[i].InventoryItem,
+                    Count = _saves[i].Count
+                };
             }
         }
         else throw new System.ArgumentOutOfRangeException();
@@ -112,7 +115,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
     {
         _lastindex = _index;
         float ScrollDelta = Input.mouseScrollDelta.y;
-        if (ScrollDelta < 0 && _index < 5 && Time.timeScale == 1f)
+        if (ScrollDelta < 0 && _index < Inventory.Length && Time.timeScale == 1f)
             ChangeIndex(-1);
         else if (ScrollDelta > 0 && _index >= 0 && Time.timeScale == 1f)
             ChangeIndex(1);

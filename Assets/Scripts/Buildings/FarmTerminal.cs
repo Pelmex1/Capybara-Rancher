@@ -8,37 +8,33 @@ public class FarmTerminal : MonoBehaviour
     private bool[] _isBuy;
     private FarmObject[] _farmObjects;
     private GameObject[] _spawnedGameObjects;
-
-    private void Start()
-    {
+       
+    private void Start() {
         _farmObjects = EventBus.GetBuildings();
         _spawnedGameObjects = new GameObject[_farmObjects.Length];
         _isBuy = new bool[_farmObjects.Length];
-        for (int i = 0; i < _farmObjects.Length; i++)
-        {
+        for(int i = 0; i < _farmObjects.Length; i++){
             _spawnedGameObjects[i] = Instantiate(_farmObjects[i].Prefab, spawnPos.position, Quaternion.identity, gameObject.transform);
-            if (PlayerPrefs.GetString($"{name}_{_spawnedGameObjects[i].name}", "false") == "true")
-            {
+            if(PlayerPrefs.GetString($"{transform.parent.name}_{_spawnedGameObjects[i].name}", "false") == "true"){
                 _spawnedGameObjects[i].SetActive(true);
                 _isBuy[i] = true;
-            }
-            else
-            {
+                spawnPos.gameObject.SetActive(false);
+            } else {
                 _spawnedGameObjects[i].SetActive(false);
             }
         }
-
+        
     }
 
     private void Update()
     {
-        if (_isNear)
-        {
+        if (_isNear){
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Cursor.lockState = CursorLockMode.Confined;
                 EventBus.ActiveFarmPanel(true);
-            }
+                EventBus.UpdateFarmButtons(_isBuy);
+            }      
         }
     }
 
@@ -55,34 +51,27 @@ public class FarmTerminal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             EventBus.ActiveHelpText(false);
-            EventBus.ActiveFarmPanel(false);
             _isNear = false;
-            Cursor.lockState = CursorLockMode.Locked;
         }
     }
-    private void BuyOrRemove(int index, bool isEnable)
-    {
-        if (_isNear)
+    private void BuyOrRemove(int index, bool isEnable){
+        if(_isNear)
         {
             _spawnedGameObjects[index].SetActive(isEnable);
             _isBuy[index] = isEnable;
+            spawnPos.gameObject.SetActive(!isEnable);
         }
     }
-    private void OnEnable()
-    {
+    private void OnEnable() {
         EventBus.BuyFarm += BuyOrRemove;
     }
-    private void OnDisable()
-    {
+    private void OnDisable() {
         EventBus.BuyFarm -= BuyOrRemove;
     }
-    private void OnApplicationQuit()
-    {
-        for (int i = 0; i < _farmObjects.Length; i++)
-        {
-            if (_isBuy[i])
-            {
-                PlayerPrefs.SetString($"{name}_{_spawnedGameObjects[i].name}", "true");
+    private void OnApplicationQuit() {
+        for(int i = 0; i < _farmObjects.Length; i++){
+            if(_isBuy[i]){
+                PlayerPrefs.SetString($"{transform.parent.name}_{_spawnedGameObjects[i].name}", "true");
             }
         }
 

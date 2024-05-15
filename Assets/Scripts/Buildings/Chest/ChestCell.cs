@@ -1,11 +1,11 @@
 using CapybaraRancher.EventBus;
-using CapybaraRancher.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ChestCell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
+    [SerializeField] private Image _image;
     private Vector3 _pos;
     private Transform _parentTransform;
     
@@ -24,25 +24,7 @@ public class ChestCell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnEndDrag(PointerEventData pointerEventData)
     { 
-        /*_newChestCell = FoundDistance.Invoke(transform.position, _newChestCell);
-        if (_newChestCell.InventoryItem == null)
-        {
-            SetCellsData(ref _newChestCell, InventoryItem, Count);
-            InventoryItem = null;
-            Count = 0;
-            transform.position = _pos;
-            transform.SetParent(_parentTransform);
-        }
-        else
-        {
-            InventoryItem inventoryItemTMP = _newChestCell.InventoryItem;
-            int countTMP = _newChestCell.Count;
-            SetCellsData(ref _newChestCell, InventoryItem, Count);
-            InventoryItem = inventoryItemTMP;
-            Count = countTMP;
-            transform.position = _pos;
-            transform.SetParent(_parentTransform);
-        }*/
+        EventBus.ChangeArray.Invoke(EventBus.FoundPos(transform.position, _image));
         transform.position = _pos;
         transform.SetParent(_parentTransform);
     }

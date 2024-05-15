@@ -3,7 +3,7 @@ using UnityEngine;
 namespace CapybaraRancher.CustomStructures
 {
 
-    public struct Data
+    public class Data
     {
         public InventoryItem InventoryItem;
         public int Count;
@@ -21,7 +21,7 @@ namespace CapybaraRancher.CustomStructures
         {
             return counter.Count;
         }
-        public override readonly bool Equals(object obj)
+        public override bool Equals(object obj)
         {
             if(obj == null && Image == null)
             {

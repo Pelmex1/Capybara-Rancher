@@ -2,6 +2,7 @@ using System;
 using CapybaraRancher.CustomStructures;
 using CapybaraRancher.Enums;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CapybaraRancher.EventBus
 {
@@ -83,6 +84,8 @@ namespace CapybaraRancher.EventBus
         public static Action<bool> EnableChestUi;
         public static Action<Data[],Data[]> UpdateChestUI;
         public static Action<Transform> SetChestParent;
+        public static Action<(int localIndex2, int localMindex, int newIndex, int newMIndex)> ChangeArray;
+        public static Func<Vector3, Image, (int localIndex2, int localMindex, int newIndex, int newMIndex)> FoundPos;
         #endregion
     }
 

@@ -40,5 +40,39 @@ public class ContainerInventory : MonoBehaviour
             EventBus.EnableHelpUi(false);
         }
     }
-
+    private void ChangeArray((int localIndex, int localMindex, int newIndex, int newMIndex) counter)
+    {
+        if(_isNearChest)
+        {
+            Data[,] array = new Data[2,_chestCell.Length];
+            for(int i = 0; i < _chestCell.Length; i++)
+            {
+                if(i < _inventoryPlayer.Inventory.Length){
+                    array[0,i] = _inventoryPlayer.Inventory[i];
+                }
+                array[1,i] = _chestCell[i];
+            }
+            if(counter.newMIndex == 1)
+            {
+                _chestCell[counter.newIndex] = array[counter.localMindex,counter.localIndex];
+            } else {
+                _inventoryPlayer.Inventory[counter.newIndex] = array[counter.localMindex,counter.localIndex];
+            }
+            if(counter.localMindex == 1)
+            {
+                _chestCell[counter.localIndex] = array[counter.newMIndex,counter.newIndex];
+            } else 
+            {
+                _inventoryPlayer.Inventory[counter.localIndex] = array[counter.newMIndex,counter.newIndex];
+            }
+            EventBus.UpdateChestUI(_inventoryPlayer.Inventory, _chestCell);
+            EventBus.OnRepaint(_inventoryPlayer.Inventory);
+        }
+    }
+    private void OnEnable() {
+        EventBus.ChangeArray += ChangeArray;
+    }
+    private void OnDisable() {
+        EventBus.ChangeArray -= ChangeArray;
+    }
 }
