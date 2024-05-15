@@ -51,7 +51,7 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
             while (_activatedMobsCount < _amountOfMobs && !_inPlayerVision)
             {
                 GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
-                activatedObject.transform.position = SpawnPos();
+                activatedObject.transform.position = RandomPosition();
                 ItemActivator.ActivatorItemsAdd(activatedObject);
                 activatedObject.SetActive(true);
                 _activatedMobsCount++;

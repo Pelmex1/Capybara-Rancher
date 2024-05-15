@@ -79,7 +79,17 @@ public class MobsAi : MonoBehaviour, IMobsAi
             {
                 if(_agent.enabled == true)
                 {
-                    _agent.SetDestination(RandomPosition());
+                    try
+                    {
+                        _agent.SetDestination(RandomPosition());
+                    }
+                    catch
+                    {
+                        Debug.Log("Catch");
+                        NavMeshHit hit;
+                        if (NavMesh.SamplePosition(_agent.transform.position, out hit, 5.0f, NavMesh.AllAreas))
+                            _agent.Warp(hit.position);
+                    }
                 }
             }
             yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_NEW_TARGET, MAX_INTERVAL_NEW_TARGET));

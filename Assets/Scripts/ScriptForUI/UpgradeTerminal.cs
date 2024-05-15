@@ -27,10 +27,6 @@ public class UpgradeTerminal : MonoBehaviour
     {
         if (isNear)
             OnUi();
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            PlayerPrefs.SetFloat(ENERGY_SPENDING_KEY, 10f);
-        }
     }
     private void OnTriggerEnter(Collider other)
     {
