@@ -1,5 +1,6 @@
 using System.Collections;
 using CapybaraRancher.Interfaces;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -46,35 +47,40 @@ public class MobsAi : MonoBehaviour, IMobsAi
         return pos;
     }
 
-    public Vector3 FoundTarget()
+    private Vector3 FoundTarget()
     {
-        Vector3 pos = RandomPosition();
-        Collider[] colliders = Physics.OverlapSphere( pos,0.1f, 1 << LayerMask.NameToLayer("Default"));
-
-        foreach (Collider collider in colliders)
+        int maxAttempts = 10;
+        for (int i = 0; i < maxAttempts; i++)
         {
-            if (collider.CompareTag(TERRITORY_OF_MAP_TAG) && !collider.CompareTag(OBSTACLE_TAG))
+            Vector3 pos = RandomPosition();
+            Vector3 raycastDirection = Vector3.down;
+            Debug.DrawRay(pos, raycastDirection, Color.red, 0.1f);
+            if (Physics.Raycast(pos, raycastDirection, out RaycastHit hit, 0.1f, 1, QueryTriggerInteraction.Ignore))
             {
-                return pos;
+                if (hit.collider.CompareTag(TERRITORY_OF_MAP_TAG))
+                {
+                    return pos;
+                }
             }
         }
-
-        return FoundTarget();
+        return transform.position;
     }
 
     private IEnumerator Moving()
     {
         while (true)
         {
+            if (!_agent.enabled)
+            {
+                yield return new WaitForSecondsRealtime(1f);
+                continue;
+            }
             if (!_isfoodfound && Time.timeScale == 1f)
             {
                 if(_agent.enabled == true)
-                    _agent.SetDestination(FoundTarget());
-            }
-            if(!_agent.enabled)
-            {
-                yield return new WaitForSecondsRealtime(1f);
-                continue;            
+                {
+                    _agent.SetDestination(RandomPosition());
+                }
             }
             yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_NEW_TARGET, MAX_INTERVAL_NEW_TARGET));
         }

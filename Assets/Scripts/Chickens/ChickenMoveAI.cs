@@ -66,7 +66,7 @@ public class ChickenMoveAI : MonoBehaviour
             if (Time.timeScale == 1f)
             {
                 if (_agent.enabled == true)
-                    _agent.SetDestination(FoundTarget());
+                    _agent.SetDestination(RandomPosition());
             }
             if (!_agent.enabled)
             {
