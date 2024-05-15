@@ -23,13 +23,11 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
     private void Awake()
     {
         // PlayerPrefs.DeleteAll();
-        // EventBus.OnMovebleObject = OnObject;
         EventBus.OffMovebleObject = OffObject;
         IndexofPart = _index;
     }
     private void OnEnable()
     {
-
         if (PlayerPrefs.GetInt($"CanMoving{_index}") == 0)
         {
             CheckMoving = true;
@@ -42,21 +40,18 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
             WasBuilding = true;
             gameObject.tag = "PartsRobot";
         }
-        Debug.Log(CheckMoving + $" {gameObject.name}");
         _isDisabled = true;
         StartCoroutine(Disabled());
     }
 
     private void OnDisable()
     {
-        // Debug.Log(CheckMoving);
         if (CheckMoving)
             PlayerPrefs.SetInt($"CanMoving{_index}", 0);
         else
             PlayerPrefs.SetInt($"CanMoving{_index}", 1);
         PlayerPrefs.Save();
         _looted = false;
-        Debug.Log(CheckMoving + $" {gameObject.name}");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -80,16 +75,6 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         yield return new WaitForSecondsRealtime(2);
         _isDisabled = false;
     }
-    // private void OnObject(string NameObject, int OnIndexofPart)
-    // {
-    //     for (int i = 0; i < AllPartsObject.Length; i++)
-    //     {
-    //         if (i == OnIndexofPart & AllPartsObject[OnIndexofPart].name == NameObject)
-    //         {
-    //             AllPartsObject[OnIndexofPart].GetComponent<IRobotParts>().CheckMoving = true;
-    //         }
-    //     }
-    // }
     private void OffObject(int OffIndexofPart, Transform PointTransform)
     {
         for (int i = 0; i < AllPartsObject.Length; i++)
