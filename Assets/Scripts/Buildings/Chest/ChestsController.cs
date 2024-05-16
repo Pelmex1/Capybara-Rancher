@@ -19,12 +19,6 @@ public class ChestsController : MonoBehaviour
         EventBus.FoundPos = FoundPos;
         EventBus.UpdateChestUI = UpdateCells;
     }
-    /*private ChestCell CellUpdate(ChestCell cell, ChestCell data){
-        cell.InventoryItem = data.InventoryItem;
-        cell.Count = data.Count != 0 ? data.Count : 0;
-        cell.Image.sprite = data.InventoryItem?.Image ?? defaultSprite;
-        return cell;
-    }*/
     private void UpdateCells(Data[] chestCells,Data[] inventoryCells){
         for (int i = 0; i < chestCells.Length; i++)
         {
@@ -54,18 +48,24 @@ public class ChestsController : MonoBehaviour
         {
             if(i < InventoryCells.Length){
                 float tmp1 = Math.Abs(Vector3.Distance(InventoryCells[i].gameObject.transform.position, positionNow));
-                if (tmp1 > pos)
+                if (tmp1 < pos && image != InventoryCells[i])
                 {
+                    pos = tmp1;
+                    index = (i,0);
+                } else if(pos == 0 && image != InventoryCells[i]){
                     pos = tmp1;
                     index = (i,0);
                 }
             }
             float tmp = Math.Abs(Vector3.Distance(ChestCells[i].gameObject.transform.position, positionNow));
-            if (tmp > pos)
+            if (tmp < pos && ChestCells[i] != image)
             {
                 pos = tmp;
                 index = (i,1);
-            }
+            }   else if(pos == 0 && ChestCells[i] != image){
+                    pos = tmp;
+                    index = (i,1);
+                }
         }
         return (localIndex.Item1,localIndex.Item2,index.Item1,index.Item2);
     }

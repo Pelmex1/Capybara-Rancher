@@ -6,7 +6,7 @@ using UnityEngine;
 public class ContainerInventory : MonoBehaviour
 {
     private bool _isNearChest = false;
-    private readonly Data[] _chestCell = new Data[11];
+    private readonly Data[] _chestCell = new Data[12];
     private IInventoryPlayer _inventoryPlayer;
     private void Start() {
         for(int i = 0; i < _chestCell.Length; i++){
@@ -44,6 +44,10 @@ public class ContainerInventory : MonoBehaviour
     {
         if(_isNearChest)
         {
+            int localIndex = counter.localIndex;
+            int localMindex = counter.localMindex;
+            int newIndex = counter.newIndex;
+            int newMIndex = counter.newMIndex;
             Data[,] array = new Data[2,_chestCell.Length];
             for(int i = 0; i < _chestCell.Length; i++)
             {
@@ -52,21 +56,43 @@ public class ContainerInventory : MonoBehaviour
                 }
                 array[1,i] = _chestCell[i];
             }
-            if(counter.newMIndex == 1)
+            if(newMIndex == 1)
             {
-                _chestCell[counter.newIndex] = array[counter.localMindex,counter.localIndex];
+                _chestCell[newIndex] = array[localMindex,localIndex];
             } else {
-                _inventoryPlayer.Inventory[counter.newIndex] = array[counter.localMindex,counter.localIndex];
+                _inventoryPlayer.Inventory[newIndex] = array[localMindex,localIndex];
             }
-            if(counter.localMindex == 1)
+            if(localMindex == 1)
             {
-                _chestCell[counter.localIndex] = array[counter.newMIndex,counter.newIndex];
+                _chestCell[localIndex] = array[newMIndex,newIndex];
             } else 
             {
-                _inventoryPlayer.Inventory[counter.localIndex] = array[counter.newMIndex,counter.newIndex];
+                _inventoryPlayer.Inventory[localIndex] = array[newMIndex,newIndex];
             }
-            EventBus.UpdateChestUI(_inventoryPlayer.Inventory, _chestCell);
             EventBus.OnRepaint(_inventoryPlayer.Inventory);
+            EventBus.UpdateChestUI(_chestCell,_inventoryPlayer.Inventory);
+            /*Data[][] array = new Data[2][];
+            array[0] = _inventoryPlayer.Inventory;
+            array[1] = _chestCell;
+            int localIndex = counter.localIndex;
+            int localMindex = counter.localMindex;
+            int newIndex = counter.newIndex;
+            int newMIndex = counter.newMIndex;
+            if(newMIndex == 1)
+            {
+                _chestCell[newIndex] = array[localMindex][localIndex];
+            } else {
+                _inventoryPlayer.Inventory[newIndex] = array[localMindex][localIndex];
+            }
+            if(localMindex == 1)
+            {
+                _chestCell[localIndex] = array[newMIndex][newIndex];
+            } else 
+            {
+                _inventoryPlayer.Inventory[localIndex] = array[newMIndex][newIndex];
+            }*/
+            EventBus.OnRepaint(_inventoryPlayer.Inventory);
+            EventBus.UpdateChestUI(_chestCell,_inventoryPlayer.Inventory);
         }
     }
     private void OnEnable() {
