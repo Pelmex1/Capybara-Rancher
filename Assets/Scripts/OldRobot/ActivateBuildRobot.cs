@@ -28,7 +28,7 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "movebleObject" && other.TryGetComponent(out _icrystall) && ParentObject.TryGetComponent<IRobotParts>(out _irobotspart))
+        if (other.CompareTag("movebleObject") && other.TryGetComponent(out _icrystall) && ParentObject.TryGetComponent<IRobotParts>(out _irobotspart))
         {
             if (_irobotspart.CheckMoving == false && _icrystall != null)
             {
