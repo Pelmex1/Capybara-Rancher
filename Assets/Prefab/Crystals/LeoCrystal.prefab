@@ -169,7 +169,7 @@ MonoBehaviour:
   price: 20
   percentOfRegen: 20
   favouriteFoodName: Pink Chicken
-  whatEatThisType: 4
+  whatEatThisType: 0
 --- !u!114 &-2153463929712632485
 MonoBehaviour:
   m_ObjectHideFlags: 0

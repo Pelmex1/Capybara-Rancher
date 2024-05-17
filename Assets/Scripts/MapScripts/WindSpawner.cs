@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class WindSpawner : MonoBehaviour
 {
-    private const float MIN_DISTANCE_FOR_X_AND_Z = -30f;
-    private const float MAX_DISTANCE_FOR_X_AND_Z = 30f;
     private const float MIN_DISTANCE_FOR_Y = 5f;
     private const float MAX_DISTANCE_FOR_Y = 10f;
     private const float DESTROY_DELAY = 5f;
 
     [SerializeField] private Transform _player;
     [SerializeField] private float _intervalBetweenWindGenerete = 2f;
+    [SerializeField] private float _minDistanceForXAndZ = -30f;
+    [SerializeField] private float _maxDistanceForXAndZ = 30f;
     [SerializeField] private GameObject[] _windsPrefabs;
     private List<GameObject> _activeWindsPool = new List<GameObject>();
     private List<GameObject> _deactiveWindsPool = new List<GameObject>();
@@ -27,9 +27,9 @@ public class WindSpawner : MonoBehaviour
         while (true)
         {
             Vector3 spawnPos = _player.position;
-            spawnPos.x += Random.Range(MIN_DISTANCE_FOR_X_AND_Z, MAX_DISTANCE_FOR_X_AND_Z);
+            spawnPos.x += Random.Range(_minDistanceForXAndZ, _maxDistanceForXAndZ);
             spawnPos.y += Random.Range(MIN_DISTANCE_FOR_Y, MAX_DISTANCE_FOR_Y);
-            spawnPos.z += Random.Range(MIN_DISTANCE_FOR_X_AND_Z, MAX_DISTANCE_FOR_X_AND_Z);
+            spawnPos.z += Random.Range(_minDistanceForXAndZ, _maxDistanceForXAndZ);
 
             StartCoroutine(ReturnToPoolObject(ActiveObject(spawnPos)));
 
