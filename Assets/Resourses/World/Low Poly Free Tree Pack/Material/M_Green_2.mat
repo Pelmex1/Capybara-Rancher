@@ -39,8 +39,8 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _OutlineWidth: 0.3
-    - _RimStep: 0.65
+    - _OutlineWidth: 0.15
+    - _RimStep: 0
     - _RimStepSmooth: 0
     - _ShadowStep: 0.739
     - _ShadowStepSmooth: 0.437

@@ -41,9 +41,9 @@ Material:
     m_Floats:
     - _OutlineWidth: 0.05
     - _RimStepSmooth: 0.4
-    - _ShadowStep: 0.5
-    - _ShadowStepSmooth: 0.04
-    - _SpecularStep: 0.6
+    - _ShadowStep: 1
+    - _ShadowStepSmooth: 0.7
+    - _SpecularStep: 0
     m_Colors:
     - _BaseColor: {r: 0.6862745, g: 0.101960786, b: 0.101960786, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

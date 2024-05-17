@@ -42,9 +42,9 @@ Material:
     - _OutlineWidth: 0.05
     - _RimStep: 0.65
     - _RimStepSmooth: 0.4
-    - _ShadowStep: 0.5
-    - _ShadowStepSmooth: 0.04
-    - _SpecularStep: 0.6
+    - _ShadowStep: 1
+    - _ShadowStepSmooth: 0.7
+    - _SpecularStep: 0
     - _SpecularStepSmooth: 0.05
     m_Colors:
     - _BaseColor: {r: 0.69411767, g: 0.34509805, b: 0.105882354, a: 1}

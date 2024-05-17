@@ -229,6 +229,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: movebleObject
       objectReference: {fileID: 0}
+    - target: {fileID: 6578789635713599336, guid: 34fb5b43f260ccc40aa5300bfa8c740d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af0c213db1983084e8841bc515e50910, type: 2}
+    - target: {fileID: 6578789635713599336, guid: 34fb5b43f260ccc40aa5300bfa8c740d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3cce4ddde5c37264181914d63e640add, type: 2}
     - target: {fileID: 8879528566716807029, guid: 34fb5b43f260ccc40aa5300bfa8c740d,
         type: 3}
       propertyPath: m_LocalScale.x
