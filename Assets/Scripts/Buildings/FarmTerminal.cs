@@ -8,6 +8,7 @@ public class FarmTerminal : MonoBehaviour
     private bool[] _isBuy;
     private FarmObject[] _farmObjects;
     private GameObject[] _spawnedGameObjects;
+    private bool _isAnyBuy = false;
        
     private void Start() {
         _farmObjects = EventBus.GetBuildings();
@@ -18,6 +19,7 @@ public class FarmTerminal : MonoBehaviour
             if(PlayerPrefs.GetString($"{transform.parent.name}_{_spawnedGameObjects[i].name}", "false") == "true"){
                 _spawnedGameObjects[i].SetActive(true);
                 _isBuy[i] = true;
+                _isAnyBuy = true;
                 spawnPos.gameObject.SetActive(false);
             } else {
                 _spawnedGameObjects[i].SetActive(false);
@@ -33,7 +35,7 @@ public class FarmTerminal : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.Confined;
                 EventBus.ActiveFarmPanel(true);
-                EventBus.UpdateFarmButtons(_isBuy);
+                EventBus.UpdateFarmButtons(_isBuy,_isAnyBuy);
             }      
         }
     }
@@ -59,7 +61,9 @@ public class FarmTerminal : MonoBehaviour
         {
             _spawnedGameObjects[index].SetActive(isEnable);
             _isBuy[index] = isEnable;
+            _isAnyBuy = isEnable;
             spawnPos.gameObject.SetActive(!isEnable);
+            EventBus.UpdateFarmButtons(_isBuy,_isAnyBuy);
         }
     }
     private void OnEnable() {

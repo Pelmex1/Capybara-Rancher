@@ -28,14 +28,18 @@ public class MainPanelBuilding : MonoBehaviour
             values[i].text = buttonsEnable[i].GetComponentInChildren<TMP_Text>();
         }
     }
-    private void UpdateFarmButtons(bool[] bools){
+    private void UpdateFarmButtons(bool[] bools, bool isAnyBuy){
         for(int i = 0; i < buttonsEnable.Length; i++){
             if(bools[i]){
                 values[i].button.interactable = false;
                 values[i].text.text = "Bought";
                 values[i].disable.interactable = true;
-            } else {
+            } else if(!isAnyBuy){
                 values[i].button.interactable = true;
+                values[i].text.text = "Buy";
+                values[i].disable.interactable = false;
+            } else {
+                values[i].button.interactable = false;
                 values[i].text.text = "Buy";
                 values[i].disable.interactable = false;
             }
@@ -44,18 +48,12 @@ public class MainPanelBuilding : MonoBehaviour
     public void Buy(int index)
     {
         if(EventBus.GetMoney() >= farmObjects[index].Price){
-            values[index].button.interactable = false;
-            values[index].text.text = "Bought";
-            values[index].disable.interactable = true;
             EventBus.AddMoney(-farmObjects[index].Price);
             EventBus.BuyFarm.Invoke(index, true);
             EventBus.BuildTutorial.Invoke();
         }
     }
     public void Remove(int index){
-        values[index].button.interactable = true;
-        values[index].text.text = "Buy";
-        values[index].disable.interactable = false;
         EventBus.BuyFarm.Invoke(index, false);
     }
     public void Exit(){
