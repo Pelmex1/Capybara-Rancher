@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 4388054700171606247}
   - component: {fileID: -2424757895743013958}
   - component: {fileID: 4931975971623334155}
-  - component: {fileID: 6592143342784274038}
   m_Layer: 0
   m_Name: Mandarine
   m_TagString: movebleObject
@@ -182,18 +181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeBeforeSpoilage: 30
---- !u!114 &6592143342784274038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730432400382736024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &829490631437043335
 GameObject:
   m_ObjectHideFlags: 0

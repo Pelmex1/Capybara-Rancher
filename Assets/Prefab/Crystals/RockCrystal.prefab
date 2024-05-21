@@ -169,7 +169,7 @@ MonoBehaviour:
   price: 10
   percentOfRegen: 10
   favouriteFoodName: Carrot
-  whatEatThisType: 0
+  whatEatThisType: 3
 --- !u!114 &-6704972567795766569
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16394,7 +16394,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852176107350716984}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 1479372276
   m_Radius: 0.023079664
   m_Speed: 3.5
@@ -16469,7 +16469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17,
     type: 3}
-  whatEat: 0
+  whatEat: 3
   nameOfFavouriteFood: Carrot
 --- !u!114 &-2388520379149261065
 MonoBehaviour:
@@ -16523,7 +16523,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852176107350716984}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
   m_Name: 

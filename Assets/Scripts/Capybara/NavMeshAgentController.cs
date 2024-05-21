@@ -44,16 +44,15 @@ public class NavMeshAgentController : MonoBehaviour
     }
     private void CheckIsGrounded()
     {
-        Vector3 raycastOrigin = transform.position;
-        Vector3 raycastDirection = Vector3.down;
-        if (Physics.Raycast(raycastOrigin, raycastDirection, out RaycastHit hit, _raycastLength, 1, QueryTriggerInteraction.Ignore))
+        _agent.enabled = true;
+        if (_agent.isOnNavMesh)
         {
-            if (hit.collider.CompareTag(GROUND_TAG))
-                IsGrounded = true;
-            else if (hit.collider == null)
-                IsGrounded = false;
+            IsGrounded = true;
         }
         else
+        {
             IsGrounded = false;
+            _agent.enabled = false;
+        } 
     }
 }

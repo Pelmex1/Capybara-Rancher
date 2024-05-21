@@ -169,7 +169,7 @@ MonoBehaviour:
   price: 8
   percentOfRegen: 5
   favouriteFoodName: '-'
-  whatEatThisType: 0
+  whatEatThisType: 1
 --- !u!114 &3749597111223783055
 MonoBehaviour:
   m_ObjectHideFlags: 0

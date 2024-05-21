@@ -33,6 +33,8 @@ public class SavePosition : MonoBehaviour
                 float y = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Y",_positionNow.y);
                 float z = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Z",_positionNow.z);           
                 Vector3 localPosition = new(x,y,z);
+                if (gameObject.name.Contains("Anim"))
+                    Debug.Log("CapybaraLoaded");
                 transform.position = transform.position == localPosition ? transform.position : localPosition;
             }
         }

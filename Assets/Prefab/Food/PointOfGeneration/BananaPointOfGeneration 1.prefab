@@ -55,3 +55,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _foodPrefab: {fileID: 6361594820006480700, guid: 61bcadc7115dedb4491b573b5acf63ec,
     type: 3}
+  _startFoodPool: 20
+  _activeFoodsPool: []
+  _deactiveFoodsPool: []

@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8704529104052898594}
   - component: {fileID: 1837756341880894119}
   - component: {fileID: -792548859732349625}
-  - component: {fileID: -5470784246770498769}
   m_Layer: 0
   m_Name: Carrot
   m_TagString: movebleObject
@@ -181,15 +180,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeBeforeSpoilage: 30
---- !u!114 &-5470784246770498769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5438235292126757285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

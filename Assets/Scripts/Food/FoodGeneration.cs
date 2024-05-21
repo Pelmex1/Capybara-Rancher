@@ -1,3 +1,5 @@
+using CapybaraRancher.Enums;
+using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,15 +12,16 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
     private const float START_GROWING_SCALE = 0.1f;
 
     [SerializeField] private GameObject _foodPrefab;
-    [SerializeField] private int _startFoodPool = 50;
+    [SerializeField] private int _startFoodPool = 20;
 
     private float _generationInterval;
-    [SerializeField] private List<GameObject> _activeFoodsPool = new List<GameObject>();
-    [SerializeField] private List<GameObject> _deactiveFoodsPool = new List<GameObject>();
+    private TypeGameObject _typeGameObject;
 
     private void Start()
     {
+        _typeGameObject = _foodPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _generationInterval = _foodPrefab.GetComponent<IFoodItem>().TimeGeneration;
+
         InstantiateObjects(_startFoodPool);
         StartCoroutine(GenerationLoop());
     }
@@ -28,11 +31,11 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
         while (true)
         {
             GameObject harvest = ActivateObject();
-            harvest.transform.parent = transform;
             Rigidbody harvestRB = harvest.GetComponent<Rigidbody>();
             harvestRB.isKinematic = true;
             harvest.tag = UNDERRIPE_TAG;
             harvest.transform.localScale = new Vector3(START_GROWING_SCALE, START_GROWING_SCALE, START_GROWING_SCALE);
+            harvest.transform.position = transform.position;
 
             Vector3 startSize = harvest.transform.localScale;
             Vector3 endSize = _foodPrefab.transform.localScale;
@@ -57,27 +60,23 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
     {
         for (int i = 0; i < number; i++)
         {
-            GameObject spawnedObject = Instantiate(_foodPrefab, transform.position, Quaternion.identity);
+            GameObject spawnedObject = Instantiate(_foodPrefab);
             spawnedObject.SetActive(false);
-            _deactiveFoodsPool.Add(spawnedObject);
-            spawnedObject.transform.parent = gameObject.transform;
+            EventBus.AddInPool(spawnedObject, _typeGameObject);
         }
     }
 
     private GameObject ActivateObject()
     {
-        GameObject activatedObject = _deactiveFoodsPool[0];
+        GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
+        activatedObject.transform.position = transform.position;
         activatedObject.SetActive(true);
-        _activeFoodsPool.Add(activatedObject);
-        _deactiveFoodsPool.Remove(activatedObject);
-
         return activatedObject;
     }
 
     public void ReturnToPool(GameObject returnObject)
     {
-        _activeFoodsPool.Remove(returnObject);
-        _deactiveFoodsPool.Add(returnObject);
         returnObject.SetActive(false);
+        EventBus.AddInPool(returnObject, _typeGameObject);
     }
 }

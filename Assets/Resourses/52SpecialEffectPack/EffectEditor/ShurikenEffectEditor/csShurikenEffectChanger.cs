@@ -5,14 +5,15 @@ using UnityEditor;
 
 public class csShurikenEffectChanger : MonoBehaviour
 {
-	public void ShurikenParticleScaleChange(float _Value)
+    [System.Obsolete]
+    public void ShurikenParticleScaleChange(float _Value)
 	{
 		ParticleSystem[] ParticleSystems = GetComponentsInChildren<ParticleSystem>();
 
         transform.localScale *= _Value;
 
 		foreach(ParticleSystem _ParticleSystem in ParticleSystems) {
-			_ParticleSystem.startSpeed *= _Value;
+            _ParticleSystem.startSpeed *= _Value;
 			_ParticleSystem.startSize *= _Value;
 			_ParticleSystem.gravityModifier *= _Value;
 			SerializedObject _SerializedObject = new SerializedObject(_ParticleSystem);

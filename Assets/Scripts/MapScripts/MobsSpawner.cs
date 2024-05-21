@@ -40,7 +40,6 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
         {
             GameObject spawnedObject = Instantiate(_mobPrefab);
             EventBus.AddInPool(spawnedObject, _typeGameObject);
-            spawnedObject.transform.parent = gameObject.transform;
         }
     }
 
@@ -51,6 +50,7 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
             while (_activatedMobsCount < _amountOfMobs && !_inPlayerVision)
             {
                 GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
+                yield return new WaitForSeconds(0.1f);
                 activatedObject.transform.position = RandomPosition();
                 ItemActivator.ActivatorItemsAdd(activatedObject);
                 activatedObject.SetActive(true);
@@ -58,18 +58,6 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
             }
             yield return new WaitForSeconds(_delayBetweenRespawn);
         }
-    }
-
-    private Vector3 SpawnPos()
-    {
-        Vector3 pos = RandomPosition();
-        Collider[] colliders = Physics.OverlapSphere(pos, 0.1f, 1 << LayerMask.NameToLayer("Default"));
-
-        foreach (Collider collider in colliders)
-            if (collider.CompareTag(TERRITORY_OF_MAP_TAG) && !collider.CompareTag(OBSTACLE_TAG))
-                return pos;
-
-        return SpawnPos();
     }
 
     private Vector3 RandomPosition()
