@@ -6,6 +6,7 @@ public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
     [SerializeField] private GameObject Portal2;
+    private const string MOVEBLETAG = "movebleObject";
     private const float SPEED = 3f;
     private Collider _colliderCanon;
     private bool _oneFunc = true;
@@ -55,14 +56,14 @@ public class Canon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("movebleObject"))
+        if (other.gameObject.CompareTag(MOVEBLETAG))
         {
             obdjectsInCollider.Add(other.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("movebleObject"))
+        if (other.gameObject.CompareTag(MOVEBLETAG))
         {
             obdjectsInCollider.Remove(other.gameObject);
         }

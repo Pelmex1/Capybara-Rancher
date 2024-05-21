@@ -47,7 +47,7 @@ namespace CapybaraRancher.EventBus
         #endregion Options and Loaading Scenes
 
         #region  Building
-        public static Action<int> WasChangeFarm;
+        public static Func<FarmType[]> GetFarms;
         #endregion Building
 
         #region Audio Action

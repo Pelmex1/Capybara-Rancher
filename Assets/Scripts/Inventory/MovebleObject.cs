@@ -21,7 +21,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
         TryGetComponent(out _navMeshAgent);
         transform.parent?.TryGetComponent(out _objectSpawner);
     }
-    protected virtual void Update()
+    protected void Update()
     {
         if (Input.GetMouseButton(0) && Time.timeScale > 0)
         {
@@ -35,7 +35,7 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             _ = IsMoved ? (_navMeshAgent.enabled = false) : (_navMeshAgent.enabled = true);
         }
     }
-    protected virtual void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
         {
@@ -50,9 +50,10 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             }
         }
     }
-    protected virtual void OnDisable()
+    protected void OnDisable()
     {
         _looted = false;
+        EventBus.AddInPool(gameObject, Data.TypeGameObject);
     }
     private void OnEnable()
     {

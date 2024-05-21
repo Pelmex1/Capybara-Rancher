@@ -49,10 +49,6 @@ namespace CapybaraRancher.Interfaces
         public InventoryItem Data { get; set; }
         public GameObject Localgameobject { get; set; }
     }
-    internal interface IReceptacle
-    {
-        public void GetData(Transform ParentPosition, GameObject NewObject);
-    }
     internal interface IRobotParts
     {
         public int IndexofPart { get; set; }
