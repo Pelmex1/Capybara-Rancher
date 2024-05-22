@@ -5,20 +5,23 @@ using UnityEngine;
 public class Receptacle : MonoBehaviour
 {
     [SerializeField] private GameObject _farm;
+    [SerializeField] private Collider _localCollider;
     private const string MOVEBLETAG = "movebleObject";
     private FarmType[] _farms;
-    private readonly GameObject[] _spawnedFarms;
+    private GameObject[] _spawnedFarms;
     private int _index = -1;
-    private Collider _localCollider;
+
     private void Start() {
         _localCollider = GetComponent<Collider>();
         _farms = EventBus.GetFarms();
+        _spawnedFarms = new GameObject[_farms.Length];
         for(int i = 0; i < _farms.Length; i++){
             _spawnedFarms[i] = Instantiate(_farms[i].farm,_farm.transform.position,Quaternion.identity,transform);
             _spawnedFarms[i].SetActive(false);
         }
         _index = PlayerPrefs.GetInt("FarmIndex", -1);
         if(_index != -1){
+            _localCollider.enabled = false;
             _spawnedFarms[_index].SetActive(false);
             _farm.SetActive(false);
         }
@@ -27,13 +30,14 @@ public class Receptacle : MonoBehaviour
     {
         if(other.CompareTag(MOVEBLETAG))
         {
-            if(other.gameObject.TryGetComponent(out IFoodItem food) && food.IsGenerable)
+            if(other.gameObject.TryGetComponent(out IMovebleObject type))
             {
                 for(int i = 0; i < _farms.Length; i++)
                 {
-                    if(_farms[i].type == food.Type)
+                    if(_farms[i].type == type.Data.TypeGameObject)
                     {
                         _localCollider.enabled = false;
+                        Debug.Log(_spawnedFarms[i]);
                         _spawnedFarms[i].SetActive(true);
                         _farm.SetActive(false);
                         other.gameObject.SetActive(false);
@@ -43,14 +47,15 @@ public class Receptacle : MonoBehaviour
             }
         }
     }
-    private void OnApplicationQuit() {
-        PlayerPrefs.SetInt("FarmIndex", _index);
-    }
     private void OnDisable() {
         if(_index != -1){
+            _localCollider.enabled = true;
             _spawnedFarms[_index].SetActive(false);
             _index = -1;
         }
+    }
+    private void OnApplicationQuit() {
+        PlayerPrefs.SetInt("FarmIndex", _index);
     }
 }
 
