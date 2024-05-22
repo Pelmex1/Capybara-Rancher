@@ -3,15 +3,8 @@ using UnityEngine.AI;
 
 public class NavMeshAgentController : MonoBehaviour
 {
-    private const string GROUND_TAG = "Ground";
-    private const float RAYCAST_LENGTH_CAPYBARA = 0.2f;
-    private const float RAYCAST_LENGTH_CHICKEN = 0.1f;
-
-    [SerializeField] private bool _isChicken = false;
-
     private NavMeshAgent _agent;
     private Rigidbody _rb;
-    private float _raycastLength;
     private bool IsGrounded;
 
     private void Awake()
@@ -19,9 +12,6 @@ public class NavMeshAgentController : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _rb = GetComponent<Rigidbody>();
         IsGrounded = false;
-        _raycastLength = RAYCAST_LENGTH_CAPYBARA;
-        if (_isChicken)
-            _raycastLength = RAYCAST_LENGTH_CHICKEN;
     }
 
     private void OnCollisionEnter(Collision collision)

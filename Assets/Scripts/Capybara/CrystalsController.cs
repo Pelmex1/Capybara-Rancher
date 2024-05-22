@@ -161,5 +161,6 @@ public class CrystalsController : MonoBehaviour
         Instantiate(modification, transform);
         tag = "Untagged";
         _hasTransformed = true;
+        //GetComponent<IMovebleObject>().enabled = false;
     }
 }

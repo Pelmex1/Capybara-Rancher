@@ -29,9 +29,7 @@ public class Iinstance : MonoBehaviour
         //SceneManager.sceneLoaded += OnSceneLoaded;
         EventBus.AddMoney = (float money) => Money += money;
         EventBus.GetMoney = () => { return Money; };
-    }
-    private void Start()
-    {
+
         Money = PlayerPrefs.GetFloat("Money", 0);
     }
     //private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
