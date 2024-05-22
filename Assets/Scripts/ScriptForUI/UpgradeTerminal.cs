@@ -6,15 +6,15 @@ public class UpgradeTerminal : MonoBehaviour
     private const string PLAYER_TAG = "Player";
     private const float VALUE_UPGRADE = 2f;
     private const string ENERGY_KEY = "Energy";
-    private const float ENERGYMAXVALUE_UPGRADE_PRICE = 300f;
+    private const float ENERGYMAXVALUE_UPGRADE_PRICE = 100f;
     private const string HEALTH_KEY = "Health";
-    private const float HEALTHMAXVALUE_UPGRADE_PRICE = 150f;
+    private const float HEALTHMAXVALUE_UPGRADE_PRICE = 50f;
     private const string HUNGER_KEY = "Hunger";
-    private const float HUNGERMAXVALUE_UPGRADE_PRICE = 200f;
+    private const float HUNGERMAXVALUE_UPGRADE_PRICE = 75f;
     private const string EXTRASLOT_KEY = "ExtraSlotUpgrade";
-    private const float EXTRASLOT_VALUE_UPGRADE_PRICE = 400f;
+    private const float EXTRASLOT_VALUE_UPGRADE_PRICE = 125f;
     private const string ENERGY_SPENDING_KEY = "EnergySpendingRate";
-    private const float ENERGY_SPENDING_PRICE = 350f;
+    private const float ENERGY_SPENDING_PRICE = 105f;
     private const float ENERGY_SPENDING_RATE = 5f;
 
     [SerializeField] private GameObject InfoText;

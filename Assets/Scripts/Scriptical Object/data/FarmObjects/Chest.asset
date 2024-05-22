@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Chest
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5819095775484239803, guid: e457e7526b77cbf488b6ad693b3ea35a, type: 3}
-  Price: 150
+  Price: 75

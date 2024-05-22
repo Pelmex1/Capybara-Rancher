@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Enclosure
   m_EditorClassIdentifier: 
   Prefab: {fileID: 2237386376475203733, guid: 7d2fe2a73226d0741b187363db6a725e, type: 3}
-  Price: 150
+  Price: 100
