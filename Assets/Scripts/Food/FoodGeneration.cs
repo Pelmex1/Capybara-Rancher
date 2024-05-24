@@ -2,7 +2,6 @@ using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodGeneration : MonoBehaviour, IObjectSpawner
@@ -69,6 +68,8 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
     private GameObject ActivateObject()
     {
         GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
+        if (activatedObject.activeSelf)
+            return ActivateObject();
         activatedObject.transform.position = transform.position;
         activatedObject.SetActive(true);
         return activatedObject;
