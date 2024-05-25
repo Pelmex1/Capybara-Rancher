@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Iinstance : MonoBehaviour
 {
@@ -29,7 +30,6 @@ public class Iinstance : MonoBehaviour
         //SceneManager.sceneLoaded += OnSceneLoaded;
         EventBus.AddMoney = (float money) => Money += money;
         EventBus.GetMoney = () => { return Money; };
-
         Money = PlayerPrefs.GetFloat("Money", 0);
     }
     //private void OnSceneLoaded(Scene scene, LoadSceneMode mode){

@@ -9,9 +9,9 @@ namespace CapybaraRancher.EventBus
     public static class EventBus
     {
         public static Action<int, bool> BuyFarm;
-        public static Action<bool[],bool> UpdateFarmButtons;
-        public static Action<bool> ActiveFarmPanel = delegate {};
-        public static Action<bool> ActiveHelpText = delegate {};
+        public static Action<bool[], bool> UpdateFarmButtons;
+        public static Action<bool> ActiveFarmPanel = delegate { };
+        public static Action<bool> ActiveHelpText = delegate { };
         public static Func<FarmObject[]> GetBuildings;
         public static Action<GameObject> AddInDisable;
         public static Action<GameObject> RemoveFromDisable;
@@ -64,7 +64,7 @@ namespace CapybaraRancher.EventBus
         public static Action AddToDict;
         public static Action<int, Transform> OffMovebleObject;
         #endregion OldRobotAction
-        
+
         #region PlayerUpgrades
         public static Action MaxValueUpgrade;
         public static Action ExtraSlotUpgrade;
@@ -82,7 +82,7 @@ namespace CapybaraRancher.EventBus
         #endregion Tutorial
         #region Chest
         public static Action<bool> EnableChestUi;
-        public static Action<Data[],Data[]> UpdateChestUI;
+        public static Action<Data[], Data[]> UpdateChestUI;
         public static Action<Transform> SetChestParent;
         public static Action<(int localIndex2, int localMindex, int newIndex, int newMIndex)> ChangeArray;
         public static Func<Vector3, Image, (int localIndex2, int localMindex, int newIndex, int newMIndex)> FoundPos;

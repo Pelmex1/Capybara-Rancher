@@ -11,7 +11,6 @@ namespace DevionGames
     {
         [SerializeField]
         private string m_Scene=string.Empty;
-
         public override ActionStatus OnUpdate()
         {
             Scene currentScene = SceneManager.GetActiveScene();

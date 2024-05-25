@@ -50,7 +50,6 @@ public class CreatNewGame : MonoBehaviour
         else return;
     }
 
-
     public void ChangeGameMod(string NameMod)
     {
         foreach (var image in AllSelectImage)

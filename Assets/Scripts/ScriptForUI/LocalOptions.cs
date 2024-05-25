@@ -25,13 +25,13 @@ public class LocalOptions : MonoBehaviour
 
     [SerializeField] private Slider[] audioSliders = new Slider[3];
     [SerializeField] private GameObject OnSoundOptions;
-
-
     private bool isActiveButtonSound;
-
     private int Quality;
-
     private float[] ArraySave = new float[3];
+    private float MouseSensitivy;
+    private float RenderingDistance;
+    private int screenX = 0;
+    private int screenY = 0;
     private void Awake()
     {
         if (PlayerPrefs.GetInt("KeyScreenX") == 0)
@@ -64,6 +64,11 @@ public class LocalOptions : MonoBehaviour
         GetDataQualty();
         GetDataSound();
         GetDataSensetive();
+    }
+
+    private void OnDisable()
+    {
+        SaveAllOptionsData();
     }
 
     private void GetDataQualty()
@@ -126,23 +131,20 @@ public class LocalOptions : MonoBehaviour
             float value = PlayerPrefs.GetFloat("DPI");
             EventBus.WasChangeMouseSensetive.Invoke(value);
             DPISlider.value = value;
-            PlayerPrefs.SetFloat("DPI", value);
         }
         PlayerPrefs.Save();
     }
     public void ChangeMouseSensetive()
     {
         EventBus.WasChangeMouseSensetive.Invoke(DPISlider.value);
-        PlayerPrefs.SetFloat("DPI", DPISlider.value);
-        PlayerPrefs.Save();
+        MouseSensitivy = DPISlider.value;
     }
 
     public void CheckDropdown()
     {
         QualitySettings.SetQualityLevel(dropdown.value, true);
-        PlayerPrefs.SetInt("Quality", dropdown.value);
+        Quality = dropdown.value;
         EventBus.ChnageGrassMod.Invoke();
-        PlayerPrefs.Save();
     }
     public void ButtonSoundOnClick()
     {
@@ -210,18 +212,13 @@ public class LocalOptions : MonoBehaviour
 
     public void ChangeRendering()
     {
-        float value = RenderingSlider.value;
-        Camera.farClipPlane = value;
-        PlayerPrefs.SetFloat("Far", value);
-        PlayerPrefs.Save();
+        RenderingDistance = RenderingSlider.value;
+        Camera.farClipPlane = RenderingDistance;
         EventBus.ChangeRendering.Invoke();
     }
 
     public void ChangeScreen()
     {
-        int screenX = 0;
-        int screenY = 0;
-
         switch (DropdownScreen.value)
         {
             case 0:
@@ -243,16 +240,15 @@ public class LocalOptions : MonoBehaviour
                 screenY = 768;
                 break;
         }
-
-        SaveScreen(screenX, screenY);
     }
 
-
-
-    private void SaveScreen(int ScreenX, int ScreenY)
+    private void SaveAllOptionsData()
     {
-        PlayerPrefs.SetInt("KeyScreenX", ScreenX);
-        PlayerPrefs.SetInt("KeyScreenY", ScreenY);
+        PlayerPrefs.SetInt("KeyScreenX", screenX);
+        PlayerPrefs.SetInt("KeyScreenY", screenY);
+        PlayerPrefs.SetFloat("Far", RenderingDistance);
+        PlayerPrefs.SetInt("Quality", Quality);
+        PlayerPrefs.SetFloat("DPI", MouseSensitivy);
         PlayerPrefs.Save();
     }
 }

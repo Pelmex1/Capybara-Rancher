@@ -126,13 +126,13 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         EventBus.EnergySpendingUpgrade += SetEnergySpending;
     }
 
-private void OnDisable()
-{
-    EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
-    EventBus.MaxValueUpgrade -= SetStats;
-    EventBus.PlayerRespawned -= FullStats;
-    EventBus.EnergySpendingUpgrade -= SetEnergySpending;
-}
+    private void OnDisable()
+    {
+        EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
+        EventBus.MaxValueUpgrade -= SetStats;
+        EventBus.PlayerRespawned -= FullStats;
+        EventBus.EnergySpendingUpgrade -= SetEnergySpending;
+    }
 
     private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative;
 

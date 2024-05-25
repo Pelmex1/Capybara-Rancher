@@ -32,6 +32,10 @@ public class Options : MonoBehaviour
     private int Quality;
 
     private float[] ArraySave = new float[3];
+    private float MouseSensitivy;
+    private float RenderingDistance;
+    private int screenX = 0;
+    private int screenY = 0;
     private void Awake()
     {
         if (PlayerPrefs.GetInt("KeyScreenX") == 0)
@@ -40,9 +44,9 @@ public class Options : MonoBehaviour
         }
         else
         {
-            int ScreenX = PlayerPrefs.GetInt("KeyScreenX");
-            int ScreenY = PlayerPrefs.GetInt("KeyScreenY");
-            Screen.SetResolution(ScreenX, ScreenY, true);
+            screenX = PlayerPrefs.GetInt("KeyScreenX");
+            screenY = PlayerPrefs.GetInt("KeyScreenY");
+            Screen.SetResolution(screenX, screenY, true);
         }
         if (!PlayerPrefs.HasKey("Far"))
         {
@@ -64,6 +68,10 @@ public class Options : MonoBehaviour
         GetDataQualty();
         GetDataSound();
         GetDataSensetive();
+    }
+    private void OnDisable()
+    {
+        SaveAllOptionsData();
     }
 
     private void GetDataQualty()
@@ -117,31 +125,29 @@ public class Options : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("DPI"))
         {
-            EventBus.WasChangeMouseSensetive.Invoke(50);
+            // EventBus.WasChangeMouseSensetive.Invoke(50);
             DPISlider.value = 50;
             PlayerPrefs.SetFloat("DPI", 50);
         }
         else
         {
-            float value = PlayerPrefs.GetFloat("DPI");
-            DPISlider.value = value;        
-            PlayerPrefs.SetFloat("DPI", value);
+            DPISlider.value = PlayerPrefs.GetFloat("DPI");
+            PlayerPrefs.SetFloat("DPI", DPISlider.value);
         }
+        MouseSensitivy = PlayerPrefs.GetFloat("DPI");
         PlayerPrefs.Save();
     }
     public void ChangeMouseSensetive()
     {
-        EventBus.WasChangeMouseSensetive.Invoke(DPISlider.value);
-        PlayerPrefs.SetFloat("DPI", DPISlider.value);
-        PlayerPrefs.Save();
+        // EventBus.WasChangeMouseSensetive.Invoke(DPISlider.value);
+        MouseSensitivy = DPISlider.value;
     }
 
     public void CheckDropdown()
     {
-        QualitySettings.SetQualityLevel(dropdown.value, true);
-        PlayerPrefs.SetInt("Quality", dropdown.value);
+        Quality = dropdown.value;
+        QualitySettings.SetQualityLevel(Quality, true);
         EventBus.ChnageGrassMod.Invoke();
-        PlayerPrefs.Save();
     }
     public void ButtonSoundOnClick()
     {
@@ -204,22 +210,16 @@ public class Options : MonoBehaviour
             audiomixer.SetFloat("PlayerVolume", ArraySave[2]);
             audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
         }
-        EventBus.SaveMusicValue.Invoke(ArraySave);
     }
 
     public void ChangeRendering()
     {
-        float value = RenderingSlider.value;
-        Camera.farClipPlane = value;
-        PlayerPrefs.SetFloat("Far", value);
-        PlayerPrefs.Save();
+        RenderingDistance = RenderingSlider.value;
+        Camera.farClipPlane = RenderingDistance;
     }
 
     public void ChangeScreen()
     {
-        int screenX = 0;
-        int screenY = 0;
-
         switch (DropdownScreen.value)
         {
             case 0:
@@ -241,16 +241,15 @@ public class Options : MonoBehaviour
                 screenY = 768;
                 break;
         }
-
-        SaveScreen(screenX, screenY);
     }
-
-
-
-    private void SaveScreen(int ScreenX, int ScreenY)
+    private void SaveAllOptionsData()
     {
-        PlayerPrefs.SetInt("KeyScreenX", ScreenX);
-        PlayerPrefs.SetInt("KeyScreenY", ScreenY);
+        PlayerPrefs.SetInt("KeyScreenX", screenX);
+        PlayerPrefs.SetInt("KeyScreenY", screenY);
+        PlayerPrefs.SetFloat("Far", RenderingDistance);
+        PlayerPrefs.SetInt("Quality", Quality);
+        PlayerPrefs.SetFloat("DPI", MouseSensitivy);
+        EventBus.SaveMusicValue.Invoke(ArraySave);
         PlayerPrefs.Save();
     }
 }
