@@ -195,6 +195,7 @@ Transform:
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7704853519405367198}
   - {fileID: 5641222170908863764}
   - {fileID: 9156889759096326018}
   - {fileID: 7148442050368003214}
@@ -1123,3 +1124,117 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &7402018219762427328
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7843891085158923352}
+    m_Modifications:
+    - target: {fileID: 440862829124972084, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 440862829889911739, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411736, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411739, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Hit ICE (Cross)
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0111
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483606515637889335, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617965839569401951, guid: 0c2509361b13505428ce788b7f846686,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c2509361b13505428ce788b7f846686, type: 3}
+--- !u!4 &7704853519405367198 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 888444077320411742, guid: 0c2509361b13505428ce788b7f846686,
+    type: 3}
+  m_PrefabInstance: {fileID: 7402018219762427328}
+  m_PrefabAsset: {fileID: 0}
