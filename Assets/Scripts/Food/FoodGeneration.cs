@@ -29,12 +29,13 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
     {
         while (true)
         {
-            GameObject harvest = ActivateObject();
+            GameObject harvest = EventBus.RemoveFromThePool(_typeGameObject);
             Rigidbody harvestRB = harvest.GetComponent<Rigidbody>();
             harvestRB.isKinematic = true;
             harvest.tag = UNDERRIPE_TAG;
             harvest.transform.localScale = new Vector3(START_GROWING_SCALE, START_GROWING_SCALE, START_GROWING_SCALE);
             harvest.transform.position = transform.position;
+            harvest.SetActive(true);
 
             Vector3 startSize = harvest.transform.localScale;
             Vector3 endSize = _foodPrefab.transform.localScale;
@@ -61,23 +62,11 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
         {
             GameObject spawnedObject = Instantiate(_foodPrefab);
             spawnedObject.SetActive(false);
-            EventBus.AddInPool(spawnedObject, _typeGameObject);
         }
-    }
-
-    private GameObject ActivateObject()
-    {
-        GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
-        if (activatedObject.activeSelf)
-            return ActivateObject();
-        activatedObject.transform.position = transform.position;
-        activatedObject.SetActive(true);
-        return activatedObject;
     }
 
     public void ReturnToPool(GameObject returnObject)
     {
         returnObject.SetActive(false);
-        EventBus.AddInPool(returnObject, _typeGameObject);
     }
 }

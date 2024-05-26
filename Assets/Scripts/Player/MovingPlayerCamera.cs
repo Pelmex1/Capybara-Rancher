@@ -41,7 +41,6 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private void Awake()
     {
         SetStats();
-        FullStats();
         SetEnergySpending();
     }
 
@@ -53,6 +52,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         _startHeadRotation = _head.rotation;
         _xRotationCamera = _head.localRotation.eulerAngles.x;
         _startSpeed = _speed;
+        FullStats();
     }
 
     private void OnCollisionEnter(Collision other)

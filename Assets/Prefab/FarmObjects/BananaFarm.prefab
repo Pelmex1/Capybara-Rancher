@@ -1218,8 +1218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShowingReceptacle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 8929526314444310180, guid: f0e7f6f2154ddba4a9213c86e65e71c7, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 1190738028605271706, guid: f0e7f6f2154ddba4a9213c86e65e71c7, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0e7f6f2154ddba4a9213c86e65e71c7, type: 3}

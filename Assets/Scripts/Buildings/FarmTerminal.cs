@@ -15,8 +15,9 @@ public class FarmTerminal : MonoBehaviour
         _spawnedGameObjects = new GameObject[_farmObjects.Length];
         _isBuy = new bool[_farmObjects.Length];
         for(int i = 0; i < _farmObjects.Length; i++){
-            _spawnedGameObjects[i] = Instantiate(_farmObjects[i].Prefab, spawnPos.position, Quaternion.identity, gameObject.transform);
-            if(PlayerPrefs.GetString($"{transform.parent.name}_{_spawnedGameObjects[i].name}", "false") == "true"){
+            _spawnedGameObjects[i] = Instantiate(_farmObjects[i].Prefab, gameObject.transform);
+            _spawnedGameObjects[i].transform.position = spawnPos.position;
+            if (PlayerPrefs.GetString($"{transform.parent.name}_{_spawnedGameObjects[i].name}", "false") == "true"){
                 _spawnedGameObjects[i].SetActive(true);
                 _isBuy[i] = true;
                 _isAnyBuy = true;

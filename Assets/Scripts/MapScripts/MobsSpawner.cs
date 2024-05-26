@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class MobsSpawner : MonoBehaviour, IObjectSpawner
 {
-    private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
-    private const string OBSTACLE_TAG = "Obstacle";
-
     [SerializeField] private float _radiusOfSpawn = 5f;
     [SerializeField] private int _amountOfMobs = 8;
     [SerializeField] private float _delayBetweenRespawn = 30f;
@@ -39,7 +36,8 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
         for (int i = 0; i < number; i++)
         {
             GameObject spawnedObject = Instantiate(_mobPrefab);
-            EventBus.AddInPool(spawnedObject, _typeGameObject);
+            spawnedObject.SetActive(true);
+            spawnedObject.SetActive(false);
         }
     }
 
@@ -50,7 +48,6 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
             while (_activatedMobsCount < _amountOfMobs && !_inPlayerVision)
             {
                 GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
-                yield return new WaitForSeconds(0.1f);
                 activatedObject.transform.position = RandomPosition();
                 ItemActivator.ActivatorItemsAdd(activatedObject);
                 activatedObject.SetActive(true);

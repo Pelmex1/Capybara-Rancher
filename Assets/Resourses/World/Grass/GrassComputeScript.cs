@@ -347,6 +347,8 @@ public class GrassComputeScript : MonoBehaviour
     // LateUpdate is called after all Update calls
     private void Update()
     {
+        m_MainCamera = Camera.main;
+
         // If in edit mode, we need to update the shaders each Update to make sure settings changes are applied
         // Don't worry, in edit mode, Update isn't called each frame
         if (!Application.isPlaying && autoUpdate && !m_fastMode)
