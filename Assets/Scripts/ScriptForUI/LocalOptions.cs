@@ -22,7 +22,8 @@ public class LocalOptions : MonoBehaviour
 
     [HeaderLine("Music Options")]
     [SerializeField] private AudioMixer audiomixer;
-
+    [SerializeField] private AudioClip[] AllMusics = new AudioClip[3];
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private Slider[] audioSliders = new Slider[3];
     [SerializeField] private GameObject OnSoundOptions;
     private bool isActiveButtonSound;
@@ -34,6 +35,17 @@ public class LocalOptions : MonoBehaviour
     private int screenY = 0;
     private void Awake()
     {
+        if (PlayerPrefs.HasKey("Music"))
+        {
+            string nameMusic = PlayerPrefs.GetString("Music");
+            for (int i = 0; i < AllMusics.Length; i++)
+            {
+                if (AllMusics[i].name == nameMusic)
+                    audioSource.clip = AllMusics[i];
+            }
+            audioSource.Play();
+        }
+
         if (PlayerPrefs.GetInt("KeyScreenX") == 0)
         {
             Screen.fullScreen = true;
