@@ -32,7 +32,7 @@ public class Options : MonoBehaviour
     private int Quality;
 
     private float[] ArraySave = new float[3];
-    private float MouseSensitivy;
+    private float MouseSensitivy = 100f;
     private float RenderingDistance;
     private int screenX = 0;
     private int screenY = 0;

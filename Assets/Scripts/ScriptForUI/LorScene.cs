@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class LorScene : MonoBehaviour
 {
     [HeaderLine("Panels Objects")]
@@ -12,12 +13,13 @@ public class LorScene : MonoBehaviour
     [SerializeField] private Image FirstImage;
     [SerializeField] private Image SecondImage;
     [SerializeField] private TMP_Text text;
-    [SerializeField] private  AudioSource audioSourse;
+    [SerializeField] private AudioSource audioSourse;
     [SerializeField] private Sprite[] LoadImages = new Sprite[3];
 
     [HeaderLine("Alfa")]
     [SerializeField] private float fadeDuration;
 
+    private bool LorWasCkiping = false;
     public int CountImage = 0;
     private AudioSource audioSourceMusic;
     private float StartAlfa;
@@ -29,6 +31,12 @@ public class LorScene : MonoBehaviour
     private void Awake()
     {
         audioSourceMusic = gameObject.GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+            LorWasCkiping = true;
     }
 
     private void OnEnable()
@@ -54,7 +62,7 @@ public class LorScene : MonoBehaviour
     {
         if (CountImage < 3)
         {
-            if(CountImage == 1) 
+            if (CountImage == 1)
                 ChangeTime = 7;
             bool IsChangeSecondImage = false;
             FirstImage.sprite = LoadImages[CountImage];
@@ -64,7 +72,7 @@ public class LorScene : MonoBehaviour
                 SecondImage.sprite = LoadImages[TemporaryInt];
                 IsChangeSecondImage = true;
             }
-            
+
             StartCoroutine(WriteText(CountImage));
             yield return new WaitForSeconds(ChangeTime);
             audioSourse.Stop();
@@ -89,15 +97,12 @@ public class LorScene : MonoBehaviour
             SecondImage.color = color;
             StartCoroutine(Scene());
         }
-        else
-        {
-            SceneManager.LoadScene("Map");
-        }
+        else SceneManager.LoadScene("Map");
     }
 
 
     private IEnumerator WriteText(int NumberImage)
-    {     
+    {
         audioSourse.Play();
         text.text = "";
         switch (NumberImage)
@@ -117,9 +122,19 @@ public class LorScene : MonoBehaviour
                 break;
         }
         for (int i = 0; i < AllText.Length; i++)
-        {          
-            text.text += AllText[i];
-            yield return new WaitForSecondsRealtime(0.02f);
+        {
+            if (LorWasCkiping == false)
+            {
+                text.text += AllText[i];
+                yield return new WaitForSecondsRealtime(0.02f);
+            }
+            else
+            {
+                LoadPanel.SetActive(false);
+                EventBus.LodingScene.Invoke("Map");
+                break;
+            }
+
         }
     }
 }
