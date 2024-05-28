@@ -449,7 +449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isChicken: 1
 --- !u!114 &8236068040517480892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,7 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indexForSpawnFarm: 0
   timeGeneration: 0
-  isGenerable: 0
+  isGenerable: 1
   type: 4
 --- !u!114 &4483214443172940044
 MonoBehaviour:

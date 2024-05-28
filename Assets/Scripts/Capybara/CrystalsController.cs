@@ -45,28 +45,29 @@ public class CrystalsController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag(MOVEBLE_OBJECT_TAG))
+        GameObject eatObj = collision.gameObject;
+        if (eatObj.CompareTag(MOVEBLE_OBJECT_TAG))
         {
-            IMovebleObject localMovebleObject = collision.gameObject.GetComponent<IMovebleObject>();
+            IMovebleObject localMovebleObject = eatObj.GetComponent<IMovebleObject>();
             ICrystalItem dataCr;
-            if (collision.gameObject.GetComponent<IFoodItem>() != null && 
-                collision.gameObject.GetComponent<Rigidbody>().isKinematic == false && IsHungry)
+            if (eatObj.GetComponent<IFoodItem>() != null && eatObj.transform.localScale == new Vector3(1f,1f,1f) && IsHungry)
             {
+                Debug.Log("Work if");
                 string nameOfFood = localMovebleObject.Data.name;
-                FoodType typeOfFood = collision.gameObject.GetComponent<IFoodItem>().Type;
+                FoodType typeOfFood = eatObj.GetComponent<IFoodItem>().Type;
                 if (_favouriteFoodName1 == nameOfFood || _favouriteFoodName2 == nameOfFood)
                 {
                     StartCoroutine(GenerateCrystals(true));
-                    Destroy(collision.gameObject);
+                    Destroy(eatObj);
                 }
                 else if ((_whatEat1 == FoodType.All || _whatEat1 == typeOfFood) || 
                     (_whatEat2 == FoodType.All || _whatEat2 == typeOfFood))
                 {
                     StartCoroutine(GenerateCrystals(false));
-                    Destroy(collision.gameObject);
+                    Destroy(eatObj);
                 }
             }
-            else if (collision.gameObject.TryGetComponent<ICrystalItem>(out dataCr))
+            else if (eatObj.TryGetComponent<ICrystalItem>(out dataCr))
             {
                 InventoryItem dataIn = localMovebleObject.Data;
                 if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab && 
@@ -75,7 +76,7 @@ public class CrystalsController : MonoBehaviour
                     TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, 
                         dataCr.FavouriteFoodName, dataCr.WhatEatThisType);
                     localMovebleObject.Localgameobject.SetActive(false);
-                    Destroy(collision.gameObject);
+                    Destroy(eatObj);
                     EventBus.TransformationTutorial.Invoke();
                 }
             }
