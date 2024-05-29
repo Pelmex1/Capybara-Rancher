@@ -7,7 +7,11 @@ public class SavePosition : MonoBehaviour
     private bool _isOnAplicationQuit = false;
     private void OnEnable()
     {
-        EventBus.RemoveFromList(gameObject);
+        try
+        {
+            EventBus.RemoveFromList(gameObject);
+        } catch {}
+        EventBus.GlobalSave += Save;
     }
     private void Start()
     {
@@ -48,6 +52,7 @@ public class SavePosition : MonoBehaviour
     private void OnApplicationQuit()
     {
         Save();
+        EventBus.GlobalSave -= Save;
     }
     private void Save()
     {

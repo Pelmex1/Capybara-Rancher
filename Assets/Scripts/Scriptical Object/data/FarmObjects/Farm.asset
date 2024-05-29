@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26ab83ab4d54de4a8b877be5e6c14f9, type: 3}
   m_Name: Farm
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 2237386376475203733, guid: 945dc73328086bd49b711b99227a5560, type: 3}
+  Prefab: {fileID: 2237386376475203733, guid: 5a9ff667f6d151d469e08f7fa63875b5, type: 3}
   Price: 75

@@ -37,7 +37,6 @@ public class Receptacle : MonoBehaviour
                     if(_farms[i].type == type.Data.TypeGameObject)
                     {
                         _localCollider.enabled = false;
-                        Debug.Log(_spawnedFarms[i]);
                         _spawnedFarms[i].SetActive(true);
                         _farm.SetActive(false);
                         other.gameObject.SetActive(false);
