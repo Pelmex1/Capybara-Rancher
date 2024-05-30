@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
@@ -9,6 +10,9 @@ using UnityEngine.UI;
 
 public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
 {
+    private const string Glade = "GladeCrystal";
+    private const string Rock = "RockCrystal";
+    private const string Leo = "LeoCrystal";
     public bool WasChangeDict { get; set; } = false;
     public Dictionary<string, int> DictionaryCrystall { get; set; } = new();
     [SerializeField] private Image[] _childrenCrystallImage = new Image[3];
@@ -56,9 +60,9 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
 
     private void UpdateUICrystall()
     {
-        TextAmountCrystalls[0].text = DictionaryCrystall["GladeCrystal"].ToString();
-        TextAmountCrystalls[1].text = DictionaryCrystall["RockCrystal"].ToString();
-        TextAmountCrystalls[2].text = DictionaryCrystall["LeoCrystal"].ToString();
+        TextAmountCrystalls[0].text = DictionaryCrystall[Glade].ToString();
+        TextAmountCrystalls[1].text = DictionaryCrystall[Rock].ToString();
+        TextAmountCrystalls[2].text = DictionaryCrystall[Leo].ToString();
         for (int i = 0; i < _childrenCrystallImage.Length; i++)
         {
             string name = _childrenCrystallImage[i].gameObject.name;
@@ -107,18 +111,18 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
 
     private void ChangeDataCrystall(int GladeCrystal, int RockCrystal, int LeoCrystal)
     {
-        DictionaryCrystall["GladeCrystal"] = GladeCrystal;
-        DictionaryCrystall["RockCrystal"] = RockCrystal;
-        DictionaryCrystall["LeoCrystal"] = LeoCrystal;
+        DictionaryCrystall[Glade] = GladeCrystal;
+        DictionaryCrystall[Rock] = RockCrystal;
+        DictionaryCrystall[Leo] = LeoCrystal;
     }
 
     private void AmountDataCrystall(int GladeCrystal, int RockCrystal, int LeoCrystal, string nameCrystall)
     {
         CountCrystall = nameCrystall switch
         {
-            "GladeCrystal" => GladeCrystal,
-            "RockCrystal" => RockCrystal,
-            "LeoCrystal" => LeoCrystal,
+            Glade => GladeCrystal,
+            Rock => RockCrystal,
+            Leo => LeoCrystal,
             _ => CountCrystall
         };
     }
@@ -169,9 +173,9 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
 
     private void SaveData()
     {
-        PlayerPrefs.SetInt($"GladeCrystal{ParentObject.name}", DictionaryCrystall["GladeCrystal"]);
-        PlayerPrefs.SetInt($"RockCrystal{ParentObject.name}", DictionaryCrystall["RockCrystal"]);
-        PlayerPrefs.SetInt($"LeoCrystal{ParentObject.name}", DictionaryCrystall["LeoCrystal"]);
+        PlayerPrefs.SetInt($"GladeCrystal{ParentObject.name}", DictionaryCrystall[Glade]);
+        PlayerPrefs.SetInt($"RockCrystal{ParentObject.name}", DictionaryCrystall[Rock]);
+        PlayerPrefs.SetInt($"LeoCrystal{ParentObject.name}", DictionaryCrystall[Leo]);
         PlayerPrefs.Save();
     }
 }

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class LocalOptions : MonoBehaviour
 {
+    private const string ScreenX = "KeyScreenX";
+    private const string ScreenY = "KeyScreenY";
     [SerializeField] private GameObject[] OptionsPanels = new GameObject[2];
 
     [HeaderLine("Main Options")]
@@ -31,10 +33,14 @@ public class LocalOptions : MonoBehaviour
     private float[] ArraySave = new float[3];
     private float MouseSensitivy;
     private float RenderingDistance;
-    private int screenX = 0;
-    private int screenY = 0;
+    private int _screenX = 0;
+    private int _screenY = 0;
     private void Awake()
     {
+        if (PlayerPrefs.GetInt(ScreenX) == 0)
+            Screen.fullScreen = true;
+        else 
+            Screen.SetResolution(PlayerPrefs.GetInt(ScreenX), PlayerPrefs.GetInt(ScreenY), true);
         if (PlayerPrefs.HasKey("Music"))
         {
             string nameMusic = PlayerPrefs.GetString("Music");
@@ -44,17 +50,6 @@ public class LocalOptions : MonoBehaviour
                     audioSource.clip = AllMusics[i];
             }
             audioSource.Play();
-        }
-
-        if (PlayerPrefs.GetInt("KeyScreenX") == 0)
-        {
-            Screen.fullScreen = true;
-        }
-        else
-        {
-            int ScreenX = PlayerPrefs.GetInt("KeyScreenX");
-            int ScreenY = PlayerPrefs.GetInt("KeyScreenY");
-            Screen.SetResolution(ScreenX, ScreenY, true);
         }
         if (!PlayerPrefs.HasKey("Far"))
         {
@@ -100,24 +95,12 @@ public class LocalOptions : MonoBehaviour
 
     private void GetDataSound()
     {
-        if (PlayerPrefs.HasKey("isSoundOn"))
+        if (PlayerPrefs.GetInt("isSoundOn") == 0)
         {
-            if (PlayerPrefs.GetInt("isSoundOn") == 0)
-            {
-                AudioButton.image.sprite = ButtonOffSprite;
-                isActiveButtonSound = true;
-                OnSoundOptions.SetActive(false);
-                audiomixer.SetFloat("MasterVolume", -80f);
-            }
-            else
-            {
-                AudioButton.image.sprite = ButtonOnSprite;
-                isActiveButtonSound = false;
-                OnSoundOptions.SetActive(true);
-                EventBus.GetMusicValue.Invoke(ArraySave);
-                for (int i = 0; i < ArraySave.Length; i++)
-                    audioSliders[i].value = (ArraySave[i] + 80) / 100;
-            }
+            AudioButton.image.sprite = ButtonOffSprite;
+            isActiveButtonSound = true;
+            OnSoundOptions.SetActive(false);
+            audiomixer.SetFloat("MasterVolume", -80f);
         }
         else
         {
@@ -140,11 +123,9 @@ public class LocalOptions : MonoBehaviour
         }
         else
         {
-            float value = PlayerPrefs.GetFloat("DPI");
-            EventBus.WasChangeMouseSensetive.Invoke(value);
-            DPISlider.value = value;
+            EventBus.WasChangeMouseSensetive.Invoke(PlayerPrefs.GetFloat("DPI"));
+            DPISlider.value = PlayerPrefs.GetFloat("DPI");
         }
-        PlayerPrefs.Save();
     }
     public void ChangeMouseSensetive()
     {
@@ -178,7 +159,6 @@ public class LocalOptions : MonoBehaviour
             audiomixer.SetFloat("MasterVolume", -80f);
             isActiveButtonSound = true;
         }
-        PlayerPrefs.Save();
     }
 
     public void ChangePanel(int IndexPanel)
@@ -219,7 +199,6 @@ public class LocalOptions : MonoBehaviour
             audiomixer.SetFloat("PlayerVolume", ArraySave[2]);
             audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
         }
-        EventBus.SaveMusicValue.Invoke(ArraySave);
     }
 
     public void ChangeRendering()
@@ -238,30 +217,30 @@ public class LocalOptions : MonoBehaviour
                 break;
             case 1:
                 Screen.SetResolution(1920, 1080, true);
-                screenX = 1920;
-                screenY = 1080;
+                _screenX = 1920;
+                _screenY = 1080;
                 break;
             case 2:
                 Screen.SetResolution(1536, 864, true);
-                screenX = 1536;
-                screenY = 864;
+                _screenX = 1536;
+                _screenY = 864;
                 break;
             case 3:
                 Screen.SetResolution(1366, 768, true);
-                screenX = 1366;
-                screenY = 768;
+                _screenX = 1366;
+                _screenY = 768;
                 break;
         }
     }
 
     private void SaveAllOptionsData()
     {
-        PlayerPrefs.SetInt("KeyScreenX", screenX);
-        PlayerPrefs.SetInt("KeyScreenY", screenY);
+        PlayerPrefs.SetInt(ScreenX, _screenX);
+        PlayerPrefs.SetInt(ScreenY, _screenY);
         PlayerPrefs.SetFloat("Far", RenderingDistance);
         PlayerPrefs.SetInt("Quality", Quality);
         PlayerPrefs.SetFloat("DPI", MouseSensitivy);
+        EventBus.SaveMusicValue.Invoke(ArraySave);
         PlayerPrefs.Save();
     }
 }
-
