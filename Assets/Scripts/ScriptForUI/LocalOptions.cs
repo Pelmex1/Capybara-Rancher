@@ -40,7 +40,7 @@ public class LocalOptions : MonoBehaviour
     {
         if (PlayerPrefs.GetInt(ScreenX) == 0)
             Screen.fullScreen = true;
-        else 
+        else
             Screen.SetResolution(PlayerPrefs.GetInt(ScreenX), PlayerPrefs.GetInt(ScreenY), true);
         if (PlayerPrefs.HasKey("Music"))
         {
@@ -96,12 +96,24 @@ public class LocalOptions : MonoBehaviour
 
     private void GetDataSound()
     {
-        if (PlayerPrefs.GetInt("isSoundOn") == 0)
+        if (PlayerPrefs.HasKey("isSoundOn"))
         {
-            AudioButton.image.sprite = ButtonOffSprite;
-            isActiveButtonSound = true;
-            OnSoundOptions.SetActive(false);
-            audiomixer.SetFloat("MasterVolume", -80f);
+            if (PlayerPrefs.GetInt("isSoundOn") == 0)
+            {
+                AudioButton.image.sprite = ButtonOffSprite;
+                isActiveButtonSound = true;
+                OnSoundOptions.SetActive(false);
+                audiomixer.SetFloat("MasterVolume", -80f);
+            }
+            else
+            {
+                AudioButton.image.sprite = ButtonOnSprite;
+                isActiveButtonSound = false;
+                OnSoundOptions.SetActive(true);
+                EventBus.GetMusicValue.Invoke(ArraySave);
+                for (int i = 0; i < ArraySave.Length; i++)
+                    audioSliders[i].value = (ArraySave[i] + 80) / 100;
+            }
         }
         else
         {
@@ -118,9 +130,9 @@ public class LocalOptions : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey(DPI))
         {
-            EventBus.WasChangeMouseSensetive.Invoke(50);
-            DPISlider.value = 50;
-            MouseSensitivy = 50f;
+            EventBus.WasChangeMouseSensetive.Invoke(100);
+            DPISlider.value = 100;
+            MouseSensitivy = 100f;
         }
         else
         {
@@ -143,25 +155,34 @@ public class LocalOptions : MonoBehaviour
     }
     public void ButtonSoundOnClick()
     {
-        if (isActiveButtonSound)
+        if (PlayerPrefs.HasKey("isSoundOn"))
+        {
+            if (PlayerPrefs.GetInt("isSoundOn") == 0)
+            {
+                AudioButton.image.sprite = ButtonOffSprite;
+                isActiveButtonSound = true;
+                OnSoundOptions.SetActive(false);
+                audiomixer.SetFloat("MasterVolume", -80f);
+            }
+            else
+            {
+                AudioButton.image.sprite = ButtonOnSprite;
+                isActiveButtonSound = false;
+                OnSoundOptions.SetActive(true);
+                EventBus.GetMusicValue.Invoke(ArraySave);
+                for (int i = 0; i < ArraySave.Length; i++)
+                    audioSliders[i].value = (ArraySave[i] + 80) / 100;
+            }
+        }
+        else
         {
             AudioButton.image.sprite = ButtonOnSprite;
-            OnSoundOptions.SetActive(true);
-            PlayerPrefs.SetInt("isSoundOn", 1);
             isActiveButtonSound = false;
+            OnSoundOptions.SetActive(true);
             EventBus.GetMusicValue.Invoke(ArraySave);
             for (int i = 0; i < ArraySave.Length; i++)
                 audioSliders[i].value = (ArraySave[i] + 80) / 100;
         }
-        else
-        {
-            AudioButton.image.sprite = ButtonOffSprite;
-            OnSoundOptions.SetActive(false);
-            PlayerPrefs.SetInt("isSoundOn", 0);
-            audiomixer.SetFloat("MasterVolume", -80f);
-            isActiveButtonSound = true;
-        }
-
     }
 
     public void ChangePanel(int IndexPanel)

@@ -44,7 +44,8 @@ public class CreatNewGame : MonoBehaviour
             {
                 savingInventoryData[i].InventoryItem = null;
                 savingInventoryData[i].Count = 0;
-            }
+            }  
+            EventBus.AddMoney(-EventBus.GetMoney.Invoke());
             PlayerPrefs.DeleteAll();
         }
         else return;
