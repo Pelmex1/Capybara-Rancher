@@ -9,6 +9,7 @@ public class LocalOptions : MonoBehaviour
 {
     private const string ScreenX = "KeyScreenX";
     private const string ScreenY = "KeyScreenY";
+    private const string DPI = "DPI";
     [SerializeField] private GameObject[] OptionsPanels = new GameObject[2];
 
     [HeaderLine("Main Options")]
@@ -115,16 +116,17 @@ public class LocalOptions : MonoBehaviour
 
     private void GetDataSensetive()
     {
-        if (!PlayerPrefs.HasKey("DPI"))
+        if (!PlayerPrefs.HasKey(DPI))
         {
             EventBus.WasChangeMouseSensetive.Invoke(50);
             DPISlider.value = 50;
-            PlayerPrefs.SetFloat("DPI", 50);
+            MouseSensitivy = 50f;
         }
         else
         {
-            EventBus.WasChangeMouseSensetive.Invoke(PlayerPrefs.GetFloat("DPI"));
-            DPISlider.value = PlayerPrefs.GetFloat("DPI");
+            EventBus.WasChangeMouseSensetive.Invoke(PlayerPrefs.GetFloat(DPI));
+            MouseSensitivy = PlayerPrefs.GetFloat(DPI);
+            DPISlider.value = PlayerPrefs.GetFloat(DPI);
         }
     }
     public void ChangeMouseSensetive()
@@ -159,6 +161,7 @@ public class LocalOptions : MonoBehaviour
             audiomixer.SetFloat("MasterVolume", -80f);
             isActiveButtonSound = true;
         }
+
     }
 
     public void ChangePanel(int IndexPanel)
@@ -239,7 +242,7 @@ public class LocalOptions : MonoBehaviour
         PlayerPrefs.SetInt(ScreenY, _screenY);
         PlayerPrefs.SetFloat("Far", RenderingDistance);
         PlayerPrefs.SetInt("Quality", Quality);
-        PlayerPrefs.SetFloat("DPI", MouseSensitivy);
+        PlayerPrefs.SetFloat(DPI, MouseSensitivy);
         EventBus.SaveMusicValue.Invoke(ArraySave);
         PlayerPrefs.Save();
     }
