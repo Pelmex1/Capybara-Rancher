@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 5
   farm: {fileID: 2237386376475203733, guid: 4dccdb5d968221944ab78e05b8b95c0b, type: 3}
+  sprite: {fileID: 21300000, guid: 90f24dfcb8de6c7449ef1df26bc2d3be, type: 3}

@@ -180,6 +180,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8180605634913808153, guid: 21f93437d283db84d90bd2a75d83ade9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180605634913808153, guid: 21f93437d283db84d90bd2a75d83ade9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.09
+      objectReference: {fileID: 0}
     - target: {fileID: 8440812267446852928, guid: 21f93437d283db84d90bd2a75d83ade9,
         type: 3}
       propertyPath: m_Height
@@ -274,7 +284,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.012882962
-  m_Height: 0.027497977
+  m_Radius: 1.2252955
+  m_Height: 2.4505916
   m_Direction: 1
-  m_Center: {x: 0.0064298683, y: -0.003157681, z: -0.00112134}
+  m_Center: {x: 0.18699636, y: -0.0031575917, z: -0.4316368}

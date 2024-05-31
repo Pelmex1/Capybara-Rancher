@@ -6,4 +6,5 @@ public class FarmType : ScriptableObject
 {
     public TypeGameObject type;
     public GameObject farm;
+    public Sprite sprite;
 }

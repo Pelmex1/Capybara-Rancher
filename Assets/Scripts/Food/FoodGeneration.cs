@@ -35,6 +35,7 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
             harvest.tag = UNDERRIPE_TAG;
             harvest.transform.localScale = new Vector3(START_GROWING_SCALE, START_GROWING_SCALE, START_GROWING_SCALE);
             harvest.transform.position = transform.position;
+            harvest.transform.parent = gameObject.transform;
             harvest.SetActive(true);
 
             Vector3 startSize = harvest.transform.localScale;
@@ -51,6 +52,7 @@ public class FoodGeneration : MonoBehaviour, IObjectSpawner
                 yield return null;
             }
 
+            harvest.transform.parent = null;
             harvest.transform.localScale = endSize;
             harvestRB.isKinematic = false;
             harvest.tag = RIPE_TAG;

@@ -1,15 +1,17 @@
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Receptacle : MonoBehaviour
 {
     [SerializeField] private GameObject _farm;
     [SerializeField] private Collider _localCollider;
+    [SerializeField] private Image image;
     private const string MOVEBLETAG = "movebleObject";
     private FarmType[] _farms;
     private GameObject[] _spawnedFarms;
-    private int _index = -1;
+    private int _index = 0;
 
     private void Start() {
         _localCollider = GetComponent<Collider>();
@@ -19,11 +21,13 @@ public class Receptacle : MonoBehaviour
             _spawnedFarms[i] = Instantiate(_farms[i].farm,_farm.transform.position,Quaternion.identity,transform);
             _spawnedFarms[i].SetActive(false);
         }
-        _index = PlayerPrefs.GetInt("FarmIndex", -1);
+        _index = _index != -1 ? PlayerPrefs.GetInt($"{transform.parent.transform.parent.transform.parent.transform.parent.name}_FarmIndex", -1) : -1;
         if(_index != -1){
             _localCollider.enabled = false;
-            _spawnedFarms[_index].SetActive(false);
+            _spawnedFarms[_index].SetActive(true);
             _farm.SetActive(false);
+            image.sprite = _farms[_index].sprite;
+            image.enabled = true;
         }
     }
     private void OnTriggerEnter(Collider other) 
@@ -41,9 +45,16 @@ public class Receptacle : MonoBehaviour
                         _farm.SetActive(false);
                         other.gameObject.SetActive(false);
                         _index = i;
+                        image.sprite = _farms[i].sprite;
+                        image.enabled = true;
                     }
                 }
             }
+        }
+    }
+    private void OnEnable() {
+        if(_index == -1){
+            _farm.SetActive(true);
         }
     }
     private void OnDisable() {
@@ -51,10 +62,11 @@ public class Receptacle : MonoBehaviour
             _localCollider.enabled = true;
             _spawnedFarms[_index].SetActive(false);
             _index = -1;
+            image.enabled = false;
         }
     }
     private void OnApplicationQuit() {
-        PlayerPrefs.SetInt("FarmIndex", _index);
+        PlayerPrefs.SetInt($"{transform.parent.transform.parent.transform.parent.transform.parent.name}_FarmIndex", _index);
     }
 }
 
