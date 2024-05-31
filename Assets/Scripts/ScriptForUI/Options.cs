@@ -47,12 +47,14 @@ public class Options : MonoBehaviour
         if (!PlayerPrefs.HasKey("Far"))
         {
             float value = 100f;
+            RenderingDistance = value;
             RenderingSlider.value = value;
             Camera.farClipPlane = value;
         }
         else
         {
             float value = PlayerPrefs.GetFloat("Far");
+            RenderingDistance = value;
             RenderingSlider.value = value;
             Camera.farClipPlane = value;
         }
@@ -211,6 +213,7 @@ public class Options : MonoBehaviour
             audiomixer.SetFloat("PlayerVolume", ArraySave[2]);
             audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
         }
+        EventBus.SaveMusicValue.Invoke(ArraySave);
     }
 
     public void ChangeRendering()
@@ -250,7 +253,6 @@ public class Options : MonoBehaviour
         PlayerPrefs.SetFloat("Far", RenderingDistance);
         PlayerPrefs.SetInt("Quality", Quality);
         PlayerPrefs.SetFloat("DPI", MouseSensitivy);
-        EventBus.SaveMusicValue.Invoke(ArraySave);
         PlayerPrefs.Save();
     }
 }

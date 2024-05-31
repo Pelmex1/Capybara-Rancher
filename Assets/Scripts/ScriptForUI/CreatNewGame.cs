@@ -24,7 +24,6 @@ public class CreatNewGame : MonoBehaviour
     private void Awake() => audioSource = gameObject.GetComponent<AudioSource>();
     private void Start()
     {
-        AllSelectImage[0].sprite = SelectMod;
         TextOfMode.text = "Live the life of a Capybara Ranher and explore the wonders of the Robot, Robot Ranger at your own pace.";
     }
 
@@ -47,6 +46,8 @@ public class CreatNewGame : MonoBehaviour
             }  
             EventBus.AddMoney(-EventBus.GetMoney.Invoke());
             PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetInt("WasCreateNewGame",1);
+            PlayerPrefs.Save();
         }
         else return;
     }
@@ -77,7 +78,6 @@ public class CreatNewGame : MonoBehaviour
         }
 
         PlayerPrefs.SetString("KeyMod", NameMod);
-        /*         TextNameMod = NameMod; */
         PlayerPrefs.Save();
     }
 

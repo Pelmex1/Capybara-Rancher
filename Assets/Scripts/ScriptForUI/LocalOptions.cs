@@ -55,12 +55,14 @@ public class LocalOptions : MonoBehaviour
         if (!PlayerPrefs.HasKey("Far"))
         {
             float value = 100f;
+            RenderingDistance = value;
             RenderingSlider.value = value;
             Camera.farClipPlane = value;
         }
         else
         {
             float value = PlayerPrefs.GetFloat("Far");
+            RenderingDistance = value;
             RenderingSlider.value = value;
             Camera.farClipPlane = value;
         }

@@ -15502,7 +15502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc,
     type: 3}
-  whatEat: 4
+  whatEat: 0
   nameOfFavouriteFood: Pink Chicken
 --- !u!114 &118377664978626739
 MonoBehaviour:
@@ -15516,7 +15516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isChicken: 0
 --- !u!114 &-6901179415855493431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15556,7 +15555,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2994373093089687005}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
   m_Name: 

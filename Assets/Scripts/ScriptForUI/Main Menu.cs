@@ -22,7 +22,8 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayContinue()
     {
-        EventBus.LodingScene.Invoke("Map");
+        if(PlayerPrefs.GetInt("WasCreateNewGame") == 1)
+            EventBus.LodingScene.Invoke("Map");
     }
 
     public void OnOptions()

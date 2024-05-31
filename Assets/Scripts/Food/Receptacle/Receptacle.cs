@@ -69,5 +69,3 @@ public class Receptacle : MonoBehaviour
         PlayerPrefs.SetInt($"{transform.parent.transform.parent.transform.parent.transform.parent.name}_FarmIndex", _index);
     }
 }
-
-
