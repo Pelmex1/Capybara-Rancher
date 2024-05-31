@@ -202,6 +202,7 @@ public class LocalOptions : MonoBehaviour
             audiomixer.SetFloat("PlayerVolume", ArraySave[2]);
             audiomixer.SetFloat("CapybaraVolume", ArraySave[2]);
         }
+        EventBus.SaveMusicValue.Invoke(ArraySave);
     }
 
     public void ChangeRendering()
@@ -243,7 +244,6 @@ public class LocalOptions : MonoBehaviour
         PlayerPrefs.SetFloat("Far", RenderingDistance);
         PlayerPrefs.SetInt("Quality", Quality);
         PlayerPrefs.SetFloat(DPI, MouseSensitivy);
-        EventBus.SaveMusicValue.Invoke(ArraySave);
         PlayerPrefs.Save();
     }
 }

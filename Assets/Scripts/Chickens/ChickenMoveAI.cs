@@ -9,13 +9,16 @@ public class ChickenMoveAI : MonoBehaviour
     private const float RADIUS_OF_TARGET = 5f;
     private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
     private const string OBSTACLE_TAG = "Obstacle";
-    private const string ANIMATOR_KEY_FOR_RUNNING = "IsRunning";
+    private const string ANIMATOR_KEY_FOR_RUNING = "IsRunning";
 
     private NavMeshAgent _agent;
     private Animator _animator;
+    private bool _isfoodfound;
+    private float onMeshThreshold = 3;
 
     private void Awake()
     {
+        _isfoodfound = false;
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
     }
@@ -32,7 +35,7 @@ public class ChickenMoveAI : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetBool(ANIMATOR_KEY_FOR_RUNNING, _agent.velocity.magnitude > 0.1f);
+        _animator.SetBool(ANIMATOR_KEY_FOR_RUNING, _agent.velocity.magnitude > 0.1f);
     }
 
     private Vector3 RandomPosition()
@@ -42,38 +45,45 @@ public class ChickenMoveAI : MonoBehaviour
         Vector3 pos = new(posX, transform.position.y, posZ);
         return pos;
     }
-
-    private Vector3 FoundTarget()
-    {
-        Vector3 pos = RandomPosition();
-        Collider[] colliders = Physics.OverlapSphere(pos, 0.1f, 1 << LayerMask.NameToLayer("Default"));
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.CompareTag(TERRITORY_OF_MAP_TAG) && !collider.CompareTag(OBSTACLE_TAG))
-            {
-                return pos;
-            }
-        }
-
-        return FoundTarget();
-    }
-
     private IEnumerator Moving()
     {
         while (true)
         {
-            if (Time.timeScale == 1f)
-            {
-                if (_agent.enabled == true)
-                    _agent.SetDestination(RandomPosition());
-            }
             if (!_agent.enabled)
             {
                 yield return new WaitForSecondsRealtime(1f);
                 continue;
             }
+            if (!_isfoodfound && Time.timeScale == 1f && IsAgentOnNavMesh(gameObject))
+            {
+                if (_agent.enabled == true && IsAgentOnNavMesh(gameObject))
+                    _agent.SetDestination(RandomPosition());
+            }
             yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_NEW_TARGET, MAX_INTERVAL_NEW_TARGET));
         }
+    }
+    private bool IsAgentOnNavMesh(GameObject agentObject)
+    {
+        Vector3 agentPosition = agentObject.transform.position;
+        if (NavMesh.SamplePosition(agentPosition, out NavMeshHit hit, onMeshThreshold, NavMesh.AllAreas))
+        {
+            if (Mathf.Approximately(agentPosition.x, hit.position.x) && Mathf.Approximately(agentPosition.z, hit.position.z))
+                return agentPosition.y >= hit.position.y;
+        }
+        return false;
+    }
+
+    public void IsFoodFound(Transform foodTransform)
+    {
+        if (_agent.enabled)
+        {
+            _isfoodfound = true;
+            _agent.SetDestination(foodTransform.position);
+        }
+    }
+
+    public void SetFoodFound(bool _input)
+    {
+        _isfoodfound = _input;
     }
 }

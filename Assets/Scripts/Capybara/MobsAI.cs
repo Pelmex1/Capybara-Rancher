@@ -16,6 +16,7 @@ public class MobsAi : MonoBehaviour, IMobsAi
     private NavMeshAgent _agent;
     private Animator _animator;
     private bool _isfoodfound;
+    private float onMeshThreshold = 3f;
 
     private void Awake()
     {
@@ -47,25 +48,6 @@ public class MobsAi : MonoBehaviour, IMobsAi
         return pos;
     }
 
-    private Vector3 FoundTarget()
-    {
-        int maxAttempts = 10;
-        for (int i = 0; i < maxAttempts; i++)
-        {
-            Vector3 pos = RandomPosition();
-            Vector3 raycastDirection = Vector3.down;
-            Debug.DrawRay(pos, raycastDirection, Color.red, 0.1f);
-            if (Physics.Raycast(pos, raycastDirection, out RaycastHit hit, 0.1f, 1, QueryTriggerInteraction.Ignore))
-            {
-                if (hit.collider.CompareTag(TERRITORY_OF_MAP_TAG))
-                {
-                    return pos;
-                }
-            }
-        }
-        return transform.position;
-    }
-
     private IEnumerator Moving()
     {
         while (true)
@@ -75,26 +57,23 @@ public class MobsAi : MonoBehaviour, IMobsAi
                 yield return new WaitForSecondsRealtime(1f);
                 continue;
             }
-            if (!_isfoodfound && Time.timeScale == 1f)
+            if (!_isfoodfound && Time.timeScale == 1f && IsAgentOnNavMesh(gameObject) && _agent.enabled == true)
             {
-                if(_agent.enabled == true)
-                {
-                    try
-                    {
-                        _agent.SetDestination(RandomPosition());
-                    }
-                    catch
-                    {
-                        Debug.Log("Catch");
-                        NavMeshHit hit;
-                        if (NavMesh.SamplePosition(_agent.transform.position, out hit, 5.0f, NavMesh.AllAreas))
-                            _agent.Warp(hit.position);
-                    }
-                }
+                _agent.SetDestination(RandomPosition());
             }
             yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_NEW_TARGET, MAX_INTERVAL_NEW_TARGET));
         }
     }
+    private bool IsAgentOnNavMesh(GameObject agentObject)
+    {
+        Vector3 agentPosition = agentObject.transform.position;
+        if (NavMesh.SamplePosition(agentPosition, out NavMeshHit hit, onMeshThreshold, NavMesh.AllAreas))
+        {
+            return Mathf.Abs(agentPosition.y - hit.position.y) < onMeshThreshold;
+        }
+        return false;
+    }
+
 
     public void IsFoodFound(Transform foodTransform)
     {
@@ -104,7 +83,7 @@ public class MobsAi : MonoBehaviour, IMobsAi
             _agent.SetDestination(foodTransform.position);
         }
     }
-    
+
     public void SetFoodFound(bool _input)
     {
         _isfoodfound = _input;
