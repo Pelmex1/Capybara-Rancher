@@ -6,7 +6,7 @@ public class FarmTerminal : MonoBehaviour
     [SerializeField] private Transform spawnPos;
     private bool _isNear = false;
     private bool[] _isBuy;
-    private FarmObject[] _farmObjects = {};
+    private FarmObject[] _farmObjects;
     private GameObject[] _spawnedGameObjects;
     private bool _isAnyBuy = false;
        

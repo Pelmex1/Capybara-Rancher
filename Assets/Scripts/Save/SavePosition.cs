@@ -5,6 +5,7 @@ using UnityEngine;
 public class SavePosition : MonoBehaviour
 {
     private bool _isOnAplicationQuit = false;
+    private bool _oneStart = false;
     private void OnEnable()
     {
         try
@@ -15,31 +16,32 @@ public class SavePosition : MonoBehaviour
     }
     private void Start()
     {
-        if (gameObject.CompareTag("Player"))
-        {
-            Vector3 _positionNow = transform.position;
-            float x = PlayerPrefs.GetFloat("Player_X", _positionNow.x);
-            float y = PlayerPrefs.GetFloat("Player_Y", _positionNow.y);
-            float z = PlayerPrefs.GetFloat("Player_Z", _positionNow.z);
-            transform.position = new(x, y, z);
-        }
-        else
-        {
-            if (PlayerPrefs.GetString($"{transform.parent?.name}_{name}_isEnable", "true") == "false")
-            {
-                EventBus.AddInPool(gameObject, GetComponent<IMovebleObject>().Data.TypeGameObject);
-                gameObject.SetActive(false);
-            }
-            else
+        if(!_oneStart){
+            _oneStart = true;
+            if (gameObject.CompareTag("Player"))
             {
                 Vector3 _positionNow = transform.position;
-                float x = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_X", _positionNow.x);
-                float y = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Y", _positionNow.y);
-                float z = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Z", _positionNow.z);
-                Vector3 localPosition = new(x, y, z);
-                if (gameObject.name.Contains("Anim"))
-                    Debug.Log("CapybaraLoaded");
-                transform.position = transform.position == localPosition ? transform.position : localPosition;
+                float x = PlayerPrefs.GetFloat("Player_X", _positionNow.x);
+                float y = PlayerPrefs.GetFloat("Player_Y", _positionNow.y);
+                float z = PlayerPrefs.GetFloat("Player_Z", _positionNow.z);
+                transform.position = new(x, y, z);
+            }   
+            else
+            {
+                if (PlayerPrefs.GetString($"{transform.parent?.name}_{name}_isEnable", "true") == "false")
+                {
+                    EventBus.AddInPool(gameObject, GetComponent<IMovebleObject>().Data.TypeGameObject);
+                    gameObject.SetActive(false);
+                }
+                else
+                {
+                    Vector3 _positionNow = transform.position;
+                    float x = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_X", _positionNow.x);
+                    float y = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Y", _positionNow.y);
+                    float z = PlayerPrefs.GetFloat($"{transform.parent?.name}_{name}_Z", _positionNow.z);
+                    Vector3 localPosition = new(x, y, z);
+                    transform.position = transform.position == localPosition ? transform.position : localPosition;
+                }
             }
         }
     }
