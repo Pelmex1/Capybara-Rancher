@@ -52,22 +52,23 @@ public class CrystalsController : MonoBehaviour
             ICrystalItem dataCr;
             if (eatObj.GetComponent<IFoodItem>() != null && eatObj.transform.localScale == new Vector3(1f,1f,1f) && IsHungry)
             {
-                Debug.Log("Work if");
                 string nameOfFood = localMovebleObject.Data.name;
                 FoodType typeOfFood = eatObj.GetComponent<IFoodItem>().Type;
                 if (_favouriteFoodName1 == nameOfFood || _favouriteFoodName2 == nameOfFood)
                 {
                     StartCoroutine(GenerateCrystals(true));
-                    Destroy(eatObj);
+                    eatObj.SetActive(false);
+                    EventBus.AddInPool(gameObject,localMovebleObject.Data.TypeGameObject);
                 }
                 else if ((_whatEat1 == FoodType.All || _whatEat1 == typeOfFood) || 
                     (_whatEat2 == FoodType.All || _whatEat2 == typeOfFood))
                 {
                     StartCoroutine(GenerateCrystals(false));
-                    Destroy(eatObj);
+                    eatObj.SetActive(false);
+                    EventBus.AddInPool(gameObject,localMovebleObject.Data.TypeGameObject);
                 }
             }
-            else if (eatObj.TryGetComponent<ICrystalItem>(out dataCr))
+            else if (eatObj.TryGetComponent(out dataCr))
             {
                 InventoryItem dataIn = localMovebleObject.Data;
                 if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab && 
@@ -76,7 +77,8 @@ public class CrystalsController : MonoBehaviour
                     TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, 
                         dataCr.FavouriteFoodName, dataCr.WhatEatThisType);
                     localMovebleObject.Localgameobject.SetActive(false);
-                    Destroy(eatObj);
+                    eatObj.SetActive(false);
+                    EventBus.AddInPool(gameObject,localMovebleObject.Data.TypeGameObject);
                     EventBus.TransformationTutorial.Invoke();
                 }
             }
