@@ -20,8 +20,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private GameObject _buildTip;
 
     private Vector3 startPos;
-
-    private void Start()
+    private void Awake()
     {
         if (PlayerPrefs.GetInt("TutorialComplete", 0) == 0)
         {
@@ -57,7 +56,7 @@ public class TutorialController : MonoBehaviour
         float newY = startPos.y + Mathf.Sin(Time.time * FLOAT_SPEED) * FLOAT_STRENGTH;
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
-    private void MovingTutorialComplete() 
+    private void MovingTutorialComplete()
     {
         StartCoroutine(TipSwitchWithDelay(_movingTip, _inventoryTip));
         EventBus.MovingTutorial -= MovingTutorialComplete;
