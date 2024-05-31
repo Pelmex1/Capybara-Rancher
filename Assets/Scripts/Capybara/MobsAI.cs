@@ -1,6 +1,5 @@
 using System.Collections;
 using CapybaraRancher.Interfaces;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,16 +10,16 @@ public class MobsAi : MonoBehaviour, IMobsAi
     private const float RADIUS_OF_TARGET = 5f;
     private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
     private const string OBSTACLE_TAG = "Obstacle";
-    private const string ANIMATOR_KEY_FOR_RUNING = "IsRunning";
+    private const string ANIMATOR_KEY_FOR_RUNNING = "IsRunning";
 
     private NavMeshAgent _agent;
     private Animator _animator;
-    private bool _isfoodfound;
+    private bool _isFoodFound;
     private float onMeshThreshold = 3f;
 
     private void Awake()
     {
-        _isfoodfound = false;
+        _isFoodFound = false;
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
     }
@@ -37,14 +36,14 @@ public class MobsAi : MonoBehaviour, IMobsAi
 
     private void Update()
     {
-        _animator.SetBool(ANIMATOR_KEY_FOR_RUNING, _agent.velocity.magnitude > 0.1f);
+        _animator.SetBool(ANIMATOR_KEY_FOR_RUNNING, _agent.velocity.magnitude > 0.1f);
     }
 
     private Vector3 RandomPosition()
     {
         float posX = Random.Range(transform.position.x + RADIUS_OF_TARGET, transform.position.x - RADIUS_OF_TARGET);
         float posZ = Random.Range(transform.position.z + RADIUS_OF_TARGET, transform.position.z - RADIUS_OF_TARGET);
-        Vector3 pos = new(posX, transform.position.y, posZ);
+        Vector3 pos = new Vector3(posX, transform.position.y, posZ);
         return pos;
     }
 
@@ -57,13 +56,14 @@ public class MobsAi : MonoBehaviour, IMobsAi
                 yield return new WaitForSecondsRealtime(1f);
                 continue;
             }
-            if (!_isfoodfound && Time.timeScale == 1f && IsAgentOnNavMesh(gameObject) && _agent.enabled == true)
+            if (!_isFoodFound && Time.timeScale == 1f && IsAgentOnNavMesh(gameObject) && _agent.enabled)
             {
                 _agent.SetDestination(RandomPosition());
             }
             yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_NEW_TARGET, MAX_INTERVAL_NEW_TARGET));
         }
     }
+
     private bool IsAgentOnNavMesh(GameObject agentObject)
     {
         Vector3 agentPosition = agentObject.transform.position;
@@ -74,18 +74,17 @@ public class MobsAi : MonoBehaviour, IMobsAi
         return false;
     }
 
-
     public void IsFoodFound(Transform foodTransform)
     {
         if (_agent.enabled)
         {
-            _isfoodfound = true;
+            _isFoodFound = true;
             _agent.SetDestination(foodTransform.position);
         }
     }
 
-    public void SetFoodFound(bool _input)
+    public void SetFoodFound(bool input)
     {
-        _isfoodfound = _input;
+        _isFoodFound = input;
     }
 }

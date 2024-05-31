@@ -93,7 +93,7 @@ public class LocalMenu : MonoBehaviour
 
     public void SaveQuit()
     {
-        EventBus.GlobalSave.Invoke();
+        // EventBus.GlobalSave.Invoke();
         SceneManager.LoadScene("MainMenu");
     } 
 }
