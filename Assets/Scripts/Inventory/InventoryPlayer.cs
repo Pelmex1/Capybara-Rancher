@@ -161,10 +161,15 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
     private void AddExtraSlot()
     {
         Data[] localInventory = new Data[6];
-        for (int i = 0; i < Inventory.Length; i++)
-        {
-            localInventory[i] = Inventory[i];
-        }
+            for (int i = 0; i < Inventory.Length; i++)
+            {
+                localInventory[i] = new()
+                {
+                    InventoryItem = Inventory[i].InventoryItem,
+                    Count = Inventory[i].Count
+                };
+            }
+        localInventory[5] = new();
         Inventory = localInventory;
         _isEnabledSixCell = true;
     }
