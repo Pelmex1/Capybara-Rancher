@@ -8,10 +8,9 @@ public class MobsAi : MonoBehaviour, IMobsAi
     private const float MIN_INTERVAL_NEW_TARGET = 5f;
     private const float MAX_INTERVAL_NEW_TARGET = 20f;
     private const float RADIUS_OF_TARGET = 5f;
-    private const string TERRITORY_OF_MAP_TAG = "TerritoryOfMap";
-    private const string OBSTACLE_TAG = "Obstacle";
     private const string ANIMATOR_KEY_FOR_RUNNING = "IsRunning";
 
+    private bool WasSpawned;
     private NavMeshAgent _agent;
     private Animator _animator;
     private bool _isFoodFound;
