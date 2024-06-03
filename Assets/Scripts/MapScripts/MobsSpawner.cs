@@ -3,25 +3,24 @@ using CapybaraRancher.EventBus;
 using CapybaraRancher.Enums;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class MobsSpawner : MonoBehaviour, IObjectSpawner
+public class MobsSpawner : MonoBehaviour
 {
     [SerializeField] private float _radiusOfSpawn = 5f;
     [SerializeField] private int _amountOfMobs = 8;
     [SerializeField] private float _delayBetweenRespawn = 30f;
-    [SerializeField] private int _startMobsPool = 50;
     [SerializeField] private GameObject _mobPrefab;
 
     private bool _inPlayerVision = false;
     private TypeGameObject _typeGameObject;
-    private int _activatedMobsCount = 0;
     private Camera _mainCamera;
+    private Queue<GameObject> _spawndeGameObjects;
 
     private void Start()
     {
         _typeGameObject = _mobPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _mainCamera = Camera.main;
-        InstantiateObjects(_startMobsPool);
         StartCoroutine(SpawnLoop());
     }
 
@@ -31,27 +30,23 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
         _inPlayerVision = viewportPoint.z > 0 && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
     }
 
-    private void InstantiateObjects(int number)
-    {
-        for (int i = 0; i < number; i++)
-        {
-            GameObject spawnedObject = Instantiate(_mobPrefab);
-            spawnedObject.SetActive(true);
-            spawnedObject.SetActive(false);
-        }
-    }
-
     private IEnumerator SpawnLoop()
     {
+        for (int i = 0; i < _amountOfMobs; i++)
+        {
+            GameObject instance = Instantiate(_mobPrefab);
+            instance.SetActive(false);
+            _spawndeGameObjects.Enqueue(instance);
+        }
         while (true)
         {
-            while (_activatedMobsCount < _amountOfMobs && !_inPlayerVision)
+            while (transform.childCount < _amountOfMobs && !_inPlayerVision)
             {
-                GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
+                GameObject activatedObject = _spawndeGameObjects.Dequeue();
                 activatedObject.transform.position = RandomPosition();
+                activatedObject.transform.SetParent(transform);
                 ItemActivator.ActivatorItemsAdd(activatedObject);
                 activatedObject.SetActive(true);
-                _activatedMobsCount++;
             }
             yield return new WaitForSeconds(_delayBetweenRespawn);
         }
@@ -63,10 +58,5 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
         float posZ = Random.Range(transform.position.z + _radiusOfSpawn, transform.position.z - _radiusOfSpawn);
         Vector3 pos = new(posX, transform.position.y, posZ);
         return pos;
-    }
-
-    public void ReturnToPool(GameObject returnObject)
-    {
-        _activatedMobsCount--;
     }
 }

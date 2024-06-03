@@ -75,10 +75,6 @@ namespace CapybaraRancher.Interfaces
         public float HealthMaxValue { get; }
         public float HungerMaxValue { get; }
     }
-    internal interface IObjectSpawner
-    {
-        public void ReturnToPool(GameObject returnObject);
-    }
     internal interface IPooledMovebleObject
     {
         public TypeGameObject TypeGameObject { get; set; }

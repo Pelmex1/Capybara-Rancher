@@ -60,8 +60,7 @@ public class Receptacle : MonoBehaviour
     private void OnDisable() {
         if(_index != -1){
             _localCollider.enabled = true;
-            if(_spawnedFarms[_index] != null)
-                _spawnedFarms[_index].SetActive(false);
+            _spawnedFarms[_index].SetActive(false);
             _index = -1;
             image.enabled = false;
         }
