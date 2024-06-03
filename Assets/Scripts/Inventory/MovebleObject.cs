@@ -9,7 +9,6 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     [SerializeField] private InventoryItem inventoryItem;
     private const string CANON_TAG = "CanonEnter";
     private NavMeshAgent _navMeshAgent;
-    private IObjectSpawner _objectSpawner;
     private bool _looted = false;
     private bool _isDisabled = false;
 
@@ -19,7 +18,6 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     private void Start()
     {
         TryGetComponent(out _navMeshAgent);
-        transform.parent?.TryGetComponent(out _objectSpawner);
     }
     protected void Update()
     {
@@ -45,7 +43,6 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
                 EventBus.AddInPool(gameObject, Data.TypeGameObject);
                 EventBus.RemoveFromList(gameObject);
                 ItemActivator.ActivatorItemsRemove(gameObject);
-                _objectSpawner?.ReturnToPool(gameObject);
                 gameObject.SetActive(false);
             }
         }

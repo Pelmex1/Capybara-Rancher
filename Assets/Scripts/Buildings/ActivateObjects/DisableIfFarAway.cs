@@ -7,14 +7,6 @@ public class DisableIfFarAway : MonoBehaviour
     private const float TIMEMISTAKE = 0.1f;
 
     private bool _isObjectSpawner;
-
-    private void Awake()
-    {
-        IObjectSpawner _objectSpawner = null;
-        transform.parent?.TryGetComponent(out _objectSpawner);
-        _isObjectSpawner = _objectSpawner != null;
-    }
-
     private void OnEnable()
     {
         StartCoroutine(AddToList());

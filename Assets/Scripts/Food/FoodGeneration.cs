@@ -4,7 +4,7 @@ using CapybaraRancher.Interfaces;
 using System.Collections;
 using UnityEngine;
 
-public class FoodGeneration : MonoBehaviour, IObjectSpawner
+public class FoodGeneration : MonoBehaviour
 {
     private const string UNDERRIPE_TAG = "Untagged";
     private const string RIPE_TAG = "movebleObject";
