@@ -25,6 +25,16 @@ public class NavMeshAgentController : MonoBehaviour
         CheckIsGrounded();
         ChangeComponents();
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        CheckIsGrounded();
+        ChangeComponents();
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        CheckIsGrounded();
+        ChangeComponents();
+    }
 
     private void ChangeComponents()
     {
@@ -43,6 +53,6 @@ public class NavMeshAgentController : MonoBehaviour
         {
             IsGrounded = false;
             _agent.enabled = false;
-        } 
+        }
     }
 }

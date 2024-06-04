@@ -15502,7 +15502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc,
     type: 3}
-  whatEat: 0
+  whatEat: 4
   nameOfFavouriteFood: Pink Chicken
 --- !u!114 &118377664978626739
 MonoBehaviour:

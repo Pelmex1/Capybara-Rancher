@@ -51,6 +51,10 @@ namespace CapybaraRancher.EventBus
         public static Func<FarmType[]> GetFarms;
         #endregion Building
 
+        #region CapybaraSpawn
+        public static Func<GameObject[]> SendCapybarasObjects;
+        #endregion CapybaraSpawn
+
         #region Audio Action
         public static Action<bool, bool> PlayerMove;
         public static Action PlayerJump;

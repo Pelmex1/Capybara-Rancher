@@ -16469,7 +16469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17,
     type: 3}
-  whatEat: 0
+  whatEat: 3
   nameOfFavouriteFood: Carrot
 --- !u!114 &-2388520379149261065
 MonoBehaviour:

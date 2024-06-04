@@ -10,7 +10,6 @@ public class MobsAi : MonoBehaviour, IMobsAi
     private const float RADIUS_OF_TARGET = 5f;
     private const string ANIMATOR_KEY_FOR_RUNNING = "IsRunning";
 
-    private bool WasSpawned;
     private NavMeshAgent _agent;
     private Animator _animator;
     private bool _isFoodFound;
@@ -55,7 +54,8 @@ public class MobsAi : MonoBehaviour, IMobsAi
                 yield return new WaitForSecondsRealtime(1f);
                 continue;
             }
-            if (!_isFoodFound && Time.timeScale == 1f && IsAgentOnNavMesh(gameObject) && _agent.enabled)
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
+            if (!_isFoodFound && Time.timeScale == 1f && IsAgentOnNavMesh() && _agent.enabled)
             {
                 _agent.SetDestination(RandomPosition());
             }
@@ -63,15 +63,16 @@ public class MobsAi : MonoBehaviour, IMobsAi
         }
     }
 
-    private bool IsAgentOnNavMesh(GameObject agentObject)
+    private bool IsAgentOnNavMesh()
     {
-        Vector3 agentPosition = agentObject.transform.position;
+        Vector3 agentPosition = transform.position;
         if (NavMesh.SamplePosition(agentPosition, out NavMeshHit hit, onMeshThreshold, NavMesh.AllAreas))
         {
-            return Mathf.Abs(agentPosition.y - hit.position.y) < onMeshThreshold;
+            return agentPosition.y - hit.position.y < onMeshThreshold;
         }
         return false;
     }
+
 
     public void IsFoodFound(Transform foodTransform)
     {
