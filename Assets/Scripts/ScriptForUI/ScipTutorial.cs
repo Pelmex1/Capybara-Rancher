@@ -8,8 +8,6 @@ public class ScipTutorial : MonoBehaviour
     [SerializeField] private GameObject Point;
     private void Start()
     {
-        int number = PlayerPrefs.GetInt("TutorialComplete", 0);
-        Debug.Log($"Tutorial Was ending {number}");
         if (PlayerPrefs.HasKey("TutorialComplete"))
         {
             if (PlayerPrefs.GetInt("TutorialComplete", 0) == 1)

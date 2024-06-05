@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         if (PlayerPrefs.GetInt("WasCreateNewGame", 0) == 1)
-            ContinueButton.interactable = false;
+            ContinueButton.interactable = true;
         Time.timeScale = 0;
     }
 

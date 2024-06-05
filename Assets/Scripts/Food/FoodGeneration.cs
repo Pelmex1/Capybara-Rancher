@@ -3,6 +3,7 @@ using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FoodGeneration : MonoBehaviour
 {
@@ -20,9 +21,11 @@ public class FoodGeneration : MonoBehaviour
     {
         _typeGameObject = _foodPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _generationInterval = _foodPrefab.GetComponent<IFoodItem>().TimeGeneration;
-
-        InstantiateObjects(_startFoodPool);
-        StartCoroutine(GenerationLoop());
+        if (SceneManager.GetActiveScene().name == "Map")
+        {
+            InstantiateObjects(_startFoodPool);
+            StartCoroutine(GenerationLoop());
+        }
     }
 
     private IEnumerator GenerationLoop()
@@ -37,25 +40,20 @@ public class FoodGeneration : MonoBehaviour
             harvest.transform.position = transform.position;
             harvest.transform.parent = gameObject.transform;
             harvest.SetActive(true);
-
             Vector3 startSize = harvest.transform.localScale;
             Vector3 endSize = _foodPrefab.transform.localScale;
-
             float currentTime = 0f;
-
             while (currentTime < _generationInterval)
             {
                 harvest.transform.localScale = Vector3.Lerp(startSize, endSize, currentTime / _generationInterval);
-
                 currentTime += Time.deltaTime;
-
                 yield return null;
             }
-
             harvest.transform.parent = null;
             harvest.transform.localScale = endSize;
             harvestRB.isKinematic = false;
             harvest.tag = RIPE_TAG;
+
         }
     }
     private void InstantiateObjects(int number)
@@ -65,10 +63,5 @@ public class FoodGeneration : MonoBehaviour
             GameObject spawnedObject = Instantiate(_foodPrefab);
             spawnedObject.SetActive(false);
         }
-    }
-
-    public void ReturnToPool(GameObject returnObject)
-    {
-        returnObject.SetActive(false);
     }
 }
