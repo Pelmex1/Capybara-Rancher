@@ -1,6 +1,7 @@
 using CapybaraRancher.EventBus;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,9 +10,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject PanelMultiplayer;
     [SerializeField] private GameObject PanelLoad;
     [SerializeField] private GameObject PanelNewGame;
+    [SerializeField] private Button ContinueButton;
 
     private void Start()
     {
+        if (PlayerPrefs.GetInt("WasCreateNewGame", 0) == 1)
+            ContinueButton.interactable = false;
         Time.timeScale = 0;
     }
 
@@ -22,8 +26,7 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayContinue()
     {
-        if(PlayerPrefs.GetInt("WasCreateNewGame") == 1)
-            EventBus.LodingScene.Invoke("Map");
+        EventBus.LodingScene.Invoke("Map");
     }
 
     public void OnOptions()

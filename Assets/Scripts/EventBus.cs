@@ -55,13 +55,13 @@ namespace CapybaraRancher.EventBus
         public static Func<GameObject[]> SendCapybarasObjects;
         #endregion CapybaraSpawn
 
-        #region Audio Action
+        #region AudioActions
         public static Action<bool, bool> PlayerMove;
         public static Action PlayerJump;
         public static Action PlayerGunRemove;
         public static Action PlayerGunAdd;
         public static Action<bool> PlayerGunAttraction;
-        #endregion
+        #endregion AudioActions
         #region OldRobotAction
         public static Action WasAddingAllCrystall;
         public static Action<string> SetNameCrystal = delegate { };
@@ -77,6 +77,7 @@ namespace CapybaraRancher.EventBus
         #endregion PlayerUpgrades
 
         #region Tutorial
+        public static Action ScipTutorial = () => {};
         public static Action MovingTutorial = () => { };
         public static Action InventoryTutorial = () => { };
         public static Action FeedTutorial = () => { };

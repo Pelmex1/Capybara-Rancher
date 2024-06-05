@@ -19,7 +19,6 @@ public class MobsSpawner : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.DeleteAll();
         _typeGameObject = _mobPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _mainCamera = Camera.main;
         StartCoroutine(SpawnLoop());

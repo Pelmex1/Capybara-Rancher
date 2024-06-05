@@ -22,6 +22,7 @@ public class TutorialController : MonoBehaviour
     private Vector3 startPos;
     private void Awake()
     {
+        EventBus.ScipTutorial = TutorialComplete;
         if (PlayerPrefs.GetInt("TutorialComplete", 0) == 0)
         {
             EventBus.AddMoney(START_MONEY);
@@ -103,5 +104,6 @@ public class TutorialController : MonoBehaviour
     {
         PlayerPrefs.SetInt("TutorialComplete", 1);
         UnSubscriptions();
+        PlayerPrefs.Save();
     }
 }
