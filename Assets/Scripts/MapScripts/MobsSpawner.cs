@@ -21,7 +21,7 @@ public class MobsSpawner : MonoBehaviour
     {
         _typeGameObject = _mobPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _mainCamera = Camera.main;
-        StartCoroutine(SpawnLoop());
+       SpawnLoop();
     }
 
     private void Update()
@@ -30,28 +30,16 @@ public class MobsSpawner : MonoBehaviour
         _inPlayerVision = viewportPoint.z > 0 && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
     }
 
-    private IEnumerator SpawnLoop()
+    private void SpawnLoop()
     {
         for (int i = 0; i < _amountOfMobs; i++)
         {
             GameObject instance = Instantiate(_mobPrefab);
             instance.transform.SetParent(transform);
             instance.transform.localPosition = basePosition;
-            instance.SetActive(false);
-            EventBus.AddInPool.Invoke(instance, _typeGameObject);
-        }
-        while (true)
-        {
-            int countObject = 0;
-            while (countObject < _amountOfMobs && !_inPlayerVision)
-            {
-                GameObject activatedObject = EventBus.RemoveFromThePool.Invoke(_typeGameObject);
-                activatedObject.transform.localPosition = RandomPosition();
-                ItemActivator.ActivatorItemsAdd(activatedObject);
-                activatedObject.SetActive(true);
-                countObject++;
-            }
-            yield return new WaitForSeconds(_delayBetweenRespawn);
+            instance.transform.localPosition = RandomPosition();
+            instance.SetActive(true);
+            ItemActivator.ActivatorItemsAdd(instance);
         }
     }
 

@@ -1,10 +1,8 @@
 using System.Collections;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 public class MovebleObject : MonoBehaviour, IMovebleObject
 {
@@ -23,36 +21,29 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     protected void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Map")
+        if (Input.GetMouseButton(0) && Time.timeScale > 0)
         {
-            if (Input.GetMouseButton(0) && Time.timeScale > 0)
-            {
-                if (EventBus.CheckList(gameObject)) IsMoved = true;
-            }
-            else IsMoved = false;
-
-            if (Input.GetKeyDown(KeyCode.E) && Time.timeScale == 1f)
-            {
-                if (_navMeshAgent == null) return;
-                _ = IsMoved ? (_navMeshAgent.enabled = false) : (_navMeshAgent.enabled = true);
-            }
+            if (EventBus.CheckList(gameObject)) IsMoved = true;
         }
+        else IsMoved = false;
 
+        if (Input.GetKeyDown(KeyCode.E) && Time.timeScale == 1f)
+        {
+            if (_navMeshAgent == null) return;
+            _ = IsMoved ? (_navMeshAgent.enabled = false) : (_navMeshAgent.enabled = true);
+        }
     }
     protected void OnTriggerEnter(Collider other)
     {
-        if (SceneManager.GetActiveScene().name == "Map")
+        if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
         {
-            if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
+            if (EventBus.AddItemInInventory(Data))
             {
                 _looted = true;
-                if (EventBus.AddItemInInventory(Data))
-                {
-                    EventBus.AddInPool(gameObject, Data.TypeGameObject);
-                    EventBus.RemoveFromList(gameObject);
-                    ItemActivator.ActivatorItemsRemove(gameObject);
-                    gameObject.SetActive(false);
-                }
+                EventBus.AddInPool(gameObject, Data.TypeGameObject);
+                EventBus.RemoveFromList(gameObject);
+                ItemActivator.ActivatorItemsRemove(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

@@ -18,6 +18,10 @@ public class WindSpawner : MonoBehaviour
 
     private void Start()
     {
+        if(_player == null)
+        {
+            return;
+        }
         InstantiateObjects(25);
         StartCoroutine(StartWindSpawn());
     }

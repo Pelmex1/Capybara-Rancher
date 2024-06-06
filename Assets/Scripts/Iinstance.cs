@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class Iinstance : MonoBehaviour
 {
@@ -27,14 +27,16 @@ public class Iinstance : MonoBehaviour
         {
             _movebleobjects[i] = new();
         }
-        //SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
         EventBus.AddMoney = (float money) => Money += money;
         EventBus.GetMoney = () => { return Money; };
         Money = PlayerPrefs.GetFloat("Money", 0);
     }
-    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
-    //
-    //}
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+        for(int i = 0; i < _movebleobjects.Length; i++){
+            _movebleobjects[i].Clear();
+        }
+    }
     private void AddInQueue(GameObject localGameObject, TypeGameObject typeGameObject)
     {
         _movebleobjects[(int)typeGameObject].Enqueue(localGameObject);
@@ -50,6 +52,7 @@ public class Iinstance : MonoBehaviour
         {
             PlayerPrefs.SetString($"{_QueueToDisable[i].transform.parent?.name}_{_QueueToDisable[i].name}_isEnable", "false");
         }
+        _QueueToDisable.Clear();
     }
     private void OnApplicationQuit()
     {
