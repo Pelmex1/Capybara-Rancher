@@ -50,6 +50,7 @@ public class SavePosition : MonoBehaviour
         if (!_isOnAplicationQuit)
             EventBus.AddInDisable(gameObject);
         Save();
+        EventBus.GlobalSave -= Save;
     }
     private void OnApplicationQuit()
     {
