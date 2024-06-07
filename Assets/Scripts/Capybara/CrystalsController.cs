@@ -16,6 +16,7 @@ public class CrystalsController : MonoBehaviour
     [SerializeField] private GameObject _hungryParticle;
     [SerializeField] private GameObject _angryParticle;
 
+    private Vector3 _scaleforeat = new Vector3(1f, 1f, 1f);
     private bool _isAngry = false;
     private FoodType _whatEat1;
     private FoodType _whatEat2;
@@ -26,7 +27,7 @@ public class CrystalsController : MonoBehaviour
     private IMobsAi _mobsAi;
     private ICapybaraItem _capybaraData;
 
-    public bool IsHungry {get; set;} = false;
+    public bool IsHungry { get; set; } = false;
     public GameObject NewCrystal { get; set; }
     private void Start()
     {
@@ -50,7 +51,7 @@ public class CrystalsController : MonoBehaviour
         {
             IMovebleObject localMovebleObject = eatObj.GetComponent<IMovebleObject>();
             ICrystalItem dataCr;
-            if (eatObj.GetComponent<IFoodItem>() != null && eatObj.transform.localScale == new Vector3(1f,1f,1f) && IsHungry)
+            if (eatObj.GetComponent<IFoodItem>() != null && eatObj.transform.localScale == _scaleforeat || eatObj.transform.localScale == 0.5f*_scaleforeat && IsHungry)
             {
                 string nameOfFood = localMovebleObject.Data.name;
                 FoodType typeOfFood = eatObj.GetComponent<IFoodItem>().Type;
@@ -58,27 +59,27 @@ public class CrystalsController : MonoBehaviour
                 {
                     StartCoroutine(GenerateCrystals(true));
                     eatObj.SetActive(false);
-                    EventBus.AddInPool(gameObject,localMovebleObject.Data.TypeGameObject);
+                    EventBus.AddInPool(gameObject, localMovebleObject.Data.TypeGameObject);
                 }
-                else if ((_whatEat1 == FoodType.All || _whatEat1 == typeOfFood) || 
+                else if ((_whatEat1 == FoodType.All || _whatEat1 == typeOfFood) ||
                     (_whatEat2 == FoodType.All || _whatEat2 == typeOfFood))
                 {
                     StartCoroutine(GenerateCrystals(false));
                     eatObj.SetActive(false);
-                    EventBus.AddInPool(gameObject,localMovebleObject.Data.TypeGameObject);
+                    EventBus.AddInPool(gameObject, localMovebleObject.Data.TypeGameObject);
                 }
             }
             else if (eatObj.TryGetComponent(out dataCr))
             {
                 InventoryItem dataIn = localMovebleObject.Data;
-                if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab && 
+                if (dataCr.Price != 0 && (_capybaraData.CrystalPrefab != dataIn.Prefab &&
                     NewCrystal != dataIn.Prefab) && !_hasTransformed)
                 {
-                    TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara, 
+                    TransformationToAnotherCapybara(dataIn.Prefab, dataCr.NextCapibara,
                         dataCr.FavouriteFoodName, dataCr.WhatEatThisType);
                     localMovebleObject.Localgameobject.SetActive(false);
                     eatObj.SetActive(false);
-                    EventBus.AddInPool(gameObject,localMovebleObject.Data.TypeGameObject);
+                    EventBus.AddInPool(gameObject, localMovebleObject.Data.TypeGameObject);
                     EventBus.TransformationTutorial.Invoke();
                 }
             }
@@ -86,8 +87,7 @@ public class CrystalsController : MonoBehaviour
     }
     public IEnumerator GenerateCrystals(bool isFavouriteFood)
     {
-        EventBus.FeedTutorial.Invoke();
-
+        EventBus.FeedTutorial?.Invoke();
         IsHungry = false;
         _isAngry = false;
         _mobsAi.SetFoodFound(false);
@@ -96,7 +96,6 @@ public class CrystalsController : MonoBehaviour
         _audioController.Eating();
 
         yield return new WaitForSecondsRealtime(_delayBeforeCrystalSpawn);
-
         int crystalCount = isFavouriteFood ? 2 : 1;
         for (int i = 0; i < crystalCount; i++)
         {
@@ -114,7 +113,7 @@ public class CrystalsController : MonoBehaviour
         float radius = 1f;
         float posx = Random.Range(transform.position.x + radius, transform.position.x - radius);
         float posZ = Random.Range(transform.position.z + radius, transform.position.z - radius);
-        Vector3 pos = new (posx, transform.position.y + Y_BOOST_FOR_CRYSTAL, posZ);
+        Vector3 pos = new(posx, transform.position.y + Y_BOOST_FOR_CRYSTAL, posZ);
         return pos;
     }
     private IEnumerator LoopToStarving()

@@ -1,9 +1,4 @@
-using System.Collections;
-using CapybaraRancher.EventBus;
-using CapybaraRancher.Enums;
-using CapybaraRancher.Interfaces;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class MobsSpawner : MonoBehaviour
 {
@@ -14,12 +9,10 @@ public class MobsSpawner : MonoBehaviour
 
     private bool _inPlayerVision = false;
     private Vector3 basePosition = new Vector3(0f, 0f, 0f);
-    private TypeGameObject _typeGameObject;
     private Camera _mainCamera;
 
     private void Start()
     {
-        _typeGameObject = _mobPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _mainCamera = Camera.main;
        SpawnLoop();
     }

@@ -15343,7 +15343,7 @@ MonoBehaviour:
   crystalPrefab: {fileID: 13763372814719393, guid: e17993d1472c6834492952b898c417ba,
     type: 3}
   whatEat: 1
-  nameOfFavouriteFood: '-'
+  nameOfFavouriteFood: Mandarine
 --- !u!114 &4371163672620574781
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
+using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,7 +41,6 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
             if (EventBus.AddItemInInventory(Data))
             {
                 _looted = true;
-                EventBus.AddInPool(gameObject, Data.TypeGameObject);
                 EventBus.RemoveFromList(gameObject);
                 ItemActivator.ActivatorItemsRemove(gameObject);
                 gameObject.SetActive(false);
