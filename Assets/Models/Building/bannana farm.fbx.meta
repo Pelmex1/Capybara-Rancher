@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 2f902c23bab649249b5f82beaa614a91
+guid: 3dc9d361637abea40b2c9eada8ad31bd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bannana farm
+    second: {fileID: 2100000, guid: 0c31af670b2dc014c8aa3066cedd647e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
