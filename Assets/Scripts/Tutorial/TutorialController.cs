@@ -11,23 +11,18 @@ public class TutorialController : MonoBehaviour
     private const float START_MONEY = 300f;
 
     [SerializeField] private GameObject _tutorialPanel;
-    [SerializeField] private GameObject _movingTip;
-    [SerializeField] private GameObject _inventoryTip;
-    [SerializeField] private GameObject _feedTip;
-    [SerializeField] private GameObject _transformationTip;
-    [SerializeField] private GameObject _sellTip;
-    [SerializeField] private GameObject _eatTip;
-    [SerializeField] private GameObject _buildTip;
+    [SerializeField] private GameObject[] _tips;
 
     private Vector3 startPos;
+
     private void Awake()
     {
-        EventBus.ScipTutorial = TutorialComplete;
         if (PlayerPrefs.GetInt("TutorialComplete", 0) == 0)
         {
-            EventBus.AddMoney(START_MONEY);
+            if (EventBus.GetMoney() < 300f)
+                EventBus.AddMoney(START_MONEY);
             _tutorialPanel.SetActive(true);
-            _movingTip.SetActive(true);
+            _tips[0].SetActive(true);
             Subscriptions();
         }
         startPos = transform.position;
@@ -57,41 +52,72 @@ public class TutorialController : MonoBehaviour
         float newY = startPos.y + Mathf.Sin(Time.time * FLOAT_SPEED) * FLOAT_STRENGTH;
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
+    private bool IsPreviousTipsActive(int number)
+    {
+        for (int i = 0; i <= number; i++)
+            if (_tips[i].activeSelf)
+                return true;
+        return false;
+    }
     private void MovingTutorialComplete()
     {
-        StartCoroutine(TipSwitchWithDelay(_movingTip, _inventoryTip));
+        StartCoroutine(TipSwitchWithDelay(_tips[0], _tips[1]));
         EventBus.MovingTutorial -= MovingTutorialComplete;
     }
     private void InventoryTutorialComplete()
     {
-        StartCoroutine(TipSwitchWithDelay(_inventoryTip, _feedTip));
-        EventBus.InventoryTutorial -= InventoryTutorialComplete;
+        if (!IsPreviousTipsActive(0))
+        {
+            StartCoroutine(TipSwitchWithDelay(_tips[1], _tips[2]));
+            EventBus.InventoryTutorial -= InventoryTutorialComplete;
+        }
     }
     private void FeedTutorialComplete()
     {
-        StartCoroutine(TipSwitchWithDelay(_feedTip, _transformationTip));
-        EventBus.FeedTutorial -= FeedTutorialComplete;
+        if (!IsPreviousTipsActive(1))
+        {
+            StartCoroutine(TipSwitchWithDelay(_tips[2], _tips[3]));
+            EventBus.FeedTutorial -= FeedTutorialComplete;
+        }
     }
     private void TransformationTutorialComplete()
     {
-        StartCoroutine(TipSwitchWithDelay(_transformationTip, _sellTip));
-        EventBus.TransformationTutorial -= TransformationTutorialComplete;
+        if (!IsPreviousTipsActive(2))
+        {
+            StartCoroutine(TipSwitchWithDelay(_tips[3], _tips[4]));
+            EventBus.TransformationTutorial -= TransformationTutorialComplete;
+        }
     }
     private void SellTutorialComplete()
     {
-        StartCoroutine(TipSwitchWithDelay(_sellTip, _eatTip));
-        EventBus.SellTutorial -= SellTutorialComplete;
+        if (!IsPreviousTipsActive(3))
+        {
+            StartCoroutine(TipSwitchWithDelay(_tips[4], _tips[5]));
+            EventBus.SellTutorial -= SellTutorialComplete;
+        }
     }
     private void EatTutorialComplete()
     {
-        StartCoroutine(TipSwitchWithDelay(_eatTip, _buildTip));
-        EventBus.EatTutorial -= EatTutorialComplete;
+        if (!IsPreviousTipsActive(4))
+        {
+            StartCoroutine(TipSwitchWithDelay(_tips[5], _tips[6]));
+            EventBus.EatTutorial -= EatTutorialComplete;
+        }
     }
     private void BuildTutorialComplete()
     {
-        StartCoroutine(TipSwitchWithDelay(_tutorialPanel, null));
-        EventBus.BuildTutorial -= BuildTutorialComplete;
-        TutorialComplete();
+        if (!IsPreviousTipsActive(5))
+        {
+            StartCoroutine(TipSwitchWithDelay(_tutorialPanel, null));
+            EventBus.BuildTutorial -= BuildTutorialComplete;
+            TutorialComplete();
+        }
+    }
+    private void TutorialComplete()
+    {
+        PlayerPrefs.SetInt("TutorialComplete", 1);
+        PlayerPrefs.Save();
+        UnSubscriptions();
     }
     private IEnumerator TipSwitchWithDelay(GameObject previousTip, GameObject nextTip)
     {
@@ -100,10 +126,9 @@ public class TutorialController : MonoBehaviour
         if (nextTip != null)
             nextTip.SetActive(true);
     }
-    private void TutorialComplete()
+    public void Skip()
     {
-        PlayerPrefs.SetInt("TutorialComplete", 1);
-        UnSubscriptions();
-        PlayerPrefs.Save();
+        TutorialComplete();
+        _tutorialPanel.SetActive(false);
     }
 }

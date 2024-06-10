@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class MobsAi : MonoBehaviour, IMobsAi
 {
-    private const float MIN_INTERVAL_NEW_TARGET = 5f;
-    private const float MAX_INTERVAL_NEW_TARGET = 20f;
+    private const float MIN_INTERVAL_NEW_TARGET = 3f;
+    private const float MAX_INTERVAL_NEW_TARGET = 10f;
     private const float RADIUS_OF_TARGET = 5f;
     private const string ANIMATOR_KEY_FOR_RUNNING = "IsRunning";
 
