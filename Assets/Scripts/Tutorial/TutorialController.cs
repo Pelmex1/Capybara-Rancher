@@ -5,14 +5,11 @@ using System.Collections;
 public class TutorialController : MonoBehaviour
 {
     private const float DEACTIVATE_PANEL_DELAY = 2.5f;
-    private const float FLOAT_STRENGTH = 0.5f;
-    private const float FLOAT_SPEED = 5f;
     private const float START_MONEY = 300f;
 
     [SerializeField] private GameObject _tutorialPanel;
+    [SerializeField] private GameObject _askToTutorPanel;
     [SerializeField] private GameObject[] _tips;
-
-    private Vector3 startPos;
 
     private void Awake()
     {
@@ -21,22 +18,32 @@ public class TutorialController : MonoBehaviour
             if (EventBus.GetMoney() < 300f)
                 EventBus.AddMoney(START_MONEY);
             _tutorialPanel.SetActive(true);
+            _askToTutorPanel.SetActive(true);
             _tips[0].SetActive(true);
-            Subscriptions();
+
+            EventBus.MovingTutorial += MovingTutorialComplete;
+            EventBus.InventoryTutorial += InventoryTutorialComplete;
+            EventBus.FeedTutorial += FeedTutorialComplete;
+            EventBus.TransformationTutorial += TransformationTutorialComplete;
+            EventBus.SellTutorial += SellTutorialComplete;
+            EventBus.EatTutorial += EatTutorialComplete;
+            EventBus.BuildTutorial += BuildTutorialComplete;
         }
-        startPos = transform.position;
     }
-    private void Subscriptions()
+    private void Start()
     {
-        EventBus.MovingTutorial += MovingTutorialComplete;
-        EventBus.InventoryTutorial += InventoryTutorialComplete;
-        EventBus.FeedTutorial += FeedTutorialComplete;
-        EventBus.TransformationTutorial += TransformationTutorialComplete;
-        EventBus.SellTutorial += SellTutorialComplete;
-        EventBus.EatTutorial += EatTutorialComplete;
-        EventBus.BuildTutorial += BuildTutorialComplete;
+        if (PlayerPrefs.GetInt("TutorialComplete", 0) == 0)
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 0;
+        }
     }
-    private void UnSubscriptions()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+            TutorialComplete();
+    }
+    private void OnDisable()
     {
         EventBus.MovingTutorial -= MovingTutorialComplete;
         EventBus.InventoryTutorial -= InventoryTutorialComplete;
@@ -45,11 +52,6 @@ public class TutorialController : MonoBehaviour
         EventBus.SellTutorial -= SellTutorialComplete;
         EventBus.EatTutorial -= EatTutorialComplete;
         EventBus.BuildTutorial -= BuildTutorialComplete;
-    }
-    private void Update()
-    {
-        float newY = startPos.y + Mathf.Sin(Time.time * FLOAT_SPEED) * FLOAT_STRENGTH;
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
     private bool IsPreviousTipsActive(int number)
     {
@@ -112,12 +114,6 @@ public class TutorialController : MonoBehaviour
             TutorialComplete();
         }
     }
-    private void TutorialComplete()
-    {
-        PlayerPrefs.SetInt("TutorialComplete", 1);
-        PlayerPrefs.Save();
-        UnSubscriptions();
-    }
     private IEnumerator TipSwitchWithDelay(GameObject previousTip, GameObject nextTip)
     {
         yield return new WaitForSeconds(DEACTIVATE_PANEL_DELAY);
@@ -125,9 +121,18 @@ public class TutorialController : MonoBehaviour
         if (nextTip != null)
             nextTip.SetActive(true);
     }
-    public void Skip()
+    public void TutorialComplete()
     {
-        TutorialComplete();
-        _tutorialPanel.SetActive(false);
+        PlayerPrefs.SetInt("TutorialComplete", 1);
+        PlayerPrefs.Save();
+        gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+    }
+    public void NoSkip()
+    {
+        _askToTutorPanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
     }
 }
