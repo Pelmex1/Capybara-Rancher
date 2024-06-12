@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static System.TimeZoneInfo;
 
 public class CaveFog : MonoBehaviour
 {

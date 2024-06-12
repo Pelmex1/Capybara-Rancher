@@ -1,7 +1,6 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
 using System.Collections;
-using CapybaraRancher.Interfaces;
 
 public class TutorialController : MonoBehaviour
 {

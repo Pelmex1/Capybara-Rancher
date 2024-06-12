@@ -1,6 +1,7 @@
 using CapybaraRancher.CustomStructures;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
+using CapybaraRancher.JsonSave;
 using UnityEngine;
 
 public class ContainerInventory : MonoBehaviour
@@ -10,7 +11,7 @@ public class ContainerInventory : MonoBehaviour
     private IInventoryPlayer _inventoryPlayer;
     private void Start() {
         for(int i = 0; i < _chestCell.Length; i++){
-            _chestCell[i] = new();
+            _chestCell[i] = JSONSerializer.Load<Data>($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}") ?? new();
         }
     }
     private void Update()
@@ -71,28 +72,6 @@ public class ContainerInventory : MonoBehaviour
             }
             EventBus.OnRepaint(_inventoryPlayer.Inventory);
             EventBus.UpdateChestUI(_chestCell,_inventoryPlayer.Inventory);
-            /*Data[][] array = new Data[2][];
-            array[0] = _inventoryPlayer.Inventory;
-            array[1] = _chestCell;
-            int localIndex = counter.localIndex;
-            int localMindex = counter.localMindex;
-            int newIndex = counter.newIndex;
-            int newMIndex = counter.newMIndex;
-            if(newMIndex == 1)
-            {
-                _chestCell[newIndex] = array[localMindex][localIndex];
-            } else {
-                _inventoryPlayer.Inventory[newIndex] = array[localMindex][localIndex];
-            }
-            if(localMindex == 1)
-            {
-                _chestCell[localIndex] = array[newMIndex][newIndex];
-            } else 
-            {
-                _inventoryPlayer.Inventory[localIndex] = array[newMIndex][newIndex];
-            }*/
-            EventBus.OnRepaint(_inventoryPlayer.Inventory);
-            EventBus.UpdateChestUI(_chestCell,_inventoryPlayer.Inventory);
         }
     }
     private void OnEnable() {
@@ -100,5 +79,11 @@ public class ContainerInventory : MonoBehaviour
     }
     private void OnDisable() {
         EventBus.ChangeArray -= ChangeArray;
+    }
+    private void OnApplicationQuit() {
+        for (int i = 0; i < _chestCell.Length; i++)
+        {
+            JSONSerializer.Save($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}",_chestCell[i]);
+        }
     }
 }

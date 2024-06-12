@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using CapybaraRancher.Interfaces;
 
 public class DisableIfFarAway : MonoBehaviour
 {

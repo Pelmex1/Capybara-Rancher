@@ -9,6 +9,8 @@ namespace CapybaraRancher.EventBus
     public static class EventBus
     {
         public static Action GlobalSave;
+        public static Func<string> GetSaveName;
+        public static Action<string> SetSaveName;
         public static Action<int, bool> BuyFarm;
         public static Action<bool[], bool> UpdateFarmButtons;
         public static Action<bool> ActiveFarmPanel = delegate { };
