@@ -50,6 +50,7 @@ public class ActivatingPartRobot : MonoBehaviour
         }
         if (AmountActivingParts == 3)
         {
+            EventBus.Win.Invoke();
             Cursor.lockState = CursorLockMode.Confined;
             Time.timeScale = 0;
             WinPanel.SetActive(true);

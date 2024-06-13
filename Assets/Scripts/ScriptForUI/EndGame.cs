@@ -7,6 +7,7 @@ public class EndGame : MonoBehaviour
     public void Continue()
     {
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
         _panelWin.SetActive(false);
     }
     public void NewGame()

@@ -49,7 +49,7 @@ public class UpgradeTerminal : MonoBehaviour
 
     private void OnUi()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && Time.timeScale != 0)
         {
             _terminalPanel.SetActive(!_terminalPanel.activeSelf);
             Cursor.lockState = _terminalPanel.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
@@ -58,7 +58,6 @@ public class UpgradeTerminal : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             _terminalPanel.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 

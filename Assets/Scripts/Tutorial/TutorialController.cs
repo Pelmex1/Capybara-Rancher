@@ -40,7 +40,7 @@ public class TutorialController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && Time.timeScale != 0)
             TutorialComplete();
     }
     private void OnDisable()

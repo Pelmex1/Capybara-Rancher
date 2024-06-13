@@ -70,6 +70,7 @@ namespace CapybaraRancher.EventBus
         public static Action<GameObject[]> TransitonPartsData;
         public static Action AddToDict;
         public static Action<int, Transform> OffMovebleObject;
+        public static Action Win;
         #endregion OldRobotAction
 
         #region PlayerUpgrades
