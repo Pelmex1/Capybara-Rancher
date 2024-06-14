@@ -16,8 +16,8 @@ namespace CapybaraRancher.EventBus
         public static Action<bool> ActiveFarmPanel = delegate { };
         public static Action<bool> ActiveHelpText = delegate { };
         public static Func<FarmObject[]> GetBuildings;
-        public static Action<GameObject> AddInDisable;
-        public static Action<GameObject> RemoveFromDisable;
+        public static Action<string> AddInDisable;
+        public static Action<string> RemoveFromDisable;
         public static Action<GameObject, TypeGameObject> AddInPool;
         public static Func<TypeGameObject, GameObject> RemoveFromThePool;
         public static Action<float> AddMoney;

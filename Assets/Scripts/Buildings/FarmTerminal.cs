@@ -69,16 +69,20 @@ public class FarmTerminal : MonoBehaviour
     }
     private void OnEnable() {
         EventBus.BuyFarm += BuyOrRemove;
+        EventBus.GlobalSave += Save;
     }
     private void OnDisable() {
         EventBus.BuyFarm -= BuyOrRemove;
+        EventBus.GlobalSave -= Save;
     }
     private void OnApplicationQuit() {
+        Save();
+    }
+    private void Save(){
         for(int i = 0; i < _farmObjects.Length; i++){
             if(_isBuy[i]){
                 PlayerPrefs.SetString($"{transform.parent.transform.parent.name}_{_spawnedGameObjects[i].name}", "true");
             }
         }
-
     }
 }

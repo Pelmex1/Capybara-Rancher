@@ -11,7 +11,7 @@ public class SavePosition : MonoBehaviour
     {
         try
         {
-            EventBus.RemoveFromList(gameObject);
+            EventBus.RemoveFromDisable($"{transform.parent?.name}_{name}");
         } catch {}
         EventBus.GlobalSave += Save;
     }
@@ -50,7 +50,7 @@ public class SavePosition : MonoBehaviour
     private void OnDisable()
     {
         if (!_isOnAplicationQuit)
-            EventBus.AddInDisable(gameObject);
+            EventBus.AddInDisable($"{transform.parent?.name}_{name}");
         Save();
         EventBus.GlobalSave -= Save;
     }

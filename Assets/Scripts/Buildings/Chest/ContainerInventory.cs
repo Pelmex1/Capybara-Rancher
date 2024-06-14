@@ -1,17 +1,27 @@
+using System;
+using UnityEngine;
 using CapybaraRancher.CustomStructures;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.FileEditor;
 using CapybaraRancher.Interfaces;
 using CapybaraRancher.JsonSave;
-using UnityEngine;
 
 public class ContainerInventory : MonoBehaviour
 {
     private bool _isNearChest = false;
-    private readonly Data[] _chestCell = new Data[12];
+    private Data[] _chestCell = new Data[12];
     private IInventoryPlayer _inventoryPlayer;
     private void Start() {
         for(int i = 0; i < _chestCell.Length; i++){
-            _chestCell[i] = JSONSerializer.Load<Data>($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}") ?? new();
+            Data JsonData = JSONSerializer.Load<Data>($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}");
+            if(JsonData != null)
+            {
+                _chestCell[i] = JsonData;
+                FileEditor.DeleteFile($"Save/{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}.json");
+            } else
+            {
+                _chestCell[i] = new();
+            }
         }
     }
     private void Update()
@@ -76,14 +86,23 @@ public class ContainerInventory : MonoBehaviour
     }
     private void OnEnable() {
         EventBus.ChangeArray += ChangeArray;
+        EventBus.GlobalSave += Save;
     }
     private void OnDisable() {
         EventBus.ChangeArray -= ChangeArray;
+        EventBus.GlobalSave -= Save;
+        Array.Clear(_chestCell,0,_chestCell.Length);
+        
     }
     private void OnApplicationQuit() {
+        Save();
+    }
+    private void Save(){
         for (int i = 0; i < _chestCell.Length; i++)
         {
-            JSONSerializer.Save($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}",_chestCell[i]);
+            if(_chestCell[i].InventoryItem != null){
+                JSONSerializer.Save($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}",_chestCell[i]);
+            }
         }
     }
 }
