@@ -12,17 +12,11 @@ public class ContainerInventory : MonoBehaviour
     private Data[] _chestCell = new Data[12];
     private IInventoryPlayer _inventoryPlayer;
     private void Start() {
-        for(int i = 0; i < _chestCell.Length; i++){
-            Data JsonData = JSONSerializer.Load<Data>($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}");
-            if(JsonData != null)
-            {
-                _chestCell[i] = JsonData;
-                FileEditor.DeleteFile($"Save/{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}.json");
-            } else
-            {
-                _chestCell[i] = new();
-            }
+        for(int i = 0; i < _chestCell.Length; i++){;
+            _chestCell[i] = JSONSerializer.Load<Data>($"{EventBus.GetSaveName}_{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}") ?? new();
+            FileEditor.DeleteFile($"Save/{EventBus.GetSaveName}_{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}.json");
         }
+        
     }
     private void Update()
     {
@@ -91,17 +85,16 @@ public class ContainerInventory : MonoBehaviour
     private void OnDisable() {
         EventBus.ChangeArray -= ChangeArray;
         EventBus.GlobalSave -= Save;
-        Array.Clear(_chestCell,0,_chestCell.Length);
-        
+        Array.Clear(_chestCell,0,_chestCell.Length);      
     }
     private void OnApplicationQuit() {
         Save();
     }
     private void Save(){
         for (int i = 0; i < _chestCell.Length; i++)
-        {
+        { 
             if(_chestCell[i].InventoryItem != null){
-                JSONSerializer.Save($"{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}",_chestCell[i]);
+                JSONSerializer.Save($"{EventBus.GetSaveName}_{transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.name}_{i}",_chestCell[i]);
             }
         }
     }
