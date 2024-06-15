@@ -9,6 +9,7 @@ public class InfoBook : MonoBehaviour
     [SerializeField] private GameObject _lore;
     [SerializeField] private GameObject _tasks;
     [SerializeField] private Image[] _taskPoints;
+    [SerializeField] private GameObject[] _prompts;
     [SerializeField] private Sprite _completedTaskSprite;
 
     private void OnEnable()
@@ -62,5 +63,18 @@ public class InfoBook : MonoBehaviour
     {
         _tasks.SetActive(true);
         _lore.SetActive(false);
+    }
+
+    public void Prompt(int promptNumber)    
+    {
+        for (int i = 0; i < _prompts.Length; i++)
+        {
+            if (!_prompts[promptNumber].activeSelf && promptNumber == i)
+            {
+                _prompts[promptNumber].SetActive(true);
+                continue;
+            }
+            _prompts[i].SetActive(false);
+        }
     }
 }
