@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Enums;
 
 public class LocalMenu : MonoBehaviour
 {
@@ -10,40 +11,38 @@ public class LocalMenu : MonoBehaviour
     private const string HEALTH_KEY = "HealthMaxValue";
     private const string HUNGER_KEY = "HungerMaxValue";
 
-    [SerializeField] private GameObject PausePanel;
-    [SerializeField] private GameObject PanelOptions;
-    [SerializeField] private Image energyBar;
-    [SerializeField] private Image hungerBar;
-    [SerializeField] private Image hpBar;
+    [SerializeField] private GameObject _pausePanel;
+    [SerializeField] private GameObject _panelOptions;
+    [SerializeField] private Image _energyBar;
+    [SerializeField] private Image _hpBar;
+    [SerializeField] private Image _hungerBar;
     [SerializeField] private TMP_Text _money;
 
-    private int indexCheck = 0;
-    private float energyMaxValue;
-    private float energyCurrentValue;
-    private float hpMaxValue;
-    private float hpCurrentValue;
-    private float hungerMaxValue;
-    private float hungerCurrentValue;
+    private float _energyMaxValue;
+    private float _energyCurrentValue;
+    private float _hpMaxValue;
+    private float _hpCurrentValue;
+    private float _hungerMaxValue;
+    private float _hungerCurrentValue;
 
     private void Update()
     {
         float money = EventBus.GetMoney.Invoke();
         _money.text = $"{money}";
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (InputManager.Instance.IsActionDown(ActionType.Pause))
         {
-            if (indexCheck == 0)
+            if (!_pausePanel.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Confined;
-                PausePanel.SetActive(true);
+                _pausePanel.SetActive(true);
                 Time.timeScale = 0;
-                indexCheck = 1;
             }
-            else if (indexCheck == 1)
+            else
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                PausePanel.SetActive(false);
+                _pausePanel.SetActive(false);
+                _panelOptions.SetActive(false);
                 Time.timeScale = 1;
-                indexCheck = 0;
             }
         }
         UpdateBars();
@@ -63,31 +62,31 @@ public class LocalMenu : MonoBehaviour
 
     private void GetEnergy()
     {
-        energyMaxValue = PlayerPrefs.GetFloat(ENERGY_KEY);
-        hpMaxValue = PlayerPrefs.GetFloat(HEALTH_KEY);
-        hungerMaxValue = PlayerPrefs.GetFloat(HUNGER_KEY);
+        _energyMaxValue = PlayerPrefs.GetFloat(ENERGY_KEY);
+        _hpMaxValue = PlayerPrefs.GetFloat(HEALTH_KEY);
+        _hungerMaxValue = PlayerPrefs.GetFloat(HUNGER_KEY);
     }
 
     private void GiveEnergyData(float Hp, float Energy, float Hunger)
     {
-        hpCurrentValue = Hp;
-        energyCurrentValue = Energy;
-        hungerCurrentValue = Hunger;
+        _hpCurrentValue = Hp;
+        _energyCurrentValue = Energy;
+        _hungerCurrentValue = Hunger;
     }
 
     private void UpdateBars()
     {
-        energyBar.fillAmount = (energyCurrentValue - 5) / (energyMaxValue - 5);
-        hpBar.fillAmount = hpCurrentValue / hpMaxValue;
-        hungerBar.fillAmount = hungerCurrentValue / hungerMaxValue;
+        _energyBar.fillAmount = (_energyCurrentValue - 5) / (_energyMaxValue - 5);
+        _hpBar.fillAmount = _hpCurrentValue / _hpMaxValue;
+        _hungerBar.fillAmount = _hungerCurrentValue / _hungerMaxValue;
     }
-    public void OnOptions() => PanelOptions.SetActive(true);
-    public void OffOptions() => PanelOptions.SetActive(false);
+    public void OnOptions() => _panelOptions.SetActive(true);
+    public void OffOptions() => _panelOptions.SetActive(false);
 
     public void Resume()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        PausePanel.SetActive(false);
+        _pausePanel.SetActive(false);
         Time.timeScale = 1;
     }
 

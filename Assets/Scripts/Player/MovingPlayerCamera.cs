@@ -1,3 +1,4 @@
+using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
@@ -75,7 +76,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private void Update()
     {
         EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
-        if (Input.GetKey(KeyCode.Space))
+        if (InputManager.Instance.IsAction(ActionType.Jump) && Cursor.lockState == CursorLockMode.Locked)
             if (_isGrounded)
             {
                 _isGrounded = false;
@@ -94,7 +95,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
             transform.Rotate(Vector3.up * mouseX);
         }
 
-        if (Energy > MIN_ENERGY_VALUE && Input.GetKey(KeyCode.LeftShift))
+        if (Energy > MIN_ENERGY_VALUE && InputManager.Instance.IsAction(ActionType.Run))
         {
             Energy -= _energyConsumptionRate * Time.deltaTime;
             _speed = _startSpeed * SPEED_BOOST;

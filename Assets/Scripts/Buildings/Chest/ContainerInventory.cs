@@ -5,6 +5,7 @@ using CapybaraRancher.EventBus;
 using CapybaraRancher.FileEditor;
 using CapybaraRancher.Interfaces;
 using CapybaraRancher.JsonSave;
+using CapybaraRancher.Enums;
 
 public class ContainerInventory : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class ContainerInventory : MonoBehaviour
     }
     private void Update()
     {
-        if (_isNearChest && Input.GetKeyDown(KeyCode.E))
+        if (_isNearChest && InputManager.Instance.IsActionDown(ActionType.TerminalUse))
         {
             Cursor.lockState = CursorLockMode.Confined;
             EventBus.EnableChestUi(true);

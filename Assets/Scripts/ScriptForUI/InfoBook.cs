@@ -26,12 +26,12 @@ public class InfoBook : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && Time.timeScale != 0)
+        if (InputManager.Instance.IsActionDown(ActionType.InfoBook) && Time.timeScale != 0)
         {
             _panel.SetActive(!_panel.activeSelf);
             Cursor.lockState = _panel.activeSelf == false ? CursorLockMode.Locked : CursorLockMode.Confined;
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (InputManager.Instance.IsActionDown(ActionType.Pause))
             _panel.SetActive(false);
     }
 

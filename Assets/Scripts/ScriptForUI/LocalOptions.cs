@@ -10,7 +10,7 @@ public class LocalOptions : MonoBehaviour
     private const string ScreenX = "KeyScreenX";
     private const string ScreenY = "KeyScreenY";
     private const string DPI = "DPI";
-    [SerializeField] private GameObject[] OptionsPanels = new GameObject[2];
+    [SerializeField] private GameObject[] OptionsPanels;
 
     [HeaderLine("Main Options")]
     [SerializeField] private Camera Camera;
@@ -189,17 +189,9 @@ public class LocalOptions : MonoBehaviour
 
     public void ChangePanel(int IndexPanel)
     {
-        switch (IndexPanel)
-        {
-            case 0:
-                OptionsPanels[0].SetActive(true);
-                OptionsPanels[1].SetActive(false);
-                break;
-            case 1:
-                OptionsPanels[1].SetActive(true);
-                OptionsPanels[0].SetActive(false);
-                break;
-        }
+        for (int i = 0; i < OptionsPanels.Length; i++)
+            OptionsPanels[i].SetActive(false);
+        OptionsPanels[IndexPanel].SetActive(true);
     }
 
     public void CheckSlider(string NameMixer)

@@ -33,7 +33,7 @@ namespace CapybaraRancher.EventBus
         public static Action<int, int> WasChangeIndexCell;
         #endregion UIinventory
 
-        #region  Options and Loaading Scenes
+        #region  Options and Loading Scenes
         public static Action ChnageGrassMod;
         public static Action ChangeRendering;
 
@@ -47,6 +47,8 @@ namespace CapybaraRancher.EventBus
         public static Action<float, float, float> GiveEnergyPlayerData;
 
         public static Action PlayerRespawned;
+
+        public static Action KeysRebinded;
         #endregion Options and Loaading Scenes
 
         #region  Building
@@ -64,6 +66,7 @@ namespace CapybaraRancher.EventBus
         public static Action PlayerGunAdd;
         public static Action<bool> PlayerGunAttraction;
         #endregion AudioActions
+
         #region OldRobotAction
         public static Action WasAddingAllCrystall;
         public static Action<string> SetNameCrystal = delegate { };
@@ -89,6 +92,7 @@ namespace CapybaraRancher.EventBus
         public static Action EatTutorial = () => { };
         public static Action BuildTutorial = () => { };
         #endregion Tutorial
+
         #region Chest
         public static Action<bool> EnableChestUi;
         public static Action<Data[], Data[]> UpdateChestUI;

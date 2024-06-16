@@ -2,6 +2,7 @@ using System.Collections;
 using CapybaraRancher.Interfaces;
 using CapybaraRancher.EventBus;
 using UnityEngine;
+using CapybaraRancher.Enums;
 
 public class Hunger : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class Hunger : MonoBehaviour
             if (hit.collider.CompareTag(MOVEBLE_OBJECT_TAG))
                 if (hit.collider.TryGetComponent(out ICrystalItem crystal))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (InputManager.Instance.IsActionDown(ActionType.Eat))
                     {
                         HungerRegen(crystal.PercentOfRegen);
                         GameObject crystalGameObject = hit.collider.gameObject;

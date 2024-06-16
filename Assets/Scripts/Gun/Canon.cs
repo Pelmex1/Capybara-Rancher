@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ public class Canon : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked)
+        if (InputManager.Instance.IsAction(ActionType.Pull) && Cursor.lockState == CursorLockMode.Locked)
         {
             if (!Ienumeratorenabled)
             {
@@ -52,7 +53,7 @@ public class Canon : MonoBehaviour
                 _oneFunc = false;
             }
         }
-        EventBus.PlayerGunAttraction.Invoke(Input.GetMouseButton(0) && Cursor.lockState == CursorLockMode.Locked);
+        EventBus.PlayerGunAttraction.Invoke(InputManager.Instance.IsAction(ActionType.Pull) && Cursor.lockState == CursorLockMode.Locked);
     }
     private void OnTriggerEnter(Collider other)
     {

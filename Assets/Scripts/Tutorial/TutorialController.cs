@@ -1,6 +1,7 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
 using System.Collections;
+using CapybaraRancher.Enums;
 
 public class TutorialController : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class TutorialController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && Time.timeScale != 0)
+        if (InputManager.Instance.IsActionDown(ActionType.Pause) && Time.timeScale != 0)
             TutorialComplete();
     }
     private void OnDisable()

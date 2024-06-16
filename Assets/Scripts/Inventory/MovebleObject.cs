@@ -1,4 +1,5 @@
 using System.Collections;
+using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
@@ -21,13 +22,13 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     protected void Update()
     {
-        if (Input.GetMouseButton(0) && Time.timeScale > 0)
+        if (InputManager.Instance.IsAction(ActionType.Pull) && Time.timeScale > 0)
         {
             if (EventBus.CheckList(gameObject)) IsMoved = true;
         }
         else IsMoved = false;
 
-        if (Input.GetKeyDown(KeyCode.E) && Time.timeScale == 1f)
+        if (InputManager.Instance.IsActionDown(ActionType.TerminalUse) && Time.timeScale == 1f)
         {
             if (_navMeshAgent == null) return;
             _ = IsMoved ? (_navMeshAgent.enabled = false) : (_navMeshAgent.enabled = true);

@@ -1,4 +1,5 @@
 using CapybaraRancher.CustomStructures;
+using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
@@ -122,7 +123,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
         _index = IsButton(Input.inputString, _isEnabledSixCell);
         EventBus.WasChangeIndexCell.Invoke(_lastindex, _index);
         _lastindex = _index;
-        if (Input.GetMouseButtonDown(1))
+        if (InputManager.Instance.IsActionDown(ActionType.Throw))
         {
             RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
         }

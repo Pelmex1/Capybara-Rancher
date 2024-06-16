@@ -1,5 +1,6 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Enums;
 
 public class FarmTerminal : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class FarmTerminal : MonoBehaviour
     private void Update()
     {
         if (_isNear){
-            if (Input.GetKeyDown(KeyCode.E))
+            if (InputManager.Instance.IsActionDown(ActionType.TerminalUse))
             {
                 Cursor.lockState = CursorLockMode.Confined;
                 EventBus.ActiveFarmPanel(true);
