@@ -27,6 +27,7 @@ namespace CapybaraRancher.EventBus
         public static Action<bool> EnableHelpUi;
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
+        public static Action<TypeGameObject> SelledCrystal;
 
         #region  UIinventory
         public static Action<Data[]> OnRepaint;
