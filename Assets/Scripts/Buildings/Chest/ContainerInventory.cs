@@ -2,10 +2,9 @@ using System;
 using UnityEngine;
 using CapybaraRancher.CustomStructures;
 using CapybaraRancher.EventBus;
-using CapybaraRancher.FileEditor;
 using CapybaraRancher.Interfaces;
-using CapybaraRancher.JsonSave;
 using CapybaraRancher.Enums;
+using CapybaraRancher.Save;
 
 public class ContainerInventory : MonoBehaviour
 {
@@ -19,9 +18,9 @@ public class ContainerInventory : MonoBehaviour
         }
         
     }
-    private void Update()
+    private void EventUpdate()
     {
-        if (_isNearChest && InputManager.Instance.IsActionDown(ActionType.TerminalUse))
+        if (_isNearChest)
         {
             Cursor.lockState = CursorLockMode.Confined;
             EventBus.EnableChestUi(true);
@@ -80,10 +79,12 @@ public class ContainerInventory : MonoBehaviour
         }
     }
     private void OnEnable() {
+        EventBus.TerminalUseInput += EventUpdate;
         EventBus.ChangeArray += ChangeArray;
         EventBus.GlobalSave += Save;
     }
     private void OnDisable() {
+        EventBus.TerminalUseInput -= EventUpdate;
         EventBus.ChangeArray -= ChangeArray;
         EventBus.GlobalSave -= Save;
         Array.Clear(_chestCell,0,_chestCell.Length);      

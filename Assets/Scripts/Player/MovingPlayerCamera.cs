@@ -72,30 +72,17 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         _rb.MovePosition(_rb.position + _horizontal * _speed * Time.fixedDeltaTime * transform.right);
 
     }
-
-    private void Update()
-    {
-        EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
-        if (InputManager.Instance.IsAction(ActionType.Jump) && Cursor.lockState == CursorLockMode.Locked)
-            if (_isGrounded)
-            {
-                _isGrounded = false;
-                _rb.AddForce(transform.up, ForceMode.Impulse);
-                EventBus.PlayerJump.Invoke();
-                EventBus.MovingTutorial.Invoke();
-            }
-        if (Cursor.lockState == CursorLockMode.Locked)
+    private void Jump(){
+        if (_isGrounded)
         {
-            float mouseX = Input.GetAxis("Mouse X") * MouseSensitivy * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivy * Time.deltaTime;
-
-            _xRotationCamera -= mouseY;
-            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATION_CAMERA_MISTAKE_Y, _startHeadRotation.z + ROTATION_CAMERA_MISTAKE_Z);
-            _head.localRotation = Quaternion.Euler(_xRotationCamera, 0, 0);
-            transform.Rotate(Vector3.up * mouseX);
+            _isGrounded = false;
+            _rb.AddForce(transform.up, ForceMode.Impulse);
+            EventBus.PlayerJump.Invoke();
+            EventBus.MovingTutorial.Invoke();
         }
-
-        if (Energy > MIN_ENERGY_VALUE && InputManager.Instance.IsAction(ActionType.Run))
+    }
+    private void Run(){
+        if (Energy > MIN_ENERGY_VALUE)
         {
             Energy -= _energyConsumptionRate * Time.deltaTime;
             _speed = _startSpeed * SPEED_BOOST;
@@ -112,6 +99,24 @@ public class MovingPlayer : MonoBehaviour, IPlayer
             _speed = _startSpeed;
             _isRunning = false;
         }
+    }
+
+    private void Update()
+    {
+        EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
+        
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * MouseSensitivy * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivy * Time.deltaTime;
+
+            _xRotationCamera -= mouseY;
+            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATION_CAMERA_MISTAKE_Y, _startHeadRotation.z + ROTATION_CAMERA_MISTAKE_Z);
+            _head.localRotation = Quaternion.Euler(_xRotationCamera, 0, 0);
+            transform.Rotate(Vector3.up * mouseX);
+        }
+
+
         EventBus.PlayerMove.Invoke(_isGrounded && (_vertical != 0 || _horizontal != 0), _isRunning);
 
         EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
@@ -121,6 +126,8 @@ public class MovingPlayer : MonoBehaviour, IPlayer
 
     private void OnEnable()
     {
+        EventBus.JumpInput += Jump;
+        EventBus.RunInput += Run;
         EventBus.PlayerRespawned += FullStats;
         EventBus.WasChangeMouseSensetive += WasChangeSenstive;
         EventBus.MaxValueUpgrade += SetStats;
@@ -129,6 +136,8 @@ public class MovingPlayer : MonoBehaviour, IPlayer
 
     private void OnDisable()
     {
+        EventBus.JumpInput -= Jump;
+        EventBus.RunInput -= Run;
         EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
         EventBus.MaxValueUpgrade -= SetStats;
         EventBus.PlayerRespawned -= FullStats;

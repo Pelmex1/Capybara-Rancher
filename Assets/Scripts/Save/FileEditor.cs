@@ -1,6 +1,6 @@
 using System.IO;
 using UnityEngine;
-namespace CapybaraRancher.FileEditor
+namespace CapybaraRancher.Save
 {
     public class FileEditor : MonoBehaviour
     {

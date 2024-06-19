@@ -1,89 +1,95 @@
+using System.Text;
+using CapybaraRancher.EventBus;
+using TMPro;
 using UnityEngine;
-using CapybaraRancher.Enums;
-using UnityEngine.UIElements;
 
 public class InputManager : MonoBehaviour
 {
-    public static InputManager Instance;
-
-    public KeyBinds KeyBindings;
-
-    private void Awake()
+    [SerializeField] private Keycodes _keycodes;
+    private KeyCode _localKeycode = KeyCode.None;
+    private bool _isFoundKeycode = true;
+    private StringBuilder _localkey = null;
+    private TMP_Text _localText = null;
+    private void Update() 
     {
-        if (Instance == null)
-            Instance = this;
-        else if (Instance != this)
-            Destroy(this);
-        DontDestroyOnLoad(this);
-
-        InitializeBindings();
-    }
-
-    private void InitializeBindings()
-    {
-        foreach (ActionType actionType in System.Enum.GetValues(typeof(ActionType)))
-            if (!KeyBindings.Bindings.ContainsKey(actionType) || KeyBindings.Bindings[actionType] == null)
-                KeyBindings.Bindings[actionType] = GetDefaultBinding(actionType);
-    }
-
-    private KeyOrMouseButton GetDefaultBinding(ActionType action)
-    {
-        switch (action)
-        {
-            case ActionType.Jump:
-                return new KeyOrMouseButton(KeyCode.Space);
-            case ActionType.Run:
-                return new KeyOrMouseButton(KeyCode.LeftShift);
-            case ActionType.Pause:
-                return new KeyOrMouseButton(KeyCode.Escape);
-            case ActionType.TerminalUse:
-                return new KeyOrMouseButton(KeyCode.E);
-            case ActionType.Eat:
-                return new KeyOrMouseButton(KeyCode.E);
-            case ActionType.InfoBook:
-                return new KeyOrMouseButton(KeyCode.I);
-            case ActionType.Pull:
-                return new KeyOrMouseButton(MouseButton.LeftMouse);
-            case ActionType.Throw:
-                return new KeyOrMouseButton(MouseButton.RightMouse);
-            default:
-                return null;
+        if(!_isFoundKeycode){
+            _localKeycode = Event.current.keyCode;
+            if(_localKeycode != KeyCode.None){
+                _isFoundKeycode = true;
+                _localKeycode = KeyCode.None;
+                FoundKey(_localkey.ToString(), _localKeycode);
+                _localText.text = _localkey.ToString();
+            }
         }
-    }
-
-    public bool IsActionDown(ActionType action)
-    {
-        if (!KeyBindings.Bindings.ContainsKey(action))
-            return false;
-
-        KeyOrMouseButton binding = KeyBindings.Bindings[action];
-
-        switch (binding.Type)
+        if(Input.GetKeyDown(_keycodes.TerminalUse))
         {
-            case InputType.Key:
-                return Input.GetKeyDown(binding.Key);
-            case InputType.MouseButton:
-                return Input.GetMouseButtonDown((int)binding.MouseButton);
-            default:
-                return false;
-        }
-    }
-
-    public bool IsAction(ActionType action)
-    {
-        if (!KeyBindings.Bindings.ContainsKey(action))
-            return false;
-
-        KeyOrMouseButton binding = KeyBindings.Bindings[action];
-
-        switch (binding.Type)
+            EventBus.TerminalUseInput.Invoke();
+        } 
+        if(Input.GetKey(_keycodes.Jump))
         {
-            case InputType.Key:
-                return Input.GetKey(binding.Key);
-            case InputType.MouseButton:
-                return Input.GetMouseButton((int)binding.MouseButton);
-            default:
-                return false;
-        }
+            EventBus.JumpInput.Invoke();
+        } 
+        if(Input.GetKey(_keycodes.Run))
+        {
+            EventBus.RunInput.Invoke();
+        } 
+        if(Input.GetKeyDown(_keycodes.Pause))
+        {
+            EventBus.PauseInput.Invoke();
+        } 
+        if(Input.GetKeyDown(_keycodes.Eat))
+        {
+            EventBus.EatInput.Invoke();
+        } 
+        if(Input.GetKeyDown(_keycodes.InfoBook))
+        {
+            EventBus.InfoBookInput.Invoke();
+        } 
+        if(Input.GetKeyDown(_keycodes.Pull))
+        {
+            EventBus.PullInput.Invoke();
+        } 
+        if(Input.GetKeyDown(_keycodes.Throw))
+        {
+            EventBus.ThrowInput.Invoke();
+        } 
+    }
+    private void FoundKey(string key, KeyCode keyCode)
+    {
+        switch (key)
+        {
+            case "TerminalUse" : 
+            _keycodes.TerminalUse = keyCode;
+            break;
+            case "Jump": 
+            _keycodes.Jump = keyCode;
+            break;
+            case "Run": 
+            _keycodes.Run = keyCode;
+            break;
+            case "Pause": 
+            _keycodes.Pause = keyCode;
+            break;
+            case "Eat":
+            _keycodes.Eat = keyCode;
+            break;
+            case "InfoBook":
+            _keycodes.Jump = keyCode;
+            break;
+            case "Pull":
+            _keycodes.Jump = keyCode;
+            break;
+            case "Throw":
+            _keycodes.Throw = keyCode;
+            break;
+        };
+    }
+    public void ChangeKey(string key)
+    {
+        _isFoundKeycode = false;
+        _localkey = new(key);
+    }
+    public void SentText(TMP_Text text){
+        _localText = text;
     }
 }

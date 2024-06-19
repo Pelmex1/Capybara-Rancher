@@ -101,6 +101,16 @@ namespace CapybaraRancher.EventBus
         public static Action<(int localIndex2, int localMindex, int newIndex, int newMIndex)> ChangeArray;
         public static Func<Vector3, Image, (int localIndex2, int localMindex, int newIndex, int newMIndex)> FoundPos;
         #endregion
+        #region Input
+        public static Action JumpInput;
+        public static Action RunInput;
+        public static Action PauseInput;
+        public static Action EatInput;
+        public static Action TerminalUseInput;
+        public static Action InfoBookInput;
+        public static Action PullInput;
+        public static Action ThrowInput;
+        #endregion
     }
 
 }

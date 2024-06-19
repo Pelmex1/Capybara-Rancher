@@ -22,13 +22,7 @@ public class TutorialController : MonoBehaviour
             _askToTutorPanel.SetActive(true);
             _tips[0].SetActive(true);
 
-            EventBus.MovingTutorial += MovingTutorialComplete;
-            EventBus.InventoryTutorial += InventoryTutorialComplete;
-            EventBus.FeedTutorial += FeedTutorialComplete;
-            EventBus.TransformationTutorial += TransformationTutorialComplete;
-            EventBus.SellTutorial += SellTutorialComplete;
-            EventBus.EatTutorial += EatTutorialComplete;
-            EventBus.BuildTutorial += BuildTutorialComplete;
+
         }
     }
     private void Start()
@@ -39,13 +33,24 @@ public class TutorialController : MonoBehaviour
             Time.timeScale = 0;
         }
     }
-    private void Update()
+    private void EventUpdate()
     {
-        if (InputManager.Instance.IsActionDown(ActionType.Pause) && Time.timeScale != 0)
+        if (Time.timeScale != 0)
             TutorialComplete();
+    }
+    private void OnEnable() {
+        EventBus.PauseInput += EventUpdate;
+        EventBus.MovingTutorial += MovingTutorialComplete;
+        EventBus.InventoryTutorial += InventoryTutorialComplete;
+        EventBus.FeedTutorial += FeedTutorialComplete;
+        EventBus.TransformationTutorial += TransformationTutorialComplete;
+        EventBus.SellTutorial += SellTutorialComplete;
+        EventBus.EatTutorial += EatTutorialComplete;
+        EventBus.BuildTutorial += BuildTutorialComplete;
     }
     private void OnDisable()
     {
+        EventBus.PauseInput -= EventUpdate;
         EventBus.MovingTutorial -= MovingTutorialComplete;
         EventBus.InventoryTutorial -= InventoryTutorialComplete;
         EventBus.FeedTutorial -= FeedTutorialComplete;

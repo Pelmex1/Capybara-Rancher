@@ -1,6 +1,6 @@
 using System.IO;
 using UnityEngine;
-namespace CapybaraRancher.JsonSave
+namespace CapybaraRancher.Save
 {
   public class JSONSerializer
 {

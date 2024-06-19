@@ -27,7 +27,7 @@ public class UpgradeTerminal : MonoBehaviour
     private void Update()
     {
         if (isNear)
-            OnUi();
+            Use();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -47,18 +47,14 @@ public class UpgradeTerminal : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
-
-    private void OnUi()
+    private void Pause() => _terminalPanel.SetActive(false);
+    private void Use()
     {
-        if (InputManager.Instance.IsActionDown(ActionType.TerminalUse) && Time.timeScale != 0)
+        if (Time.timeScale != 0)
         {
             _terminalPanel.SetActive(!_terminalPanel.activeSelf);
             Cursor.lockState = _terminalPanel.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
             InfoText.SetActive(false);
-        }
-        else if (InputManager.Instance.IsActionDown(ActionType.Pause))
-        {
-            _terminalPanel.SetActive(false);
         }
     }
 
@@ -66,14 +62,13 @@ public class UpgradeTerminal : MonoBehaviour
     {
         if (PlayerPrefs.GetInt(parametr + "MaxValueUpgrade", 0) == 0)
         {
-            float price;
-            switch (parametr)
+            var price = parametr switch
             {
-                case ENERGY_KEY: price = ENERGYMAXVALUE_UPGRADE_PRICE; break;
-                case HEALTH_KEY: price = HEALTHMAXVALUE_UPGRADE_PRICE; break;
-                case HUNGER_KEY: price = HUNGERMAXVALUE_UPGRADE_PRICE; break;
-                default: price = 0; break;
-            }
+                ENERGY_KEY => ENERGYMAXVALUE_UPGRADE_PRICE,
+                HEALTH_KEY => HEALTHMAXVALUE_UPGRADE_PRICE,
+                HUNGER_KEY => HUNGERMAXVALUE_UPGRADE_PRICE,
+                _ => 0,
+            };
             if (EventBus.GetMoney() >= price)
             {
                 EventBus.AddMoney(-1f * price);
@@ -123,5 +118,13 @@ public class UpgradeTerminal : MonoBehaviour
     {
         _terminalPanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    private void OnEnable() {
+        EventBus.PauseInput += Pause;
+        EventBus.TerminalUseInput += Use;
+    }
+    private void OnDisable() {
+        EventBus.PauseInput -= Pause;
+        EventBus.TerminalUseInput -= Use;
     }
 }

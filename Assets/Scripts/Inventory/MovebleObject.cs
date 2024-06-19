@@ -20,21 +20,22 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     {
         TryGetComponent(out _navMeshAgent);
     }
-    protected void Update()
+    private void Update()
     {
-        if (InputManager.Instance.IsAction(ActionType.Pull) && Time.timeScale > 0)
-        {
-            if (EventBus.CheckList(gameObject)) IsMoved = true;
-        }
-        else IsMoved = false;
-
-        if (InputManager.Instance.IsActionDown(ActionType.TerminalUse) && Time.timeScale == 1f)
+        if (Time.timeScale == 1f)
         {
             if (_navMeshAgent == null) return;
             _ = IsMoved ? (_navMeshAgent.enabled = false) : (_navMeshAgent.enabled = true);
         }
     }
-    protected void OnTriggerEnter(Collider other)
+    private void Pull(){
+        if (Time.timeScale > 0)
+        {
+            if (EventBus.CheckList(gameObject)) IsMoved = true;
+        }
+        else IsMoved = false;
+    }
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
         {
@@ -49,11 +50,13 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     }
     protected void OnDisable()
     {
+        EventBus.PullInput -= Pull;
         _looted = false;
         EventBus.AddInPool(gameObject, Data.TypeGameObject);
     }
     private void OnEnable()
     {
+        EventBus.PullInput += Pull;
         _isDisabled = true;
         StartCoroutine(Disabled());
     }

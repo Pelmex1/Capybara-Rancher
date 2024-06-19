@@ -26,10 +26,9 @@ public class Hunger : MonoBehaviour
     private void Update()
     {
         HungerFix();
-        CheckAndEatCrystal();
     }
     private void HungerFix() => _stats.Hunger = _stats.Hunger > _stats.HungerMaxValue ? _stats.HungerMaxValue : _stats.Hunger < 0f ? 0f : _stats.Hunger;
-    private int CheckAndEatCrystal()
+    private void Eat()
     {
         Vector3 cameraForward = _camera.transform.forward;
         Ray cameraRay = new(_camera.transform.position, cameraForward);
@@ -37,18 +36,13 @@ public class Hunger : MonoBehaviour
             if (hit.collider.CompareTag(MOVEBLE_OBJECT_TAG))
                 if (hit.collider.TryGetComponent(out ICrystalItem crystal))
                 {
-                    if (InputManager.Instance.IsActionDown(ActionType.Eat))
-                    {
-                        HungerRegen(crystal.PercentOfRegen);
-                        GameObject crystalGameObject = hit.collider.gameObject;
-                        crystalGameObject.SetActive(false);
-                        EventBus.AddInPool(crystalGameObject, crystalGameObject.GetComponent<IMovebleObject>().Data.TypeGameObject);
-                    }
+                    HungerRegen(crystal.PercentOfRegen);
+                    GameObject crystalGameObject = hit.collider.gameObject;
+                    crystalGameObject.SetActive(false);
+                    EventBus.AddInPool(crystalGameObject, crystalGameObject.GetComponent<IMovebleObject>().Data.TypeGameObject);
                     _infoText.SetActive(true);
-                    return 1;
                 }
         _infoText.SetActive(false);
-        return 0;
     }
 
     private void HungerRegen(float percentOfRegen)
@@ -68,5 +62,11 @@ public class Hunger : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
+    }
+    private void OnEnable() {
+        EventBus.EatInput += Eat;
+    }
+    private void OnDisable() {
+        EventBus.EatInput -= Eat;
     }
 }

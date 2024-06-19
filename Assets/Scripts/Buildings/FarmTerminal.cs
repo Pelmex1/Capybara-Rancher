@@ -29,19 +29,13 @@ public class FarmTerminal : MonoBehaviour
         }
         
     }
-
-    private void Update()
-    {
+    private void EventUpdate(){
         if (_isNear){
-            if (InputManager.Instance.IsActionDown(ActionType.TerminalUse))
-            {
-                Cursor.lockState = CursorLockMode.Confined;
-                EventBus.ActiveFarmPanel(true);
-                EventBus.UpdateFarmButtons(_isBuy,_isAnyBuy);
-            }      
+            Cursor.lockState = CursorLockMode.Confined;
+            EventBus.ActiveFarmPanel(true);
+            EventBus.UpdateFarmButtons(_isBuy,_isAnyBuy);   
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -69,10 +63,12 @@ public class FarmTerminal : MonoBehaviour
         }
     }
     private void OnEnable() {
+        EventBus.PullInput += EventUpdate;
         EventBus.BuyFarm += BuyOrRemove;
         EventBus.GlobalSave += Save;
     }
     private void OnDisable() {
+        EventBus.PullInput -= EventUpdate;
         EventBus.BuyFarm -= BuyOrRemove;
         EventBus.GlobalSave -= Save;
     }

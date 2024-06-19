@@ -123,10 +123,10 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
         _index = IsButton(Input.inputString, _isEnabledSixCell);
         EventBus.WasChangeIndexCell.Invoke(_lastindex, _index);
         _lastindex = _index;
-        if (InputManager.Instance.IsActionDown(ActionType.Throw))
-        {
-            RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
-        }
+    }
+    private void Throw()
+    {
+        RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
     }
     private int IsButton(string Input, bool isSixCell) => (Input, isSixCell) switch
     {
@@ -153,10 +153,12 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
     }
     private void OnEnable()
     {
+        EventBus.ThrowInput += Throw;
         EventBus.ExtraSlotUpgrade += AddExtraSlot;
     }
     private void OnDisable()
     {
+        EventBus.ThrowInput -= Throw;
         EventBus.ExtraSlotUpgrade -= AddExtraSlot;
     }
     private void AddExtraSlot()

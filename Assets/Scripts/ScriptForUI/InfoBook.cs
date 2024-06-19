@@ -1,7 +1,6 @@
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using DevionGames;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +28,8 @@ public class InfoBook : MonoBehaviour
 
     private void OnEnable()
     {
+        EventBus.PauseInput += PauseInput;
+        EventBus.InfoBookInput += InfoBookInput;
         EventBus.AddInPool += CompleteTask;
         EventBus.Win += CompleteAllTask;
         EventBus.SelledCrystal += CompleteSell;
@@ -36,6 +37,8 @@ public class InfoBook : MonoBehaviour
 
     private void OnDisable()
     {
+        EventBus.PauseInput -= PauseInput;
+        EventBus.InfoBookInput -= InfoBookInput;
         EventBus.AddInPool -= CompleteTask;
         EventBus.Win -= CompleteAllTask;
         EventBus.SelledCrystal -= CompleteSell;
@@ -48,16 +51,15 @@ public class InfoBook : MonoBehaviour
         _ordersBars[1].fillAmount = PlayerPrefs.GetFloat("Order1", 0f);
         _ordersBars[2].fillAmount = PlayerPrefs.GetFloat("Order2", 0f);
     }
-
-    private void Update()
-    {
-        if (InputManager.Instance.IsActionDown(ActionType.InfoBook) && Time.timeScale != 0)
+    private void InfoBookInput(){
+        if (Time.timeScale != 0)
         {
             _panel.SetActive(!_panel.activeSelf);
             Cursor.lockState = _panel.activeSelf == false ? CursorLockMode.Locked : CursorLockMode.Confined;
         }
-        else if (InputManager.Instance.IsActionDown(ActionType.Pause))
-            _panel.SetActive(false);
+    }
+    private void PauseInput(){
+        _panel.SetActive(false);
     }
 
     private void LateUpdate()

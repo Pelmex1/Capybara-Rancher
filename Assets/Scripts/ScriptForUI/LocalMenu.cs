@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using CapybaraRancher.EventBus;
-using CapybaraRancher.Enums;
 
 public class LocalMenu : MonoBehaviour
 {
@@ -25,12 +24,13 @@ public class LocalMenu : MonoBehaviour
     private float _hungerMaxValue;
     private float _hungerCurrentValue;
 
-    private void Update()
+    private void LateUpdate()
     {
         float money = EventBus.GetMoney.Invoke();
         _money.text = $"{money}";
-        if (InputManager.Instance.IsActionDown(ActionType.Pause))
-        {
+        UpdateBars();
+    }
+    private void EventUpdate(){
             if (!_pausePanel.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Confined;
@@ -44,20 +44,20 @@ public class LocalMenu : MonoBehaviour
                 _panelOptions.SetActive(false);
                 Time.timeScale = 1;
             }
-        }
-        UpdateBars();
     }
 
     private void OnEnable()
     {
+        EventBus.PauseInput += EventUpdate;
         EventBus.GetEnergyPlayerData += GetEnergy;
         EventBus.GiveEnergyPlayerData += GiveEnergyData;
     }
 
     private void OnDisable()
     {
-        EventBus.GetEnergyPlayerData += GetEnergy;
-        EventBus.GiveEnergyPlayerData += GiveEnergyData;
+        EventBus.PauseInput -= EventUpdate;
+        EventBus.GetEnergyPlayerData -= GetEnergy;
+        EventBus.GiveEnergyPlayerData -= GiveEnergyData;
     }
 
     private void GetEnergy()

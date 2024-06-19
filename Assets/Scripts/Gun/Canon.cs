@@ -24,9 +24,9 @@ public class Canon : MonoBehaviour
     {
         _colliderCanon = GetComponent<BoxCollider>();
     }
-    private void FixedUpdate()
+    private void EventUpdate()
     {
-        if (InputManager.Instance.IsAction(ActionType.Pull) && Cursor.lockState == CursorLockMode.Locked)
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
             if (!Ienumeratorenabled)
             {
@@ -53,7 +53,7 @@ public class Canon : MonoBehaviour
                 _oneFunc = false;
             }
         }
-        EventBus.PlayerGunAttraction.Invoke(InputManager.Instance.IsAction(ActionType.Pull) && Cursor.lockState == CursorLockMode.Locked);
+        EventBus.PlayerGunAttraction.Invoke(Cursor.lockState == CursorLockMode.Locked);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -68,5 +68,11 @@ public class Canon : MonoBehaviour
         {
             obdjectsInCollider.Remove(other.gameObject);
         }
+    }
+    private void OnEnable() {
+        EventBus.PullInput += EventUpdate;
+    }
+    private void OnDisable() {
+        EventBus.PullInput -= EventUpdate;
     }
 }
