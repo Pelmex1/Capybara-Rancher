@@ -3,7 +3,37 @@ guid: 34c7bf734786b234c8c9222da5c0d61f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown Hair
+    second: {fileID: 2100000, guid: a29097b79c89c9241af10b716d98d8bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hologram 03
+    second: {fileID: 2100000, guid: c9e7b476dac922740a343db541b60bee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: df1688affecd1374d9ed86df5168bb12, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bf_grass.030
+    second: {fileID: 2100000, guid: eb6a092d81b2c9943b8680314ee55ee9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: brown
+    second: {fileID: 2100000, guid: 81618deed94208c448004a57cb2603d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grass
+    second: {fileID: 2100000, guid: a0bdc26f04aafa047b9be70425ba1bad, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
