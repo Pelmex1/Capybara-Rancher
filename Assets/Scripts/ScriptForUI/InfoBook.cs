@@ -62,7 +62,7 @@ public class InfoBook : MonoBehaviour
         _panel.SetActive(false);
     }
 
-    private void LateUpdate()
+    /*private void LateUpdate()
     {
         _fineBar.fillAmount += Time.deltaTime / _fineTime;
         if (_fineBar.fillAmount == 1f)
@@ -70,7 +70,7 @@ public class InfoBook : MonoBehaviour
             _fineBar.fillAmount = 0f;
             EventBus.AddMoney(-1f * _fineCount);
         }
-    }
+    }*/
 
     private void OnApplicationQuit()
     {

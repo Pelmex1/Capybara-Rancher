@@ -17,6 +17,6 @@ MonoBehaviour:
   Pause: 27
   TerminalUse: 101
   Eat: 101
-  InfoBook: 105
-  Pull: 324
-  Throw: 323
+  InfoBook: 106
+  Pull: 323
+  Throw: 324

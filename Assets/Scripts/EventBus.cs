@@ -109,6 +109,7 @@ namespace CapybaraRancher.EventBus
         public static Action TerminalUseInput;
         public static Action InfoBookInput;
         public static Action PullInput;
+        public static Action NonPullInput;
         public static Action ThrowInput;
         #endregion
     }

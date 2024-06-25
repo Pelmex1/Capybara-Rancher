@@ -20,39 +20,42 @@ public class InputManager : MonoBehaviour
                 FoundKey(_localkey.ToString(), _localKeycode);
                 _localText.text = _localkey.ToString();
             }
+        } else {
+            if(Input.GetKeyDown(_keycodes.TerminalUse))
+            {
+                EventBus.TerminalUseInput.Invoke();
+            } 
+            if(Input.GetKeyDown(_keycodes.Jump))
+            {
+                EventBus.JumpInput.Invoke();
+            } 
+            if(Input.GetKey(_keycodes.Run))
+            {
+                EventBus.RunInput.Invoke();
+            } 
+            if(Input.GetKeyDown(_keycodes.Pause))
+            {
+                EventBus.PauseInput.Invoke();
+            } 
+            if(Input.GetKeyDown(_keycodes.Eat))
+            {
+                EventBus.EatInput.Invoke();
+            } 
+            if(Input.GetKeyDown(_keycodes.InfoBook))
+            {
+                EventBus.InfoBookInput.Invoke();
+            } 
+            if(Input.GetKey(_keycodes.Pull))
+            {
+                EventBus.PullInput.Invoke();
+            } else {
+                EventBus.NonPullInput.Invoke();
+            }
+            if(Input.GetKey(_keycodes.Throw))
+            {
+                EventBus.ThrowInput.Invoke();
+            } 
         }
-        if(Input.GetKeyDown(_keycodes.TerminalUse))
-        {
-            EventBus.TerminalUseInput.Invoke();
-        } 
-        if(Input.GetKey(_keycodes.Jump))
-        {
-            EventBus.JumpInput.Invoke();
-        } 
-        if(Input.GetKey(_keycodes.Run))
-        {
-            EventBus.RunInput.Invoke();
-        } 
-        if(Input.GetKeyDown(_keycodes.Pause))
-        {
-            EventBus.PauseInput.Invoke();
-        } 
-        if(Input.GetKeyDown(_keycodes.Eat))
-        {
-            EventBus.EatInput.Invoke();
-        } 
-        if(Input.GetKeyDown(_keycodes.InfoBook))
-        {
-            EventBus.InfoBookInput.Invoke();
-        } 
-        if(Input.GetKeyDown(_keycodes.Pull))
-        {
-            EventBus.PullInput.Invoke();
-        } 
-        if(Input.GetKeyDown(_keycodes.Throw))
-        {
-            EventBus.ThrowInput.Invoke();
-        } 
     }
     private void FoundKey(string key, KeyCode keyCode)
     {

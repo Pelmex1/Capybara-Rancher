@@ -63,12 +63,12 @@ public class FarmTerminal : MonoBehaviour
         }
     }
     private void OnEnable() {
-        EventBus.PullInput += EventUpdate;
+        EventBus.TerminalUseInput += EventUpdate;
         EventBus.BuyFarm += BuyOrRemove;
         EventBus.GlobalSave += Save;
     }
     private void OnDisable() {
-        EventBus.PullInput -= EventUpdate;
+        EventBus.TerminalUseInput -= EventUpdate;
         EventBus.BuyFarm -= BuyOrRemove;
         EventBus.GlobalSave -= Save;
     }

@@ -15,13 +15,9 @@ public class CreatNewGame : MonoBehaviour
     [SerializeField] private TMP_Text TextOfMode;
     [SerializeField] private GameObject PanelNewGame;
     [SerializeField] private GameObject PanelButton;
-    [SerializeField] private TMP_Text TextNameGame;
-    private AudioSource audioSource;
 
     public Image SelectIcon;
 
-
-    private void Awake() => audioSource = gameObject.GetComponent<AudioSource>();
     private void Start()
     {
         TextOfMode.text = "Live the life of a Capybara Ranher and explore the wonders of the Robot, Robot Ranger at your own pace.";
@@ -37,7 +33,6 @@ public class CreatNewGame : MonoBehaviour
     {
         if (SelectIcon != null && TextOfMode != null && PlayerPrefs.HasKey("KeyMod"))
         {
-            audioSource.Stop();
             EventBus.OnLorScene.Invoke();
             for (int i = 0; i < savingInventoryData.Length; i++)
             {

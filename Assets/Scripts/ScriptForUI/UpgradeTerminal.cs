@@ -23,12 +23,6 @@ public class UpgradeTerminal : MonoBehaviour
     [SerializeField] private GameObject[] _infoPanels;
 
     private bool isNear = false;
-
-    private void Update()
-    {
-        if (isNear)
-            Use();
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(PLAYER_TAG))
@@ -50,10 +44,10 @@ public class UpgradeTerminal : MonoBehaviour
     private void Pause() => _terminalPanel.SetActive(false);
     private void Use()
     {
-        if (Time.timeScale != 0)
+        if (isNear && Time.timeScale != 0)
         {
-            _terminalPanel.SetActive(!_terminalPanel.activeSelf);
-            Cursor.lockState = _terminalPanel.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
+            _terminalPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined;
             InfoText.SetActive(false);
         }
     }
@@ -71,7 +65,7 @@ public class UpgradeTerminal : MonoBehaviour
             };
             if (EventBus.GetMoney() >= price)
             {
-                EventBus.AddMoney(-1f * price);
+                EventBus.AddMoney(-price);
                 float newValue = PlayerPrefs.GetFloat(parametr + "MaxValue") * VALUE_UPGRADE;
                 PlayerPrefs.SetFloat(parametr + "MaxValue", newValue);
                 PlayerPrefs.SetInt(parametr + "MaxValueUpgrade", 1);
@@ -87,7 +81,7 @@ public class UpgradeTerminal : MonoBehaviour
         {
             if (EventBus.GetMoney() >= EXTRASLOT_VALUE_UPGRADE_PRICE)
             {
-                EventBus.AddMoney(-1f * EXTRASLOT_VALUE_UPGRADE_PRICE);
+                EventBus.AddMoney(-EXTRASLOT_VALUE_UPGRADE_PRICE);
                 PlayerPrefs.SetInt(EXTRASLOT_KEY, 1);
                 EventBus.ExtraSlotUpgrade.Invoke();
             }
@@ -100,7 +94,7 @@ public class UpgradeTerminal : MonoBehaviour
         {
             if (EventBus.GetMoney() >= ENERGY_SPENDING_PRICE)
             {
-                EventBus.AddMoney(-1f * ENERGY_SPENDING_PRICE);
+                EventBus.AddMoney(-ENERGY_SPENDING_PRICE);
                 PlayerPrefs.SetFloat(ENERGY_SPENDING_KEY, ENERGY_SPENDING_RATE);
                 EventBus.EnergySpendingUpgrade.Invoke();
             }

@@ -33,27 +33,27 @@ public class Canon : MonoBehaviour
                 Portal2.SetActive(true);
                 canonEnter.enabled = true;
             }
-            _colliderCanon.enabled = true;
             for (int i = 0; i < obdjectsInCollider.Count; i++)
             {
                 if (obdjectsInCollider[i] != null)
                     obdjectsInCollider[i].transform.position = Vector3.SlerpUnclamped(obdjectsInCollider[i].transform.position, canonEnter.transform.position, SPEED * Time.deltaTime);
                 _oneFunc = true;
             }
-        }
-        else
-        {
-            canonEnter.enabled = false;
-            Portal2.SetActive(false);
-            if (_oneFunc)
-            {
-                canonEnter.enabled = false;
-                _colliderCanon.enabled = false;
-                obdjectsInCollider.Clear();
-                _oneFunc = false;
-            }
+            _colliderCanon.enabled = true;
         }
         EventBus.PlayerGunAttraction.Invoke(Cursor.lockState == CursorLockMode.Locked);
+    }
+    private void NonPull(){
+        canonEnter.enabled = false;
+        Portal2.SetActive(false);
+        if (_oneFunc)
+        {
+            canonEnter.enabled = false;
+            _colliderCanon.enabled = false;
+            obdjectsInCollider.Clear();
+            _oneFunc = false;
+            EventBus.PlayerGunAttraction.Invoke(Cursor.lockState == CursorLockMode.Locked);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -71,8 +71,10 @@ public class Canon : MonoBehaviour
     }
     private void OnEnable() {
         EventBus.PullInput += EventUpdate;
+        EventBus.NonPullInput += NonPull;
     }
     private void OnDisable() {
         EventBus.PullInput -= EventUpdate;
+        EventBus.NonPullInput -= NonPull;
     }
 }
