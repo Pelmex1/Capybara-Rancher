@@ -12,6 +12,7 @@ public class CrystalsController : MonoBehaviour
 
     [SerializeField] private float _delayBeforeCrystalSpawn = 10f;
     [SerializeField] private float _delayBeforeStarving = 60f;
+    [SerializeField] private int _startCrystalPool = 20;
     [SerializeField] private GameObject _wellfedParticle;
     [SerializeField] private GameObject _hungryParticle;
     [SerializeField] private GameObject _angryParticle;
@@ -26,6 +27,8 @@ public class CrystalsController : MonoBehaviour
     private ICapybaraAudioController _audioController;
     private IMobsAi _mobsAi;
     private ICapybaraItem _capybaraData;
+    private TypeGameObject _crystal1;
+    private TypeGameObject _crystal2;
 
     public bool IsHungry { get; set; } = false;
     public GameObject NewCrystal { get; set; }
@@ -37,7 +40,9 @@ public class CrystalsController : MonoBehaviour
 
         _whatEat1 = _capybaraData.WhatEat;
         _favouriteFoodName1 = _capybaraData.NameOfFavouriteFood;
+        _crystal1 = _capybaraData.CrystalPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
 
+        InstantiateCrystals();
         StartCoroutine(LoopToStarving());
     }
     private void Update()
@@ -99,11 +104,19 @@ public class CrystalsController : MonoBehaviour
         int crystalCount = isFavouriteFood ? 2 : 1;
         for (int i = 0; i < crystalCount; i++)
         {
-            Instantiate(_capybaraData.CrystalPrefab, RandomVector3(), Quaternion.identity);
+            GameObject crystal1 = EventBus.RemoveFromThePool(_crystal1);
+            crystal1.SetActive(true);
+            crystal1.transform.rotation = Quaternion.identity;
+            yield return new WaitForSecondsRealtime(0.1f);
+            crystal1.transform.position = RandomVector3();
 
             if (_hasTransformed)
             {
-                Instantiate(NewCrystal, RandomVector3(), Quaternion.identity);
+                GameObject crystal2 = EventBus.RemoveFromThePool(_crystal2);
+                crystal2.SetActive(true);
+                crystal2.transform.rotation = Quaternion.identity;
+                yield return new WaitForSecondsRealtime(0.1f);
+                crystal2.transform.position = RandomVector3();
             }
         }
         StartCoroutine(LoopToStarving());
@@ -158,11 +171,22 @@ public class CrystalsController : MonoBehaviour
     {
         transform.localScale *= SIZE_BOOST_AFTER_TRANSFORMATION;
         NewCrystal = _newCrystal;
+        _crystal2 = _capybaraData.CrystalPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _favouriteFoodName2 = nameOfSecondFavouriteFood;
         _whatEat2 = whatEatSecond;
         Instantiate(modification, transform);
         tag = "Untagged";
         _hasTransformed = true;
-        //GetComponent<IMovebleObject>().enabled = false;
+        GetComponent<MovebleObject>().enabled = false;
+    }
+    private void InstantiateCrystals()
+    {
+        for (int i = 0; i < _startCrystalPool; i++)
+        {
+            GameObject spawnedObject = Instantiate(_capybaraData.CrystalPrefab);
+            spawnedObject.SetActive(false);
+            spawnedObject.SetActive(true);
+            spawnedObject.SetActive(false);
+        }
     }
 }
