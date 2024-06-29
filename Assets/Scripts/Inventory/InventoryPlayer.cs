@@ -1,5 +1,4 @@
 using CapybaraRancher.CustomStructures;
-using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;

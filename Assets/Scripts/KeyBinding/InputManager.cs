@@ -6,19 +6,23 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private Keycodes _keycodes;
+    [SerializeField] private GameObject BindPanel;
     private KeyCode _localKeycode = KeyCode.None;
     private bool _isFoundKeycode = true;
     private StringBuilder _localkey = null;
     private TMP_Text _localText = null;
+    private void Awake() {
+        EventBus.ChangeKey = (KeyCode key) => _localKeycode = key;
+    }
     private void Update() 
     {
         if(!_isFoundKeycode){
-            _localKeycode = Event.current.keyCode;
-            if(_localKeycode != KeyCode.None){
+                if(_localKeycode != KeyCode.None){
+                BindPanel.SetActive(false);
                 _isFoundKeycode = true;
-                _localKeycode = KeyCode.None;
                 FoundKey(_localkey.ToString(), _localKeycode);
-                _localText.text = _localkey.ToString();
+                _localText.text = $"{_localKeycode}";
+                _localKeycode = KeyCode.None;
             }
         } else {
             if(Input.GetKeyDown(_keycodes.TerminalUse))
@@ -89,6 +93,7 @@ public class InputManager : MonoBehaviour
     }
     public void ChangeKey(string key)
     {
+        BindPanel.SetActive(true);
         _isFoundKeycode = false;
         _localkey = new(key);
     }

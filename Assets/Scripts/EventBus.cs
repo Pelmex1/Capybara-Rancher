@@ -111,6 +111,7 @@ namespace CapybaraRancher.EventBus
         public static Action PullInput;
         public static Action NonPullInput;
         public static Action ThrowInput;
+        public static Action<KeyCode> ChangeKey;
         #endregion
     }
 

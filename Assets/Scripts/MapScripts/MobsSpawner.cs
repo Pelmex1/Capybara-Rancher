@@ -4,23 +4,14 @@ public class MobsSpawner : MonoBehaviour
 {
     [SerializeField] private float _radiusOfSpawn = 5f;
     [SerializeField] private int _amountOfMobs = 8;
-    [SerializeField] private float _delayBetweenRespawn = 30f;
     [SerializeField] private GameObject _mobPrefab;
-
-    private bool _inPlayerVision = false;
-    private Vector3 basePosition = new Vector3(0f, 0f, 0f);
+    private Vector3 basePosition = new(0f, 0f, 0f);
     private Camera _mainCamera;
 
     private void Start()
     {
         _mainCamera = Camera.main;
        SpawnLoop();
-    }
-
-    private void Update()
-    {
-        Vector3 viewportPoint = _mainCamera.WorldToViewportPoint(transform.position);
-        _inPlayerVision = viewportPoint.z > 0 && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
     }
 
     private void SpawnLoop()
