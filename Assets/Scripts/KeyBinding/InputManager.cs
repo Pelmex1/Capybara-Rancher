@@ -29,7 +29,7 @@ public class InputManager : MonoBehaviour
             {
                 EventBus.TerminalUseInput.Invoke();
             } 
-            if(Input.GetKeyDown(_keycodes.Jump))
+            if(Input.GetKey(_keycodes.Jump))
             {
                 EventBus.JumpInput.Invoke();
             } 
@@ -55,7 +55,7 @@ public class InputManager : MonoBehaviour
             } else {
                 EventBus.NonPullInput.Invoke();
             }
-            if(Input.GetKey(_keycodes.Throw))
+            if(Input.GetKeyDown(_keycodes.Throw))
             {
                 EventBus.ThrowInput.Invoke();
             } 
@@ -81,10 +81,10 @@ public class InputManager : MonoBehaviour
             _keycodes.Eat = keyCode;
             break;
             case "InfoBook":
-            _keycodes.Jump = keyCode;
+            _keycodes.InfoBook = keyCode;
             break;
             case "Pull":
-            _keycodes.Jump = keyCode;
+            _keycodes.Pull = keyCode;
             break;
             case "Throw":
             _keycodes.Throw = keyCode;
