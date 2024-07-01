@@ -27,37 +27,37 @@ public class InputManager : MonoBehaviour
         } else {
             if(Input.GetKeyDown(_keycodes.TerminalUse))
             {
-                EventBus.TerminalUseInput.Invoke();
+                EventBus.TerminalUseInput?.Invoke();
             } 
             if(Input.GetKey(_keycodes.Jump))
             {
-                EventBus.JumpInput.Invoke();
+                EventBus.JumpInput?.Invoke();
             } 
             if(Input.GetKey(_keycodes.Run))
             {
-                EventBus.RunInput.Invoke();
+                EventBus.RunInput?.Invoke();
             } 
             if(Input.GetKeyDown(_keycodes.Pause))
             {
-                EventBus.PauseInput.Invoke();
+                EventBus.PauseInput?.Invoke();
             } 
             if(Input.GetKeyDown(_keycodes.Eat))
             {
-                EventBus.EatInput.Invoke();
+                EventBus.EatInput?.Invoke();
             } 
             if(Input.GetKeyDown(_keycodes.InfoBook))
             {
-                EventBus.InfoBookInput.Invoke();
+                EventBus.InfoBookInput?.Invoke();
             } 
             if(Input.GetKey(_keycodes.Pull))
             {
-                EventBus.PullInput.Invoke();
+                EventBus.PullInput?.Invoke();
             } else {
-                EventBus.NonPullInput.Invoke();
+                EventBus.NonPullInput?.Invoke();
             }
             if(Input.GetKeyDown(_keycodes.Throw))
             {
-                EventBus.ThrowInput.Invoke();
+                EventBus.ThrowInput?.Invoke();
             } 
         }
     }
