@@ -182,9 +182,16 @@ public class Options : MonoBehaviour
             case 0:
                 OptionsPanels[0].SetActive(true);
                 OptionsPanels[1].SetActive(false);
+                OptionsPanels[2].SetActive(false);
                 break;
             case 1:
                 OptionsPanels[1].SetActive(true);
+                OptionsPanels[0].SetActive(false);
+                OptionsPanels[2].SetActive(false);
+                break;
+            case 2:
+                OptionsPanels[2].SetActive(true);
+                OptionsPanels[1].SetActive(false);
                 OptionsPanels[0].SetActive(false);
                 break;
         }
