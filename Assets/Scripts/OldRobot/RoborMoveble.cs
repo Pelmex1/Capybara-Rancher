@@ -1,32 +1,23 @@
 using CapybaraRancher.EventBus;
 using UnityEngine;
 using CapybaraRancher.Interfaces;
-using System.Collections;
 
-public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
+public class RoborMoveble : MovebleObject, IRobotParts
 {
-    private const string CANON_TAG = "CanonEnter";
     public int IndexofPart { get; set; }
     public bool CheckMoving { get; set; }
     public bool WasBuilding { get; set; } = false;
     public GameObject[] AllPartsObject { get; set; }
-    public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
-    public GameObject Localgameobject { get => gameObject; set { return; } }
     public bool IsMoved { get; set; } = false;
     [SerializeField] GameObject _crystallpanel;
-    [SerializeField] private int _index;
-    [SerializeField] private InventoryItem inventoryItem;    
-    private bool _looted = false;
-    private bool _isDisabled = false;
-
+    [SerializeField] private int _index;  
 
     private void Awake()
     {
-        // PlayerPrefs.DeleteAll();
         EventBus.OffMovebleObject = OffObject;
         IndexofPart = _index;
     }
-    private void OnEnable()
+    protected override void OnEnable()
     {
         if (PlayerPrefs.GetInt($"CanMoving{_index}") == 0)
         {
@@ -44,7 +35,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         StartCoroutine(Disabled());
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         if (CheckMoving)
             PlayerPrefs.SetInt($"CanMoving{_index}", 0);
@@ -54,7 +45,7 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
         _looted = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
         if (CheckMoving == true)
         {
@@ -63,17 +54,11 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
                 _looted = true;
                 if (EventBus.AddItemInInventory(Data) == true)
                 {
-                    EventBus.AddInPool(gameObject, Data.TypeGameObject);
                     EventBus.RemoveFromList(gameObject);
                     gameObject.SetActive(false);
                 }
             }
         }
-    }
-    private IEnumerator Disabled()
-    {
-        yield return new WaitForSecondsRealtime(2);
-        _isDisabled = false;
     }
     private void OffObject(int OffIndexofPart, Transform PointTransform)
     {
@@ -82,14 +67,14 @@ public class RoborMoveble : MonoBehaviour, IRobotParts, IMovebleObject
             if (i == OffIndexofPart)
             {
                 GameObject _usingObject = AllPartsObject[OffIndexofPart];
-                _usingObject.GetComponent<IRobotParts>().CheckMoving = false;
-                _usingObject.GetComponent<IRobotParts>().OnUI();
+                IRobotParts robotParts = _usingObject.GetComponent<IRobotParts>();
+                robotParts.CheckMoving = false;
+                robotParts.OnUI();
                 _usingObject.tag = "PartsRobot";
                 _usingObject.transform.SetParent(PointTransform);
                 _usingObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                _usingObject.transform.localPosition = new Vector3(0f, 0f, 0f);
-                _usingObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-                _usingObject.transform.localScale = new Vector3(100f, 100f, 30f);
+                _usingObject.transform.SetLocalPositionAndRotation(new(0f, 0f, 0f), Quaternion.Euler(0f, 0f, 0f));
+                _usingObject.transform.localScale = new(100f, 100f, 30f);
             }
         }
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Keycodes", menuName = "CapybaraRancher/Keycodes", order = 0)]
+[CreateAssetMenu(fileName = "Keycodes", menuName = "Capybara-Rancher/Keycodes", order = 0)]
 public class Keycodes : ScriptableObject 
 {
     public KeyCode Jump;
