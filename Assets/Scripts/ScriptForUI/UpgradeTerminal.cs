@@ -100,6 +100,7 @@ public class UpgradeTerminal : MonoBehaviour
             }
         }
     }
+    public void BuySatchel(bool isBuy) => EventBus.BuyJump(isBuy);
 
     public void InfoPanelActivate(int numberOfPanel)
     {

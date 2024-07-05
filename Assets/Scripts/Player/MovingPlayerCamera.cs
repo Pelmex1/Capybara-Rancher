@@ -30,6 +30,8 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private float _startSpeed;
     private bool _isRunning = false;
     private bool _isGrounded;
+    private bool _isBuyJump;
+    private bool _isActivatedJump = false;
 
     public float MouseSensitivy;
     public float Energy { get; set; }
@@ -41,6 +43,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
 
     private void Awake()
     {
+        EventBus.BuyJump = (bool isBuy) => _isBuyJump = isBuy;
         SetStats();
         SetEnergySpending();
     }
@@ -54,6 +57,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         _xRotationCamera = _head.localRotation.eulerAngles.x;
         _startSpeed = _speed;
         FullStats();
+        _isBuyJump = PlayerPrefs.GetString("isBuyJump","false") == "true";
     }
 
     private void OnCollisionEnter(Collision other)
@@ -73,6 +77,11 @@ public class MovingPlayer : MonoBehaviour, IPlayer
 
     }
     private void Jump(){
+        if(_isBuyJump && _isActivatedJump && Energy >= 10)
+        {
+            _rb.AddForce(transform.up, ForceMode.Impulse);
+            Energy -= 10;
+        }
         if (_isGrounded)
         {
             _isGrounded = false;
@@ -116,35 +125,14 @@ public class MovingPlayer : MonoBehaviour, IPlayer
             transform.Rotate(Vector3.up * mouseX);
         }
 
-
         EventBus.PlayerMove.Invoke(_isGrounded && (_vertical != 0 || _horizontal != 0), _isRunning);
 
         EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
         if (Health <= 0)
             StartCoroutine(Respawn(gameObject));
     }
-
-    private void OnEnable()
-    {
-        EventBus.JumpInput += Jump;
-        EventBus.RunInput += Run;
-        EventBus.PlayerRespawned += FullStats;
-        EventBus.WasChangeMouseSensetive += WasChangeSenstive;
-        EventBus.MaxValueUpgrade += SetStats;
-        EventBus.EnergySpendingUpgrade += SetEnergySpending;
-    }
-
-    private void OnDisable()
-    {
-        EventBus.JumpInput -= Jump;
-        EventBus.RunInput -= Run;
-        EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
-        EventBus.MaxValueUpgrade -= SetStats;
-        EventBus.PlayerRespawned -= FullStats;
-        EventBus.EnergySpendingUpgrade -= SetEnergySpending;
-    }
-
     private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative;
+    private void EnableSatchel() => _isActivatedJump = !_isActivatedJump;
 
     private IEnumerator Respawn(GameObject player)
     {
@@ -152,8 +140,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
 
         yield return new WaitForSeconds(_respawnDelay);
 
-        player.transform.position = _spawnTransform.position;
-        player.transform.rotation = _spawnTransform.rotation;
+        player.transform.SetPositionAndRotation(_spawnTransform.position, _spawnTransform.rotation);
     }
     private void FullStats()
     {
@@ -161,7 +148,6 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         Health = HealthMaxValue;
         Hunger = HungerMaxValue;
     }
-
     private void SetStats()
     {
         EnergyMaxValue = PlayerPrefs.GetFloat("EnergyMaxValue", DEFAULT_ENERGY_MAXVALUE);
@@ -172,8 +158,26 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         PlayerPrefs.SetFloat("HungerMaxValue", HungerMaxValue);
     }
 
-    private void SetEnergySpending()
+    private void SetEnergySpending() => _energyConsumptionRate = PlayerPrefs.GetFloat("EnergySpendingRate", DEFAULT_ENERGY_SPENDING);
+    private void OnEnable()
     {
-        _energyConsumptionRate = PlayerPrefs.GetFloat("EnergySpendingRate", DEFAULT_ENERGY_SPENDING);
+        EventBus.SatchelInput += EnableSatchel;
+        EventBus.JumpInput += Jump;
+        EventBus.RunInput += Run;
+        EventBus.PlayerRespawned += FullStats;
+        EventBus.WasChangeMouseSensetive += WasChangeSenstive;
+        EventBus.MaxValueUpgrade += SetStats;
+        EventBus.EnergySpendingUpgrade += SetEnergySpending;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.SatchelInput -= EnableSatchel;
+        EventBus.JumpInput -= Jump;
+        EventBus.RunInput -= Run;
+        EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
+        EventBus.MaxValueUpgrade -= SetStats;
+        EventBus.PlayerRespawned -= FullStats;
+        EventBus.EnergySpendingUpgrade -= SetEnergySpending;
     }
 }

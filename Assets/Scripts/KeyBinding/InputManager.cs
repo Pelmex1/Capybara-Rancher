@@ -33,6 +33,10 @@ public class InputManager : MonoBehaviour
             {
                 EventBus.JumpInput?.Invoke();
             } 
+            if(Input.GetKey(_keycodes.Satchel))
+            {
+                EventBus.SatchelInput?.Invoke();
+            } 
             if(Input.GetKey(_keycodes.Run))
             {
                 EventBus.RunInput?.Invoke();
@@ -88,6 +92,9 @@ public class InputManager : MonoBehaviour
             break;
             case "Throw":
             _keycodes.Throw = keyCode;
+            break;
+            case "Satchel" :
+            _keycodes.Satchel = keyCode;
             break;
         };
     }

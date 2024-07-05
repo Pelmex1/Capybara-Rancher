@@ -28,7 +28,6 @@ namespace CapybaraRancher.EventBus
         public static Predicate<InventoryItem> AddItemInInventory;
         public static Func<float> GetMoney;
         public static Action<TypeGameObject> SelledCrystal;
-
         #region  UIinventory
         public static Action<Data[]> OnRepaint;
         public static Action<int, int> WasChangeIndexCell;
@@ -81,6 +80,7 @@ namespace CapybaraRancher.EventBus
         public static Action MaxValueUpgrade;
         public static Action ExtraSlotUpgrade;
         public static Action EnergySpendingUpgrade;
+        public static Action<bool> BuyJump;
         #endregion PlayerUpgrades
 
         #region Tutorial
@@ -111,6 +111,7 @@ namespace CapybaraRancher.EventBus
         public static Action PullInput;
         public static Action NonPullInput;
         public static Action ThrowInput;
+        public static Action SatchelInput;
         public static Action<KeyCode> ChangeKey;
         #endregion
     }

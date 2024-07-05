@@ -11,4 +11,5 @@ public class Keycodes : ScriptableObject
     public KeyCode InfoBook;
     public KeyCode Pull;
     public KeyCode Throw;
+    public KeyCode Satchel;
 }

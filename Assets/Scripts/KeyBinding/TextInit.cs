@@ -21,6 +21,7 @@ public class TextInit : MonoBehaviour
             "InfoBook" => _keycodes.InfoBook,
             "Pull" => _keycodes.Pull,
             "Throw" => _keycodes.Throw,
+            "Satchel" => _keycodes.Satchel,
             _ => KeyCode.None
         };
 }
