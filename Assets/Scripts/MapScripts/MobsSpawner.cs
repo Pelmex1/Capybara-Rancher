@@ -6,11 +6,9 @@ public class MobsSpawner : MonoBehaviour
     [SerializeField] private int _amountOfMobs = 8;
     [SerializeField] private GameObject _mobPrefab;
     private Vector3 basePosition = new(0f, 0f, 0f);
-    private Camera _mainCamera;
 
     private void Start()
     {
-        _mainCamera = Camera.main;
        SpawnLoop();
     }
 
@@ -19,8 +17,8 @@ public class MobsSpawner : MonoBehaviour
         for (int i = 0; i < _amountOfMobs; i++)
         {
             GameObject instance = Instantiate(_mobPrefab);
+            instance.name = $"{name}_Capybara_{i}";
             instance.transform.SetParent(transform);
-            instance.transform.localPosition = basePosition;
             instance.transform.localPosition = RandomPosition();
             instance.SetActive(true);
             ItemActivator.ActivatorItemsAdd(instance);
