@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour
             {
                 EventBus.JumpInput?.Invoke();
             } 
-            if(Input.GetKey(_keycodes.Satchel))
+            if(Input.GetKeyDown(_keycodes.Satchel))
             {
                 EventBus.SatchelInput?.Invoke();
             } 

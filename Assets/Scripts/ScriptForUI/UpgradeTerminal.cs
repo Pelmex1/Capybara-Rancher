@@ -23,6 +23,10 @@ public class UpgradeTerminal : MonoBehaviour
     [SerializeField] private GameObject[] _infoPanels;
 
     private bool isNear = false;
+    private bool _isBuySetchel =  false;
+    private void Start() {
+        _isBuySetchel = PlayerPrefs.GetString("SatchelBuy", "false") == "true";
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(PLAYER_TAG))
@@ -100,7 +104,13 @@ public class UpgradeTerminal : MonoBehaviour
             }
         }
     }
-    public void BuySatchel(bool isBuy) => EventBus.BuyJump(isBuy);
+    public void BuySatchel(){
+        if(!_isBuySetchel && EventBus.GetMoney() >= 200){
+            EventBus.BuyJump(true);
+            EventBus.AddMoney(-200);
+            PlayerPrefs.SetString("SatchelBuy", "true");
+        }
+    }
 
     public void InfoPanelActivate(int numberOfPanel)
     {

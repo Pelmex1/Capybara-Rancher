@@ -14,6 +14,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private const float DEFAULT_HEALTH_MAXVALUE = 100f;
     private const float DEFAULT_HUNGER_MAXVALUE = 100f;
     private const float DEFAULT_ENERGY_SPENDING = 10f;
+    private const float SPEED_SATCHEL = 50f;
 
     [SerializeField] private Transform _head;
     [SerializeField] private float _speed;
@@ -57,7 +58,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         _xRotationCamera = _head.localRotation.eulerAngles.x;
         _startSpeed = _speed;
         FullStats();
-        _isBuyJump = PlayerPrefs.GetString("isBuyJump","false") == "true";
+        _isBuyJump = PlayerPrefs.GetString("SatchelBuy","false") == "true";
     }
 
     private void OnCollisionEnter(Collision other)
@@ -79,9 +80,9 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private void Jump(){
         if(_isBuyJump && _isActivatedJump && Energy >= 10)
         {
-            _rb.AddForce(transform.up, ForceMode.Impulse);
-            Energy -= 10;
-        }
+            _rb.AddForce(transform.up / SPEED_SATCHEL, ForceMode.Impulse);
+            Energy -= 0.3f;
+        } else
         if (_isGrounded)
         {
             _isGrounded = false;
