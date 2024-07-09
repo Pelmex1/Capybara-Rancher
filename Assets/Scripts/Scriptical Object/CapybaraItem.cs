@@ -1,28 +1,41 @@
 using UnityEngine;
-using CapybaraRancher.Enums;
 using CapybaraRancher.Interfaces;
 
 public class CapybaraItem : MonoBehaviour, ICapybaraItem
 {
-    [SerializeField] private GameObject crystalPrefab;
-    [SerializeField] private FoodType whatEat;
-    [SerializeField] private string nameOfFavouriteFood;
+    private const float SIZE_BOOST_AFTER_TRANSFORMATION = 1.5f;
 
-    public GameObject CrystalPrefab
+    private CrystalsController crController;
+
+    [SerializeField] private CapybaraData _data1;
+    [SerializeField] private CapybaraData _data2;
+
+    private void Start()
     {
-        get { return crystalPrefab; }
-        set { crystalPrefab = value; }
+        crController = GetComponent<CrystalsController>();
+        if (_data1 != null)
+            Instantiate(_data1.Mod, transform);
+        if (_data2 != null)
+            Transformation();
+    }
+    public void Transformation()
+    {
+        Instantiate(_data2.Mod, transform);
+        tag = "Untagged";
+        crController.HasTransformed = true;
+        transform.localScale *= SIZE_BOOST_AFTER_TRANSFORMATION;
+        GetComponent<MovebleObject>().enabled = false;
     }
 
-    public FoodType WhatEat
+    public CapybaraData Data1
     {
-        get { return whatEat; }
-        set { whatEat = value; }
+        get { return _data1; }
+        set { _data1 = value; }
     }
 
-    public string NameOfFavouriteFood
+    public CapybaraData Data2
     {
-        get { return nameOfFavouriteFood; }
-        set { nameOfFavouriteFood = value; }
+        get { return _data2; }
+        set { _data2 = value; }
     }
 }

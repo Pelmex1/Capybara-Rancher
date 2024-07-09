@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Leo Capybara
   Image: {fileID: 21300000, guid: 87334eb538c7db640bda19e284bca476, type: 3}
-  Prefab: {fileID: 2994373093089687005, guid: 808266644c38ceb4683acb25d16c1125, type: 3}
+  Prefab: {fileID: 7133354814430760932, guid: fc5342658878bc846ae4a2c39c5dd4c8, type: 3}
   Color: {r: 1, g: 0.7341389, b: 0, a: 1}
   TypeGameObject: 2

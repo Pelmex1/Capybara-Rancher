@@ -26,17 +26,15 @@ namespace CapybaraRancher.Interfaces
     }
     internal interface ICrystalItem
     {
-        public GameObject NextCapibara { get; }
+        public CapybaraData TypeData { get; }
         public float Price { get; }
         public float PercentOfRegen { get; }
-        public string FavouriteFoodName { get; }
-        public FoodType WhatEatThisType { get; }
     }
     internal interface ICapybaraItem
     {
-        public GameObject CrystalPrefab { get; }
-        public FoodType WhatEat { get; }
-        public string NameOfFavouriteFood { get; }
+        public CapybaraData Data1 { get; set; }
+        public CapybaraData Data2 { get; set; }
+        public void Transformation();
     }
     internal interface ICell
     {
@@ -83,4 +81,8 @@ namespace CapybaraRancher.Interfaces
     {
         public Data[] Inventory {get; set;}
     }
+    internal interface IObjectSpawner
+    {
+        void ReturnToPool(GameObject returnObject);
+}
 }

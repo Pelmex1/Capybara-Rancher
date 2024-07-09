@@ -1,9 +1,10 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
-using CapybaraRancher.Enums;
+using TMPro;
 
 public class UpgradeTerminal : MonoBehaviour
 {
+    private const string SOLD_TEXT = "Sold";
     private const string PLAYER_TAG = "Player";
     private const float VALUE_UPGRADE = 2f;
     private const string ENERGY_KEY = "Energy";
@@ -17,15 +18,29 @@ public class UpgradeTerminal : MonoBehaviour
     private const string ENERGY_SPENDING_KEY = "EnergySpendingRate";
     private const float ENERGY_SPENDING_PRICE = 105f;
     private const float ENERGY_SPENDING_RATE = 5f;
+    private const string SATCHEL_KEY = "SatchelBuy";
+    private const float SATCHEL_VALUE_UPGRADE_PRICE = 200f;
 
     [SerializeField] private GameObject InfoText;
     [SerializeField] private GameObject _terminalPanel;
     [SerializeField] private GameObject[] _infoPanels;
+    [SerializeField] private TextMeshProUGUI[] _buyTexts;
 
     private bool isNear = false;
-    private bool _isBuySetchel =  false;
-    private void Start() {
-        _isBuySetchel = PlayerPrefs.GetString("SatchelBuy", "false") == "true";
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt(ENERGY_KEY + "MaxValueUpgrade", 0) != 0)
+            _buyTexts[0].text = SOLD_TEXT;
+        if (PlayerPrefs.GetInt(HEALTH_KEY + "MaxValueUpgrade", 0) != 0)
+            _buyTexts[1].text = SOLD_TEXT;
+        if (PlayerPrefs.GetInt(HUNGER_KEY + "MaxValueUpgrade", 0) != 0)
+            _buyTexts[2].text = SOLD_TEXT;
+        if (PlayerPrefs.GetInt(EXTRASLOT_KEY, 0) != 0)
+            _buyTexts[3].text = SOLD_TEXT;
+        if (PlayerPrefs.GetFloat(ENERGY_SPENDING_KEY, 0) == ENERGY_SPENDING_RATE)
+            _buyTexts[4].text = SOLD_TEXT;
+        if (!(PlayerPrefs.GetString(SATCHEL_KEY, "false") == "false"))
+            _buyTexts[5].text = SOLD_TEXT;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -60,15 +75,23 @@ public class UpgradeTerminal : MonoBehaviour
     {
         if (PlayerPrefs.GetInt(parametr + "MaxValueUpgrade", 0) == 0)
         {
-            var price = parametr switch
+            float price = parametr switch
             {
                 ENERGY_KEY => ENERGYMAXVALUE_UPGRADE_PRICE,
                 HEALTH_KEY => HEALTHMAXVALUE_UPGRADE_PRICE,
                 HUNGER_KEY => HUNGERMAXVALUE_UPGRADE_PRICE,
                 _ => 0,
             };
+            int number = parametr switch
+            {
+                ENERGY_KEY => 0,
+                HEALTH_KEY => 1,
+                HUNGER_KEY => 2,
+                _ => 0,
+            };
             if (EventBus.GetMoney() >= price)
             {
+                _buyTexts[number].text = SOLD_TEXT;
                 EventBus.AddMoney(-price);
                 float newValue = PlayerPrefs.GetFloat(parametr + "MaxValue") * VALUE_UPGRADE;
                 PlayerPrefs.SetFloat(parametr + "MaxValue", newValue);
@@ -85,6 +108,7 @@ public class UpgradeTerminal : MonoBehaviour
         {
             if (EventBus.GetMoney() >= EXTRASLOT_VALUE_UPGRADE_PRICE)
             {
+                _buyTexts[3].text = SOLD_TEXT;
                 EventBus.AddMoney(-EXTRASLOT_VALUE_UPGRADE_PRICE);
                 PlayerPrefs.SetInt(EXTRASLOT_KEY, 1);
                 EventBus.ExtraSlotUpgrade.Invoke();
@@ -98,17 +122,24 @@ public class UpgradeTerminal : MonoBehaviour
         {
             if (EventBus.GetMoney() >= ENERGY_SPENDING_PRICE)
             {
+                _buyTexts[4].text = SOLD_TEXT;
                 EventBus.AddMoney(-ENERGY_SPENDING_PRICE);
                 PlayerPrefs.SetFloat(ENERGY_SPENDING_KEY, ENERGY_SPENDING_RATE);
                 EventBus.EnergySpendingUpgrade.Invoke();
             }
         }
     }
-    public void BuySatchel(){
-        if(!_isBuySetchel && EventBus.GetMoney() >= 200){
-            EventBus.BuyJump(true);
-            EventBus.AddMoney(-200);
-            PlayerPrefs.SetString("SatchelBuy", "true");
+    public void BuySatchel()
+    {
+        if (PlayerPrefs.GetString(SATCHEL_KEY, "false") == "false")
+        {
+            if (EventBus.GetMoney() >= SATCHEL_VALUE_UPGRADE_PRICE)
+            {
+                _buyTexts[5].text = SOLD_TEXT;
+                EventBus.AddMoney(-SATCHEL_VALUE_UPGRADE_PRICE);
+                PlayerPrefs.SetString(SATCHEL_KEY, "true");
+                EventBus.BuyJump(true);
+            }
         }
     }
 

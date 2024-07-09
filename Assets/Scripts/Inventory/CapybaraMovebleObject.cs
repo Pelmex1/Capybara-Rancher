@@ -1,15 +1,19 @@
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class CapybaraMovebleObject : MovebleObject
 {
     private NavMeshAgent _navMeshAgent;
-    
+    private IObjectSpawner _objectSpawner;
+
     public bool IsMoved { get; set; } = false;
-    private void Start()
+
+    private void Awake()
     {
         TryGetComponent(out _navMeshAgent);
+        transform.parent?.TryGetComponent(out _objectSpawner);
     }
     private void Update()
     {
@@ -36,13 +40,16 @@ public class CapybaraMovebleObject : MovebleObject
                 EventBus.RemoveFromList(gameObject);
                 ItemActivator.ActivatorItemsRemove(gameObject);
                 gameObject.SetActive(false);
+                if (_objectSpawner != null)
+                    _objectSpawner.ReturnToPool(gameObject);
             }
         }
     }
-    private void OnEnable() {
+    protected override void OnEnable() {
         EventBus.PullInput += Pull;
     }
-    private void OnDisable() {
+    protected override void OnDisable() {
+        EventBus.AddInPool(gameObject, Data.TypeGameObject);
         EventBus.PullInput -= Pull;
     }
 }

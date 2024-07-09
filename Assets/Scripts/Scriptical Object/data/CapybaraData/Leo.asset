@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce71569f771d254c91bebda80002f3a, type: 3}
+  m_Name: Leo
+  m_EditorClassIdentifier: 
+  crystalPrefab: {fileID: 13763372814719393, guid: e0dce3c8e4a4295409801987162a40fc,
+    type: 3}
+  crystalType: 9
+  whatEat: 4
+  favouriteFood: Pink Chicken
+  mod: {fileID: 1885999244023908055, guid: 096b975bc5ada4445802971a0feeb7b2, type: 3}
+  dataNumber: 3

@@ -164,12 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4f2fc39bec45946b47839830ae1dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextCapibara: {fileID: 1885999244023908055, guid: 096b975bc5ada4445802971a0feeb7b2,
-    type: 3}
+  typeData: {fileID: 11400000, guid: ddbbb00ae97b7ac4eb160e08d6f43694, type: 2}
   price: 20
   percentOfRegen: 20
-  favouriteFoodName: Pink Chicken
-  whatEatThisType: 4
 --- !u!114 &-2153463929712632485
 MonoBehaviour:
   m_ObjectHideFlags: 0

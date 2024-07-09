@@ -164,12 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4f2fc39bec45946b47839830ae1dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextCapibara: {fileID: 1885999244023908055, guid: e1a21cdf62440784aab78bfa66bfc319,
-    type: 3}
+  typeData: {fileID: 11400000, guid: a20597cdfb64102468c9f574b8b4b04d, type: 2}
   price: 10
   percentOfRegen: 10
-  favouriteFoodName: Carrot
-  whatEatThisType: 3
 --- !u!114 &-6704972567795766569
 MonoBehaviour:
   m_ObjectHideFlags: 0

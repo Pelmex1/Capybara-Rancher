@@ -11,6 +11,8 @@ TagManager:
   - Ground
   - PartsRobot
   - Fire
+  - FxTemporaire
+  - Pen
   layers:
   - Default
   - TransparentFX

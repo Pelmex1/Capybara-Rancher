@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce71569f771d254c91bebda80002f3a, type: 3}
+  m_Name: Rock
+  m_EditorClassIdentifier: 
+  crystalPrefab: {fileID: 13763372814719393, guid: 96edd38d24fca5941a0afcfa289a9e17,
+    type: 3}
+  crystalType: 8
+  whatEat: 3
+  favouriteFood: Carrot
+  mod: {fileID: 1885999244023908055, guid: e1a21cdf62440784aab78bfa66bfc319, type: 3}
+  dataNumber: 2

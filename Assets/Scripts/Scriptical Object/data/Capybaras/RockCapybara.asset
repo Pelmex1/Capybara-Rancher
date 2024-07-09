@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Rock Capybara
   Image: {fileID: 21300000, guid: 7111e43dbbcfe0941a8bc306e6cad04f, type: 3}
-  Prefab: {fileID: 852176107350716984, guid: 6bdffc7cc7d18ce479d3bed0aeaa6f06, type: 3}
+  Prefab: {fileID: 7133354814430760932, guid: c5fad0aa541dc25489b5cf96a7594cf0, type: 3}
   Color: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
   TypeGameObject: 1

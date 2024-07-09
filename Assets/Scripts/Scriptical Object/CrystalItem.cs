@@ -4,15 +4,13 @@ using CapybaraRancher.Interfaces;
 
 public class CrystalItem : MonoBehaviour, ICrystalItem
 {
-    [SerializeField] private GameObject nextCapibara;
+    [SerializeField] private CapybaraData typeData;
     [SerializeField] private float price;
     [SerializeField] private float percentOfRegen;
-    [SerializeField] private string favouriteFoodName;
-    [SerializeField] private FoodType whatEatThisType;
-    public GameObject NextCapibara
+    public CapybaraData TypeData
     {
-        get { return nextCapibara; }
-        set { nextCapibara = value; }
+        get { return typeData; }
+        set { typeData = value; }
     }
 
     public float Price
@@ -25,17 +23,5 @@ public class CrystalItem : MonoBehaviour, ICrystalItem
     {
         get { return percentOfRegen; }
         set { percentOfRegen = value; }
-    }
-
-    public string FavouriteFoodName
-    {
-        get { return favouriteFoodName; }
-        set { favouriteFoodName = value; }
-    }
-
-    public FoodType WhatEatThisType
-    {
-        get { return whatEatThisType; }
-        set { whatEatThisType = value; }
     }
 }
