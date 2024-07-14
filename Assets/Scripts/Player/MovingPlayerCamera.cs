@@ -30,6 +30,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private float _xRotationCamera;
     private float _startSpeed;
     private bool _isRunning = false;
+    private bool _runCalled = false;
     private bool _isGrounded;
     private bool _isBuyJump;
     private bool _isActivatedJump = false;
@@ -76,6 +77,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         _rb.MovePosition(_rb.position + _vertical * _speed * Time.fixedDeltaTime * transform.forward);
         _rb.MovePosition(_rb.position + _horizontal * _speed * Time.fixedDeltaTime * transform.right);
 
+        _runCalled = false;
     }
     private void Jump(){
         if(_isBuyJump && _isActivatedJump && Energy >= 10)
@@ -98,19 +100,12 @@ public class MovingPlayer : MonoBehaviour, IPlayer
             _speed = _startSpeed * SPEED_BOOST;
             _isRunning = true;
         }
-        else if (!(Energy > MIN_ENERGY_VALUE) && _isRunning)
+        else if (!(Energy > MIN_ENERGY_VALUE))
         {
             Energy = 0;
             _isRunning = false;
         }
-        else if (Energy < EnergyMaxValue)
-        {
-            Energy += _energyRegenRate * Time.deltaTime;
-            _speed = _startSpeed;
-            _isRunning = false;
-        }
     }
-
     private void Update()
     {
         EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
@@ -131,6 +126,15 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         EventBus.GiveEnergyPlayerData.Invoke(Health, Energy, Hunger);
         if (Health <= 0)
             StartCoroutine(Respawn(gameObject));
+    }
+    private void LateUpdate()
+    {
+        if (Energy < EnergyMaxValue && !_runCalled)
+        {
+            Energy += _energyRegenRate * Time.deltaTime;
+            _speed = _startSpeed;
+            _runCalled = false;
+        }
     }
     private void WasChangeSenstive(float ValueSensative) => MouseSensitivy = ValueSensative;
     private void EnableSatchel() => _isActivatedJump = !_isActivatedJump;
@@ -160,11 +164,16 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     }
 
     private void SetEnergySpending() => _energyConsumptionRate = PlayerPrefs.GetFloat("EnergySpendingRate", DEFAULT_ENERGY_SPENDING);
+    private void OnRunInput()
+    {
+        _runCalled = true;
+    }
     private void OnEnable()
     {
         EventBus.SatchelInput += EnableSatchel;
         EventBus.JumpInput += Jump;
         EventBus.RunInput += Run;
+        EventBus.RunInput += OnRunInput;
         EventBus.PlayerRespawned += FullStats;
         EventBus.WasChangeMouseSensetive += WasChangeSenstive;
         EventBus.MaxValueUpgrade += SetStats;
@@ -176,6 +185,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         EventBus.SatchelInput -= EnableSatchel;
         EventBus.JumpInput -= Jump;
         EventBus.RunInput -= Run;
+        EventBus.RunInput -= OnRunInput;
         EventBus.WasChangeMouseSensetive -= WasChangeSenstive;
         EventBus.MaxValueUpgrade -= SetStats;
         EventBus.PlayerRespawned -= FullStats;

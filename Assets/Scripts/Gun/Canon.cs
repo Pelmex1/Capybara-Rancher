@@ -40,8 +40,8 @@ public class Canon : MonoBehaviour
                 _oneFunc = true;
             }
             _colliderCanon.enabled = true;
+            EventBus.PlayerGunAttraction.Invoke(true);
         }
-        EventBus.PlayerGunAttraction.Invoke(Cursor.lockState == CursorLockMode.Locked);
     }
     private void NonPull(){
         canonEnter.enabled = false;
@@ -52,8 +52,8 @@ public class Canon : MonoBehaviour
             _colliderCanon.enabled = false;
             obdjectsInCollider.Clear();
             _oneFunc = false;
-            EventBus.PlayerGunAttraction.Invoke(Cursor.lockState == CursorLockMode.Locked);
         }
+        EventBus.PlayerGunAttraction.Invoke(false);
     }
     private void OnTriggerEnter(Collider other)
     {

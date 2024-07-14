@@ -70,8 +70,7 @@ public class CrystalsController : MonoBehaviour
             else if (eatObj.TryGetComponent(out dataCr))
             {
                 InventoryItem dataIn = localMovebleObject.Data;
-                if (dataCr.Price != 0 && (_capybaraItem.Data1.CrystalPrefab != dataIn.Prefab &&
-                    _newCrystal != dataIn.Prefab) && !HasTransformed)
+                if (dataCr.Price != 0 && _capybaraItem.Data1.CrystalPrefab == dataIn.Prefab && !HasTransformed)
                 {
                     TransformationToAnotherCapybara(dataCr.TypeData);
                     localMovebleObject.Localgameobject.SetActive(false);
