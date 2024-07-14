@@ -113,7 +113,7 @@ namespace CapybaraRancher.EventBus
         public static Action ThrowInput;
         public static Action SatchelInput;
         public static Action<KeyCode> ChangeKey;
-        #endregion
+        #endregion Input
     }
 
 }
