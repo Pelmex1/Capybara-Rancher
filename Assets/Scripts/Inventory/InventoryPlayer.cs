@@ -100,9 +100,10 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
         }
         StartCoroutine(Recherge());
         GameObject localObject = EventBus.RemoveFromThePool(Inventory[_index].InventoryItem.TypeGameObject);
+        
         localObject.transform.position = spawnPos;
-        localObject.SetActive(true);
-        localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);     
+        localObject.SetActive(true); 
+        localObject.GetComponent<Rigidbody>().AddForce(pos, ForceMode.Impulse);    
         Inventory[_index]--;
         if (Inventory[_index].Count == 0)
         {

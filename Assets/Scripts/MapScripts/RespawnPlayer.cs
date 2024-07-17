@@ -22,7 +22,6 @@ public class RespawnPlayer : MonoBehaviour
 
         yield return new WaitForSeconds(_respawnDelay);
 
-        player.transform.position = _spawnTransform.position;
-        player.transform.rotation = _spawnTransform.rotation;
+        player.transform.SetPositionAndRotation(_spawnTransform.position, _spawnTransform.rotation);
     }
 }

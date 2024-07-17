@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class UIInventory : MonoBehaviour
 {
-    private const float SHIFT_FOR_EXTRASLOT = -80f;
-
     [SerializeField] private TMP_Text[] ImageAmount;
     [SerializeField] private Sprite ImageCrosses;
     [SerializeField] private GameObject _extraSlotObject;

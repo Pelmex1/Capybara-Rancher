@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1959094179408115828}
   - component: {fileID: -3308164294555960886}
   - component: {fileID: 3222630322113809888}
-  - component: {fileID: 5249966430210373390}
   - component: {fileID: 3545819480381805574}
   - component: {fileID: -6704972567795766569}
   - component: {fileID: -6891399964991954551}
+  - component: {fileID: 7310077010056744140}
   m_Layer: 0
   m_Name: RockCrystal
   m_TagString: movebleObject
@@ -139,19 +139,6 @@ CapsuleCollider:
   m_Height: 1.0822382
   m_Direction: 1
   m_Center: {x: -0.011384934, y: 0.058541313, z: 0.05148217}
---- !u!114 &5249966430210373390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 13763372814719393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryItem: {fileID: 11400000, guid: 67dfdbcc4545ccc4482215379a043bab, type: 2}
 --- !u!114 &3545819480381805574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,3 +179,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7310077010056744140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13763372814719393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da81e43b1063f6540ba8a584aca229d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 11400000, guid: 67dfdbcc4545ccc4482215379a043bab, type: 2}

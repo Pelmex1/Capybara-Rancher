@@ -48,8 +48,7 @@ public class CrystalsController : MonoBehaviour
         if (eatObj.CompareTag(MOVEBLE_OBJECT_TAG))
         {
             IMovebleObject localMovebleObject = eatObj.GetComponent<IMovebleObject>();
-            ICrystalItem dataCr;
-            if (eatObj.GetComponent<IFoodItem>() != null && eatObj.transform.localScale == _scaleforeat || eatObj.transform.localScale == 0.5f*_scaleforeat && _isHungry)
+            if (eatObj.GetComponent<IFoodItem>() != null && eatObj.transform.localScale == _scaleforeat || eatObj.transform.localScale == 0.5f * _scaleforeat && _isHungry)
             {
                 string nameOfFood = localMovebleObject.Data.name;
                 FoodType typeOfFood = eatObj.GetComponent<IFoodItem>().Type;
@@ -67,7 +66,7 @@ public class CrystalsController : MonoBehaviour
                     EventBus.AddInPool(gameObject, localMovebleObject.Data.TypeGameObject);
                 }
             }
-            else if (eatObj.TryGetComponent(out dataCr))
+            else if (eatObj.TryGetComponent(out ICrystalItem dataCr))
             {
                 InventoryItem dataIn = localMovebleObject.Data;
                 if (dataCr.Price != 0 && _capybaraItem.Data1.CrystalPrefab == dataIn.Prefab && !HasTransformed)
@@ -169,7 +168,7 @@ public class CrystalsController : MonoBehaviour
         for (int i = 0; i < _startCrystalPool; i++)
         {
             GameObject spawnedObject = Instantiate(_capybaraItem.Data1.CrystalPrefab);
-            spawnedObject.SetActive(true);
+            spawnedObject.GetComponent<ISave>().Init();
             spawnedObject.SetActive(false);
         }
     }

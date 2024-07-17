@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 2846226044689686688}
   - component: {fileID: 656424065547588980}
   - component: {fileID: 7620507495349412361}
-  - component: {fileID: 8450144960505600315}
   - component: {fileID: 9008519864415912981}
   - component: {fileID: 3749597111223783055}
   - component: {fileID: 110224608769215419}
+  - component: {fileID: 2445103593878282112}
   m_Layer: 0
   m_Name: GladeCrystal
   m_TagString: movebleObject
@@ -139,19 +139,6 @@ CapsuleCollider:
   m_Height: 1.0822382
   m_Direction: 1
   m_Center: {x: -0.011384934, y: 0.058541313, z: 0.05148217}
---- !u!114 &8450144960505600315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2888982883673759537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27d432e18a6e6184a8c3b747b3e30e16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryItem: {fileID: 11400000, guid: 8c565919f9974bb43a475d1a451a42b6, type: 2}
 --- !u!114 &9008519864415912981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,3 +179,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2445103593878282112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2888982883673759537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da81e43b1063f6540ba8a584aca229d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 11400000, guid: 8c565919f9974bb43a475d1a451a42b6, type: 2}

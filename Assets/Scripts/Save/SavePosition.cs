@@ -3,18 +3,22 @@ using UnityEngine;
 namespace CapybaraRancher.Save
 {
     using CapybaraRancher.EventBus;
-    public class SavePosition : MonoBehaviour
+    public class SavePosition : MonoBehaviour, ISave
     {
         private bool _isOnAplicationQuit = false;
         private bool _oneStart = false;
         private string _saveName;
         private void OnEnable()
         {
+            
             try
             {
                 EventBus.RemoveFromDisable($"{transform.parent?.name}_{name}");
             } catch {}
             EventBus.GlobalSave += Save;
+        }
+        public void Init(){
+            Start();
         }
         private void Start()
         {
