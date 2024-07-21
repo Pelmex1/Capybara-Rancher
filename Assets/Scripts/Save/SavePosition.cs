@@ -3,7 +3,7 @@ using UnityEngine;
 namespace CapybaraRancher.Save
 {
     using CapybaraRancher.EventBus;
-    public class SavePosition : MonoBehaviour, ISave
+    public class SavePosition : MonoBehaviour, IService
     {
         private bool _isOnAplicationQuit = false;
         private bool _oneStart = false;
@@ -32,6 +32,11 @@ namespace CapybaraRancher.Save
                     float y = PlayerPrefs.GetFloat($"{_saveName}_Player_Y", _positionNow.y);
                     float z = PlayerPrefs.GetFloat($"{_saveName}_Player_Z", _positionNow.z);
                     transform.position = new(x, y, z);
+                    x = PlayerPrefs.GetFloat($"{_saveName}_Player_R_X", transform.rotation.x);
+                    y = PlayerPrefs.GetFloat($"{_saveName}_Player_R_Y", transform.rotation.y);
+                    z = PlayerPrefs.GetFloat($"{_saveName}_Player_R_Z", transform.rotation.z);
+                    float w = PlayerPrefs.GetFloat($"{_saveName}_Player_R_W", transform.rotation.w);
+                    transform.rotation = new(x, y, z, w);
                 }   
                 else
                 {
@@ -69,9 +74,13 @@ namespace CapybaraRancher.Save
             _isOnAplicationQuit = true;
             if (gameObject.CompareTag("Player"))
             {
-                PlayerPrefs.SetFloat($"{_saveName}_Player_X", gameObject.transform.position.x);
-                PlayerPrefs.SetFloat($"{_saveName}_Player_Y", gameObject.transform.position.y);
-                PlayerPrefs.SetFloat($"{_saveName}_Player_Z", gameObject.transform.position.z);
+                PlayerPrefs.SetFloat($"{_saveName}_Player_X", transform.position.x);
+                PlayerPrefs.SetFloat($"{_saveName}_Player_Y", transform.position.y);
+                PlayerPrefs.SetFloat($"{_saveName}_Player_Z", transform.position.z);
+                PlayerPrefs.SetFloat($"{_saveName}_Player_R_X", transform.rotation.x);
+                PlayerPrefs.SetFloat($"{_saveName}_Player_R_Y", transform.rotation.y);
+                PlayerPrefs.SetFloat($"{_saveName}_Player_R_Z", transform.rotation.z);
+                PlayerPrefs.SetFloat($"{_saveName}_Player_R_W", transform.rotation.w);
             }
             else
             {

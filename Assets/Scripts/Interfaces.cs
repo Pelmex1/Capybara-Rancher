@@ -6,10 +6,6 @@ using UnityEngine.UI;
 
 namespace CapybaraRancher.Interfaces
 {
-    internal interface ISave
-    {
-        void Init();
-    }
     internal interface ICapybaraAudioController
     {
         void SetHappyStatus();
