@@ -15154,8 +15154,8 @@ GameObject:
   - component: {fileID: 7573737588855383153}
   - component: {fileID: 6721145895652796790}
   - component: {fileID: 5353872342751670163}
-  - component: {fileID: 8493121191424760173}
   - component: {fileID: -1981062452597698548}
+  - component: {fileID: -6709860767247071190}
   m_Layer: 0
   m_Name: GladeCapybara
   m_TagString: movebleObject
@@ -15344,18 +15344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b50e838badd8cc4dab4deda5f04a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8493121191424760173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7133354814430760932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad20ab87f2fffe84ab192070386e13ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1981062452597698548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15370,6 +15358,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _data1: {fileID: 11400000, guid: 9a4fd25396371944d95ee2ce092021c3, type: 2}
   _data2: {fileID: 0}
+--- !u!114 &-6709860767247071190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7133354814430760932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9ce60ae9748fc4890b11dac8fbf10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7404532943775229820
 GameObject:
   m_ObjectHideFlags: 0

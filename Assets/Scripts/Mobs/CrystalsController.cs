@@ -22,7 +22,6 @@ public class CrystalsController : MonoBehaviour
     private ICapybaraAudioController _audioController;
     private IMobsAi _mobsAi;
     private ICapybaraItem _capybaraItem;
-    private MobsSave _mobsSave;
     private bool _isHungry = false;
     private GameObject _newCrystal;
 
@@ -33,7 +32,6 @@ public class CrystalsController : MonoBehaviour
         _audioController = GetComponent<ICapybaraAudioController>();
         _mobsAi = GetComponent<IMobsAi>();
         _capybaraItem = GetComponent<ICapybaraItem>();
-        _mobsSave = GetComponent<MobsSave>();
 
         InstantiateCrystals();
         StartCoroutine(LoopToStarving());
@@ -161,7 +159,6 @@ public class CrystalsController : MonoBehaviour
     {
         _capybaraItem.Data2 = newData;
         _capybaraItem.Transformation();
-        _mobsSave.Transformation();
     }
     private void InstantiateCrystals()
     {
