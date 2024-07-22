@@ -168,7 +168,7 @@ public class CrystalsController : MonoBehaviour
         for (int i = 0; i < _startCrystalPool; i++)
         {
             GameObject spawnedObject = Instantiate(_capybaraItem.Data1.CrystalPrefab);
-            spawnedObject.GetComponent<ISave>().Init();
+            spawnedObject.GetComponent<IService>().Init();
             spawnedObject.SetActive(false);
         }
     }
