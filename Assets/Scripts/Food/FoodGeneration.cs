@@ -61,7 +61,7 @@ public class FoodGeneration : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             GameObject spawnedObject = Instantiate(_foodPrefab);
-            spawnedObject.SetActive(false);
+            spawnedObject.GetComponent<IService>().Init();
         }
     }
 }

@@ -31,9 +31,7 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
         {
             GameObject spawnedObject = Instantiate(_mobPrefab);
             spawnedObject.transform.parent = null;
-            spawnedObject.SetActive(false);
-            spawnedObject.SetActive(true);
-            spawnedObject.SetActive(false);
+            spawnedObject.GetComponent<IService>().Init();  
         }
     }
 
