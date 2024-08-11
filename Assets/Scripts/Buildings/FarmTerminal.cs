@@ -1,6 +1,5 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
-using CapybaraRancher.Enums;
 
 public class FarmTerminal : MonoBehaviour
 {

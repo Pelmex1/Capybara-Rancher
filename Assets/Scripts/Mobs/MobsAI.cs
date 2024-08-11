@@ -13,7 +13,7 @@ public class MobsAi : MonoBehaviour, IMobsAi
     private NavMeshAgent _agent;
     private Animator _animator;
     private bool _isFoodFound;
-    private float onMeshThreshold = 3f;
+    private readonly float onMeshThreshold = 3f;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class MobsAi : MonoBehaviour, IMobsAi
     {
         float posX = Random.Range(transform.position.x + RADIUS_OF_TARGET, transform.position.x - RADIUS_OF_TARGET);
         float posZ = Random.Range(transform.position.z + RADIUS_OF_TARGET, transform.position.z - RADIUS_OF_TARGET);
-        Vector3 pos = new Vector3(posX, transform.position.y, posZ);
+        Vector3 pos = new(posX, transform.position.y, posZ);
         return pos;
     }
 

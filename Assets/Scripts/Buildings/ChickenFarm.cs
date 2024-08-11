@@ -14,7 +14,7 @@ public class ChickenFarm : MonoBehaviour
 
     private bool _inPlayerVision = false;
     private Camera _mainCamera;
-    private List<IMovebleObject> _moveableObjects = new List<IMovebleObject>();
+    private readonly List<IMovebleObject> _moveableObjects = new();
 
     private void Start()
     {
@@ -24,13 +24,13 @@ public class ChickenFarm : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<IMovebleObject>(out IMovebleObject moveableObject))
+        if (other.TryGetComponent(out IMovebleObject moveableObject))
             _moveableObjects.Add(moveableObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<IMovebleObject>(out IMovebleObject moveableObject))
+        if (other.TryGetComponent(out IMovebleObject moveableObject))
             _moveableObjects.Remove(moveableObject);
     }
 

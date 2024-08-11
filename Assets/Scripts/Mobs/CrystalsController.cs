@@ -5,27 +5,27 @@ using CapybaraRancher.Interfaces;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Save;
 
-public class CrystalsController : MonoBehaviour
+public class CrystalsController : MonoBehaviour, ICrystallController
 {
     private const string MOVEBLE_OBJECT_TAG = "movebleObject";
     private const float Y_BOOST_FOR_CRYSTAL = 0.5f;
 
-    [SerializeField] private float _delayBeforeCrystalSpawn = 10f;
-    [SerializeField] private float _delayBeforeStarving = 60f;
     [SerializeField] private GameObject _wellfedParticle;
     [SerializeField] private GameObject _hungryParticle;
     [SerializeField] private GameObject _angryParticle;
 
-    private int _startCrystalPool = 50;
-    private Vector3 _scaleforeat = new Vector3(1f, 1f, 1f);
+    private readonly int _startCrystalPool = 50;
+    private Vector3 _scaleforeat = new(1f, 1f, 1f);
     private bool _isAngry = false;
     private ICapybaraAudioController _audioController;
     private IMobsAi _mobsAi;
     private ICapybaraItem _capybaraItem;
     private bool _isHungry = false;
-    private GameObject _newCrystal;
 
     public bool HasTransformed = false;
+    public float DelayBeforeCrystalSpawn {get; set;} = 10f;
+    public float DelayBeforeStarving {get; set; } = 60f;
+    public int StartCrystall {get; set;} = 1;
 
     private void Start()
     {
@@ -88,8 +88,8 @@ public class CrystalsController : MonoBehaviour
         _audioController.SetHappyStatus();
         _audioController.Eating();
 
-        yield return new WaitForSecondsRealtime(_delayBeforeCrystalSpawn);
-        int crystalCount = isFavouriteFood ? 2 : 1;
+        yield return new WaitForSecondsRealtime(DelayBeforeCrystalSpawn);
+        int crystalCount = isFavouriteFood ? StartCrystall+1 : StartCrystall;
         for (int i = 0; i < crystalCount; i++)
         {
             GameObject crystal1 = EventBus.RemoveFromThePool(_capybaraItem.Data1.CrystalType);
@@ -119,13 +119,13 @@ public class CrystalsController : MonoBehaviour
     }
     private IEnumerator LoopToStarving()
     {
-        yield return new WaitForSecondsRealtime(_delayBeforeStarving);
+        yield return new WaitForSecondsRealtime(DelayBeforeStarving);
         _isHungry = true;
         StartCoroutine(LoopToAnger());
     }
     private IEnumerator LoopToAnger()
     {
-        yield return new WaitForSecondsRealtime(_delayBeforeStarving);
+        yield return new WaitForSecondsRealtime(DelayBeforeStarving);
         if (_isHungry)
         {
             _isAngry = true;
