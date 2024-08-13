@@ -1,4 +1,5 @@
 using CapybaraRancher.Interfaces;
+using CapybaraRancher.UpgradeManagers;
 using UnityEngine;
 
 public class Checker : MonoBehaviour
@@ -10,7 +11,7 @@ public class Checker : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) {
         if(!inBuild && gameObject.CompareTag("Pen")){
-            if(GetComponent<ICattlePenManager>().Upgrades[0]){
+            if(GetComponent<IUpgradeManager>().Upgrades[0]){
                 crystallController.DelayBeforeCrystalSpawn /= 2;
                 crystallController.DelayBeforeStarving /= 2;
                 crystallController.StartCrystall += 1;
@@ -20,7 +21,7 @@ public class Checker : MonoBehaviour
     }
     private void OnTriggerStay(Collider other) {
         if(!inBuild && gameObject.CompareTag("Pen")){
-            if(GetComponent<ICattlePenManager>().Upgrades[0]){
+            if(GetComponent<IUpgradeManager>().Upgrades[0]){
                 crystallController.DelayBeforeCrystalSpawn /= 2;
                 crystallController.DelayBeforeStarving /= 2;
                 crystallController.StartCrystall += 1;
@@ -30,7 +31,7 @@ public class Checker : MonoBehaviour
     }
     private void OnTriggerExit(Collider other) {
         if(inBuild && gameObject.CompareTag("Pen")){
-            if(GetComponent<ICattlePenManager>().Upgrades[0]){
+            if(GetComponent<IUpgradeManager>().Upgrades[0]){
                 crystallController.DelayBeforeCrystalSpawn *= 2;
                 crystallController.DelayBeforeStarving *= 2;
                 crystallController.StartCrystall -= 1;

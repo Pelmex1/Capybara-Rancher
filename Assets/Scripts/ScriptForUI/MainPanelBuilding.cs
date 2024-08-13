@@ -56,6 +56,9 @@ public class MainPanelBuilding : MonoBehaviour
     public void Remove(int index){
         EventBus.BuyFarm.Invoke(index, false);
     }
+    public void Upgrade(int index){
+        EventBus.SentUpgrade.Invoke(index);
+    }
     public void Exit(){
         Cursor.lockState = CursorLockMode.Locked;
         _panel.SetActive(false);

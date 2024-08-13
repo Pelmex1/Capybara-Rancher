@@ -8,6 +8,7 @@ namespace CapybaraRancher.EventBus
 {
     public static class EventBus
     {
+        public static Action<int> SentUpgrade;
         public static Action StartKvest;
         public static Action GlobalSave;
         public static Func<string> GetSaveName;

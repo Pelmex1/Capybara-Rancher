@@ -1,5 +1,6 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Interfaces;
 
 public class FarmTerminal : MonoBehaviour
 {
@@ -9,16 +10,19 @@ public class FarmTerminal : MonoBehaviour
     private FarmObject[] _farmObjects;
     private GameObject[] _spawnedGameObjects;
     private bool _isAnyBuy = false;
+    private IUpgradeManager[] _upgrades;
 
     private void Start()
     {
         _farmObjects = EventBus.GetBuildings();
         _spawnedGameObjects = new GameObject[_farmObjects.Length];
+        _upgrades = new IUpgradeManager[_farmObjects.Length];
         _isBuy = new bool[_farmObjects.Length];
         for (int i = 0; i < _farmObjects.Length; i++)
         {
             _spawnedGameObjects[i] = Instantiate(_farmObjects[i].Prefab, spawnPos.position, Quaternion.identity, gameObject.transform);
             _spawnedGameObjects[i].transform.position = spawnPos.position;
+            _upgrades[i] = _spawnedGameObjects[i].GetComponent<IUpgradeManager>();
             if (PlayerPrefs.GetString($"{transform.parent.transform.parent.name}_{_spawnedGameObjects[i].name}", "false") == "true")
             {
                 _spawnedGameObjects[i].SetActive(true);
@@ -32,6 +36,17 @@ public class FarmTerminal : MonoBehaviour
             }
         }
 
+    }
+    private void Upgrade(int index)
+    {
+        int price = _upgrades[index].GetMoney();
+        if(price == -1){
+            return;
+        }
+        if(_isNear && EventBus.GetMoney() >= price){
+            EventBus.AddMoney(-price);
+            _upgrades[index].UpUpgrade();
+        }
     }
     private void EventUpdate()
     {
@@ -55,6 +70,7 @@ public class FarmTerminal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             EventBus.ActiveHelpText(false);
+            EventBus.ActiveFarmPanel(false);
             _isNear = false;
         }
     }
@@ -74,12 +90,14 @@ public class FarmTerminal : MonoBehaviour
         EventBus.TerminalUseInput += EventUpdate;
         EventBus.BuyFarm += BuyOrRemove;
         EventBus.GlobalSave += Save;
+        EventBus.SentUpgrade += Upgrade;
     }
     private void OnDisable()
     {
         EventBus.TerminalUseInput -= EventUpdate;
         EventBus.BuyFarm -= BuyOrRemove;
         EventBus.GlobalSave -= Save;
+        EventBus.SentUpgrade -= Upgrade;
     }
     private void OnApplicationQuit()
     {

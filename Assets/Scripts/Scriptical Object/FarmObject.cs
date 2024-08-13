@@ -4,4 +4,5 @@ using UnityEngine;
 public class FarmObject : ScriptableObject {
     public GameObject Prefab;
     public int Price;
+    public int[] PriceForUpgrade;
 }
