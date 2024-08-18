@@ -2,6 +2,7 @@ using UnityEngine;
 using CapybaraRancher.EventBus;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class MainPanelBuilding : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MainPanelBuilding : MonoBehaviour
     [SerializeField] private Button[] buttonsDisable;
     [SerializeField] private FarmObject[] farmObjects;
     private (Button button, Button disable, TMP_Text text)[] values;
+    private Dictionary<FarmObject, bool[]> _upgrades;
     private void Awake() {
         EventBus.ActiveFarmPanel = (bool isActive) => _panel.SetActive(isActive);
         EventBus.ActiveHelpText = (bool isActive) => _HelpPanel.SetActive(isActive);
@@ -26,6 +28,10 @@ public class MainPanelBuilding : MonoBehaviour
             values[i].button = buttonsEnable[i];
             values[i].disable = buttonsDisable[i];
             values[i].text = buttonsEnable[i].GetComponentInChildren<TMP_Text>();
+        }
+        for(int i = 0; i < farmObjects.Length; i++)
+        {
+            _upgrades.Add(farmObjects[i], new bool[farmObjects[i].PriceForUpgrade.Length]);
         }
     }
     private void UpdateFarmButtons(bool[] bools, bool isAnyBuy){
@@ -57,7 +63,17 @@ public class MainPanelBuilding : MonoBehaviour
         EventBus.BuyFarm.Invoke(index, false);
     }
     public void Upgrade(int index){
-        EventBus.SentUpgrade.Invoke(index);
+        for(int i = 0; i < _upgrades[farmObjects[index]].Length; i++){
+            if(!_upgrades[farmObjects[index]][i]){
+                if(EventBus.GetMoney() >= farmObjects[index].PriceForUpgrade[i])
+                {
+                    _upgrades[farmObjects[index]][i] = true;
+                    EventBus.AddMoney(-farmObjects[index].PriceForUpgrade[i]);
+                    EventBus.SentUpgrade.Invoke(index);
+                }
+            }
+        }
+        
     }
     public void Exit(){
         Cursor.lockState = CursorLockMode.Locked;

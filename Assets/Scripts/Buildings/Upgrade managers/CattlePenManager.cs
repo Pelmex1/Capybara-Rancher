@@ -4,7 +4,6 @@ namespace CapybaraRancher.UpgradeManagers {
     public class CattlePenManager : MonoBehaviour, IUpgradeManager
     {
         public bool[] Upgrades {get; set; } = new bool[2];
-        public int[] price;
         private void Awake() {
             for(int i = 0; i < Upgrades.Length; i++){
                 if(PlayerPrefs.GetString($"{transform.parent.transform.parent.transform.parent.transform.parent.name}_Upgrade_{i}") == "true"){
@@ -37,14 +36,6 @@ namespace CapybaraRancher.UpgradeManagers {
         private int SecondUpgrade(){
             return 1;
 
-        }
-        public int GetMoney() { 
-            for(int i = 0; i < Upgrades.Length; i++){
-                if(!Upgrades[i]){
-                    return price[i];
-                }
-            }
-            return -1;
         }
     }
 }

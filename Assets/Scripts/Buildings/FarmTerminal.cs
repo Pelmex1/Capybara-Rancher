@@ -39,12 +39,8 @@ public class FarmTerminal : MonoBehaviour
     }
     private void Upgrade(int index)
     {
-        int price = _upgrades[index].GetMoney();
-        if(price == -1){
-            return;
-        }
-        if(_isNear && EventBus.GetMoney() >= price){
-            EventBus.AddMoney(-price);
+        if(_isNear)
+        {
             _upgrades[index].UpUpgrade();
         }
     }

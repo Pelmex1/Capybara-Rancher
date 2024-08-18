@@ -3,6 +3,5 @@ namespace CapybaraRancher.Interfaces {
     {
         public bool[] Upgrades {get; set;}
         public int UpUpgrade();
-        public int GetMoney();
     }
 }
