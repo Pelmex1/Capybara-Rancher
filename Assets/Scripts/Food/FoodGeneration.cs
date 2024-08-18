@@ -2,6 +2,7 @@ using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,7 @@ public class FoodGeneration : MonoBehaviour
 
     private float _generationInterval;
     private TypeGameObject _typeGameObject;
+    private  Queue<GameObject> _movebleobjects = new Queue<GameObject>();
 
     private void Start()
     {
@@ -32,7 +34,7 @@ public class FoodGeneration : MonoBehaviour
     {
         while (true)
         {
-            GameObject harvest = EventBus.RemoveFromThePool(_typeGameObject);
+            GameObject harvest = _movebleobjects.Dequeue();
             Rigidbody harvestRB = harvest.GetComponent<Rigidbody>();
             harvestRB.isKinematic = true;
             harvest.tag = UNDERRIPE_TAG;
@@ -61,6 +63,7 @@ public class FoodGeneration : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             GameObject spawnedObject = Instantiate(_foodPrefab);
+            _movebleobjects.Enqueue(spawnedObject);
             spawnedObject.GetComponent<IService>().Init();
         }
     }

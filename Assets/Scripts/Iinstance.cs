@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ public class Iinstance : MonoBehaviour
 {
     public static Iinstance instance;
     public string SaveName;
-    public string[] Saves;
+    public List<string> Saves = new();
 
     public float Money;
     private readonly Queue<GameObject>[] _movebleobjects = new Queue<GameObject>[(int)TypeGameObject.LastDontToch];
@@ -34,26 +35,35 @@ public class Iinstance : MonoBehaviour
         Money = PlayerPrefs.GetFloat("Money", 0);
         EventBus.AddMoney = (float money) => Money += money;
         EventBus.GetMoney = () => { return Money; };
-        SaveName = PlayerPrefs.GetString("CurrentSave","");
-        int SaveCount = PlayerPrefs.GetInt("SaveCount");
+        SaveName = PlayerPrefs.GetString("CurrentSave", "");
+        int SaveCount = PlayerPrefs.GetInt("SaveCount", 0);
         for (int i = 0; i < SaveCount; i++)
         {
-            Saves[i] = PlayerPrefs.GetString($"Save_{i}");
+            if(PlayerPrefs.GetString($"Save_{i}") != null)
+                Saves.Add(PlayerPrefs.GetString($"Save_{i}"));
         }
-        EventBus.GetSaveName = () => 
+        EventBus.GetSaveName = () =>
         {
             return SaveName;
         };
-        EventBus.SetSaveName = (string name) => 
+        EventBus.SetSaveName = (string name) =>
         {
             SaveName = name;
+            Saves.Add(name);
+            for (int i = 0; i < SaveCount; i++)
+            {
+                PlayerPrefs.SetString($"Save_{i}",Saves[i]);
+            }
         };
-        if(!Directory.Exists("Save")){
+        if (!Directory.Exists("Save"))
+        {
             Directory.CreateDirectory("Save");
         }
     }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
-        for(int i = 0; i < _movebleobjects.Length; i++){
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        for (int i = 0; i < _movebleobjects.Length; i++)
+        {
             _movebleobjects[i].Clear();
         }
     }

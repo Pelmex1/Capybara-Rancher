@@ -5,7 +5,8 @@ using UnityEngine;
 public class InitGame : MonoBehaviour
 {
     private List<IDisposable> _disposables = new();
-    private void Awake() {
+    private void Awake()
+    {
         RegisterServices();
         Init();
         AddDisposables();
@@ -18,16 +19,16 @@ public class InitGame : MonoBehaviour
     {
 
     }
-        private void AddDisposables()
-        {
-            
-        }
+    private void AddDisposables()
+    {
 
-        private void OnDestroy()
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var disposable in _disposables)
         {
-            foreach (var disposable in _disposables)
-            {
-                disposable.Dispose();
-            }
+            disposable.Dispose();
         }
+    }
 }

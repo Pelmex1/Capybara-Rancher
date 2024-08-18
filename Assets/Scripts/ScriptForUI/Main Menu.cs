@@ -48,10 +48,12 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayLoad()
     {
-        PanelButton.SetActive(false);
         PanelLoad.SetActive(true);
     }
-
+    public void CloseLoadPanel()
+    {
+        PanelLoad.SetActive(false);
+    }
     public void Quit()
     {
         Application.Quit();

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using CapybaraRancher.EventBus;
 
 public class DisableIfFarAway : MonoBehaviour
 {
@@ -14,13 +15,13 @@ public class DisableIfFarAway : MonoBehaviour
     private void OnDisable()
     {
         if (_isObjectSpawner)
-            ItemActivator.ActivatorItemsRemove(gameObject);
+            EventBus.ActivatorItemsRemove.Invoke(gameObject);
     }
 
     private IEnumerator AddToList()
     {
         yield return new WaitForSeconds(TIMEMISTAKE);
 
-        ItemActivator.ActivatorItemsAdd(gameObject);
+        EventBus.ActivatorItemsAdd.Invoke(gameObject);
     }
 }

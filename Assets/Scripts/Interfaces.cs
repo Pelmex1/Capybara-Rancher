@@ -57,7 +57,7 @@ namespace CapybaraRancher.Interfaces
     }
     internal interface ICrystall
     {
-        public string NameCrystal {get; set;}
+        public string NameCrystal { get; set; }
     }
     internal interface ITransitionCrystallData
     {
@@ -79,17 +79,23 @@ namespace CapybaraRancher.Interfaces
     }
     internal interface IInventoryPlayer
     {
-        public Data[] Inventory {get; set;}
+        public Data[] Inventory { get; set; }
     }
     internal interface IObjectSpawner
     {
         void ReturnToPool(GameObject returnObject);
-    
+
     }
     internal interface ICrystallController
     {
-        public float DelayBeforeCrystalSpawn {get; set;}
-        public float DelayBeforeStarving {get; set;}
-        public int StartCrystall {get; set;}
+        public float DelayBeforeCrystalSpawn { get; set; }
+        public float DelayBeforeStarving { get; set; }
+        public int StartCrystall { get; set; }
+    }
+    internal interface IButtonSave
+    {
+        public string NameOfSave { get; set; }
+        public Sprite IconOfSave { get; set; }
+        public void InitSavePaenl();
     }
 }

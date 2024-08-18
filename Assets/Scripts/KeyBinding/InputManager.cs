@@ -18,65 +18,61 @@ public class InputManager : MonoBehaviour
     }
     private void Update()
     {
-        if (IsActiveChangeKeyCod)
+        if (!_isFoundKeycode)
         {
-            if (!_isFoundKeycode)
+            if (_localKeycode != KeyCode.None)
             {
-                if (_localKeycode != KeyCode.None)
-                {
-                    BindPanel.SetActive(false);
-                    _isFoundKeycode = true;
-                    FoundKey(_localkey.ToString(), _localKeycode);
-                    _localText.text = $"{_localKeycode}";
-                    _localKeycode = KeyCode.None;
-                    IsActiveChangeKeyCod = false;
-                }
+                BindPanel.SetActive(false);
+                _isFoundKeycode = true;
+                FoundKey(_localkey.ToString(), _localKeycode);
+                _localText.text = $"{_localKeycode}";
+                _localKeycode = KeyCode.None;
+                IsActiveChangeKeyCod = false;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(_keycodes.TerminalUse))
+            {
+                EventBus.TerminalUseInput?.Invoke();
+            }
+            if (Input.GetKey(_keycodes.Jump))
+            {
+                EventBus.JumpInput?.Invoke();
+            }
+            if (Input.GetKeyDown(_keycodes.Satchel))
+            {
+                EventBus.SatchelInput?.Invoke();
+            }
+            if (Input.GetKey(_keycodes.Run))
+            {
+                EventBus.RunInput?.Invoke();
+            }
+            if (Input.GetKeyDown(_keycodes.Pause))
+            {
+                EventBus.PauseInput?.Invoke();
+            }
+            if (Input.GetKeyDown(_keycodes.Eat))
+            {
+                EventBus.EatInput?.Invoke();
+            }
+            if (Input.GetKeyDown(_keycodes.InfoBook))
+            {
+                EventBus.InfoBookInput?.Invoke();
+            }
+            if (Input.GetKey(_keycodes.Pull))
+            {
+                EventBus.PullInput?.Invoke();
             }
             else
             {
-                if (Input.GetKeyDown(_keycodes.TerminalUse))
-                {
-                    EventBus.TerminalUseInput?.Invoke();
-                }
-                if (Input.GetKey(_keycodes.Jump))
-                {
-                    EventBus.JumpInput?.Invoke();
-                }
-                if (Input.GetKeyDown(_keycodes.Satchel))
-                {
-                    EventBus.SatchelInput?.Invoke();
-                }
-                if (Input.GetKey(_keycodes.Run))
-                {
-                    EventBus.RunInput?.Invoke();
-                }
-                if (Input.GetKeyDown(_keycodes.Pause))
-                {
-                    EventBus.PauseInput?.Invoke();
-                }
-                if (Input.GetKeyDown(_keycodes.Eat))
-                {
-                    EventBus.EatInput?.Invoke();
-                }
-                if (Input.GetKeyDown(_keycodes.InfoBook))
-                {
-                    EventBus.InfoBookInput?.Invoke();
-                }
-                if (Input.GetKey(_keycodes.Pull))
-                {
-                    EventBus.PullInput?.Invoke();
-                }
-                else
-                {
-                    EventBus.NonPullInput?.Invoke();
-                }
-                if (Input.GetKeyDown(_keycodes.Throw))
-                {
-                    EventBus.ThrowInput?.Invoke();
-                }
+                EventBus.NonPullInput?.Invoke();
+            }
+            if (Input.GetKeyDown(_keycodes.Throw))
+            {
+                EventBus.ThrowInput?.Invoke();
             }
         }
-
     }
     private void FoundKey(string key, KeyCode keyCode)
     {
@@ -114,7 +110,6 @@ public class InputManager : MonoBehaviour
     public void ChangeKey(string key)
     {
         BindPanel.SetActive(true);
-        IsActiveChangeKeyCod = true;
         _isFoundKeycode = false;
         _localkey = new(key);
     }

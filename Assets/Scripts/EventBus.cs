@@ -71,7 +71,7 @@ namespace CapybaraRancher.EventBus
 
         #region OldRobotAction
         public static Action WasAddingAllCrystall;
-        public static Action<string> SetNameCrystal = delegate { };
+        public static Action<string> SetNameCrystal;
         public static Action<GameObject[]> TransitonPartsData;
         public static Action AddToDict;
         public static Action<int, Transform> OffMovebleObject;
@@ -116,6 +116,10 @@ namespace CapybaraRancher.EventBus
         public static Action SatchelInput;
         public static Action<KeyCode> ChangeKey;
         #endregion Input
+        #region  Mobs
+        public static Action<GameObject> ActivatorItemsAdd;
+        public static Action<GameObject> ActivatorItemsRemove;
+        #endregion Mobs
     }
 
 }

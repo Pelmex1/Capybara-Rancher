@@ -10,16 +10,17 @@ public class RoborMoveble : MovebleObject, IRobotParts
     public GameObject[] AllPartsObject { get; set; }
     public bool IsMoved { get; set; } = false;
     [SerializeField] GameObject _crystallpanel;
-    [SerializeField] private int _index;  
-
+    [SerializeField] private int _index;
+    private string _saveName = "";
     private void Awake()
     {
         EventBus.OffMovebleObject = OffObject;
+        _saveName = EventBus.GetSaveName();
         IndexofPart = _index;
     }
     protected override void OnEnable()
     {
-        if (PlayerPrefs.GetInt($"CanMoving{_index}") == 0)
+        if (PlayerPrefs.GetInt($"{_saveName}CanMoving{_index}") == 0)
         {
             CheckMoving = true;
             gameObject.tag = "movebleObject";
@@ -38,7 +39,7 @@ public class RoborMoveble : MovebleObject, IRobotParts
     protected override void OnDisable()
     {
         if (CheckMoving)
-            PlayerPrefs.SetInt($"CanMoving{_index}", 0);
+            PlayerPrefs.SetInt($"{_saveName}CanMoving{_index}", 0);
         else
             PlayerPrefs.SetInt($"CanMoving{_index}", 1);
         PlayerPrefs.Save();

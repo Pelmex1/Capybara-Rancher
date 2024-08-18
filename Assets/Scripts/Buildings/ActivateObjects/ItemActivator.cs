@@ -12,10 +12,14 @@ public class ItemActivator : MonoBehaviour
     private void OnEnable()
     {
         EventBus.ChangeRendering += ChangeRenderDistance;
+        EventBus.ActivatorItemsAdd += ActivatorItemsAdd;
+        EventBus.ActivatorItemsRemove += ActivatorItemsRemove;
     }
     private void OnDisable()
     {
         EventBus.ChangeRendering -= ChangeRenderDistance;
+        EventBus.ActivatorItemsAdd -= ActivatorItemsAdd;
+        EventBus.ActivatorItemsRemove -= ActivatorItemsRemove;
     }
 
     private void ChangeRenderDistance()
@@ -47,11 +51,11 @@ public class ItemActivator : MonoBehaviour
             }
         }
     }
-    public static void ActivatorItemsAdd(GameObject addObject)
+    public void ActivatorItemsAdd(GameObject addObject)
     {
         ActivatorItems.Add(addObject);
     }
-    public static void ActivatorItemsRemove(GameObject removeObject)
+    public void ActivatorItemsRemove(GameObject removeObject)
     {
         ActivatorItems.Remove(removeObject);
     }

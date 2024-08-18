@@ -9,6 +9,6 @@ public class AddNewCrystal : MonoBehaviour , ICrystall
     private void OnEnable()
     {
         NameCrystal = _nameCrystal;
-        EventBus.SetNameCrystal.Invoke(_nameCrystal);
+        EventBus.SetNameCrystal?.Invoke(_nameCrystal);
     }
 }

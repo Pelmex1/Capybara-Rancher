@@ -37,8 +37,8 @@ public class CapybaraMovebleObject : MovebleObject
             if (EventBus.AddItemInInventory(Data))
             {
                 _looted = true;
-                EventBus.RemoveFromList(gameObject);
-                ItemActivator.ActivatorItemsRemove(gameObject);
+                EventBus.RemoveFromList.Invoke(gameObject);
+                EventBus.ActivatorItemsRemove.Invoke(gameObject);
                 gameObject.SetActive(false);
                 if (_objectSpawner != null)
                     _objectSpawner.ReturnToPool(gameObject);

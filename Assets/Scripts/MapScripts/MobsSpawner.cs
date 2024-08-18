@@ -2,6 +2,7 @@ using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MobsSpawner : MonoBehaviour, IObjectSpawner
@@ -10,12 +11,12 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
     [SerializeField] private int _amountOfMobs = 8;
     [SerializeField] private float _delayBetweenRespawn = 30f;
     [SerializeField] private GameObject _mobPrefab;
-
     private int _startMobsPool = 50;
     private bool _inPlayerVision = false;
     private TypeGameObject _typeGameObject;
     private int _activatedMobsCount = 0;
     private Camera _mainCamera;
+    private  Queue<GameObject> _movebleobjects = new Queue<GameObject>();
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
         for (int i = 0; i < number; i++)
         {
             GameObject spawnedObject = Instantiate(_mobPrefab);
+            _movebleobjects.Enqueue(spawnedObject);
             spawnedObject.transform.parent = null;
             spawnedObject.GetComponent<IService>().Init();  
         }
@@ -43,10 +45,10 @@ public class MobsSpawner : MonoBehaviour, IObjectSpawner
             _inPlayerVision = viewportPoint.z > 0 && viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
             while (_activatedMobsCount < _amountOfMobs && !_inPlayerVision)
             {
-                GameObject activatedObject = EventBus.RemoveFromThePool(_typeGameObject);
+                GameObject activatedObject = _movebleobjects.Dequeue();
 
                 activatedObject.transform.position = RandomPosition();
-                ItemActivator.ActivatorItemsAdd(activatedObject);
+                EventBus.ActivatorItemsAdd.Invoke(activatedObject);
                 activatedObject.SetActive(true);
                 _activatedMobsCount++;
             }

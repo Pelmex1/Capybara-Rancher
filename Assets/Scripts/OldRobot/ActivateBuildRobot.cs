@@ -19,11 +19,13 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
     [SerializeField] private GameObject Effect;
     private GameObject ParentObject;
     private int CountCrystall;
+    private string _saveName = "";
     IRobotParts _irobotspart;
     ICrystall _icrystall;
 
     private void Start()
     {
+        _saveName = EventBus.GetSaveName();
         ParentObject = gameObject.transform.parent.gameObject;
         EventBus.AddToDict.Invoke();
         SaveAndChangeValueCrysatll();
@@ -76,14 +78,14 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
 
     private void SaveAndChangeValueCrysatll()
     {
-        int SaveGladeCr = PlayerPrefs.GetInt($"GladeCrystal{ParentObject.name}");
-        int SaveRockCr = PlayerPrefs.GetInt($"RockCrystal{ParentObject.name}");
-        int SaveLeoCr = PlayerPrefs.GetInt($"LeoCrystal{ParentObject.name}");
+        int SaveGladeCr = PlayerPrefs.GetInt($"{_saveName}GladeCrystal{ParentObject.name}");
+        int SaveRockCr = PlayerPrefs.GetInt($"{_saveName}RockCrystal{ParentObject.name}");
+        int SaveLeoCr = PlayerPrefs.GetInt($"{_saveName}LeoCrystal{ParentObject.name}");
         switch (ParentObject.GetComponent<IMovebleObject>().Data.TypeGameObject)
         {
             case TypeGameObject.FirstPart:
                 {
-                    if (!PlayerPrefs.HasKey($"GladeCrystal{ParentObject.name}"))
+                    if (!PlayerPrefs.HasKey($"{_saveName}GladeCrystal{ParentObject.name}"))
                         ChangeDataCrystall(5, 1, 1);
                     else
                         ChangeDataCrystall(SaveGladeCr, SaveRockCr, SaveLeoCr);
@@ -91,7 +93,7 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
                 }
             case TypeGameObject.SecondPart:
                 {
-                    if (!PlayerPrefs.HasKey($"RockCrystal{ParentObject.name}"))
+                    if (!PlayerPrefs.HasKey($"{_saveName}RockCrystal{ParentObject.name}"))
                         ChangeDataCrystall(1, 5, 1);
                     else
                         ChangeDataCrystall(SaveGladeCr, SaveRockCr, SaveLeoCr);
@@ -99,7 +101,7 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
                 }
             case TypeGameObject.ThirdPart:
                 {
-                    if (!PlayerPrefs.HasKey($"LeoCrystal{ParentObject.name}"))
+                    if (!PlayerPrefs.HasKey($"{_saveName}LeoCrystal{ParentObject.name}"))
                         ChangeDataCrystall(1, 1, 5);
                     else
                         ChangeDataCrystall(SaveGladeCr, SaveRockCr, SaveLeoCr);
@@ -172,9 +174,9 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
 
     private void SaveData()
     {
-        PlayerPrefs.SetInt($"GladeCrystal{ParentObject.name}", DictionaryCrystall[Glade]);
-        PlayerPrefs.SetInt($"RockCrystal{ParentObject.name}", DictionaryCrystall[Rock]);
-        PlayerPrefs.SetInt($"LeoCrystal{ParentObject.name}", DictionaryCrystall[Leo]);
+        PlayerPrefs.SetInt($"{_saveName}GladeCrystal{ParentObject.name}", DictionaryCrystall[Glade]);
+        PlayerPrefs.SetInt($"{_saveName}RockCrystal{ParentObject.name}", DictionaryCrystall[Rock]);
+        PlayerPrefs.SetInt($"{_saveName}LeoCrystal{ParentObject.name}", DictionaryCrystall[Leo]);
         PlayerPrefs.Save();
     }
 }

@@ -1,3 +1,4 @@
+using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
@@ -74,7 +75,7 @@ public class ChickenFarm : MonoBehaviour
         GameObject spawnedObject = Instantiate(_chickenPrefabs[typeNumber]);
         spawnedObject.transform.SetParent(transform);
         spawnedObject.transform.position = new Vector3(transform.position.x, transform.position.y + SPAWN_MISTAKE, transform.position.z);
-        ItemActivator.ActivatorItemsAdd(spawnedObject);
+        EventBus.ActivatorItemsAdd.Invoke(spawnedObject);
         spawnedObject.SetActive(true);
     }
 }
