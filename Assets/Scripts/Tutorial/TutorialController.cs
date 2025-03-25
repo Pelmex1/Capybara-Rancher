@@ -1,12 +1,11 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
 using System.Collections;
-using CapybaraRancher.Enums;
+using CapybaraRancher.Consts;
 
 public class TutorialController : MonoBehaviour
 {
-    private const float DEACTIVATE_PANEL_DELAY = 2.5f;
-    private const float START_MONEY = 300f;
+
 
     [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private GameObject _askToTutorPanel;
@@ -17,7 +16,7 @@ public class TutorialController : MonoBehaviour
         if (PlayerPrefs.GetInt("TutorialComplete", 0) == 0)
         {
             if (EventBus.GetMoney() < 300f)
-                EventBus.AddMoney(START_MONEY);
+                EventBus.AddMoney(Constants.START_MONEY);
             _tutorialPanel.SetActive(true);
             _askToTutorPanel.SetActive(true);
             _tips[0].SetActive(true);
@@ -122,7 +121,7 @@ public class TutorialController : MonoBehaviour
     }
     private IEnumerator TipSwitchWithDelay(GameObject previousTip, GameObject nextTip)
     {
-        yield return new WaitForSeconds(DEACTIVATE_PANEL_DELAY);
+        yield return new WaitForSeconds(Constants.DEACTIVATE_PANEL_DELAY);
         previousTip.SetActive(false);
         if (nextTip != null)
             nextTip.SetActive(true);

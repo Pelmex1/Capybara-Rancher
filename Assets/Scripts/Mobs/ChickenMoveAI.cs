@@ -1,14 +1,10 @@
 using System.Collections;
+using CapybaraRancher.Consts;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class ChickenMoveAI : MonoBehaviour
 {
-    private const float MIN_INTERVAL_NEW_TARGET = 3f;
-    private const float MAX_INTERVAL_NEW_TARGET = 10f;
-    private const float RADIUS_OF_TARGET = 5f;
-    private const string ANIMATOR_KEY_FOR_RUNING = "IsRunning";
-
     private NavMeshAgent _agent;
     private Animator _animator;
     private float onMeshThreshold = 3;
@@ -31,13 +27,13 @@ public class ChickenMoveAI : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetBool(ANIMATOR_KEY_FOR_RUNING, _agent.velocity.magnitude > 0.1f);
+        _animator.SetBool(Constants.ANIMATOR_KEY_FOR_RUNING, _agent.velocity.magnitude > 0.1f);
     }
 
     private Vector3 RandomPosition()
     {
-        float posX = Random.Range(transform.position.x + RADIUS_OF_TARGET, transform.position.x - RADIUS_OF_TARGET);
-        float posZ = Random.Range(transform.position.z + RADIUS_OF_TARGET, transform.position.z - RADIUS_OF_TARGET);
+        float posX = Random.Range(transform.position.x + Constants.RADIUS_OF_TARGET, transform.position.x - Constants.RADIUS_OF_TARGET);
+        float posZ = Random.Range(transform.position.z + Constants.RADIUS_OF_TARGET, transform.position.z - Constants.RADIUS_OF_TARGET);
         Vector3 pos = new(posX, transform.position.y, posZ);
         return pos;
     }
@@ -55,7 +51,7 @@ public class ChickenMoveAI : MonoBehaviour
             {
                 _agent.SetDestination(RandomPosition());
             }
-            yield return new WaitForSecondsRealtime(Random.Range(MIN_INTERVAL_NEW_TARGET, MAX_INTERVAL_NEW_TARGET));
+            yield return new WaitForSecondsRealtime(Random.Range(Constants.MIN_INTERVAL_NEW_TARGET, Constants.MAX_INTERVAL_NEW_TARGET));
         }
     }
     private bool IsAgentOnNavMesh()

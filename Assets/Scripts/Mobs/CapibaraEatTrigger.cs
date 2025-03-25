@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CapybaraRancher.Consts;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class CapibaraEatTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.gameObject.tag == "movebleObject" & other.gameObject.GetComponent<IFoodItem>() != null)
+        if(other.gameObject.CompareTag(Constants.MOVEBLE_OBJECT_TAG) & other.gameObject.GetComponent<IFoodItem>() != null)
         {
             mobsAi.IsFoodFound(other.transform);
         }

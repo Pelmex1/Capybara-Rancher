@@ -2,6 +2,7 @@ using UnityEngine;
 using CapybaraRancher.Interfaces;
 using System.Collections;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Consts;
 
 public class MovebleObject : MonoBehaviour, IMovebleObject
 {
@@ -10,12 +11,12 @@ public class MovebleObject : MonoBehaviour, IMovebleObject
     public InventoryItem Data { get => inventoryItem; set => inventoryItem = value; }
     public GameObject Localgameobject { get => gameObject; set { return; } }
 
-    protected const string CANON_TAG = "CanonEnter";
+
     protected bool _isDisabled = false;
     protected bool _looted = false;
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
+        if (other.CompareTag(Constants.CANON_TAG) && !_looted && !_isDisabled)
         {
             if (EventBus.AddItemInInventory(Data))
             {

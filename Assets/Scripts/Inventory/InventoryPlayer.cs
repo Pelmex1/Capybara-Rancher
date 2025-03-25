@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.CustomStructures;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
@@ -6,7 +7,6 @@ using UnityEngine;
 
 public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
 {
-    private const float SPEED = 10f;
     [SerializeField] private BoxCollider canonEnter;
     [SerializeField] private SavingCellData[] _saves;
 
@@ -126,7 +126,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
     }
     private void Throw()
     {
-        RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * SPEED);
+        RemoveItem(canonEnter.transform.position, -canonEnter.transform.forward * Constants.INVENTORY_SPEED);
     }
     private int IsButton(string Input, bool isSixCell) => (Input, isSixCell) switch
     {

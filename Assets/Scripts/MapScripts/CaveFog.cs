@@ -1,16 +1,16 @@
 using System.Collections;
+using CapybaraRancher.Consts;
 using UnityEngine;
 
 public class CaveFog : MonoBehaviour
 {
-    private const string PLAYER_TAG = "Player";
 
     [SerializeField] private float _fogDestiny = 0.15f;
     [SerializeField] private float _transitionTime = 3f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(PLAYER_TAG))
+        if (other.CompareTag(Constants.PLAYER_TAG))
         {
             StartCoroutine(ChangeFogDensity(_fogDestiny));
         }
@@ -18,7 +18,7 @@ public class CaveFog : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(PLAYER_TAG))
+        if (other.CompareTag(Constants.PLAYER_TAG))
         {
             StartCoroutine(ChangeFogDensity(0));
         }

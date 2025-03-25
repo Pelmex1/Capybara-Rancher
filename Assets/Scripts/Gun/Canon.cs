@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CapybaraRancher.Consts;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using UnityEngine;
@@ -7,7 +8,6 @@ public class Canon : MonoBehaviour
 {
     [SerializeField] private BoxCollider canonEnter;
     [SerializeField] private GameObject Portal2;
-    private const string MOVEBLETAG = "movebleObject";
     private const float SPEED = 3f;
     private Collider _colliderCanon;
     private bool _oneFunc = true;
@@ -16,9 +16,9 @@ public class Canon : MonoBehaviour
     public bool Ienumeratorenabled { get; set; } = false;
     private void Awake()
     {
-        EventBus.RemoveFromList = (GameObject gameObject) => obdjectsInCollider.Remove(gameObject);
-        EventBus.InumeratorIsEnabled = (bool isEnable) => Ienumeratorenabled = isEnable;
-        EventBus.CheckList = (GameObject check) => obdjectsInCollider.Contains(check);
+        EventBus.RemoveFromList = gameObject => obdjectsInCollider.Remove(gameObject);
+        EventBus.InumeratorIsEnabled = isEnable => Ienumeratorenabled = isEnable;
+        EventBus.CheckList = check => obdjectsInCollider.Contains(check);
     }
     private void Start()
     {
@@ -57,14 +57,14 @@ public class Canon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(MOVEBLETAG))
+        if (other.gameObject.CompareTag(Constants.MOVEBLE_OBJECT_TAG))
         {
             obdjectsInCollider.Add(other.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag(MOVEBLETAG))
+        if (other.gameObject.CompareTag(Constants.MOVEBLE_OBJECT_TAG))
         {
             obdjectsInCollider.Remove(other.gameObject);
         }

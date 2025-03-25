@@ -1,25 +1,11 @@
 using UnityEngine;
 using CapybaraRancher.EventBus;
 using TMPro;
+using CapybaraRancher.Consts;
 
 public class UpgradeTerminal : MonoBehaviour
 {
-    private const string SOLD_TEXT = "Sold";
-    private const string PLAYER_TAG = "Player";
-    private const float VALUE_UPGRADE = 2f;
-    private const string ENERGY_KEY = "Energy";
-    private const float ENERGYMAXVALUE_UPGRADE_PRICE = 100f;
-    private const string HEALTH_KEY = "Health";
-    private const float HEALTHMAXVALUE_UPGRADE_PRICE = 50f;
-    private const string HUNGER_KEY = "Hunger";
-    private const float HUNGERMAXVALUE_UPGRADE_PRICE = 75f;
-    private const string EXTRASLOT_KEY = "ExtraSlotUpgrade";
-    private const float EXTRASLOT_VALUE_UPGRADE_PRICE = 125f;
-    private const string ENERGY_SPENDING_KEY = "EnergySpendingRate";
-    private const float ENERGY_SPENDING_PRICE = 105f;
-    private const float ENERGY_SPENDING_RATE = 5f;
-    private const string SATCHEL_KEY = "SatchelBuy";
-    private const float SATCHEL_VALUE_UPGRADE_PRICE = 200f;
+
 
     [SerializeField] private GameObject InfoText;
     [SerializeField] private GameObject _terminalPanel;
@@ -29,22 +15,22 @@ public class UpgradeTerminal : MonoBehaviour
     private bool isNear = false;
     private void Start()
     {
-        if (PlayerPrefs.GetInt(ENERGY_KEY + "MaxValueUpgrade", 0) != 0)
-            _buyTexts[0].text = SOLD_TEXT;
-        if (PlayerPrefs.GetInt(HEALTH_KEY + "MaxValueUpgrade", 0) != 0)
-            _buyTexts[1].text = SOLD_TEXT;
-        if (PlayerPrefs.GetInt(HUNGER_KEY + "MaxValueUpgrade", 0) != 0)
-            _buyTexts[2].text = SOLD_TEXT;
-        if (PlayerPrefs.GetInt(EXTRASLOT_KEY, 0) != 0)
-            _buyTexts[3].text = SOLD_TEXT;
-        if (PlayerPrefs.GetFloat(ENERGY_SPENDING_KEY, 0) == ENERGY_SPENDING_RATE)
-            _buyTexts[4].text = SOLD_TEXT;
-        if (!(PlayerPrefs.GetString(SATCHEL_KEY, "false") == "false"))
-            _buyTexts[5].text = SOLD_TEXT;
+        if (PlayerPrefs.GetInt(Constants.ENERGY_KEY + "MaxValueUpgrade", 0) != 0)
+            _buyTexts[0].text = Constants.SOLD_TEXT;
+        if (PlayerPrefs.GetInt(Constants.HEALTH_KEY + "MaxValueUpgrade", 0) != 0)
+            _buyTexts[1].text = Constants.SOLD_TEXT;
+        if (PlayerPrefs.GetInt(Constants.HUNGER_KEY + "MaxValueUpgrade", 0) != 0)
+            _buyTexts[2].text = Constants.SOLD_TEXT;
+        if (PlayerPrefs.GetInt(Constants.EXTRASLOT_KEY, 0) != 0)
+            _buyTexts[3].text = Constants.SOLD_TEXT;
+        if (PlayerPrefs.GetFloat(Constants.ENERGY_SPENDING_KEY, 0) == Constants.ENERGY_SPENDING_RATE)
+            _buyTexts[4].text = Constants.SOLD_TEXT;
+        if (!(PlayerPrefs.GetString(Constants.SATCHEL_KEY, "false") == "false"))
+            _buyTexts[5].text = Constants.SOLD_TEXT;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(PLAYER_TAG))
+        if (other.CompareTag(Constants.PLAYER_TAG))
         {
             InfoText.SetActive(true);
             isNear = true;
@@ -52,7 +38,7 @@ public class UpgradeTerminal : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(PLAYER_TAG))
+        if (other.CompareTag(Constants.PLAYER_TAG))
         {
             InfoText.SetActive(false);
             isNear = false;
@@ -77,23 +63,23 @@ public class UpgradeTerminal : MonoBehaviour
         {
             float price = parametr switch
             {
-                ENERGY_KEY => ENERGYMAXVALUE_UPGRADE_PRICE,
-                HEALTH_KEY => HEALTHMAXVALUE_UPGRADE_PRICE,
-                HUNGER_KEY => HUNGERMAXVALUE_UPGRADE_PRICE,
+                Constants.ENERGY_KEY => Constants.ENERGYMAXVALUE_UPGRADE_PRICE,
+                Constants.HEALTH_KEY => Constants.HEALTHMAXVALUE_UPGRADE_PRICE,
+                Constants.HUNGER_KEY => Constants.HUNGERMAXVALUE_UPGRADE_PRICE,
                 _ => 0,
             };
             int number = parametr switch
             {
-                ENERGY_KEY => 0,
-                HEALTH_KEY => 1,
-                HUNGER_KEY => 2,
+                Constants.ENERGY_KEY => 0,
+                Constants.HEALTH_KEY => 1,
+                Constants.HUNGER_KEY => 2,
                 _ => 0,
             };
             if (EventBus.GetMoney() >= price)
             {
-                _buyTexts[number].text = SOLD_TEXT;
+                _buyTexts[number].text = Constants.SOLD_TEXT;
                 EventBus.AddMoney(-price);
-                float newValue = PlayerPrefs.GetFloat(parametr + "MaxValue") * VALUE_UPGRADE;
+                float newValue = PlayerPrefs.GetFloat(parametr + "MaxValue") * Constants.VALUE_UPGRADE;
                 PlayerPrefs.SetFloat(parametr + "MaxValue", newValue);
                 PlayerPrefs.SetInt(parametr + "MaxValueUpgrade", 1);
                 EventBus.MaxValueUpgrade.Invoke();
@@ -104,13 +90,13 @@ public class UpgradeTerminal : MonoBehaviour
 
     public void ExtraSlotUpgrade()
     {
-        if (PlayerPrefs.GetInt(EXTRASLOT_KEY, 0) == 0)
+        if (PlayerPrefs.GetInt(Constants.EXTRASLOT_KEY, 0) == 0)
         {
-            if (EventBus.GetMoney() >= EXTRASLOT_VALUE_UPGRADE_PRICE)
+            if (EventBus.GetMoney() >= Constants.EXTRASLOT_VALUE_UPGRADE_PRICE)
             {
-                _buyTexts[3].text = SOLD_TEXT;
-                EventBus.AddMoney(-EXTRASLOT_VALUE_UPGRADE_PRICE);
-                PlayerPrefs.SetInt(EXTRASLOT_KEY, 1);
+                _buyTexts[3].text = Constants.SOLD_TEXT;
+                EventBus.AddMoney(-Constants.EXTRASLOT_VALUE_UPGRADE_PRICE);
+                PlayerPrefs.SetInt(Constants.EXTRASLOT_KEY, 1);
                 EventBus.ExtraSlotUpgrade.Invoke();
             }
         }
@@ -118,26 +104,26 @@ public class UpgradeTerminal : MonoBehaviour
 
     public void EnergySpendingUpgrade()
     {
-        if (PlayerPrefs.GetFloat(ENERGY_SPENDING_KEY, 0) != ENERGY_SPENDING_RATE)
+        if (PlayerPrefs.GetFloat(Constants.ENERGY_SPENDING_KEY, 0) != Constants.ENERGY_SPENDING_RATE)
         {
-            if (EventBus.GetMoney() >= ENERGY_SPENDING_PRICE)
+            if (EventBus.GetMoney() >= Constants.ENERGY_SPENDING_PRICE)
             {
-                _buyTexts[4].text = SOLD_TEXT;
-                EventBus.AddMoney(-ENERGY_SPENDING_PRICE);
-                PlayerPrefs.SetFloat(ENERGY_SPENDING_KEY, ENERGY_SPENDING_RATE);
+                _buyTexts[4].text = Constants.SOLD_TEXT;
+                EventBus.AddMoney(-Constants.ENERGY_SPENDING_PRICE);
+                PlayerPrefs.SetFloat(Constants.ENERGY_SPENDING_KEY, Constants.ENERGY_SPENDING_RATE);
                 EventBus.EnergySpendingUpgrade.Invoke();
             }
         }
     }
     public void BuySatchel()
     {
-        if (PlayerPrefs.GetString(SATCHEL_KEY, "false") == "false")
+        if (PlayerPrefs.GetString(Constants.SATCHEL_KEY, "false") == "false")
         {
-            if (EventBus.GetMoney() >= SATCHEL_VALUE_UPGRADE_PRICE)
+            if (EventBus.GetMoney() >= Constants.SATCHEL_VALUE_UPGRADE_PRICE)
             {
-                _buyTexts[5].text = SOLD_TEXT;
-                EventBus.AddMoney(-SATCHEL_VALUE_UPGRADE_PRICE);
-                PlayerPrefs.SetString(SATCHEL_KEY, "true");
+                _buyTexts[5].text = Constants.SOLD_TEXT;
+                EventBus.AddMoney(-Constants.SATCHEL_VALUE_UPGRADE_PRICE);
+                PlayerPrefs.SetString(Constants.SATCHEL_KEY, "true");
                 EventBus.BuyJump(true);
             }
         }

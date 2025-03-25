@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CapybaraRancher.Consts;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
@@ -33,7 +34,7 @@ public class ActivateBuildRobot : MonoBehaviour, ITransitionCrystallData
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("movebleObject") && other.TryGetComponent(out _icrystall) && ParentObject.TryGetComponent<IRobotParts>(out _irobotspart))
+        if (other.CompareTag(Constants.MOVEBLE_OBJECT_TAG) && other.TryGetComponent(out _icrystall) && ParentObject.TryGetComponent<IRobotParts>(out _irobotspart))
         {
             if (_irobotspart.CheckMoving == false && _icrystall != null)
             {

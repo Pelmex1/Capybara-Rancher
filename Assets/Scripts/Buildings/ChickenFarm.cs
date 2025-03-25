@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
@@ -6,8 +7,7 @@ using UnityEngine;
 
 public class ChickenFarm : MonoBehaviour
 {
-    private const string CHICKEN_NAME = "Chicken";
-    private const float SPAWN_MISTAKE = 1f;
+
 
     [SerializeField] private float _delayBetweenSpawn = 120f;
     [SerializeField] private int _chickensLimit = 10;
@@ -47,7 +47,7 @@ public class ChickenFarm : MonoBehaviour
             {
                 for (int i = 0; i < _moveableObjects.Count; i++)
 
-                    if (_moveableObjects[i].Data.Name.Contains(CHICKEN_NAME))
+                    if (_moveableObjects[i].Data.Name.Contains(Constants.CHICKEN_NAME))
 
                         for (int j = 0; j < _chickenPrefabs.Length; j++)
 
@@ -74,7 +74,7 @@ public class ChickenFarm : MonoBehaviour
     {
         GameObject spawnedObject = Instantiate(_chickenPrefabs[typeNumber]);
         spawnedObject.transform.SetParent(transform);
-        spawnedObject.transform.position = new Vector3(transform.position.x, transform.position.y + SPAWN_MISTAKE, transform.position.z);
+        spawnedObject.transform.position = new Vector3(transform.position.x, transform.position.y + Constants.SPAWN_MISTAKE, transform.position.z);
         EventBus.ActivatorItemsAdd.Invoke(spawnedObject);
         spawnedObject.SetActive(true);
     }

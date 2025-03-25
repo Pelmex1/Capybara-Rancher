@@ -4,10 +4,10 @@ using CapybaraRancher.Enums;
 using CapybaraRancher.Interfaces;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Save;
+using CapybaraRancher.Consts;
 
 public class CrystalsController : MonoBehaviour, ICrystallController
 {
-    private const string MOVEBLE_OBJECT_TAG = "movebleObject";
     private const float Y_BOOST_FOR_CRYSTAL = 0.5f;
 
     [SerializeField] private GameObject _wellfedParticle;
@@ -43,7 +43,7 @@ public class CrystalsController : MonoBehaviour, ICrystallController
     private void OnCollisionEnter(Collision collision)
     {
         GameObject eatObj = collision.gameObject;
-        if (eatObj.CompareTag(MOVEBLE_OBJECT_TAG))
+        if (eatObj.CompareTag(Constants.MOVEBLE_OBJECT_TAG))
         {
             IMovebleObject localMovebleObject = eatObj.GetComponent<IMovebleObject>();
             if (eatObj.GetComponent<IFoodItem>() != null && eatObj.transform.localScale == _scaleforeat || eatObj.transform.localScale == 0.5f * _scaleforeat && _isHungry)

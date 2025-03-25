@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
@@ -8,9 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class FoodGeneration : MonoBehaviour
 {
-    private const string UNDERRIPE_TAG = "Untagged";
-    private const string RIPE_TAG = "movebleObject";
-    private const float START_GROWING_SCALE = 0.1f;
+
+
 
     [SerializeField] private GameObject _foodPrefab;
     [SerializeField] private int _startFoodPool = 20;
@@ -23,7 +23,7 @@ public class FoodGeneration : MonoBehaviour
     {
         _typeGameObject = _foodPrefab.GetComponent<IMovebleObject>().Data.TypeGameObject;
         _generationInterval = _foodPrefab.GetComponent<IFoodItem>().TimeGeneration;
-        if (SceneManager.GetActiveScene().name == "Map")
+        if (SceneManager.GetActiveScene().name == Constants.MAP_TAG)
         {
             InstantiateObjects(_startFoodPool);
             StartCoroutine(GenerationLoop());
@@ -37,8 +37,8 @@ public class FoodGeneration : MonoBehaviour
             GameObject harvest = _movebleobjects.Dequeue();
             Rigidbody harvestRB = harvest.GetComponent<Rigidbody>();
             harvestRB.isKinematic = true;
-            harvest.tag = UNDERRIPE_TAG;
-            harvest.transform.localScale = new Vector3(START_GROWING_SCALE, START_GROWING_SCALE, START_GROWING_SCALE);
+            harvest.tag = Constants.UNDERRIPE_TAG;
+            harvest.transform.localScale = new Vector3(Constants.START_GROWING_SCALE, Constants.START_GROWING_SCALE, Constants.START_GROWING_SCALE);
             harvest.transform.position = transform.position;
             harvest.transform.parent = gameObject.transform;
             harvest.SetActive(true);
@@ -54,7 +54,7 @@ public class FoodGeneration : MonoBehaviour
             harvest.transform.parent = null;
             harvest.transform.localScale = endSize;
             harvestRB.isKinematic = false;
-            harvest.tag = RIPE_TAG;
+            harvest.tag = Constants.MOVEBLE_OBJECT_TAG;
 
         }
     }

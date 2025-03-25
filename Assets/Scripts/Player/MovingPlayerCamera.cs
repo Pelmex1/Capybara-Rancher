@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.Enums;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
@@ -6,15 +7,7 @@ using UnityEngine;
 
 public class MovingPlayer : MonoBehaviour, IPlayer
 {
-    private const float ROTATION_CAMERA_MISTAKE_Y = 85f;
-    private const float ROTATION_CAMERA_MISTAKE_Z = 40f;
-    private const float MIN_ENERGY_VALUE = 5;
-    private const float SPEED_BOOST = 1.8f;
-    private const float DEFAULT_ENERGY_MAXVALUE = 50f;
-    private const float DEFAULT_HEALTH_MAXVALUE = 100f;
-    private const float DEFAULT_HUNGER_MAXVALUE = 100f;
-    private const float DEFAULT_ENERGY_SPENDING = 10f;
-    private const float SPEED_SATCHEL = 50f;
+
 
     [SerializeField] private Transform _head;
     [SerializeField] private float _speed;
@@ -82,7 +75,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     private void Jump(){
         if(_isBuyJump && _isActivatedJump && Energy >= 10)
         {
-            _rb.AddForce(transform.up / SPEED_SATCHEL, ForceMode.Impulse);
+            _rb.AddForce(transform.up / Constants.SPEED_SATCHEL, ForceMode.Impulse);
             Energy -= 0.3f;
         } else
         if (_isGrounded)
@@ -94,13 +87,13 @@ public class MovingPlayer : MonoBehaviour, IPlayer
         }
     }
     private void Run(){
-        if (Energy > MIN_ENERGY_VALUE)
+        if (Energy > Constants.MIN_ENERGY_VALUE)
         {
             Energy -= _energyConsumptionRate * Time.deltaTime;
-            _speed = _startSpeed * SPEED_BOOST;
+            _speed = _startSpeed * Constants.SPEED_BOOST;
             _isRunning = true;
         }
-        else if (!(Energy > MIN_ENERGY_VALUE))
+        else if (!(Energy > Constants.MIN_ENERGY_VALUE))
         {
             Energy = 0;
             _isRunning = false;
@@ -116,7 +109,7 @@ public class MovingPlayer : MonoBehaviour, IPlayer
             float mouseY = Input.GetAxis("Mouse Y") * MouseSensitivy * Time.deltaTime;
 
             _xRotationCamera -= mouseY;
-            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - ROTATION_CAMERA_MISTAKE_Y, _startHeadRotation.z + ROTATION_CAMERA_MISTAKE_Z);
+            _xRotationCamera = Mathf.Clamp(_xRotationCamera, _startHeadRotation.y - Constants.ROTATION_CAMERA_MISTAKE_Y, _startHeadRotation.z + Constants.ROTATION_CAMERA_MISTAKE_Z);
             _head.localRotation = Quaternion.Euler(_xRotationCamera, 0, 0);
             transform.Rotate(Vector3.up * mouseX);
         }
@@ -155,15 +148,15 @@ public class MovingPlayer : MonoBehaviour, IPlayer
     }
     private void SetStats()
     {
-        EnergyMaxValue = PlayerPrefs.GetFloat("EnergyMaxValue", DEFAULT_ENERGY_MAXVALUE);
+        EnergyMaxValue = PlayerPrefs.GetFloat("EnergyMaxValue",Constants.DEFAULT_ENERGY_MAXVALUE);
         PlayerPrefs.SetFloat("EnergyMaxValue", EnergyMaxValue);
-        HealthMaxValue = PlayerPrefs.GetFloat("HealthMaxValue", DEFAULT_HEALTH_MAXVALUE);
+        HealthMaxValue = PlayerPrefs.GetFloat("HealthMaxValue", Constants.DEFAULT_HEALTH_MAXVALUE);
         PlayerPrefs.SetFloat("HealthMaxValue", HealthMaxValue);
-        HungerMaxValue = PlayerPrefs.GetFloat("HungerMaxValue", DEFAULT_HUNGER_MAXVALUE);
+        HungerMaxValue = PlayerPrefs.GetFloat("HungerMaxValue", Constants.DEFAULT_HUNGER_MAXVALUE);
         PlayerPrefs.SetFloat("HungerMaxValue", HungerMaxValue);
     }
 
-    private void SetEnergySpending() => _energyConsumptionRate = PlayerPrefs.GetFloat("EnergySpendingRate", DEFAULT_ENERGY_SPENDING);
+    private void SetEnergySpending() => _energyConsumptionRate = PlayerPrefs.GetFloat("EnergySpendingRate", Constants.DEFAULT_ENERGY_SPENDING);
     private void OnRunInput()
     {
         _runCalled = true;

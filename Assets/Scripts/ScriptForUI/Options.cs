@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.EventBus;
 using DevionGames;
 using TMPro;
@@ -7,8 +8,7 @@ using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
-    private const string ScreenX = "KeyScreenX";
-    private const string ScreenY = "KeyScreenY";
+
     [SerializeField] private GameObject[] OptionsPanels = new GameObject[2];
 
     [HeaderLine("Main Options")]
@@ -40,10 +40,10 @@ public class Options : MonoBehaviour
     private int _screenY = 0;
     private void Awake()
     {
-        if (PlayerPrefs.GetInt(ScreenX) == 0)
+        if (PlayerPrefs.GetInt(Constants.ScreenX) == 0)
             Screen.fullScreen = true;
         else
-            Screen.SetResolution(PlayerPrefs.GetInt(ScreenX), PlayerPrefs.GetInt(ScreenY), true);
+            Screen.SetResolution(PlayerPrefs.GetInt(Constants.ScreenX), PlayerPrefs.GetInt(Constants.ScreenY), true);
         if (!PlayerPrefs.HasKey("Far"))
         {
             float value = 100f;
@@ -255,8 +255,8 @@ public class Options : MonoBehaviour
     }
     private void SaveAllOptionsData()
     {
-        PlayerPrefs.SetInt(ScreenX, _screenX);
-        PlayerPrefs.SetInt(ScreenY, _screenY);
+        PlayerPrefs.SetInt(Constants.ScreenX, _screenX);
+        PlayerPrefs.SetInt(Constants.ScreenY, _screenY);
         PlayerPrefs.SetFloat("Far", RenderingDistance);
         PlayerPrefs.SetInt("Quality", Quality);
         PlayerPrefs.SetFloat("DPI", MouseSensitivy);

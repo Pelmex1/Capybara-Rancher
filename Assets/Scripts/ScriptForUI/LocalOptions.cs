@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.EventBus;
 using DevionGames;
 using TMPro;
@@ -7,9 +8,7 @@ using UnityEngine.UI;
 
 public class LocalOptions : MonoBehaviour
 {
-    private const string ScreenX = "KeyScreenX";
-    private const string ScreenY = "KeyScreenY";
-    private const string DPI = "DPI";
+
     [SerializeField] private GameObject[] OptionsPanels;
 
     [HeaderLine("Main Options")]
@@ -38,10 +37,10 @@ public class LocalOptions : MonoBehaviour
     private int _screenY = 0;
     private void Awake()
     {
-        if (PlayerPrefs.GetInt(ScreenX) == 0)
+        if (PlayerPrefs.GetInt(Constants.ScreenX) == 0)
             Screen.fullScreen = true;
         else
-            Screen.SetResolution(PlayerPrefs.GetInt(ScreenX), PlayerPrefs.GetInt(ScreenY), true);
+            Screen.SetResolution(PlayerPrefs.GetInt(Constants.ScreenX), PlayerPrefs.GetInt(Constants.ScreenY), true);
         if (PlayerPrefs.HasKey("Music"))
         {
             string nameMusic = PlayerPrefs.GetString("Music");
@@ -130,7 +129,7 @@ public class LocalOptions : MonoBehaviour
 
     private void GetDataSensetive()
     {
-        if (!PlayerPrefs.HasKey(DPI))
+        if (!PlayerPrefs.HasKey(Constants.DPI))
         {
             EventBus.WasChangeMouseSensetive.Invoke(100);
             DPISlider.value = 100;
@@ -138,9 +137,9 @@ public class LocalOptions : MonoBehaviour
         }
         else
         {
-            EventBus.WasChangeMouseSensetive.Invoke(PlayerPrefs.GetFloat(DPI));
-            MouseSensitivy = PlayerPrefs.GetFloat(DPI);
-            DPISlider.value = PlayerPrefs.GetFloat(DPI);
+            EventBus.WasChangeMouseSensetive.Invoke(PlayerPrefs.GetFloat(Constants.DPI));
+            MouseSensitivy = PlayerPrefs.GetFloat(Constants.DPI);
+            DPISlider.value = PlayerPrefs.GetFloat(Constants.DPI);
         }
     }
     public void ChangeMouseSensetive()
@@ -254,11 +253,11 @@ public class LocalOptions : MonoBehaviour
 
     private void SaveAllOptionsData()
     {
-        PlayerPrefs.SetInt(ScreenX, _screenX);
-        PlayerPrefs.SetInt(ScreenY, _screenY);
+        PlayerPrefs.SetInt(Constants.ScreenX, _screenX);
+        PlayerPrefs.SetInt(Constants.ScreenY, _screenY);
         PlayerPrefs.SetFloat("Far", RenderingDistance);
         PlayerPrefs.SetInt("Quality", Quality);
-        PlayerPrefs.SetFloat(DPI, MouseSensitivy);
+        PlayerPrefs.SetFloat(Constants.DPI, MouseSensitivy);
         PlayerPrefs.Save();
     }
 }

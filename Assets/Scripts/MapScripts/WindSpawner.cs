@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using CapybaraRancher.Consts;
 using UnityEngine;
 
 public class WindSpawner : MonoBehaviour
 {
-    private const float MIN_DISTANCE_FOR_Y = 5f;
-    private const float MAX_DISTANCE_FOR_Y = 10f;
-    private const float DESTROY_DELAY = 5f;
-
     [SerializeField] private Transform _player;
     [SerializeField] private float _intervalBetweenWindGenerete = 2f;
     [SerializeField] private float _minDistanceForXAndZ = -30f;
@@ -32,7 +29,7 @@ public class WindSpawner : MonoBehaviour
         {
             Vector3 spawnPos = _player.position;
             spawnPos.x += Random.Range(_minDistanceForXAndZ, _maxDistanceForXAndZ);
-            spawnPos.y += Random.Range(MIN_DISTANCE_FOR_Y, MAX_DISTANCE_FOR_Y);
+            spawnPos.y += Random.Range(Constants.MIN_DISTANCE_FOR_Y, Constants.MAX_DISTANCE_FOR_Y);
             spawnPos.z += Random.Range(_minDistanceForXAndZ, _maxDistanceForXAndZ);
 
             StartCoroutine(ReturnToPoolObject(ActiveObject(spawnPos)));
@@ -63,7 +60,7 @@ public class WindSpawner : MonoBehaviour
     }
     private IEnumerator ReturnToPoolObject(GameObject returnObject)
     {
-        yield return new WaitForSecondsRealtime(DESTROY_DELAY);
+        yield return new WaitForSecondsRealtime(Constants.DESTROY_DELAY);
 
         returnObject.SetActive(false);
         _deactiveWindsPool.Add(returnObject);

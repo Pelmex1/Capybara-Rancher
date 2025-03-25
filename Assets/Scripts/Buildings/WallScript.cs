@@ -1,8 +1,8 @@
+using CapybaraRancher.Consts;
 using UnityEngine;
 
 public class WallScript : MonoBehaviour
 {
-    private const string PLAYER_TAG = "Player";
 
     private Collider _wallCollider;
 
@@ -13,6 +13,6 @@ public class WallScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _wallCollider.isTrigger = collision.gameObject.CompareTag(PLAYER_TAG);
+        _wallCollider.isTrigger = collision.gameObject.CompareTag(Constants.PLAYER_TAG);
     }
 }

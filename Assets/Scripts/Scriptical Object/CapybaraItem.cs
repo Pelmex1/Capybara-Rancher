@@ -1,9 +1,10 @@
 using UnityEngine;
 using CapybaraRancher.Interfaces;
+using CapybaraRancher.Consts;
 
 public class CapybaraItem : MonoBehaviour, ICapybaraItem
 {
-    private const float SIZE_BOOST_AFTER_TRANSFORMATION = 1.5f;
+
 
     private CrystalsController crController;
 
@@ -23,7 +24,7 @@ public class CapybaraItem : MonoBehaviour, ICapybaraItem
         Instantiate(_data2.Mod, transform);
         tag = "Untagged";
         crController.HasTransformed = true;
-        transform.localScale *= SIZE_BOOST_AFTER_TRANSFORMATION;
+        transform.localScale *= Constants.SIZE_BOOST_AFTER_TRANSFORMATION;
         GetComponent<MovebleObject>().enabled = false;
     }
 

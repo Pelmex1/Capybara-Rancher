@@ -3,12 +3,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Consts;
 
 public class LocalMenu : MonoBehaviour
 {
-    private const string ENERGY_KEY = "EnergyMaxValue";
-    private const string HEALTH_KEY = "HealthMaxValue";
-    private const string HUNGER_KEY = "HungerMaxValue";
 
     [SerializeField] private GameObject _pausePanel;
     [SerializeField] private GameObject _panelOptions;
@@ -62,9 +60,9 @@ public class LocalMenu : MonoBehaviour
 
     private void GetEnergy()
     {
-        _energyMaxValue = PlayerPrefs.GetFloat(ENERGY_KEY);
-        _hpMaxValue = PlayerPrefs.GetFloat(HEALTH_KEY);
-        _hungerMaxValue = PlayerPrefs.GetFloat(HUNGER_KEY);
+        _energyMaxValue = PlayerPrefs.GetFloat(Constants.ENERGY_KEY);
+        _hpMaxValue = PlayerPrefs.GetFloat(Constants.HEALTH_KEY);
+        _hungerMaxValue = PlayerPrefs.GetFloat(Constants.HUNGER_KEY);
     }
 
     private void GiveEnergyData(float Hp, float Energy, float Hunger)

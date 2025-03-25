@@ -3,10 +3,11 @@ using CapybaraRancher.Interfaces;
 using CapybaraRancher.EventBus;
 using UnityEngine;
 using CapybaraRancher.Enums;
+using CapybaraRancher.Consts;
 
 public class Hunger : MonoBehaviour
 {
-    private const string MOVEBLE_OBJECT_TAG = "movebleObject";
+    
 
     [SerializeField] private Camera _camera;
     [SerializeField] private GameObject _infoText;
@@ -19,7 +20,7 @@ public class Hunger : MonoBehaviour
     private void Start()
     {
         _stats = GetComponent<IPlayer>();
-        _takingAwayHunger = (1f / _hungerDelay) * _stats.HungerMaxValue;
+        _takingAwayHunger = 1f / _hungerDelay * _stats.HungerMaxValue;
         StartCoroutine(HungerUpdate());
     }
 
@@ -33,7 +34,7 @@ public class Hunger : MonoBehaviour
         Vector3 cameraForward = _camera.transform.forward;
         Ray cameraRay = new(_camera.transform.position, cameraForward);
         if (Physics.Raycast(cameraRay, out RaycastHit hit, _raycastDistance))
-            if (hit.collider.CompareTag(MOVEBLE_OBJECT_TAG))
+            if (hit.collider.CompareTag(Constants.MOVEBLE_OBJECT_TAG))
                 if (hit.collider.TryGetComponent(out ICrystalItem crystal))
                 {
                     HungerRegen(crystal.PercentOfRegen);

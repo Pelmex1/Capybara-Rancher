@@ -1,11 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using CapybaraRancher.EventBus;
+using CapybaraRancher.Consts;
 
 public class DisableIfFarAway : MonoBehaviour
 {
-    private const float TIMEMISTAKE = 0.1f;
-
     private bool _isObjectSpawner;
     private void OnEnable()
     {
@@ -20,7 +19,7 @@ public class DisableIfFarAway : MonoBehaviour
 
     private IEnumerator AddToList()
     {
-        yield return new WaitForSeconds(TIMEMISTAKE);
+        yield return new WaitForSeconds(Constants.TIMEMISTAKE);
 
         EventBus.ActivatorItemsAdd.Invoke(gameObject);
     }

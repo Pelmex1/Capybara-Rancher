@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class Receptacle : MonoBehaviour
     [SerializeField] private GameObject _farm;
     [SerializeField] private Collider _localCollider;
     [SerializeField] private Image image;
-    private const string MOVEBLETAG = "movebleObject";
     private FarmType[] _farms;
     private GameObject[] _spawnedFarms;
     private int _index = 0;
@@ -32,7 +32,7 @@ public class Receptacle : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.CompareTag(MOVEBLETAG))
+        if(other.CompareTag(Constants.MOVEBLE_OBJECT_TAG))
         {
             if(other.gameObject.TryGetComponent(out IMovebleObject type))
             {
