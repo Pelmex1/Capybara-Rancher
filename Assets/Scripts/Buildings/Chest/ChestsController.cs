@@ -1,6 +1,7 @@
 using System;
-using CapybaraRancher.CustomStructures;
-using CapybaraRancher.EventBus;
+using CapybaraRancher.Abstraction.CustomStructures;
+using CapybaraRancher.Abstraction.Signals.Chest;
+using CustomEventBus;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,22 +12,23 @@ public class ChestsController : MonoBehaviour
     [SerializeField] private Image[] InventoryCells;
     [SerializeField] private Image[] ChestCells;
     [SerializeField] private Sprite DefaultSprite;
+    private EventBus _eventBus;
 
     private void Awake() {
-        EventBus.EnableHelpUi = (bool isEnable) => HelpUi.SetActive(isEnable);
-        EventBus.EnableChestUi = (bool isEnable) => UIChestPanel.SetActive(isEnable);
-        EventBus.SetChestParent = (Transform localTransform) => localTransform.SetParent(UIChestPanel.transform);
+        
         EventBus.FoundPos = FoundPos;
-        EventBus.UpdateChestUI = UpdateCells;
     }
-    private void UpdateCells(Data[] chestCells,Data[] inventoryCells){
-        for (int i = 0; i < chestCells.Length; i++)
+    private void SetParent(ISetChestParent iSetChestParent) => iSetChestParent.transform.SetParent(UIChestPanel.transform);
+    private void EnableChestUI(IEnableChestUI IEnableChestUIClass) => UIChestPanel.SetActive(IEnableChestUIClass.isEnable);
+    private void EnableHelpUi(IEnableHelpUI IEnableHelpUIClass) => HelpUi.SetActive(IEnableHelpUIClass.isEnable);
+    private void UpdateCells(IUpdateChestUI updateChest){
+        for (int i = 0; i < updateChest.ChestCells.Length; i++)
         {
-            if(i < inventoryCells.Length)
+            if(i < updateChest.InventoryCells.Length)
             {
-                InventoryCells[i].sprite = inventoryCells[i].InventoryItem?.Image ?? DefaultSprite;
+                InventoryCells[i].sprite = updateChest.InventoryCells[i].InventoryItem?.Image ?? DefaultSprite;
             }
-            ChestCells[i].sprite = chestCells[i].InventoryItem?.Image ?? DefaultSprite;
+            ChestCells[i].sprite = updateChest.ChestCells[i].InventoryItem?.Image ?? DefaultSprite;
         }
     }
     private (int localIndex2, int localMindex, int newIndex, int newMIndex) FoundPos(Vector3 positionNow, Image image)
@@ -73,5 +75,20 @@ public class ChestsController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         UIChestPanel.SetActive(false);
+    }
+    private void OnEnable()
+    {
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
+        _eventBus.Subscribe<IUpdateChestUI>(UpdateCells);
+        _eventBus.Subscribe<ISetChestParent>(SetParent);
+        _eventBus.Subscribe<IEnableChestUI>(EnableChestUI);
+        _eventBus.Subscribe<IEnableHelpUI>(EnableHelpUi);
+    }
+    private void OnDisable()
+    {
+        _eventBus.UnSubscribe<IUpdateChestUI>(UpdateCells);
+        _eventBus.UnSubscribe<ISetChestParent>(SetParent);
+        _eventBus.UnSubscribe<IEnableChestUI>(EnableChestUI);
+        _eventBus.UnSubscribe<IEnableHelpUI>(EnableHelpUi);
     }
 }

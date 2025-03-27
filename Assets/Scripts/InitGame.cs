@@ -1,34 +1,45 @@
 using System;
 using System.Collections.Generic;
+using CustomEventBus;
 using UnityEngine;
 
-public class InitGame : MonoBehaviour
+namespace Game.Level
 {
-    private List<IDisposable> _disposables = new();
-    private void Awake()
+    public class InitGame : MonoBehaviour
     {
-        RegisterServices();
-        Init();
-        AddDisposables();
-    }
-    private void RegisterServices()
-    {
-        ServiceLocator.Initialize();
-    }
-    private void Init()
-    {
+        private EventBus _eventBus;
 
-    }
-    private void AddDisposables()
-    {
+        private List<IDisposable> _disposables = new();
 
-    }
-
-    private void OnDestroy()
-    {
-        foreach (var disposable in _disposables)
+        private void Awake()
         {
-            disposable.Dispose();
+            _eventBus = new EventBus();
+
+            RegisterServices();
+            Init();
+            AddDisposables();
+        }
+        private void RegisterServices()
+        {
+            ServiceLocator.Initialize();
+            ServiceLocator.Current.Register(_eventBus);
+        }
+
+        private void Init()
+        {
+        }
+
+        private void AddDisposables()
+        {
+            //_disposables.Add(_scoreController);
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var disposable in _disposables)
+            {
+                disposable.Dispose();
+            }
         }
     }
 }

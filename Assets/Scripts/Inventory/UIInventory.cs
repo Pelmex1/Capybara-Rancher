@@ -1,4 +1,4 @@
-using CapybaraRancher.CustomStructures;
+using CapybaraRancher.Abstraction.CustomStructures;
 using CapybaraRancher.EventBus;
 using TMPro;
 using UnityEngine;

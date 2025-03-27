@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CapybaraRancher.CustomStructures
+namespace CapybaraRancher.Abstraction.CustomStructures
 {
 
     public class Data

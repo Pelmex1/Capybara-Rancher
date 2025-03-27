@@ -15,6 +15,5 @@ namespace CapybaraRancher.Enums
         FirstPart,
         SecondPart,
         ThirdPart,
-        LastDontToch // must be last
     }
 }

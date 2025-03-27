@@ -1,3 +1,4 @@
+using CapybaraRancher.Consts;
 using CapybaraRancher.EventBus;
 using CapybaraRancher.Interfaces;
 using UnityEngine;
@@ -32,7 +33,7 @@ public class CapybaraMovebleObject : MovebleObject
     }
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
+        if (other.CompareTag(Constants.CANON_TAG) && !_looted && !_isDisabled)
         {
             if (EventBus.AddItemInInventory(Data))
             {
@@ -40,8 +41,7 @@ public class CapybaraMovebleObject : MovebleObject
                 EventBus.RemoveFromList.Invoke(gameObject);
                 EventBus.ActivatorItemsRemove.Invoke(gameObject);
                 gameObject.SetActive(false);
-                if (_objectSpawner != null)
-                    _objectSpawner.ReturnToPool(gameObject);
+                _objectSpawner?.ReturnToPool(gameObject);
             }
         }
     }

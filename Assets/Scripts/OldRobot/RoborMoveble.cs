@@ -1,6 +1,7 @@
 using CapybaraRancher.EventBus;
 using UnityEngine;
 using CapybaraRancher.Interfaces;
+using CapybaraRancher.Consts;
 
 public class RoborMoveble : MovebleObject, IRobotParts
 {
@@ -50,7 +51,7 @@ public class RoborMoveble : MovebleObject, IRobotParts
     {
         if (CheckMoving == true)
         {
-            if (other.CompareTag(CANON_TAG) && !_looted && !_isDisabled)
+            if (other.CompareTag(Constants.CANON_TAG) && !_looted && !_isDisabled)
             {
                 _looted = true;
                 if (EventBus.AddItemInInventory(Data) == true)
