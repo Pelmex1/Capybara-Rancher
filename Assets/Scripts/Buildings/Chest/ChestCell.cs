@@ -1,4 +1,5 @@
-using CapybaraRancher.EventBus;
+using CapybaraRancher.Abstraction.Signals.Chest;
+using CustomEventBus;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class ChestCell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     [SerializeField] private Image _image;
     private Vector3 _pos;
     private Transform _parentTransform;
+    private EventBus _eventBus;
     
     private void Start()
     {
@@ -20,13 +22,18 @@ public class ChestCell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     }
     public void OnBeginDrag(PointerEventData pointerEventData)
     {
-        EventBus.SetChestParent(transform);
+        _eventBus.Invoke<ISetChestParent>(new(transform));
     }
     public void OnEndDrag(PointerEventData pointerEventData)
     { 
-        EventBus.ChangeArray.Invoke(EventBus.FoundPos(transform.position, _image));
+        IFoundPositionInChest foundPositionInChestClass = new(transform.position, _image);
+        _eventBus.Invoke(foundPositionInChestClass);
+        _eventBus.Invoke<IChangeChestArray>(new(foundPositionInChestClass.indexer));
         transform.position = _pos;
         transform.SetParent(_parentTransform);
     }
-    
+    void OnEnable()
+    {
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
+    }
 }

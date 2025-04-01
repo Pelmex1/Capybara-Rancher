@@ -1,5 +1,6 @@
 using System.Text;
-using CapybaraRancher.EventBus;
+using CapybaraRancher.Abstraction.Signals.Input;
+using CustomEventBus;
 using TMPro;
 using UnityEngine;
 
@@ -12,9 +13,17 @@ public class InputManager : MonoBehaviour
     private StringBuilder _localkey = null;
     private TMP_Text _localText = null;
     private bool IsActiveChangeKeyCod = false;
-    private void Awake()
+    private EventBus _eventBus;
+    
+    private void ChangeKey(IChangeKey IChangeKeyClass) => _localKeycode = IChangeKeyClass.KeyCode;
+    void OnEnable()
     {
-        EventBus.ChangeKey = (KeyCode key) => _localKeycode = key;
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
+        _eventBus.Subscribe<IChangeKey>(ChangeKey);
+    }
+    void OnDisable()
+    {
+        _eventBus.UnSubscribe<IChangeKey>(ChangeKey);
     }
     private void Update()
     {
@@ -24,7 +33,7 @@ public class InputManager : MonoBehaviour
             {
                 BindPanel.SetActive(false);
                 _isFoundKeycode = true;
-                FoundKey(_localkey.ToString(), _localKeycode);
+                FoundKey($"{_localkey}", _localKeycode);
                 _localText.text = $"{_localKeycode}";
                 _localKeycode = KeyCode.None;
                 IsActiveChangeKeyCod = false;
@@ -34,43 +43,43 @@ public class InputManager : MonoBehaviour
         {
             if (Input.GetKeyDown(_keycodes.TerminalUse))
             {
-                EventBus.TerminalUseInput?.Invoke();
+                _eventBus.Invoke<ITerminalUseInput>(new());
             }
             if (Input.GetKey(_keycodes.Jump))
             {
-                EventBus.JumpInput?.Invoke();
+                _eventBus.Invoke<IJumpInput>(new());
             }
             if (Input.GetKeyDown(_keycodes.Satchel))
             {
-                EventBus.SatchelInput?.Invoke();
+                _eventBus.Invoke<ISatchelInput>(new());
             }
             if (Input.GetKey(_keycodes.Run))
             {
-                EventBus.RunInput?.Invoke();
+                _eventBus.Invoke<IRunInput>(new());
             }
             if (Input.GetKeyDown(_keycodes.Pause))
             {
-                EventBus.PauseInput?.Invoke();
+                _eventBus.Invoke<IPauseInput>(new());
             }
             if (Input.GetKeyDown(_keycodes.Eat))
             {
-                EventBus.EatInput?.Invoke();
+                _eventBus.Invoke<IEatInput>(new());
             }
             if (Input.GetKeyDown(_keycodes.InfoBook))
             {
-                EventBus.InfoBookInput?.Invoke();
+                _eventBus.Invoke<IInfoBookInput>(new());
             }
             if (Input.GetKey(_keycodes.Pull))
             {
-                EventBus.PullInput?.Invoke();
+                _eventBus.Invoke<IPullInput>(new());
             }
             else
             {
-                EventBus.NonPullInput?.Invoke();
+                _eventBus.Invoke<INonPullInput>(new());
             }
             if (Input.GetKeyDown(_keycodes.Throw))
             {
-                EventBus.ThrowInput?.Invoke();
+                _eventBus.Invoke<IThrowInput>(new());
             }
         }
     }

@@ -1,15 +1,17 @@
-using CapybaraRancher.EventBus;
+using CapybaraRancher.Abstraction.Signals.Input;
+using CustomEventBus;
 using UnityEngine;
 
 public class RegistryKey : MonoBehaviour
 {
+    private EventBus _eventBus;
     private void OnGUI() {
         Event _event = Event.current;
         if(_event != null){
             if(_event.isKey && _event.keyCode != KeyCode.None){
-                EventBus.ChangeKey(_event.keyCode);
+                _eventBus.Invoke<IChangeKey>(new(_event.keyCode));
             } else if(_event.isMouse){
-                EventBus.ChangeKey(IndentifyMouse(_event.button));
+                _eventBus.Invoke<IChangeKey>(new(IndentifyMouse(_event.button)));
             }
         }
     }
@@ -24,4 +26,8 @@ public class RegistryKey : MonoBehaviour
             6 => KeyCode.Mouse6,
             _ => KeyCode.None
         };
+    void OnEnable()
+    {
+        ServiceLocator.Current.Get<EventBus>();
+    }
 }

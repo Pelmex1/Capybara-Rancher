@@ -1,5 +1,6 @@
+using CapybaraRancher.Abstraction.Signals.UI;
 using CapybaraRancher.Consts;
-using CapybaraRancher.EventBus;
+using CustomEventBus;
 using DevionGames;
 using TMPro;
 using UnityEngine;
@@ -35,6 +36,7 @@ public class LocalOptions : MonoBehaviour
     private float RenderingDistance;
     private int _screenX = 0;
     private int _screenY = 0;
+    private EventBus _eventBus;
     private void Awake()
     {
         if (PlayerPrefs.GetInt(Constants.ScreenX) == 0)
@@ -75,6 +77,10 @@ public class LocalOptions : MonoBehaviour
         GetDataSensetive();
     }
 
+    void OnEnable()
+    {
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
+    }
     private void OnDisable()
     {
         SaveAllOptionsData();
@@ -86,12 +92,12 @@ public class LocalOptions : MonoBehaviour
         {
             Quality = PlayerPrefs.GetInt("Quality");
             QualitySettings.SetQualityLevel(Quality, true);
-            EventBus.ChnageGrassMod.Invoke();
+            _eventBus.Invoke<IChangeGrassMode>(new());
         }
         else
         {
-            EventBus.ChnageGrassMod.Invoke();
             QualitySettings.SetQualityLevel(0, true);
+            _eventBus.Invoke<IChangeGrassMode>(new());
         }
     }
 

@@ -50,5 +50,6 @@ namespace CapybaraRancher.Consts
         public const float DEACTIVATE_PANEL_DELAY = 2.5f;
         public const float START_MONEY = 300f;
         public const float SIZE_BOOST_AFTER_TRANSFORMATION = 1.5f;
+        public const string NAME_MAIN_MENU = "MainMenu";
     }
 }

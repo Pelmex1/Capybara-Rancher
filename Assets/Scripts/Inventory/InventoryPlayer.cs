@@ -1,9 +1,10 @@
 using CapybaraRancher.Abstraction.CustomStructures;
 using CapybaraRancher.Consts;
-using CapybaraRancher.EventBus;
+using CustomEventBus;
 using CapybaraRancher.Interfaces;
 using System.Collections;
 using UnityEngine;
+using CapybaraRancher.Abstraction.Signals.Chest;
 
 public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
 {
@@ -16,6 +17,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
     private int _lastindex;
     private bool _isEnabledSixCell = false;
     public Data[] Inventory { get; set; }
+    private EventBus _eventBus;
     private void Awake()
     {
         EventBus.AddItemInInventory = AddItemInInventory;
@@ -50,7 +52,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
             Inventory[_index].InventoryItem ??= inventoryItem;
             Inventory[_index]++;
             EventBus.PlayerGunAdd();
-            EventBus.OnRepaint.Invoke(Inventory);
+            _eventBus.Invoke<IRepaintInventory>(new(Inventory));
             return true;
         }
         for (int i = 0; i < Inventory.Length; i++)
@@ -59,7 +61,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
             {
                 Inventory[i]++;
                 EventBus.PlayerGunAdd();
-                EventBus.OnRepaint.Invoke(Inventory);
+                _eventBus.Invoke<IRepaintInventory>(new(Inventory));
                 return true;
             }
             else if (Inventory[i].InventoryItem == null && _nullChestCell.Equals(null))
@@ -75,7 +77,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
             Inventory[_index]++;
             _nullChestCell.Image = null;
             EventBus.PlayerGunAdd();
-            EventBus.OnRepaint.Invoke(Inventory);
+            _eventBus.Invoke<IRepaintInventory>(new(Inventory));
             return true;
         }
         if (!_nullChestCell.Equals(null))
@@ -84,7 +86,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
             _nullChestCell++;
             Inventory[_localIndex] = _nullChestCell;
             _nullChestCell = new Data();
-            EventBus.OnRepaint.Invoke(Inventory);
+            _eventBus.Invoke<IRepaintInventory>(new(Inventory));
             EventBus.PlayerGunAdd();
             return true;
         }
@@ -110,7 +112,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
             Inventory[_index].InventoryItem = null;
         }
         EventBus.PlayerGunRemove();
-        EventBus.OnRepaint.Invoke(Inventory);
+        _eventBus.Invoke<IRepaintInventory>(new(Inventory));
     }
     private void Update()
     {
@@ -153,6 +155,7 @@ public class InventoryPlayer : MonoBehaviour, IInventoryPlayer
     }
     private void OnEnable()
     {
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
         EventBus.ThrowInput += Throw;
         EventBus.ExtraSlotUpgrade += AddExtraSlot;
     }

@@ -2,8 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using CapybaraRancher.EventBus;
+using CustomEventBus;
 using CapybaraRancher.Consts;
+using CapybaraRancher.Abstraction.Signals.UI;
+using CapybaraRancher.Abstraction.Signals;
+using CapybaraRancher.Abstraction.Signals.Input;
 
 public class LocalMenu : MonoBehaviour
 {
@@ -21,14 +24,13 @@ public class LocalMenu : MonoBehaviour
     private float _hpCurrentValue;
     private float _hungerMaxValue;
     private float _hungerCurrentValue;
+    private EventBus _eventBus;
 
     private void LateUpdate()
     {
-        float money = EventBus.GetMoney.Invoke();
-        _money.text = $"{money}";
         UpdateBars();
     }
-    private void EventUpdate(){
+    private void EventUpdate(IPauseInput pauseInput){
             if (!_pausePanel.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Confined;
@@ -43,17 +45,23 @@ public class LocalMenu : MonoBehaviour
                 Time.timeScale = 1;
             }
     }
-
+    private void OnMoneyChanged(IOnMoneyChanged OnMoneyChangedClass)
+    {
+        _money.text = $"{OnMoneyChangedClass.Money}";
+    }
     private void OnEnable()
     {
-        EventBus.PauseInput += EventUpdate;
+        _eventBus = ServiceLocator.Current.Get<EventBus>();
+        _eventBus.Subscribe<IOnMoneyChanged>(OnMoneyChanged);
+        _eventBus.Subscribe<IPauseInput>(EventUpdate);
         EventBus.GetEnergyPlayerData += GetEnergy;
         EventBus.GiveEnergyPlayerData += GiveEnergyData;
     }
 
     private void OnDisable()
     {
-        EventBus.PauseInput -= EventUpdate;
+        _eventBus.UnSubscribe<IPauseInput>(EventUpdate);
+        _eventBus.UnSubscribe<IOnMoneyChanged>(OnMoneyChanged);
         EventBus.GetEnergyPlayerData -= GetEnergy;
         EventBus.GiveEnergyPlayerData -= GiveEnergyData;
     }
@@ -90,7 +98,7 @@ public class LocalMenu : MonoBehaviour
 
     public void SaveQuit()
     {
-        EventBus.GlobalSave.Invoke();
-        SceneManager.LoadScene("MainMenu");
+        _eventBus.Invoke<IGlobalSave>(new());
+        SceneManager.LoadScene(Constants.NAME_MAIN_MENU);
     } 
 }
